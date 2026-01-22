@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>@APP_ID@</id>
+
+  <name>BudsLink</name>
+  <summary>Monitor and control Bluetooth earbuds</summary>
+  <description>
+    <p>Battery status and ANC control for Bluetooth earbuds</p>
+  </description>
+
+  <metadata_license>CC-BY-SA-4.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <launchable type="desktop-id">@APP_ID@.desktop</launchable>
+
+  <translation type="gettext">@APP_ID@</translation>
+
+  <releases>
+    <release date="2026-01-24" version="0.1.0">
+      <description>
+        <ul>
+          <li>Initial release</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>
+

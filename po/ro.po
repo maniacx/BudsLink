@@ -1,0 +1,709 @@
+# This file is distributed under the same license as the gnome-shell package.
+# Lucian Adrian Grijincu <lucian.grijincu@gmail.com>, 2009, 2010, 2011.
+# Daniel Șerbănescu <cyber19rider@gmail.com>, 2010, 2011.
+# laurion <me_lawr@yahoo.com>, 2010.
+# Ion Laurențiu Cristian <me_lawr@yahoo.com>, 2010.
+# Răpițeanu Viorel-Cătălin <rapiteanu.catalin@gmail.com>, 2013.
+# Viorel-Cătălin Răpițeanu <rapiteanu.catalin@gmail.com>, 2014.
+# Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>, 2015, 2018.
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-shell master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-28 21:26-0700\n"
+"PO-Revision-Date: 2023-10-18 20:22+0200\n"
+"Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
+"gmail [dot] com>\n"
+"Language-Team: Gnome Romanian Translation Team <gnomero-list@lists."
+"sourceforge.net>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && "
+"n%100<=19) ? 1 : 2);\n"
+"20)) ? 1: 2);\n"
+"X-Generator: Poedit 3.3.2\n"
+"X-Project-Style: gnome\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: src/app.js:126 src/appLibs/widgets/deviceRow.js:56
+msgid "BudsLink"
+msgstr ""
+
+#: src/app.js:136
+msgid "Devices"
+msgstr ""
+
+#: src/app.js:138
+msgid "No compatible device found"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:25
+msgid "Application Settings"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:34
+#: src/appLibs/widgets/settingsButton.js:226
+msgid "System Default"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:35
+msgid "Blue"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:36
+msgid "Teal"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:37
+msgid "Green"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:38
+msgid "Yellow"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:39
+msgid "Orange"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:40
+msgid "Red"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:41
+msgid "Pink"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:42
+msgid "Purple"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:43
+msgid "Slate"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:68 src/appLibs/widgets/logWindow.js:9
+msgid "Realtime Logs"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:78
+msgid "Dark Mode"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:86
+msgid "Accent Color"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:95
+msgid "About BudsLink"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:101
+msgid "Copyright © 2026 maniacx@github.com"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:227
+msgid "Light"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:228
+msgid "Dark"
+msgstr ""
+
+#: src/appLibs/widgets/deviceRow.js:98
+msgid "Configure"
+msgstr ""
+
+#: src/appLibs/widgets/deviceRow.js:110
+msgid "Battery Level"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:63
+#: src/preferences/devices/airpods/configureWindow.js:64
+msgid "Icon"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:64
+#: src/preferences/devices/airpods/configureWindow.js:65
+msgid "Select Icon"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:65
+#: src/preferences/devices/airpods/configureWindow.js:66
+msgid "Select the icon used for the indicator and quick menu"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:85
+#: src/lib/devices/sony/sonyDevice.js:195
+#: src/lib/devices/airpods/airpodsDevice.js:238
+msgid "Conversation Awareness"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:87
+#: src/preferences/devices/sony/configureWindow.js:257
+msgid "Auto"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:87
+#: src/lib/devices/sony/sonyDevice.js:181
+msgid "High"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:87
+#: src/lib/devices/sony/sonyDevice.js:181
+msgid "Low"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:90
+msgid "Voice Detection Sensitivity"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:103
+msgid "Short"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:103
+#: src/preferences/devices/sony/configureWindow.js:127
+#: src/lib/devices/sony/sonyDevice.js:181
+msgid "Standard"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:103
+msgid "Long"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:103
+#: src/preferences/devices/sony/configureWindow.js:187
+#: src/preferences/devices/sony/configureWindow.js:257
+#: src/preferences/devices/sony/configureWindow.js:331
+#: src/preferences/devices/airpods/configureWindow.js:206
+#: src/lib/devices/sony/sonyDevice.js:166
+#: src/lib/devices/sony/sonyDevice.js:199
+#: src/lib/devices/airpods/airpodsDevice.js:200
+#: src/lib/devices/airpods/airpodsDevice.js:242
+msgid "Off"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:106
+msgid "Duration"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:123
+#: src/preferences/devices/sony/configureWindow.js:139
+msgid "Listening Mode"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:128
+msgid "Background Music"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:129
+msgid "Cinema"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:154
+msgid "My Room"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:155
+msgid "Living Room"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:156
+msgid "Cafe"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:166
+msgid "Background Music Effects"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:184
+msgid "Equalizer"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:188
+msgid "Bright"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:189
+msgid "Excited"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:190
+msgid "Mellow"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:191
+msgid "Relaxed"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:192
+msgid "Vocal"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:193
+msgid "Treble Boost"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:194
+msgid "Bass Boost"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:195
+msgid "Speech"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:196
+msgid "Manual"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:197
+msgid "Custom 1"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:198
+msgid "Custom 2"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:217
+msgid "Equalizer Preset"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:230
+msgid "Custom Equalizer"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+msgid "Bass"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+msgid "400"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+#: src/preferences/devices/sony/configureWindow.js:234
+msgid "1k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+msgid "2.5k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+msgid "6.3k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+#: src/preferences/devices/sony/configureWindow.js:234
+msgid "16k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:233
+msgid "31"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:233
+msgid "63"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:233
+msgid "125"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:233
+msgid "250"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:233
+msgid "500"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:234
+msgid "2k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:234
+msgid "4k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:234
+msgid "8k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:256
+msgid "Enable DSEE enhancement"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:276
+msgid "Ambient Sound Control"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:277
+msgid "Ambient Sound Control / Quick Access"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:279
+#: src/preferences/devices/sony/configureWindow.js:280
+msgid "Playback Control"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:281
+#: src/preferences/devices/airpods/configureWindow.js:284
+msgid "Volume Control"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:282
+msgid "Not Assigned"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:298
+msgid "Left Bud"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:312
+msgid "Right Bud"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:329
+#: src/preferences/devices/airpods/configureWindow.js:219
+#: src/lib/devices/sony/sonyDevice.js:171
+#: src/lib/devices/airpods/airpodsDevice.js:203
+msgid "Noise Cancellation"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:330
+#: src/lib/devices/sony/sonyDevice.js:168
+msgid "Ambient"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:335
+msgid "ANC Button Configuration"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:336
+msgid "[NC/AMB] Button Settings"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:337
+msgid "Select the modes to toggle when the button is pressed"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:339
+#: src/preferences/devices/airpods/configureWindow.js:239
+msgid "Apply"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:353
+msgid "Notification"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:357
+msgid "Voice Notification"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:358
+msgid "Enable voice notification"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:376
+msgid "Voice Notification Volume"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:378
+msgid "-2"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:379
+msgid "-1"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:380
+msgid "0"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:381
+msgid "+1"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:382
+msgid "+2"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:399
+msgid "Headset Take off"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:406
+msgid "Pause when taken off"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:420
+msgid "Automatically Power Off"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:421
+msgid "Automatically power off when not worn."
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:436
+msgid "After 5 minutes"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:437
+msgid "After 15 minutes"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:438
+msgid "After 30 minutes"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:439
+msgid "After 1 hour"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:440
+msgid "After 3 hours"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:452
+msgid "Auto Power Off"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:86
+msgid "Playback Behavior"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:90
+#: src/preferences/devices/airpods/configureWindow.js:93
+msgid "Default behavior"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:91
+msgid "Resume when worn"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:94
+msgid "Resume with both earbuds"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:95
+msgid "Resume with any earbud"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:101
+msgid "Choose playback behaviour for Ear detection"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:102
+msgid "Automatically pause or resume playback based on wearing detection."
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:119
+msgid "Volume Level"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:123
+msgid "Pause when device is not worn"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:124
+msgid "Pause playback when the device is removed,resume when it is put back on"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:143
+msgid "Conversation awareness volume limit"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:144
+msgid ""
+"Limits media volume to this percentage during conversation. Note: No change "
+"if current volume is below this level."
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:167
+msgid "Turn off listening modes"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:171
+msgid "Allows to turn off all listening mode technology"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:172
+msgid ""
+"Allows Noise Cancellation, Transparency, and Adaptive modes to be fully "
+"disabled. Disabling listening modes also turns off Hearing Aid features and "
+"reduces power usage."
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:213
+#: src/lib/devices/airpods/airpodsDevice.js:201
+msgid "Transparency"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:226
+#: src/lib/devices/airpods/airpodsDevice.js:202
+msgid "Adaptive"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:235
+msgid "Press and Hold Cycle"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:236
+msgid "Press and hold cycles between"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:237
+msgid "Settings don’t reflect current state"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:260
+msgid "Notification Volume"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:264
+msgid "Tone Volume"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:265
+msgid "Adjust the tone volume of sound effects played by AirPods"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:267
+msgid "15%"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:268
+msgid "100%"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:269
+msgid "125%"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:288
+msgid "Volume Swipe"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:289
+msgid "Enable or disable volume adjustment by swiping on earbud stems"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:298
+#: src/preferences/devices/airpods/configureWindow.js:331
+#: src/preferences/devices/airpods/configureWindow.js:349
+msgid "Default"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:298
+#: src/preferences/devices/airpods/configureWindow.js:331
+msgid "Longer"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:298
+#: src/preferences/devices/airpods/configureWindow.js:331
+msgid "Longest"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:302
+msgid "Swipe Duration"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:303
+msgid ""
+"To prevent unintended adjustments,select the preferred wait time between "
+"swipes"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:328
+msgid "Stem and Crown Response"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:335
+msgid "Press Speed"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:336
+msgid ""
+"Adjust how quickly you must double or triple-press the stem or Digital Crown "
+"before an action occurs"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:349
+msgid "Shorter"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:349
+msgid "Shortest"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:352
+msgid "Press and Hold Duration"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:353
+msgid "Set how long you need to press and hold before an action occurs"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:164
+#: src/lib/devices/airpods/airpodsDevice.js:173
+msgid "Noise Control"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:174
+#: src/lib/devices/airpods/airpodsDevice.js:232
+msgid "Ambient Level"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:177
+#: src/lib/devices/sony/sonyDevice.js:179
+msgid "Auto Ambient"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:177
+#: src/lib/devices/sony/sonyDevice.js:179
+#: src/lib/devices/sony/sonyDevice.js:183
+msgid "Focus on Voice"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:180
+msgid "Auto Ambient Sensitivity"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:197
+#: src/lib/devices/airpods/airpodsDevice.js:240
+msgid "On"
+msgstr ""
+
+#, javascript-format
+#~ msgid "%d Connected"
+#~ msgid_plural "%d Connected"
+#~ msgstr[0] "%d conectată"
+#~ msgstr[1] "%d conectate"
+#~ msgstr[2] "%d conectate"
+
+#~ msgid "Disconnect"
+#~ msgstr "Deconectează"
+
+#~ msgid "Connect"
+#~ msgstr "Conectare"
+
+#~ msgid "GNU General Public License, version 3 or later"
+#~ msgstr "Licența Publică Generală GNU, versiunea 3 sau mai nouă"
+
+#, javascript-format
+#~ msgid ""
+#~ "This application comes with absolutely no warranty. See the <a "
+#~ "href=\"%s\">%s</a> for details."
+#~ msgstr ""
+#~ "Această aplicație nu vine cu niciun fel de garanție. Vedeți <a "
+#~ "href=\"%s\">%s</a> pentru detalii."
+
+#~ msgid "About"
+#~ msgstr "Despre"
+
+#~ msgid "Legal"
+#~ msgstr "Legal"

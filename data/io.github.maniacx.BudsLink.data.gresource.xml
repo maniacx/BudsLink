@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+	<gresource prefix="/io/github/maniacx/BudsLink">
+    <file>stylesheet.css</file>
+    <file preprocess="xml-stripblanks" alias="io.github.maniacx.BudsLink.metainfo.xml">io.github.maniacx.BudsLink.metainfo.xml</file>
+	</gresource>
+</gresources>

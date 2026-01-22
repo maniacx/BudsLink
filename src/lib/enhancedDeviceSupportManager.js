@@ -1,0 +1,183 @@
+'use strict';
+import GObject from 'gi://GObject';
+
+import {getBluezDeviceProxy} from './bluezDeviceProxy.js';
+import {ProfileManager} from './devices/profileManager.js';
+import {AirpodsDevice, isAirpods, DeviceTypeAirpods} from './devices/airpods/airpodsDevice.js';
+import {
+    SonyDevice, isSonyV1, isSonyV2, DeviceTypeSonyV1, DeviceTypeSonyV2
+} from './devices/sony/sonyDevice.js';
+
+export const EnhancedDeviceSupportManager = GObject.registerClass({
+    GTypeName: 'BudsLink_EnhancedDeviceSupportManager',
+}, class EnhancedDeviceSupportManager extends GObject.Object {
+    _init(toggle) {
+        super._init();
+        this._toggle = toggle;
+        this._settings = toggle.settings;
+        this._extPath = toggle.extPath;
+        this._deviceMap = new Map();
+        this._profileManager = new ProfileManager();
+    }
+
+    updateDeviceMapCb(path, dataHandler) {
+        if (this._deviceMap.has(path)) {
+            const deviceProps = this._deviceMap.get(path);
+            deviceProps.dataHandler = dataHandler;
+            this._deviceMap.set(path, deviceProps);
+            this._toggle.sync();
+        }
+    }
+
+    onDeviceSync(path, connected, icon, alias) {
+        let deviceProps = this._deviceMap.get(path);
+        if (!deviceProps) {
+            deviceProps = {
+                type: null, connected, dataHandler: null, deviceIcon: icon,
+                enhancedDevice: null, pendingDetection: true, bluezId: null,
+                bluezProxy: null, alias,
+            };
+            this._deviceMap.set(path, deviceProps);
+        } else {
+            deviceProps = this._deviceMap.get(path);
+            if (deviceProps.connected && !connected)
+                this._destroyEnhancedDevice(path);
+
+            deviceProps.connected = connected;
+        }
+
+        if (deviceProps.pendingDetection) {
+            const bluezDeviceProxy = getBluezDeviceProxy(path);
+            const uuids = bluezDeviceProxy.UUIDs;
+
+            /* ----- Add device variant here _______ */
+            const deviceModes = [
+                {
+                    enabled: this._toggle.airpodsEnabled,
+                    check: isAirpods,
+                    type: DeviceTypeAirpods,
+                },
+                {
+                    enabled: this._toggle.sonyEnabled,
+                    check: isSonyV1,
+                    type: DeviceTypeSonyV1,
+                },
+                {
+                    enabled: this._toggle.sonyEnabled,
+                    check: isSonyV2,
+                    type: DeviceTypeSonyV2,
+                },
+            ];
+            /* ------------------------------------- */
+            for (const mode of deviceModes) {
+                if (!mode.enabled)
+                    continue;
+
+                const {supported, bluezProps} = mode.check(bluezDeviceProxy, uuids);
+
+                if (supported === 'pending') {
+                    deviceProps.pendingDetection = true;
+                    this._waitForBluezProps(path, bluezDeviceProxy, bluezProps, deviceProps);
+                    break;
+                }
+
+                if (supported === 'yes') {
+                    deviceProps.type = mode.type;
+                    deviceProps.pendingDetection = false;
+                    break;
+                }
+                deviceProps.pendingDetection = false;
+            }
+        }
+        return {
+            type: deviceProps.type, dataHandler: deviceProps.dataHandler,
+            pendingDetection: deviceProps.pendingDetection,
+        };
+    }
+
+    _waitForBluezProps(path, bluezDeviceProxy, bluezProps, deviceProps) {
+        const allPropsReady = () => {
+            return bluezProps.every(prop => {
+                const value = bluezDeviceProxy[prop];
+                return value !== null && value !== undefined;
+            });
+        };
+
+        const onPropsChanged = (_iface, changed, _invalidated) => {
+            if (!bluezProps.some(prop => prop in changed))
+                return;
+
+            if (allPropsReady()) {
+                if (this._deviceMap.has(path)) {
+                    const props = this._deviceMap.get(path);
+                    props.bluezDeviceProxy.disconnect(deviceProps.bluezId);
+                    props.bluezId = null;
+                    props.bluezDeviceProxy = null;
+                } else {
+                    deviceProps.bluezDeviceProxy.disconnect(deviceProps.bluezId);
+                    deviceProps.bluezId = null;
+                    deviceProps.bluezDeviceProxy = null;
+                }
+                this._toggle.sync();
+            }
+        };
+
+        deviceProps.bluezId = bluezDeviceProxy.connect('g-properties-changed', onPropsChanged);
+        deviceProps.bluezDeviceProxy = bluezDeviceProxy;
+    }
+
+
+    updateEnhancedDevicesInstance() {
+        for (const [path, deviceProps] of this._deviceMap.entries()) {
+            if (deviceProps.type && deviceProps.connected && !deviceProps.enhancedDevice) {
+                /* ----- Add device variant here _______ */
+                if (deviceProps.type === DeviceTypeAirpods) {
+                    deviceProps.enhancedDevice =
+                        new AirpodsDevice(this._settings, path, deviceProps.alias, this._extPath,
+                            this._profileManager, this.updateDeviceMapCb.bind(this));
+                } else if (deviceProps.type === DeviceTypeSonyV1 ||
+                        deviceProps.type === DeviceTypeSonyV2) {
+                    deviceProps.enhancedDevice =
+                        new SonyDevice(this._settings, path, deviceProps.alias, this._extPath,
+                            this._profileManager, this.updateDeviceMapCb.bind(this));
+                }
+                /* ------------------------------------- */
+            } else if (!deviceProps.connected && deviceProps.enhancedDevice) {
+                this._destroyEnhancedDevice(path);
+            }
+        }
+    }
+
+    _destroyEnhancedDevice(path) {
+        if (!this._deviceMap.has(path))
+            return;
+
+        const deviceProps = this._deviceMap.get(path);
+
+        if (deviceProps.bluezId && deviceProps.bluezDeviceProxy) {
+            deviceProps.bluezDeviceProxy.disconnect(deviceProps.bluezId);
+            deviceProps.bluezDeviceProxy = null;
+            deviceProps.bluezId = null;
+        }
+
+        deviceProps.dataHandler = null;
+        deviceProps.enhancedDevice?.destroy();
+        deviceProps.enhancedDevice = null;
+    }
+
+    _removedEnhancedDevice(path) {
+        if (!this._deviceMap.has(path))
+            return;
+
+        this._destroyEnhancedDevice(path);
+        this._deviceMap.delete(path);
+    }
+
+    destroy() {
+        const paths = Array.from(this._deviceMap.keys());
+        for (const path of paths)
+            this._removedEnhancedDevice(path);
+
+        this._profileManager = null;
+    }
+});

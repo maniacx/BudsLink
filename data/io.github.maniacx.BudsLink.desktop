@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=BudsLink
+Comment=Battery status and ANC control for Bluetooth earbuds
+Icon=@APP_ID@
+Exec=@BINDIR@/@APP_COMMAND@ 
+Type=Application
+DBusActivatable=true
+Categories=Audio;Utility;
+Keywords=Bluetooth;Earbuds;Headphones;Battery;ANC;TouchControls;Sony;AirPods;
+

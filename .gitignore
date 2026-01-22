@@ -1,0 +1,6 @@
+log
+config
+build-dir
+.flatpak-builder
+localdata
+repo

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="budslink">
+    <schema id="io.github.maniacx.BudsLink" path="/io/github/maniacx/BudsLink/">
+        <key name="dark-mode" type="s">
+            <default>'system'</default>
+        </key>
+        <key name="accent-color" type="s">
+            <default>'system'</default>
+        </key>
+        <key name="attenuated-on-destroy-info" type="as">
+            <default>[]</default>
+        </key>
+        <key name="airpods-list" type="as">
+            <default>[]</default>
+        </key>
+        <key name="sony-list" type="as">
+            <default>[]</default>
+        </key>
+	</schema>
+</schemalist>

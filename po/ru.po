@@ -1,0 +1,969 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+#
+#
+#
+# Andrey Korzinev <fellrond@gmail.com>, 2009.
+# Sergey V. Kovylov <serejka@gmail.com>, 2009.
+# Marina Zhurakhinskaya <marinaz@redhat.com>, 2009, 2010.
+# Sergey Davidoff <shnatsel@gmail.com>, 2010.
+# Yuri Kozlov <yuray@komyakino.ru>, 2011, 2012.
+# JDronova <juliette.tux@gmail.com>, 2013, 2023.
+# Valery Kirichenko <valera5505@gmail.com>, 2014.
+# Yuri Myasoedov <ymyasoedov@yandex.ru>, 2012, 2013, 2014.
+# Ivan Komaritsyn <vantu5z@mail.ru>, 2015.
+# Stas Solovey <whats_up@tut.by>, 2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
+# Konstantin Nezhbert <zhbert@yandex.ru>, 2021.
+# Ivan Molodetskikh <yalterz@gmail.com>, 2020-2022.
+# Anton Palgunov <toxblh@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-shell\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-28 21:26-0700\n"
+"PO-Revision-Date: 2024-12-28 15:23+0300\n"
+"Last-Translator: Anton Palgunov <toxblh@gmail.com>\n"
+"Language-Team: RU\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.5\n"
+
+#: src/app.js:126 src/appLibs/widgets/deviceRow.js:56
+msgid "BudsLink"
+msgstr ""
+
+#: src/app.js:136
+msgid "Devices"
+msgstr ""
+
+#: src/app.js:138
+msgid "No compatible device found"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:25
+msgid "Application Settings"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:34
+#: src/appLibs/widgets/settingsButton.js:226
+msgid "System Default"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:35
+msgid "Blue"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:36
+msgid "Teal"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:37
+msgid "Green"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:38
+msgid "Yellow"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:39
+msgid "Orange"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:40
+msgid "Red"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:41
+msgid "Pink"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:42
+msgid "Purple"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:43
+msgid "Slate"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:68 src/appLibs/widgets/logWindow.js:9
+msgid "Realtime Logs"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:78
+msgid "Dark Mode"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:86
+msgid "Accent Color"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:95
+msgid "About BudsLink"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:101
+msgid "Copyright © 2026 maniacx@github.com"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:227
+msgid "Light"
+msgstr ""
+
+#: src/appLibs/widgets/settingsButton.js:228
+msgid "Dark"
+msgstr ""
+
+#: src/appLibs/widgets/deviceRow.js:98
+msgid "Configure"
+msgstr ""
+
+#: src/appLibs/widgets/deviceRow.js:110
+msgid "Battery Level"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:63
+#: src/preferences/devices/airpods/configureWindow.js:64
+msgid "Icon"
+msgstr "Икона"
+
+#: src/preferences/devices/sony/configureWindow.js:64
+#: src/preferences/devices/airpods/configureWindow.js:65
+msgid "Select Icon"
+msgstr "Выбрать иконку"
+
+#: src/preferences/devices/sony/configureWindow.js:65
+#: src/preferences/devices/airpods/configureWindow.js:66
+msgid "Select the icon used for the indicator and quick menu"
+msgstr "Выбрать используемую иконку для индикатора и быстрого меню"
+
+#: src/preferences/devices/sony/configureWindow.js:85
+#: src/lib/devices/sony/sonyDevice.js:195
+#: src/lib/devices/airpods/airpodsDevice.js:238
+msgid "Conversation Awareness"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:87
+#: src/preferences/devices/sony/configureWindow.js:257
+msgid "Auto"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:87
+#: src/lib/devices/sony/sonyDevice.js:181
+msgid "High"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:87
+#: src/lib/devices/sony/sonyDevice.js:181
+msgid "Low"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:90
+msgid "Voice Detection Sensitivity"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:103
+msgid "Short"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:103
+#: src/preferences/devices/sony/configureWindow.js:127
+#: src/lib/devices/sony/sonyDevice.js:181
+msgid "Standard"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:103
+msgid "Long"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:103
+#: src/preferences/devices/sony/configureWindow.js:187
+#: src/preferences/devices/sony/configureWindow.js:257
+#: src/preferences/devices/sony/configureWindow.js:331
+#: src/preferences/devices/airpods/configureWindow.js:206
+#: src/lib/devices/sony/sonyDevice.js:166
+#: src/lib/devices/sony/sonyDevice.js:199
+#: src/lib/devices/airpods/airpodsDevice.js:200
+#: src/lib/devices/airpods/airpodsDevice.js:242
+msgid "Off"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:106
+msgid "Duration"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:123
+#: src/preferences/devices/sony/configureWindow.js:139
+msgid "Listening Mode"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:128
+msgid "Background Music"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:129
+msgid "Cinema"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:154
+msgid "My Room"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:155
+msgid "Living Room"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:156
+msgid "Cafe"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:166
+msgid "Background Music Effects"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:184
+msgid "Equalizer"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:188
+msgid "Bright"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:189
+msgid "Excited"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:190
+msgid "Mellow"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:191
+msgid "Relaxed"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:192
+msgid "Vocal"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:193
+msgid "Treble Boost"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:194
+msgid "Bass Boost"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:195
+msgid "Speech"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:196
+msgid "Manual"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:197
+msgid "Custom 1"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:198
+msgid "Custom 2"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:217
+msgid "Equalizer Preset"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:230
+msgid "Custom Equalizer"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+msgid "Bass"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+msgid "400"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+#: src/preferences/devices/sony/configureWindow.js:234
+msgid "1k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+msgid "2.5k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+msgid "6.3k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:232
+#: src/preferences/devices/sony/configureWindow.js:234
+msgid "16k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:233
+msgid "31"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:233
+msgid "63"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:233
+msgid "125"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:233
+msgid "250"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:233
+msgid "500"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:234
+msgid "2k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:234
+msgid "4k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:234
+msgid "8k"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:256
+msgid "Enable DSEE enhancement"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:276
+msgid "Ambient Sound Control"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:277
+msgid "Ambient Sound Control / Quick Access"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:279
+#: src/preferences/devices/sony/configureWindow.js:280
+msgid "Playback Control"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:281
+#: src/preferences/devices/airpods/configureWindow.js:284
+msgid "Volume Control"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:282
+msgid "Not Assigned"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:298
+msgid "Left Bud"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:312
+msgid "Right Bud"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:329
+#: src/preferences/devices/airpods/configureWindow.js:219
+#: src/lib/devices/sony/sonyDevice.js:171
+#: src/lib/devices/airpods/airpodsDevice.js:203
+msgid "Noise Cancellation"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:330
+#: src/lib/devices/sony/sonyDevice.js:168
+msgid "Ambient"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:335
+msgid "ANC Button Configuration"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:336
+msgid "[NC/AMB] Button Settings"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:337
+msgid "Select the modes to toggle when the button is pressed"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:339
+#: src/preferences/devices/airpods/configureWindow.js:239
+msgid "Apply"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:353
+msgid "Notification"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:357
+msgid "Voice Notification"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:358
+msgid "Enable voice notification"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:376
+msgid "Voice Notification Volume"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:378
+msgid "-2"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:379
+msgid "-1"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:380
+msgid "0"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:381
+msgid "+1"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:382
+msgid "+2"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:399
+msgid "Headset Take off"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:406
+msgid "Pause when taken off"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:420
+msgid "Automatically Power Off"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:421
+msgid "Automatically power off when not worn."
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:436
+msgid "After 5 minutes"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:437
+msgid "After 15 minutes"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:438
+msgid "After 30 minutes"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:439
+msgid "After 1 hour"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:440
+msgid "After 3 hours"
+msgstr ""
+
+#: src/preferences/devices/sony/configureWindow.js:452
+msgid "Auto Power Off"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:86
+msgid "Playback Behavior"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:90
+#: src/preferences/devices/airpods/configureWindow.js:93
+msgid "Default behavior"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:91
+msgid "Resume when worn"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:94
+msgid "Resume with both earbuds"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:95
+msgid "Resume with any earbud"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:101
+msgid "Choose playback behaviour for Ear detection"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:102
+msgid "Automatically pause or resume playback based on wearing detection."
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:119
+msgid "Volume Level"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:123
+msgid "Pause when device is not worn"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:124
+msgid "Pause playback when the device is removed,resume when it is put back on"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:143
+msgid "Conversation awareness volume limit"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:144
+msgid ""
+"Limits media volume to this percentage during conversation. Note: No change "
+"if current volume is below this level."
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:167
+msgid "Turn off listening modes"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:171
+msgid "Allows to turn off all listening mode technology"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:172
+msgid ""
+"Allows Noise Cancellation, Transparency, and Adaptive modes to be fully "
+"disabled. Disabling listening modes also turns off Hearing Aid features and "
+"reduces power usage."
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:213
+#: src/lib/devices/airpods/airpodsDevice.js:201
+msgid "Transparency"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:226
+#: src/lib/devices/airpods/airpodsDevice.js:202
+msgid "Adaptive"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:235
+msgid "Press and Hold Cycle"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:236
+msgid "Press and hold cycles between"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:237
+msgid "Settings don’t reflect current state"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:260
+msgid "Notification Volume"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:264
+msgid "Tone Volume"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:265
+msgid "Adjust the tone volume of sound effects played by AirPods"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:267
+msgid "15%"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:268
+msgid "100%"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:269
+msgid "125%"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:288
+msgid "Volume Swipe"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:289
+msgid "Enable or disable volume adjustment by swiping on earbud stems"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:298
+#: src/preferences/devices/airpods/configureWindow.js:331
+#: src/preferences/devices/airpods/configureWindow.js:349
+msgid "Default"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:298
+#: src/preferences/devices/airpods/configureWindow.js:331
+msgid "Longer"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:298
+#: src/preferences/devices/airpods/configureWindow.js:331
+msgid "Longest"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:302
+msgid "Swipe Duration"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:303
+msgid ""
+"To prevent unintended adjustments,select the preferred wait time between "
+"swipes"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:328
+msgid "Stem and Crown Response"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:335
+msgid "Press Speed"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:336
+msgid ""
+"Adjust how quickly you must double or triple-press the stem or Digital Crown "
+"before an action occurs"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:349
+msgid "Shorter"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:349
+msgid "Shortest"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:352
+msgid "Press and Hold Duration"
+msgstr ""
+
+#: src/preferences/devices/airpods/configureWindow.js:353
+msgid "Set how long you need to press and hold before an action occurs"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:164
+#: src/lib/devices/airpods/airpodsDevice.js:173
+msgid "Noise Control"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:174
+#: src/lib/devices/airpods/airpodsDevice.js:232
+msgid "Ambient Level"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:177
+#: src/lib/devices/sony/sonyDevice.js:179
+msgid "Auto Ambient"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:177
+#: src/lib/devices/sony/sonyDevice.js:179
+#: src/lib/devices/sony/sonyDevice.js:183
+msgid "Focus on Voice"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:180
+msgid "Auto Ambient Sensitivity"
+msgstr ""
+
+#: src/lib/devices/sony/sonyDevice.js:197
+#: src/lib/devices/airpods/airpodsDevice.js:240
+msgid "On"
+msgstr ""
+
+#, javascript-format
+#~ msgid "%d Connected"
+#~ msgid_plural "%d Connected"
+#~ msgstr[0] "%d подключено"
+#~ msgstr[1] "%d подключено"
+#~ msgstr[2] "%d подключено"
+
+#~ msgid "Disconnect"
+#~ msgstr "Отключить"
+
+#~ msgid "Connect"
+#~ msgstr "Подключить"
+
+#~ msgid "Battery Status:"
+#~ msgstr "Статус батареи:"
+
+#~ msgid "Reported"
+#~ msgstr "Отправленно"
+
+#~ msgid "Not Available"
+#~ msgstr "Недоступно"
+
+#~ msgid "Indicator"
+#~ msgstr "Индикатор"
+
+#~ msgid "Configure Indicator"
+#~ msgstr "Настроить индикатор"
+
+#~ msgid "Choose how the indicator should behave"
+#~ msgstr "Выберите, как должен себя вести индикатор"
+
+#~ msgid "Hide Icon"
+#~ msgstr "Скрыть индикатор"
+
+#~ msgid "Show Icon"
+#~ msgstr "Показать иконку"
+
+#~ msgid "Configure device."
+#~ msgstr "Настроить устройство."
+
+#~ msgid "GNU General Public License, version 3 or later"
+#~ msgstr "GNU General Public License, версии 3 или позже"
+
+#, javascript-format
+#~ msgid "© %s %s"
+#~ msgstr "©️ %s %s"
+
+#, javascript-format
+#~ msgid ""
+#~ "This application comes with absolutely no warranty. See the <a "
+#~ "href=\"%s\">%s</a> for details."
+#~ msgstr ""
+#~ "Это приложение не имеет никакой гарантии. Подробнее <a href=“%s”>%s</a>."
+
+#, javascript-format
+#~ msgid ""
+#~ "Certain Bluetooth devices do not report battery level until Bluez's "
+#~ "experimental features are enabled in system. Check <a href=\"%s\">Readme</"
+#~ "a> for details."
+#~ msgstr ""
+#~ "Некоторые устройства Bluetooth не сообщают об уровне заряда батареи, пока "
+#~ "в системе не будут включены экспериментальные функции Bluez. Подробности "
+#~ "смотрите в <a href=\"%s\">Readme</a>."
+
+#, javascript-format
+#~ msgid "Assign color for %d – %d%%"
+#~ msgstr "Назначить цвет для %d – %d%%"
+
+#, javascript-format
+#~ msgid "Set color for the battery level range of %d – %d%%"
+#~ msgstr "Установить цвет для диапазона уровня заряда батареи %d – %d%%"
+
+#~ msgid "Quick Menu"
+#~ msgstr "Быстрое меню"
+
+#~ msgid "Display Battery Level"
+#~ msgstr "Показать процент заряда"
+
+#~ msgid "Display battery level in the Bluetooth panel quick menu"
+#~ msgstr "Отображение уровня заряда батареи в быстром меню панели Bluetooth"
+
+#~ msgid "Do not show Icon"
+#~ msgstr "Не показывать иконку"
+
+#~ msgid "Show Icon without Battery level"
+#~ msgstr "Показывать значок без уровня заряда батареи"
+
+#~ msgid "Show Icon with Battery Level"
+#~ msgstr "Показывать значок с уровнем заряда батареи"
+
+#~ msgid ""
+#~ "Delete device information: The button is available after unpairing device"
+#~ msgstr ""
+#~ "Удалить устройство: кнопка доступна после разрыва сопряжения с устройством"
+
+#~ msgid "(Removed)"
+#~ msgstr "(Удалено)"
+
+#~ msgid "(Paired)"
+#~ msgstr "(Сопряжено)"
+
+#~ msgid "Bluetooth Connection Status Indicator"
+#~ msgstr "Отображать уровень заряда Bluetooth устройств"
+
+#~ msgid ""
+#~ "Hide conditionally: Displayed only when no other bluetooth related "
+#~ "indicators are present"
+#~ msgstr ""
+#~ "Скрыть условно: отображается только при отсутствии других индикаторов, "
+#~ "связанных с Bluetooth"
+
+#~ msgid "Indicator Settings"
+#~ msgstr "Настройки иконок системной панели"
+
+#~ msgid "Default Behaviour"
+#~ msgstr "Стандартное поведение"
+
+#~ msgid "Hide Always"
+#~ msgstr "Скрывать всегда"
+
+#~ msgid "Hide Conditionally"
+#~ msgstr "Скрыть по условию"
+
+#~ msgid "Indicator Widget Settings"
+#~ msgstr "Настройки иконок системной панели"
+
+#~ msgid "Display battery percentage as text"
+#~ msgstr ""
+#~ "Отображение процентного уровня заряда батареи устройства Bluetooth в "
+#~ "текстовом виде"
+
+#~ msgid "Displays battery percentage beside the Bluetooth device icon"
+#~ msgstr ""
+#~ "Отображает процент заряда батареи рядом со значком устройства Bluetooth"
+
+#~ msgid "Battery Level Indicator Type"
+#~ msgstr "Тип индикатора уровня заряда батареи"
+
+#~ msgid "Dots offer better visibility"
+#~ msgstr "Точки обеспечивают лучшую видимость"
+
+#~ msgid "Battery Indicator Color Scheme"
+#~ msgstr "Цветовая схема индикатора батареи"
+
+#~ msgid "Choose color scheme for level bar/dots"
+#~ msgstr "Выберите цветовую схему для полос/точек уровня"
+
+#~ msgid "Battery Level Bar"
+#~ msgstr "Полоса уровня заряда батареи"
+
+#~ msgid "Battery Level Dot"
+#~ msgstr "Точка уровня заряда батареи"
+
+#~ msgid "Symbolic"
+#~ msgstr "Символьный"
+
+#~ msgid "Colored"
+#~ msgstr "Цветной"
+
+#~ msgid "Customized"
+#~ msgstr "Индивидуальный"
+
+#~ msgid "Note!"
+#~ msgstr "Внимание!"
+
+#~ msgid "Note: General settings override device-specific settings"
+#~ msgstr ""
+#~ "Примечание: Общие настройки переопределяют настройки, специфичные для "
+#~ "устройства"
+
+#~ msgid "Quick Menu Settings"
+#~ msgstr "Настройки быстрого меню"
+
+#~ msgid "Show battery icon for Bluetooth devices"
+#~ msgstr "Показывать значок батареи для устройств Bluetooth"
+
+#~ msgid ""
+#~ "Displays an icon in the popup menu for Bluetooth device battery level"
+#~ msgstr ""
+#~ "Отображает значок во всплывающем меню для уровня заряда батареи "
+#~ "устройства Bluetooth"
+
+#~ msgid "Show Bluetooth device battery percentage"
+#~ msgstr "Показать процент заряда батареи Bluetooth устройств"
+
+#~ msgid "Displays Bluetooth device battery level percentage in text"
+#~ msgstr ""
+#~ "Отображение процентного уровня заряда батареи устройства Bluetooth в "
+#~ "текстовом виде"
+
+#~ msgid "Display battery level icon before text"
+#~ msgstr "Показать иконку заряда батареи перед процентами"
+
+#~ msgid "Swaps position of battery level icon and percentage text"
+#~ msgstr "Поменяет местами отображение иконки батареи и проценты"
+
+#~ msgid "Sort devices by connection history"
+#~ msgstr "Сортировать устройства по истории подключений"
+
+#~ msgid ""
+#~ "Enable to sort devices by connection history, or disable to sort by "
+#~ "connection status and alias"
+#~ msgstr ""
+#~ "Включите или отключите сортировку устройств по истории подключений  "
+#~ "сортировку по статусу подключения и псевдониму"
+
+#~ msgid "Device"
+#~ msgstr "Устройство"
+
+#~ msgid "No Bluetooth device paired!"
+#~ msgstr "Нет сопряженных Bluetooth устройств!"
+
+#~ msgid "About"
+#~ msgstr "О приложении"
+
+#~ msgid "Read me"
+#~ msgstr "Инструкция"
+
+#~ msgid "Report an Issue"
+#~ msgstr "Сообщить об ошибке"
+
+#~ msgid "Translations"
+#~ msgstr "Переводы"
+
+#~ msgid "View sources on Github"
+#~ msgstr "Посмотреть исходный код на Github"
+
+#~ msgid "Legal"
+#~ msgstr "Правовой статус"
+
+#~ msgid "Crowdin"
+#~ msgstr "Crowdin"
+
+#~ msgid "Online Tutorials"
+#~ msgstr "Онлайн уроки"
+
+#~ msgid "Enable battery indicators for Bluetooth devices"
+#~ msgstr "Включить индикаторы для Bluetooth устройств"
+
+#~ msgid "Displays Bluetooth device icon with battery level in system tray"
+#~ msgstr ""
+#~ "Отображение значка устройства Bluetooth с уровнем заряда батареи в "
+#~ "системном трее"
+
+#~ msgid "Configuration by device"
+#~ msgstr "Конфигурация для устройства"
+
+#~ msgid "Show all"
+#~ msgstr "Показать все"
+
+#~ msgid ""
+#~ "Show all:\n"
+#~ "Shows Indicator icon and battery information in QuickSetting.\n"
+#~ "\n"
+#~ "Hide all:\n"
+#~ "Hide battery information and Indicator icon in QuickSetting.\n"
+#~ "\n"
+#~ "Hide indicator:\n"
+#~ "Hide only Indicator icon, Show battery information in QuickSetting."
+#~ msgstr ""
+#~ "Показать все:\n"
+#~ "Показывает значок в трее и информацию о батарее в Быстрых Настройках.\n"
+#~ "\n"
+#~ "Скрыть все:\n"
+#~ "Скрывает значок в трее и информацию о батарее в Быстрых Настройках.\n"
+#~ "\n"
+#~ "Скрыть значок:\n"
+#~ "Скрывает значок в трее, показывает информацию и батарее в Быстрых "
+#~ "Настройках."
+
+#~ msgid "No battery reporting capable device paired!"
+#~ msgstr ""
+#~ "Не сопряжено ни одного устройства, передающего информацию о батарее!"
+
+#~ msgid "General"
+#~ msgstr "Общие"
+
+#~ msgid "Show percentage in text"
+#~ msgstr "Печатать процент заряда"
+
+#~ msgid "Add text in percentage next to battery indicators icon"
+#~ msgstr "Добавить процент заряда рядом со значком батареи"
