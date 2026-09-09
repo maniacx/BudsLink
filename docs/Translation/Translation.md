@@ -18,7 +18,7 @@ Thank you for your interest in contributing to this project.
 
 ## Using Weblate
 
-Easy to use web interface aimed at focusing on translation itself. All committing of translations (and updating of source strings) is done on background. Especially useful when you have capacity to translate only few strings at time.
+Easy to use web interface aimed at focusing on translation itself. All committing of translations (and updating of source strings) is done on background. Especially useful for translation/editing only few strings at time (due your time capacity or for fixes and enhancement of in app spotted translations deficiencies, etc).
 
 [BudsLink project on hosted Weblate](https://hosted.weblate.org/engage/budslink/)
 
