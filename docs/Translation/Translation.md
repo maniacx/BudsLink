@@ -12,11 +12,20 @@ has_toc: false
     }
 </style>
 
-## Translation Using Poedit
-
-[<img src="{{ 'assets/images/translation/poedit-logo.png' | relative_url }}" width="40%">](https://flathub.org/apps/net.poedit.Poedit)
+## Translation
 
 Thank you for your interest in contributing to this project.
+
+## Using Weblate
+
+Easy to use web interface aimed at focusing on translation itself. All committing of translations (and updating of source strings) is done on background. Especially useful when you have capacity to translate only few strings at time.
+
+[BudsLink project on hosted Weblate](https://hosted.weblate.org/engage/budslink/)
+
+
+## Using Poedit
+
+[<img src="{{ 'assets/images/translation/poedit-logo.png' | relative_url }}" width="40%">](https://flathub.org/apps/net.poedit.Poedit)
 
 * Downloading and installing the Poedit software on your computer is required.
 * It's fast and easy to interact with.
