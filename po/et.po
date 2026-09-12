@@ -3,73 +3,74 @@
 # This file is distributed under the same license as the BudsLink package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-12 00:47-0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2026-09-02 15:22+0000\n"
+"Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
+"Language-Team: none\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: src/appLibs/widgets/settingsButton.js:26
 msgid "Application Settings"
-msgstr ""
+msgstr "Rakenduse seadistused"
 
 #: src/appLibs/widgets/settingsButton.js:35
 #: src/appLibs/widgets/settingsButton.js:199
 #: src/appLibs/widgets/settingsButton.js:273
 msgid "System Default"
-msgstr ""
+msgstr "Süsteemi vaikeseadistus"
 
 #: src/appLibs/widgets/settingsButton.js:36
 msgid "Blue"
-msgstr ""
+msgstr "Sinine"
 
 #: src/appLibs/widgets/settingsButton.js:37
 msgid "Teal"
-msgstr ""
+msgstr "Sinakasroheline"
 
 #: src/appLibs/widgets/settingsButton.js:38
 msgid "Green"
-msgstr ""
+msgstr "Roheline"
 
 #: src/appLibs/widgets/settingsButton.js:39
 msgid "Yellow"
-msgstr ""
+msgstr "Kollane"
 
 #: src/appLibs/widgets/settingsButton.js:40
 msgid "Orange"
-msgstr ""
+msgstr "Oranž"
 
 #: src/appLibs/widgets/settingsButton.js:41
 msgid "Red"
-msgstr ""
+msgstr "Punane"
 
 #: src/appLibs/widgets/settingsButton.js:42
 msgid "Pink"
-msgstr ""
+msgstr "Roosa"
 
 #: src/appLibs/widgets/settingsButton.js:43
 msgid "Purple"
-msgstr ""
+msgstr "Purpurpunane"
 
 #: src/appLibs/widgets/settingsButton.js:44
 msgid "Slate"
-msgstr ""
+msgstr "Paekarva"
 
 #: src/appLibs/widgets/settingsButton.js:65
 msgid "Dark Mode"
-msgstr ""
+msgstr "Tume kujundus"
 
 #: src/appLibs/widgets/settingsButton.js:72
 msgid "Accent Color"
-msgstr ""
+msgstr "Aktsentvärv"
 
 #: src/appLibs/widgets/settingsButton.js:79
 #: src/appLibs/widgets/settingsButton.js:300
@@ -78,7 +79,7 @@ msgstr ""
 
 #: src/appLibs/widgets/settingsButton.js:86
 msgid "Packet Logging"
-msgstr ""
+msgstr "Andmepakettide logimine"
 
 #: src/appLibs/widgets/settingsButton.js:93
 msgid "Run in Background"
@@ -90,19 +91,19 @@ msgstr ""
 
 #: src/appLibs/widgets/settingsButton.js:107
 msgid "About BudsLink"
-msgstr ""
+msgstr "Rakenduse teave: BudsLink"
 
 #: src/appLibs/widgets/settingsButton.js:118
 msgid "Translation"
-msgstr ""
+msgstr "Tõlge"
 
 #: src/appLibs/widgets/settingsButton.js:200
 msgid "Light"
-msgstr ""
+msgstr "Hele kujundus"
 
 #: src/appLibs/widgets/settingsButton.js:201
 msgid "Dark"
-msgstr ""
+msgstr "Tume kujundus"
 
 #: src/appLibs/widgets/settingsButton.js:301
 msgid "Restart required to apply language change"
@@ -115,7 +116,7 @@ msgstr ""
 #: src/preferences/widgets/peqRowWidget.js:1122
 #: src/preferences/widgets/ringMyBudsRow.js:149
 msgid "Cancel"
-msgstr ""
+msgstr "Katkesta"
 
 #: src/appLibs/widgets/settingsButton.js:305
 #: src/preferences/widgets/deviceMgmtRowWidget.js:305
@@ -128,7 +129,7 @@ msgstr ""
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:691
 #: src/lib/devices/sony/sonyDevice.js:213
 msgid "On"
-msgstr ""
+msgstr "Sees"
 
 #: src/appLibs/widgets/settingsButton.js:401
 #: src/appLibs/widgets/settingsButton.js:438
@@ -163,39 +164,39 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:215
 #: src/lib/devices/googleBuds/googleBudsDevice.js:211
 msgid "Off"
-msgstr ""
+msgstr "Väljas"
 
 #: src/appLibs/widgets/settingsButton.js:500
 msgid "GNOME Extension"
-msgstr ""
+msgstr "GNOME'i lisamoodul"
 
 #: src/appLibs/widgets/settingsButton.js:506
 msgid "Plasma Widget"
-msgstr ""
+msgstr "Plasma vidin"
 
 #: src/appLibs/widgets/settingsButton.js:512
 msgid "Cinnamon Spice"
-msgstr ""
+msgstr "Cinnamoni Spice"
 
 #: src/appLibs/widgets/deviceRow.js:56 src/app.js:227
 msgid "BudsLink"
-msgstr ""
+msgstr "BudsLink"
 
 #: src/appLibs/widgets/deviceRow.js:98
 msgid "Configure"
-msgstr ""
+msgstr "Seadista"
 
 #: src/appLibs/widgets/deviceRow.js:110
 msgid "Battery Level"
-msgstr ""
+msgstr "Aku laetus"
 
 #: src/app.js:237
 msgid "Devices"
-msgstr ""
+msgstr "Seadmed"
 
 #: src/app.js:239
 msgid "No compatible device found"
-msgstr ""
+msgstr "Ühtegi ühilduvat seadet ei leidunud"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:43
 #: src/preferences/devices/airpods/configureWindow.js:83
@@ -208,7 +209,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:88
 #: src/preferences/devices/googleBuds/configureWindow.js:48
 msgid "Icon"
-msgstr ""
+msgstr "Ikoon"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:44
 #: src/preferences/devices/airpods/configureWindow.js:84
@@ -221,7 +222,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:89
 #: src/preferences/devices/googleBuds/configureWindow.js:49
 msgid "Select Icon"
-msgstr ""
+msgstr "Vali ikoon"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:45
 #: src/preferences/devices/airpods/configureWindow.js:85
@@ -234,11 +235,11 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:90
 #: src/preferences/devices/googleBuds/configureWindow.js:50
 msgid "Select the icon used for the indicator and quick menu"
-msgstr ""
+msgstr "Vali ikoon, mida kuvatakse näidikul ja kiirmenüüs"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:66
 msgid "Settings"
-msgstr ""
+msgstr "Seadistused"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:71
 #: src/preferences/devices/redmiBuds/configureWindow.js:376
@@ -323,7 +324,7 @@ msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:136
 msgid "Volume Level"
-msgstr ""
+msgstr "Helivaljus"
 
 #: src/preferences/devices/airpods/configureWindow.js:140
 msgid "Lower volume during conversation awareness"
@@ -437,15 +438,15 @@ msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:289
 msgid "15%"
-msgstr ""
+msgstr "15%"
 
 #: src/preferences/devices/airpods/configureWindow.js:290
 msgid "100%"
-msgstr ""
+msgstr "100%"
 
 #: src/preferences/devices/airpods/configureWindow.js:291
 msgid "125%"
-msgstr ""
+msgstr "125%"
 
 #: src/preferences/devices/airpods/configureWindow.js:308
 #: src/preferences/devices/nothingBuds/configureWindow.js:648
@@ -530,7 +531,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:209
 #: src/preferences/devices/googleBuds/configureWindow.js:69
 msgid "Equalizer"
-msgstr ""
+msgstr "Ekvalaiser"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:250
 #: src/preferences/devices/redmiBuds/configureWindow.js:261
@@ -573,7 +574,7 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:301
 #: src/preferences/devices/googleBuds/configureWindow.js:89
 msgid "Custom"
-msgstr ""
+msgstr "Sinu seadistatud"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:256
 msgid "Classic"
@@ -619,7 +620,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:249
 #: src/preferences/devices/googleBuds/configureWindow.js:111
 msgid "Custom Equalizer"
-msgstr ""
+msgstr "Sinu seadistatud ekvalaiser"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:281
 #: src/preferences/devices/nothingBuds/configureWindow.js:243
@@ -630,7 +631,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:242
 #: src/preferences/devices/googleBuds/configureWindow.js:105
 msgid "Equalizer Preset"
-msgstr ""
+msgstr "Ekvalaiseri eelseadistused"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:282
 #: src/preferences/devices/nothingBuds/configureWindow.js:244
@@ -649,62 +650,62 @@ msgstr ""
 #: src/preferences/devices/senhBuds/configureWindow.js:308
 #: src/preferences/devices/sony/configureWindow.js:261
 msgid "125"
-msgstr ""
+msgstr "125"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:298
 #: src/preferences/devices/senhBuds/configureWindow.js:309
 #: src/preferences/devices/sony/configureWindow.js:261
 msgid "250"
-msgstr ""
+msgstr "250"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:298
 #: src/preferences/devices/senhBuds/configureWindow.js:311
 #: src/preferences/devices/sony/configureWindow.js:261
 msgid "500"
-msgstr ""
+msgstr "500"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:298
 #: src/preferences/devices/senhBuds/configureWindow.js:313
 #: src/preferences/devices/sony/configureWindow.js:260
 #: src/preferences/devices/sony/configureWindow.js:262
 msgid "1k"
-msgstr ""
+msgstr "1k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:298
 #: src/preferences/devices/senhBuds/configureWindow.js:314
 #: src/preferences/devices/sony/configureWindow.js:262
 msgid "2k"
-msgstr ""
+msgstr "2k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:298
 #: src/preferences/devices/senhBuds/configureWindow.js:317
 #: src/preferences/devices/sony/configureWindow.js:262
 msgid "4k"
-msgstr ""
+msgstr "4k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:299
 #: src/preferences/devices/senhBuds/configureWindow.js:320
 #: src/preferences/devices/sony/configureWindow.js:262
 msgid "8k"
-msgstr ""
+msgstr "8k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:299
 #: src/preferences/devices/senhBuds/configureWindow.js:321
 msgid "12k"
-msgstr ""
+msgstr "12k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:299
 #: src/preferences/devices/senhBuds/configureWindow.js:322
 #: src/preferences/devices/sony/configureWindow.js:260
 #: src/preferences/devices/sony/configureWindow.js:262
 msgid "16k"
-msgstr ""
+msgstr "16k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:308
 #: src/preferences/devices/senhBuds/configureWindow.js:339
 #: src/preferences/devices/sony/configureWindow.js:271
 msgid "Frequency (Hz)"
-msgstr ""
+msgstr "Sagedus (Hz)"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:309
 #: src/preferences/devices/nothingBuds/configureWindow.js:269
@@ -861,19 +862,19 @@ msgstr ""
 #: src/preferences/devices/nothingBuds/configureWindow.js:630
 #: src/preferences/devices/boseBuds/configureWindow.js:838
 msgid "Play / Pause"
-msgstr ""
+msgstr "Esita / Peata esitus"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:531
 #: src/preferences/devices/nothingBuds/configureWindow.js:633
 #: src/preferences/devices/boseBuds/configureWindow.js:853
 msgid "Previous Track"
-msgstr ""
+msgstr "Eelmine lugu"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:534
 #: src/preferences/devices/nothingBuds/configureWindow.js:636
 #: src/preferences/devices/boseBuds/configureWindow.js:856
 msgid "Next Track"
-msgstr ""
+msgstr "Järgmine lugu"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:537
 #: src/preferences/devices/nothingBuds/configureWindow.js:639
@@ -881,17 +882,17 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:823
 #: src/preferences/devices/boseBuds/configureWindow.js:829
 msgid "Voice Assistant"
-msgstr ""
+msgstr "Häälabiline"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:540
 #: src/preferences/devices/nothingBuds/configureWindow.js:642
 msgid "Volume Up"
-msgstr ""
+msgstr "Heli valjemaks"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:543
 #: src/preferences/devices/nothingBuds/configureWindow.js:645
 msgid "Volume Down"
-msgstr ""
+msgstr "Heli vaiksemaks"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:546
 #: src/preferences/devices/nothingBuds/configureWindow.js:651
@@ -938,7 +939,7 @@ msgstr ""
 #: src/preferences/devices/senhBuds/configureWindow.js:221
 #: src/preferences/devices/boseBuds/configureWindow.js:275
 msgid "Sound Settings"
-msgstr ""
+msgstr "Heliseadistused"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:220
 msgid "Dirac"
@@ -947,7 +948,7 @@ msgstr ""
 #: src/preferences/devices/nothingBuds/configureWindow.js:221
 #: src/preferences/devices/senhBuds/configureWindow.js:265
 msgid "Rock"
-msgstr ""
+msgstr "Rokkmuusika"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:222
 msgid "Electronic"
@@ -956,7 +957,7 @@ msgstr ""
 #: src/preferences/devices/nothingBuds/configureWindow.js:223
 #: src/preferences/devices/senhBuds/configureWindow.js:266
 msgid "Pop"
-msgstr ""
+msgstr "Popmuusika"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:224
 #: src/preferences/devices/googleBuds/configureWindow.js:86
@@ -966,7 +967,7 @@ msgstr ""
 #: src/preferences/devices/nothingBuds/configureWindow.js:225
 #: src/preferences/devices/senhBuds/configureWindow.js:269
 msgid "Classical"
-msgstr ""
+msgstr "Klassikaline muusika"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:260
 #: src/preferences/devices/nothingBuds/configureWindow.js:681
@@ -1099,7 +1100,7 @@ msgstr ""
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:672
 msgid "Mic On/Off"
-msgstr ""
+msgstr "Mikrofon sisse/välja"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:678
 msgid "Walkie-Talkie"
@@ -1111,7 +1112,7 @@ msgstr ""
 
 #: src/preferences/devices/senhBuds/configureWindow.js:230
 msgid "Podcast"
-msgstr ""
+msgstr "Taskuhääling"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:231
 msgid "Sound personalization"
@@ -1134,59 +1135,59 @@ msgstr ""
 #: src/preferences/devices/senhBuds/configureWindow.js:264
 #: src/preferences/devices/boseBuds/configureWindow.js:284
 msgid "Flat"
-msgstr ""
+msgstr "Ühetasane"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:267
 msgid "Dance"
-msgstr ""
+msgstr "Tantsumuusika"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:268
 msgid "Hip Hop"
-msgstr ""
+msgstr "Hip-Hop ja räpp"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:270
 msgid "Movie"
-msgstr ""
+msgstr "Film"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:271
 msgid "Jazz"
-msgstr ""
+msgstr "Džäss"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:306
 msgid "50"
-msgstr ""
+msgstr "50"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:307
 #: src/preferences/devices/sony/configureWindow.js:261
 msgid "63"
-msgstr ""
+msgstr "63"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:310
 #: src/preferences/devices/sony/configureWindow.js:260
 msgid "400"
-msgstr ""
+msgstr "400"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:312
 msgid "800"
-msgstr ""
+msgstr "800"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:315
 #: src/preferences/devices/sony/configureWindow.js:260
 msgid "2.5k"
-msgstr ""
+msgstr "2.5k"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:316
 msgid "3k"
-msgstr ""
+msgstr "3k"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:318
 #: src/preferences/devices/sony/configureWindow.js:260
 msgid "6.3k"
-msgstr ""
+msgstr "6.3k"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:319
 msgid "7k"
-msgstr ""
+msgstr "7k"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:445
 #: src/preferences/devices/boseBuds/configureWindow.js:497
@@ -1234,32 +1235,32 @@ msgstr ""
 #: src/preferences/devices/senhBuds/configureWindow.js:584
 #: src/preferences/devices/boseBuds/configureWindow.js:397
 msgid "Pause Media When Not Worn"
-msgstr ""
+msgstr "Kui kõrvaklapid pole kasutusel, siis peata esitus"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:585
 #: src/preferences/devices/boseBuds/configureWindow.js:398
 msgid "Playback controlled by the OEM app"
-msgstr ""
+msgstr "Taasesitust kontrollib tootja rakendus"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:610
 #: src/preferences/devices/boseBuds/configureWindow.js:581
 msgid "Never"
-msgstr ""
+msgstr "Mitte kunagi"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:611
 msgid "After 15 minutes"
-msgstr ""
+msgstr "15 minuti möödumisel"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:612
 #: src/preferences/devices/sony/configureWindow.js:480
 msgid "After 30 minutes"
-msgstr ""
+msgstr "30 minuti möödumisel"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:613
 #: src/preferences/devices/boseBuds/configureWindow.js:585
 #: src/preferences/devices/sony/configureWindow.js:481
 msgid "After 1 hour"
-msgstr ""
+msgstr "1 tunni möödumisel"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:621
 #: src/preferences/devices/sony/configureWindow.js:463
@@ -1560,7 +1561,7 @@ msgstr ""
 #: src/preferences/widgets/deviceMgmtRowWidget.js:353
 #: src/preferences/widgets/peqRowWidget.js:1123
 msgid "Remove"
-msgstr ""
+msgstr "Eemalda"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:283
 msgid "Rename Mode?"
@@ -1805,27 +1806,27 @@ msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:155
 msgid "Background Music"
-msgstr ""
+msgstr "Taustamuusika"
 
 #: src/preferences/devices/sony/configureWindow.js:156
 msgid "Cinema"
-msgstr ""
+msgstr "Kino"
 
 #: src/preferences/devices/sony/configureWindow.js:181
 msgid "My Room"
-msgstr ""
+msgstr "Minu tuba"
 
 #: src/preferences/devices/sony/configureWindow.js:182
 msgid "Living Room"
-msgstr ""
+msgstr "Elutuba"
 
 #: src/preferences/devices/sony/configureWindow.js:183
 msgid "Cafe"
-msgstr ""
+msgstr "Kohvik"
 
 #: src/preferences/devices/sony/configureWindow.js:193
 msgid "Background Music Effects"
-msgstr ""
+msgstr "Taustamuusika efektid"
 
 #: src/preferences/devices/sony/configureWindow.js:213
 msgid "Bright"
@@ -1886,19 +1887,19 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:313
 #: src/preferences/devices/sony/configureWindow.js:314
 msgid "Playback Control"
-msgstr ""
+msgstr "Meediaesituse juhtimine"
 
 #: src/preferences/devices/sony/configureWindow.js:316
 msgid "Not Assigned"
-msgstr ""
+msgstr "Määramata"
 
 #: src/preferences/devices/sony/configureWindow.js:332
 msgid "Left Bud"
-msgstr ""
+msgstr "Vasak kuular"
 
 #: src/preferences/devices/sony/configureWindow.js:346
 msgid "Right Bud"
-msgstr ""
+msgstr "Parem kuular"
 
 #: src/preferences/devices/sony/configureWindow.js:363
 msgid "ANC Button Configuration"
@@ -1926,23 +1927,23 @@ msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:419
 msgid "-2"
-msgstr ""
+msgstr "-2"
 
 #: src/preferences/devices/sony/configureWindow.js:420
 msgid "-1"
-msgstr ""
+msgstr "-1"
 
 #: src/preferences/devices/sony/configureWindow.js:421
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: src/preferences/devices/sony/configureWindow.js:422
 msgid "+1"
-msgstr ""
+msgstr "+1"
 
 #: src/preferences/devices/sony/configureWindow.js:423
 msgid "+2"
-msgstr ""
+msgstr "+2"
 
 #: src/preferences/devices/sony/configureWindow.js:442
 msgid "Headset Take Off"
@@ -2137,7 +2138,7 @@ msgstr ""
 
 #: src/preferences/widgets/ringMyBudsRow.js:28
 msgid "Find my earbuds"
-msgstr ""
+msgstr "Leia minu kuularid/kõrvaklapid"
 
 #: src/preferences/widgets/ringMyBudsRow.js:29
 msgid "Ring your earbuds to locate them"
@@ -2168,7 +2169,7 @@ msgstr ""
 #: src/preferences/widgets/iconSelectorWidget.js:51
 #: src/preferences/widgets/iconSelectorWidget.js:69
 msgid "Device information"
-msgstr ""
+msgstr "Seadme teave"
 
 #: src/preferences/widgets/iconSelectorWidget.js:103
 msgid "MAC Address"
@@ -2176,12 +2177,12 @@ msgstr ""
 
 #: src/preferences/widgets/iconSelectorWidget.js:106
 msgid "Firmware Version"
-msgstr ""
+msgstr "Püsivara versioon"
 
 #: src/preferences/widgets/iconSelectorWidget.js:116
 #: src/preferences/widgets/iconSelectorWidget.js:149
 msgid "Serial Number"
-msgstr ""
+msgstr "Seerianumber"
 
 #: src/lib/devices/notifier.js:25
 msgid "AirPods / Beats"
@@ -2295,3 +2296,15 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:196
 msgid "Auto Ambient Sensitivity"
 msgstr ""
+
+#~ msgid "Audio Mode"
+#~ msgstr "Helirežiim"
+
+#~ msgid "Automatically Answer Calls When Worn"
+#~ msgstr "Kandmisel vasta kõnedele automaatselt"
+
+#~ msgid "Automatically Power Off When Not Worn"
+#~ msgstr "Lülita kõrvaklapid välja, kui nad pole kasutusel"
+
+#~ msgid "Mac Address"
+#~ msgstr "MAC-aadress"
