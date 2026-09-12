@@ -30,7 +30,24 @@ const SIGINT = 2;
 const SIGTERM = 15;
 
 const AppId = pkg.name; // eslint-disable-line no-undef
-const dataDir = pkg.datadir; // eslint-disable-line no-undef
+
+function resolveDataDir() {
+    const installed = pkg.datadir; // eslint-disable-line no-undef
+    const installedIcons = GLib.build_filenamev([installed, 'icons']);
+    if (GLib.file_test(installedIcons, GLib.FileTest.IS_DIR))
+        return installed;
+
+    const srcRoot = GLib.getenv('MESON_SOURCE_ROOT');
+    if (srcRoot) {
+        const srcPath = GLib.build_filenamev([srcRoot, 'src']);
+        if (GLib.file_test(GLib.build_filenamev([srcPath, 'icons']), GLib.FileTest.IS_DIR))
+            return srcPath;
+    }
+
+    return installed;
+}
+
+const dataDir = resolveDataDir();
 
 export const BudsLinkApplication = GObject.registerClass({
     GTypeName: 'BudsLinkApplication',

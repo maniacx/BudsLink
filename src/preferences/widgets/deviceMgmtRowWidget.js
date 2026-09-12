@@ -101,16 +101,16 @@ const DeviceManagementDialog = GObject.registerClass({
         toolbarView.set_content(page);
         this.set_child(toolbarView);
 
-        this.updateDevices(this._mgmtRow.deviceArr);
+        this.updateDevices();
     }
 
     _formatMac(mac) {
         return mac.replace(/:/g, '').match(/.{1,2}/g)?.join(':') ?? mac;
     }
 
-    updateDevices(deviceArr) {
+    updateDevices() {
         const _ = this._mgmtRow.gtxt;
-        const devices = deviceArr.map(device => ({...device}));
+        const devices = this._mgmtRow.deviceArr.map(device => ({...device}));
 
         devices.sort((a, b) => {
             const aCurrent = a.id === this._ownDevice;
@@ -270,6 +270,8 @@ const DeviceManagementDialog = GObject.registerClass({
             valign: Gtk.Align.CENTER,
             width_request: 16,
             height_request: 16,
+            margin_start: 8,
+            margin_end: 8,
             visible: isInitializing || isProcessing,
         });
 
@@ -425,7 +427,7 @@ const DeviceManagementDialog = GObject.registerClass({
             return;
 
         this._ownDevice = id;
-        this.updateDevices(this._mgmtRow.deviceArr);
+        this.updateDevices();
     }
 });
 
@@ -452,6 +454,7 @@ export const DeviceManagementRow = GObject.registerClass({
             hasRoutingControl: false,
             hasActiveFix: false,
             showMac: true,
+            refreshOnWindowOpen: false,
             ...config,
         };
 
@@ -501,7 +504,12 @@ export const DeviceManagementRow = GObject.registerClass({
         }
 
         this._dialog = new DeviceManagementDialog(this, ownDevice, routeDevice);
-        this._button.connect('clicked', () => this._dialog.present(window));
+        this._button.connect('clicked', () => {
+            if (this.config.refreshOnWindowOpen)
+                this.emit('device-action', DeviceManagementAction.Refresh, '');
+
+            this._dialog.present(window);
+        });
         this.add_suffix(box);
     }
 
@@ -535,8 +543,9 @@ export const DeviceManagementRow = GObject.registerClass({
         if (this._deviceArrEqual(this.deviceArr, deviceArr))
             return;
 
-        this.deviceArr = deviceArr.map(device => ({...device}));
-        this._dialog?.updateDevices(deviceArr);
+        this.deviceArr.length = 0;
+        this.deviceArr.push(...deviceArr.map(device => ({...device})));
+        this._dialog?.updateDevices();
     }
 
     updateRouteDevice(id) {
