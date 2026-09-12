@@ -322,7 +322,7 @@ export const BoseBudsDevice = GObject.registerClass({
             this._pairingMode = this._settingsItems['pairing-mode'];
             this._devMgmtAction = this._settingsItems['dev-mgmt-action'];
             this._activeDevice = this._settingsItems['active-dev'];
-            this._deviceInfo = this._settingsItems['dev-mgmt']
+            this._deviceInfo = this._settingsItems['dev-mgmt'];
         }
 
         if (this._modelData.sideTone)

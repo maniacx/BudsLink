@@ -309,7 +309,7 @@ class SettingsButton extends Gtk.MenuButton {
                     try {
                         if (dialog.choose_finish(res) === 'ok')
                             this._settings.set_string(LANG_KEY, lang.code);
-                    } catch (e) {
+                    } catch {
                         // ignore dialog close errors
                     }
                 });
