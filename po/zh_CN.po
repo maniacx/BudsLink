@@ -7,24 +7,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-12 00:26-0600\n"
-"PO-Revision-Date: 2026-01-28 21:26-0700\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2026-09-12 00:54-0600\n"
+"PO-Revision-Date: 2026-09-12 06:44+0000\n"
+"Last-Translator: reducedradius "
+"<137701630+flytothehighest@users.noreply.github.com>\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: src/appLibs/widgets/settingsButton.js:26
 msgid "Application Settings"
-msgstr ""
+msgstr "应用设置"
 
 #: src/appLibs/widgets/settingsButton.js:35
 #: src/appLibs/widgets/settingsButton.js:199
 #: src/appLibs/widgets/settingsButton.js:273
 msgid "System Default"
-msgstr ""
+msgstr "系统默认值"
 
 #: src/appLibs/widgets/settingsButton.js:36
 msgid "Blue"
@@ -68,7 +71,7 @@ msgstr ""
 
 #: src/appLibs/widgets/settingsButton.js:72
 msgid "Accent Color"
-msgstr ""
+msgstr "强调色"
 
 #: src/appLibs/widgets/settingsButton.js:79
 #: src/appLibs/widgets/settingsButton.js:300
@@ -93,7 +96,7 @@ msgstr ""
 
 #: src/appLibs/widgets/settingsButton.js:118
 msgid "Translation"
-msgstr ""
+msgstr "翻译"
 
 #: src/appLibs/widgets/settingsButton.js:200
 msgid "Light"
@@ -190,11 +193,11 @@ msgstr ""
 
 #: src/app.js:237
 msgid "Devices"
-msgstr ""
+msgstr "设备"
 
 #: src/app.js:239
 msgid "No compatible device found"
-msgstr ""
+msgstr "未找到可兼容的设备"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:43
 #: src/preferences/devices/airpods/configureWindow.js:83
@@ -220,7 +223,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:89
 #: src/preferences/devices/googleBuds/configureWindow.js:49
 msgid "Select Icon"
-msgstr ""
+msgstr "选择图标"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:45
 #: src/preferences/devices/airpods/configureWindow.js:85
