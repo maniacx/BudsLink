@@ -200,6 +200,12 @@
         <file>lib/devices/edifierBuds/deviceConfigs/X5Pro.js</file>
         <file>preferences/devices/edifierBuds/configureWindow.js</file>
 
+        <file>lib/devices/oneMoreBuds/oneMoreBudsConfig.js</file>
+        <file>lib/devices/oneMoreBuds/oneMoreBudsDevice.js</file>
+        <file>lib/devices/oneMoreBuds/oneMoreBudsSocket.js</file>
+        <file>lib/devices/oneMoreBuds/deviceConfigs/SonoFlow.js</file>
+        <file>preferences/devices/oneMoreBuds/configureWindow.js</file>
+
         <file>lib/devices/sony/sonyConfig.js</file>
         <file>lib/devices/sony/sonyDevice.js</file>
         <file>lib/devices/sony/sonySocketBase.js</file>

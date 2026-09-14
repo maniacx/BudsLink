@@ -46,6 +46,9 @@
         <key name="edifier-buds-list" type="as">
             <default>[]</default>
         </key>
+        <key name="one-more-buds-list" type="as">
+            <default>[]</default>
+        </key>
         <key name="gfps-list" type="as">
             <default>[]</default>
         </key>
