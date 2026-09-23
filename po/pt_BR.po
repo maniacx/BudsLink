@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-09-18 10:52+0000\n"
+"PO-Revision-Date: 2026-09-24 21:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
@@ -32,7 +32,7 @@ msgstr "Nenhum dispositivo compatível encontrado"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:63
 msgid "Settings"
-msgstr ""
+msgstr "Configurações"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:68
 #: src/preferences/devices/redmiBuds/configureWindow.js:447
@@ -40,14 +40,14 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:826
 #: src/preferences/devices/opoBuds/configureWindow.js:1065
 msgid "Game Mode"
-msgstr ""
+msgstr "Modo de jogo"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:69
 #: src/preferences/devices/redmiBuds/configureWindow.js:448
 #: src/preferences/devices/nothingBuds/configureWindow.js:355
 #: src/preferences/devices/opoBuds/configureWindow.js:827
 msgid "Reduces latency and enhances in-game audio"
-msgstr ""
+msgstr "Reduzir a latência e melhorar o áudio do jogo"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:80
 #: src/preferences/devices/nothingBuds/configureWindow.js:369
@@ -55,14 +55,14 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:842
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "In-Ear Detection"
-msgstr ""
+msgstr "Detecção dentro do ouvido"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:81
 #: src/preferences/devices/nothingBuds/configureWindow.js:370
 #: src/preferences/devices/senhBuds/configureWindow.js:563
 #: src/preferences/devices/boseBuds/configureWindow.js:375
 msgid "Enable features based on wearing detection"
-msgstr ""
+msgstr "Ativar funções quando você estiver usando"
 
 #: src/preferences/devices/airpods/configureWindow.js:103
 #: src/preferences/devices/redmiBuds/configureWindow.js:218
@@ -2627,6 +2627,3 @@ msgstr "Configurar"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Nível da bateria"
-
-#~ msgid "Select the icon used for the indicator and quick menu"
-#~ msgstr "Selecione o ícone usado para o indicador e o menu rápido"
