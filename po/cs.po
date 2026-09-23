@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-09-16 18:51+0000\n"
+"PO-Revision-Date: 2026-09-24 21:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech\n"
 "Language: cs\n"
@@ -611,19 +611,19 @@ msgstr "Přidat hloubku pro více vtahující dojem"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:347
 msgid "Track Head Movement"
-msgstr ""
+msgstr "Sledovat pohyb hlavy"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:348
 msgid "Audio moves with your head"
-msgstr ""
+msgstr "Zvuk se přesouvá společně s vaší hlavou"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:370
 msgid "Spatial Audio Scene"
-msgstr ""
+msgstr "Prostorová zvuková scéna"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:371
 msgid "Select the sound environment"
-msgstr ""
+msgstr "Vyberte zvukové prostředí"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:397
 #: src/preferences/devices/nothingBuds/configureWindow.js:348
@@ -1437,46 +1437,46 @@ msgstr "Tón okolního zvuku"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:326
 msgid "Deep Bass"
-msgstr ""
+msgstr "Hluboké basy"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:327
 #: src/preferences/devices/opoBuds/configureWindow.js:329
 msgid "Vocal"
-msgstr ""
+msgstr "Vokál"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:328
 msgid "Clear Bass"
-msgstr ""
+msgstr "Čisté basy"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:471
 #: src/preferences/devices/opoBuds/configureWindow.js:479
 #: src/preferences/devices/opoBuds/configureWindow.js:556
 msgid "Add Custom Preset"
-msgstr ""
+msgstr "Přidat uživatelsky určené přednastavení"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:472
 msgid "Create a new custom equalizer profile"
-msgstr ""
+msgstr "Vytvořit nový uživatelsky určený profil ekvalizéru"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:505
 msgid "Currently active"
-msgstr ""
+msgstr "Nyní aktivní"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:512
 msgid "Adjust Equalizer"
-msgstr ""
+msgstr "Uzpůsobit ekvalizér"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:522
 msgid "Rename Preset"
-msgstr ""
+msgstr "Přejmenovat přednastavení"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:531
 msgid "Delete Preset"
-msgstr ""
+msgstr "Smazat přednastavení"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:557
 msgid "Enter a name for the new custom equalizer profile"
-msgstr ""
+msgstr "Zadejte název pro nový uživatelsky určený profil ekvalizéru"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:563
 #: src/preferences/devices/opoBuds/configureWindow.js:611
@@ -1497,12 +1497,12 @@ msgstr "Přidat"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:604
 msgid "Rename Custom Preset"
-msgstr ""
+msgstr "Přejmenovat uživatelsky určené přednastavení"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:605
 #, javascript-format
 msgid "Enter a new name for \"%s\""
-msgstr ""
+msgstr "Zadejte nový název pro „%s“"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:612
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:283
@@ -1511,12 +1511,12 @@ msgstr "Přejmenovat"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:638
 msgid "Delete Custom Preset?"
-msgstr ""
+msgstr "Smazat uživatelsky určené přednastavení?"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:639
 #, javascript-format
 msgid "\"%s\" will be removed from the device"
-msgstr ""
+msgstr "„%s“ bude odebráno ze zařízení"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:644
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:74
@@ -1525,19 +1525,19 @@ msgstr "Smazat"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:681
 msgid "Audio Effects"
-msgstr ""
+msgstr "Zvukové efekty"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:687
 msgid "Dynamic Audio"
-msgstr ""
+msgstr "Dynamický zvuk"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:688
 msgid "Real-time dynamic bass and 3-band equalization"
-msgstr ""
+msgstr "Dynamické basy v reálném čase a 3 pásmová ekvalizace"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:711
 msgid "-5"
-msgstr ""
+msgstr "-5"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:713
 #: src/preferences/devices/sony/configureWindow.js:418
@@ -1546,44 +1546,44 @@ msgstr "0"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:715
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:721
 msgid "Low Frequency"
-msgstr ""
+msgstr "Nízká frekvence"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:729
 msgid "Mid Frequency"
-msgstr ""
+msgstr "Střední frekvence"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:737
 msgid "High Frequency"
-msgstr ""
+msgstr "Vysoká frekvence"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:795
 msgid "Volume Enhancer"
-msgstr ""
+msgstr "Vylepšování hlasitosti"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:796
 msgid "Boost overall sound output for louder playback"
-msgstr ""
+msgstr "Posílí celkový zvukový výstup pro hlasitější přehrávání"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:961
 msgid "Find My Phone"
-msgstr ""
+msgstr "Najít můj telefon"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:962
 msgid "Allow triggering phone ringing from neckband controls"
-msgstr ""
+msgstr "Umožňuje spuštění zvonění telefonu pomocí ovládacích prvků na nákrčníku"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1052
 #: src/preferences/devices/opoBuds/configureWindow.js:1209
 msgid "Gesture and Button Controls"
-msgstr ""
+msgstr "Ovládání gesty a tlačítky"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1053
 msgid "Customize actions for buttons and touch gestures"
-msgstr ""
+msgstr "Přizpůsobte si akce pro tlačítka a dotyková gesta"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1066
 #: src/preferences/devices/boseBuds/configureWindow.js:797
@@ -1592,35 +1592,35 @@ msgstr "Přepnout zařízení"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1095
 msgid "Configure controls"
-msgstr ""
+msgstr "Nastavit ovládací prvky"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1153
 msgid "Noise Control Button Cycling"
-msgstr ""
+msgstr "Cyklování tlačítka zvládání hluku"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1174
 msgid "Select modes to cycle through"
-msgstr ""
+msgstr "Vyberte režimy kterými cyklovat"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1199
 msgid "Left Earbud"
-msgstr ""
+msgstr "Levé sluchátko"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1201
 msgid "Right Earbud"
-msgstr ""
+msgstr "Pravé sluchátko"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1203
 msgid "Button Controls"
-msgstr ""
+msgstr "Ovládání tlačítky"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1205
 msgid "Multi-Function Button"
-msgstr ""
+msgstr "Multifunkční tlačítko"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1207
 msgid "Noise Control Button"
-msgstr ""
+msgstr "Tlačítko zvládání hluku"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:56
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:380
@@ -2279,93 +2279,107 @@ msgstr ""
 #: src/preferences/widgets/earTipFitTestRow.js:19
 #: src/preferences/widgets/earTipFitTestRow.js:290
 msgid "Earbud Fit Test"
-msgstr ""
+msgstr "Zkouška správného usazení sluchátka"
 
 #: src/preferences/widgets/earTipFitTestRow.js:92
 msgid "Good Fit"
-msgstr ""
+msgstr "Dobré usazení"
 
 #: src/preferences/widgets/earTipFitTestRow.js:142
 #: src/preferences/widgets/earTipFitTestRow.js:196
 msgid "Run test"
-msgstr ""
+msgstr "Spustit test"
 
 #: src/preferences/widgets/earTipFitTestRow.js:164
 msgid "Test in progress…"
-msgstr ""
+msgstr "Test probíhá…"
 
 #: src/preferences/widgets/earTipFitTestRow.js:185
 msgid "Please Wait…"
-msgstr ""
+msgstr "Čekejte prosím…"
 
 #: src/preferences/widgets/earTipFitTestRow.js:187
 msgid "Keep your earbuds in your ears and wait for the fit test to complete."
 msgstr ""
+"Ponechte sluchátka ve svých uších a vyčkejte na dokončení testu jejich "
+"správného usazení."
 
 #: src/preferences/widgets/earTipFitTestRow.js:212
 msgid "Good Seal"
-msgstr ""
+msgstr "Dobré utěsnění"
 
 #: src/preferences/widgets/earTipFitTestRow.js:218
 #: src/preferences/widgets/earTipFitTestRow.js:248
 msgid "Poor Seal"
-msgstr ""
+msgstr "Chabé utěsnění"
 
 #: src/preferences/widgets/earTipFitTestRow.js:224
 msgid "Test Failed"
-msgstr ""
+msgstr "Test se nezdařil"
 
 #: src/preferences/widgets/earTipFitTestRow.js:239
 msgid "Ear Tip Fit Test"
-msgstr ""
+msgstr "Zkouška usazení koncovky do ucha"
 
 #: src/preferences/widgets/earTipFitTestRow.js:241
 msgid ""
 "Place earbuds in both ears so they are comfortable and secure, then Run Test"
 msgstr ""
+"Umístěte sluchátka do obou uší, aby to bylo pohodlné a bezpečné, poté "
+"spusťte test"
 
 #: src/preferences/widgets/earTipFitTestRow.js:244
 #: src/preferences/widgets/earTipFitTestRow.js:253
 #: src/preferences/widgets/earTipFitTestRow.js:258
 #: src/preferences/widgets/earTipFitTestRow.js:263
 msgid "Ear Tip Fit Test Results"
-msgstr ""
+msgstr "Výsledky testu usazení koncovky do ucha"
 
 #: src/preferences/widgets/earTipFitTestRow.js:245
 msgid "Your earbuds have a good seal."
-msgstr ""
+msgstr "Vaše sluchátka těsní dobře."
 
 #: src/preferences/widgets/earTipFitTestRow.js:250
 msgid ""
 "Adjust the position of the left earbud or change the ear tip size, then Run "
 "Test again."
 msgstr ""
+"Upravte pozici levého sluchátka nebo změňte velikost koncovky do ucha. Poté "
+"test spusťte znovu."
 
 #: src/preferences/widgets/earTipFitTestRow.js:255
 msgid ""
 "Adjust the position of the right earbud or change the ear tip size, then Run "
 "Test again."
 msgstr ""
+"Upravte pozici pravého sluchátka nebo změňte velikost koncovky do ucha. Poté "
+"test spusťte znovu."
 
 #: src/preferences/widgets/earTipFitTestRow.js:260
 msgid ""
 "Adjust the position of both earbuds or change the ear tip size, then Run "
 "Test again."
 msgstr ""
+"Upravte pozici obou sluchátek nebo změňte velikost koncovky do ucha. Poté "
+"test spusťte znovu."
 
 #: src/preferences/widgets/earTipFitTestRow.js:265
 msgid ""
 "The fit test could not be completed. Make sure your earbuds are worn "
 "correctly, then Run Test again."
 msgstr ""
+"Zkoušku správného usazení nebylo možné dokončit. Zajistěte, aby jste měli "
+"sluchátka správně nasazená a poté test spusťte znovu."
 
 #: src/preferences/widgets/earTipFitTestRow.js:292
 msgid "Check acoustic seal for optimal sound quality and noise cancellation"
 msgstr ""
+"Zkontrolovat akustické utěsnění pro optimální kvalitu zvuku a potlačování "
+"hluku"
 
 #: src/preferences/widgets/earTipFitTestRow.js:299
 msgid "Test"
-msgstr ""
+msgstr "Vyzkoušet"
 
 #: src/preferences/widgets/iconSelectorWidget.js:28
 msgid "Icon"
@@ -2377,7 +2391,7 @@ msgstr "Vybrat ikonu"
 
 #: src/preferences/widgets/iconSelectorWidget.js:30
 msgid "Choose the icon used to represent this device"
-msgstr ""
+msgstr "Zvolte ikonu představující toto zařízení"
 
 #: src/preferences/widgets/iconSelectorWidget.js:49
 #: src/preferences/widgets/iconSelectorWidget.js:67
@@ -2514,7 +2528,7 @@ msgstr "Zaměření na hlas"
 #: src/lib/devices/opoBuds/opoBudsDevice.js:615
 #: src/lib/devices/opoBuds/opoBudsDevice.js:626
 msgid "Wind Noise Reduction"
-msgstr ""
+msgstr "Snížení hluku větru"
 
 #: src/lib/devices/boseBuds/boseBudsDevice.js:684
 msgid "Wind"
@@ -2637,6 +2651,3 @@ msgstr "Nastavit"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Nabití akumulátoru"
-
-#~ msgid "Select the icon used for the indicator and quick menu"
-#~ msgstr "Vyberte ikonu sloužící jako indikátor a pohotová nabídka"
