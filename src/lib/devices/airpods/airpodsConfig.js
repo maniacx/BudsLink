@@ -4,6 +4,8 @@ import AirPods2ndGen from './deviceConfigs/AirPods2ndGen.js';
 import AirPods3rdGen from './deviceConfigs/AirPods3rdGen.js';
 import AirPods4thGen from './deviceConfigs/AirPods4thGen.js';
 import AirPods4thGenANC from './deviceConfigs/AirPods4thGenANC.js';
+import AirPods5thGen from './deviceConfigs/AirPods5thGen.js';
+import AirPods5thGenWirelessCase from './deviceConfigs/AirPods5thGenWirelessCase.js';
 import AirPodsMax from './deviceConfigs/AirPodsMax.js';
 import AirPodsMax2 from './deviceConfigs/AirPodsMax2.js';
 import AirPodsMaxUsbC from './deviceConfigs/AirPodsMaxUsbC.js';
@@ -34,6 +36,8 @@ export const AirpodsModelList = [
     AirPods3rdGen,
     AirPods4thGen,
     AirPods4thGenANC,
+    AirPods5thGen,
+    AirPods5thGenWirelessCase,
     AirPodsMax,
     AirPodsMax2,
     AirPodsMaxUsbC,

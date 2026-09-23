@@ -50,6 +50,8 @@
         <file>lib/devices/airpods/deviceConfigs/AirPods3rdGen.js</file>
         <file>lib/devices/airpods/deviceConfigs/AirPods4thGen.js</file>
         <file>lib/devices/airpods/deviceConfigs/AirPods4thGenANC.js</file>
+        <file>lib/devices/airpods/deviceConfigs/AirPods5thGen.js</file>
+        <file>lib/devices/airpods/deviceConfigs/AirPods5thGenWirelessCase.js</file>
         <file>lib/devices/airpods/deviceConfigs/AirPodsMax.js</file>
         <file>lib/devices/airpods/deviceConfigs/AirPodsMax2.js</file>
         <file>lib/devices/airpods/deviceConfigs/AirPodsMaxUsbC.js</file>
