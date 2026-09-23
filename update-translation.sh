@@ -31,3 +31,16 @@ find src -type f -name '*.js' -print0 |
         --copyright-holder="maniacx@github.com" \
         --package-name="BudsLink" \
         --output="$POT_FILE"
+
+for file in "${PO_FILES[@]}"; do
+    lang="$(basename "$file" .po)"
+    echo "Updating $lang"
+
+    msgmerge \
+        --backup=off \
+        --update \
+        --no-fuzzy-matching \
+        "$file" \
+        "$POT_FILE"
+done
+
