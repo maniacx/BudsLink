@@ -2,7 +2,7 @@
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
-import {createLogger, getDeviceIdentifier} from '../logger.js';
+import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
 import {SocketHandler} from '../socketByProfile.js';
 import {booleanFromByte, isValidByte} from '../deviceUtils.js';
 import {getBluezDeviceProxy} from '../../bluezDeviceProxy.js';
@@ -154,7 +154,7 @@ export const NothingBudsSocket = GObject.registerClass({
             return this._parseMessage(raw);
         }
 
-        if (buf.length > 300)
+        if (buf.length > 1500)
             this._rxBuffer = [];
 
         return null;
@@ -179,6 +179,8 @@ export const NothingBudsSocket = GObject.registerClass({
 
     _parseData(resp) {
         const {payloadType, payload} = resp;
+
+        this._log.info(`type: ${hexBytes(payloadType)} payload: [${hexBytes(payload)}]`);
 
         switch (payloadType) {
             case PayloadType.PROTOCOL_RET:
@@ -303,6 +305,9 @@ export const NothingBudsSocket = GObject.registerClass({
 
         if (this._modelData?.spatialAudioSwitch)
             this._getSpatialAudio();
+
+        this._getDualConnection();
+        this._getDualConnectionDevices();
     }
 
     _getModelByName() {
@@ -859,6 +864,16 @@ export const NothingBudsSocket = GObject.registerClass({
         const loginfo = 'Set SpatialAudio';
         const payload = [enable ? 0x01 : 0x00];
         this._sendPacket(PayloadType.SPATIAL_AUDIO_SET, loginfo, payload);
+    }
+
+    _getDualConnection() {
+        const loginfo = 'Request DualConnection';
+        this._sendPacket(PayloadType.DUAL_CONNECTION_GET, loginfo);
+    }
+
+    _getDualConnectionDevices() {
+        const loginfo = 'Request Dual Connection Devices';
+        this._sendPacket(PayloadType.DUAL_CONNECTION_DEVICES_GET, loginfo);
     }
 
     destroy() {
