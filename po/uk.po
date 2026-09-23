@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-12 00:26-0600\n"
-"PO-Revision-Date: 2026-09-22 17:52+0000\n"
+"PO-Revision-Date: 2026-09-23 20:49+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
@@ -130,7 +130,7 @@ msgstr ""
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:691
 #: src/lib/devices/sony/sonyDevice.js:213
 msgid "On"
-msgstr ""
+msgstr "Увімк"
 
 #: src/appLibs/widgets/settingsButton.js:401
 #: src/appLibs/widgets/settingsButton.js:438
@@ -165,7 +165,7 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:215
 #: src/lib/devices/googleBuds/googleBudsDevice.js:211
 msgid "Off"
-msgstr ""
+msgstr "Вимкнено"
 
 #: src/appLibs/widgets/settingsButton.js:500
 msgid "GNOME Extension"
@@ -274,7 +274,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:115
 #: src/preferences/devices/boseBuds/configureWindow.js:437
 msgid "Playback Behavior"
-msgstr ""
+msgstr "Поведінка відтворення"
 
 #: src/preferences/devices/airpods/configureWindow.js:110
 #: src/preferences/devices/airpods/configureWindow.js:113
@@ -285,7 +285,7 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:442
 #: src/preferences/devices/boseBuds/configureWindow.js:446
 msgid "Default behavior"
-msgstr ""
+msgstr "Типова поведінка"
 
 #: src/preferences/devices/airpods/configureWindow.js:111
 #: src/preferences/devices/senhBuds/configureWindow.js:647
@@ -325,7 +325,7 @@ msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:136
 msgid "Volume Level"
-msgstr ""
+msgstr "Рівень гучності"
 
 #: src/preferences/devices/airpods/configureWindow.js:140
 msgid "Lower volume during conversation awareness"
@@ -402,7 +402,7 @@ msgstr ""
 #: src/lib/devices/gfps/gfpsDevice.js:194
 #: src/lib/devices/googleBuds/googleBudsDevice.js:229
 msgid "Adaptive"
-msgstr ""
+msgstr "Адаптивний"
 
 #: src/preferences/devices/airpods/configureWindow.js:251
 msgid "Press and Hold Cycle"
@@ -423,7 +423,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:590
 #: src/preferences/devices/sony/configureWindow.js:377
 msgid "Apply"
-msgstr ""
+msgstr "Застосувати"
 
 #: src/preferences/devices/airpods/configureWindow.js:282
 msgid "Notification Volume"
@@ -457,8 +457,9 @@ msgid "Volume Control"
 msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:312
+#, fuzzy
 msgid "Volume Swipe"
-msgstr ""
+msgstr "Гучність"
 
 #: src/preferences/devices/airpods/configureWindow.js:313
 msgid "Enable or disable volume adjustment by swiping on earbud stems"
@@ -469,17 +470,17 @@ msgstr ""
 #: src/preferences/devices/airpods/configureWindow.js:373
 #: src/preferences/devices/googleBuds/configureWindow.js:82
 msgid "Default"
-msgstr ""
+msgstr "Типово"
 
 #: src/preferences/devices/airpods/configureWindow.js:322
 #: src/preferences/devices/airpods/configureWindow.js:355
 msgid "Longer"
-msgstr ""
+msgstr "Довше"
 
 #: src/preferences/devices/airpods/configureWindow.js:322
 #: src/preferences/devices/airpods/configureWindow.js:355
 msgid "Longest"
-msgstr ""
+msgstr "Найдовше"
 
 #: src/preferences/devices/airpods/configureWindow.js:326
 msgid "Swipe Duration"
@@ -507,11 +508,11 @@ msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:373
 msgid "Shorter"
-msgstr ""
+msgstr "Коротше"
 
 #: src/preferences/devices/airpods/configureWindow.js:373
 msgid "Shortest"
-msgstr ""
+msgstr "Найкоротше"
 
 #: src/preferences/devices/airpods/configureWindow.js:376
 msgid "Press and Hold Duration"
@@ -555,7 +556,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:219
 #: src/preferences/devices/googleBuds/configureWindow.js:83
 msgid "Bass Boost"
-msgstr ""
+msgstr "Підсилення НЧ"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:253
 #: src/preferences/devices/nothingBuds/configureWindow.js:218
@@ -563,7 +564,7 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:287
 #: src/preferences/devices/sony/configureWindow.js:218
 msgid "Treble Boost"
-msgstr ""
+msgstr "Підсилення ВЧ"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:254
 msgid "Volume Boost"
@@ -1251,18 +1252,18 @@ msgstr ""
 
 #: src/preferences/devices/senhBuds/configureWindow.js:611
 msgid "After 15 minutes"
-msgstr ""
+msgstr "Через 15 хвилин"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:612
 #: src/preferences/devices/sony/configureWindow.js:480
 msgid "After 30 minutes"
-msgstr ""
+msgstr "Через 30 хвилин"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:613
 #: src/preferences/devices/boseBuds/configureWindow.js:585
 #: src/preferences/devices/sony/configureWindow.js:481
 msgid "After 1 hour"
-msgstr ""
+msgstr "Через 1 годину"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:621
 #: src/preferences/devices/sony/configureWindow.js:463
@@ -1342,7 +1343,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:255
 #: src/preferences/devices/sony/configureWindow.js:133
 msgid "Duration"
-msgstr ""
+msgstr "Тривалість"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:276
 msgid "Soft"
@@ -1362,7 +1363,7 @@ msgstr ""
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:314
 msgid "Left"
-msgstr ""
+msgstr "Зліва"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:315
 msgid "Center"
@@ -1370,7 +1371,7 @@ msgstr ""
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:316
 msgid "Right"
-msgstr ""
+msgstr "Справа"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:334
 msgid "Earbuds Controls"
@@ -1671,7 +1672,7 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:582
 #: src/preferences/devices/sony/configureWindow.js:479
 msgid "After 5 minutes"
-msgstr ""
+msgstr "Через 5 хвилин"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:583
 msgid "After 20 minutes"
@@ -1684,7 +1685,7 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:586
 #: src/preferences/devices/sony/configureWindow.js:482
 msgid "After 3 hours"
-msgstr ""
+msgstr "Через 3 години"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:594
 #: src/preferences/devices/sony/configureWindow.js:493
@@ -1788,7 +1789,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:293
 #: src/lib/devices/senhBuds/senhBudsDevice.js:591
 msgid "Auto"
-msgstr ""
+msgstr "Автоматично"
 
 #: src/preferences/devices/sony/configureWindow.js:117
 msgid "Voice Detection Sensitivity"
@@ -2054,7 +2055,7 @@ msgstr ""
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:351
 msgid "Connect"
-msgstr ""
+msgstr "З'єднатись"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:352
 msgid "Disconnect"
