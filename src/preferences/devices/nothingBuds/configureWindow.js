@@ -12,6 +12,7 @@ import {CheckBoxesRowWidget} from './../../widgets/checkBoxesRowWidget.js';
 import {IconSelectorWidget} from './../../widgets/iconSelectorWidget.js';
 import {RingMyBudsRow} from './../../widgets/ringMyBudsRow.js';
 import {EqualizerWidget} from './../../widgets/equalizerWidget.js';
+import {DeviceManagementRow} from './../../widgets/deviceMgmtRowWidget.js';
 import {
     NothingBudsModelList
 } from '../../../lib/devices/nothingBuds/nothingBudsConfig.js';
@@ -127,6 +128,7 @@ export const ConfigureWindow = GObject.registerClass({
         this._addEq();
         this._addSpatialAudio();
         this._addMiscSetting();
+        this._addConnectionManagement();
         this._addGestureControls();
 
         const settingSignalId = this._settings.connect('changed::nothing-buds-list', () => {
@@ -156,6 +158,11 @@ export const ConfigureWindow = GObject.registerClass({
 
             if (this._modelData?.spatialAudioSwitch)
                 this._spatialAudioSwitch.active = this._settingsItems['spatial'];
+
+            if (this._dualConnSwitch) {
+                this._dualConnSwitch.active = this._settingsItems['multipoint'];
+                this._dualConnSwitch.updateDevices(this._settingsItems['dev-mgmt'] ?? []);
+            }
         });
 
         this.connect('close-request', () => {
@@ -396,6 +403,60 @@ export const ConfigureWindow = GObject.registerClass({
 
             miscGroup.add(this._ringBudsRow);
         }
+    }
+
+    _addConnectionManagement() {
+        if (!this._modelData.dualConnection)
+            return;
+
+        const devMgmtGroup = new Adw.PreferencesGroup({
+            title: _('Connection Management'),
+        });
+        this._page.add(devMgmtGroup);
+
+        const deviceManagementConfig = {
+            maxConnected: this._modelData.maxConnected ?? 2,
+            hasMultipointSwitch: true,
+            hasPairMode: false,
+            hasRoutingIndicator: false,
+            hasRoutingControl: false,
+            hasActiveFix: false,
+            hasConnectDisconnectOnly: true,
+            showMac: true,
+            refreshOnWindowOpen: false,
+        };
+
+        this._dualConnSwitch = new DeviceManagementRow(
+            this,
+            this._settingsItems['dev-mgmt'] ?? [],
+            null,
+            null,
+            deviceManagementConfig
+        );
+
+        this._dualConnSwitch.active = this._settingsItems.multipoint ?? false;
+
+        this._dualConnSwitch.connect('notify::active', () => {
+            this._updateGsettings(
+                'multipoint',
+                this._dualConnSwitch.active
+            );
+        });
+
+        const actionData = this._settingsItems['dev-mgmt-action'];
+        this._seq = actionData?.seq ?? 0;
+
+        this._dualConnSwitch.connect('device-action', (_row, action, id) => {
+            const data = {
+                seq: this._seq ^= 1,
+                action,
+                id,
+            };
+
+            this._updateGsettings('dev-mgmt-action', data);
+        });
+
+        devMgmtGroup.add(this._dualConnSwitch);
     }
 
     _buildNoiseControlRow(title, savedSlot)  {

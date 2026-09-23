@@ -7,6 +7,7 @@ import {createLogger, getDeviceIdentifier} from '../logger.js';
 import {
     buds2to1BatteryLevel, validateProperties, launchConfigureWindow, isArrayEqual
 } from '../deviceUtils.js';
+import {BtDeviceState, DeviceManagementAction} from '../commonEmuns.js';
 import {createConfig, createProperties, DataHandler} from '../../dataHandler.js';
 import {NothingBudsSocket} from './nothingBudsSocket.js';
 
@@ -54,6 +55,8 @@ export const NothingBudsDevice = GObject.registerClass({
             updateLatency: this.updateLatency.bind(this),
             updateInEar: this.updateInEar.bind(this),
             updateSpatialAudio: this.updateSpatialAudio.bind(this),
+            updateDualConnection: this.updateDualConnection.bind(this),
+            updateDualConnectionDevices: this.updateDualConnectionDevices.bind(this),
             updateGestures: this.updateGestures.bind(this),
         };
 
@@ -152,6 +155,12 @@ export const NothingBudsDevice = GObject.registerClass({
                 },
             },
 
+            ...this._modelData.dualConnection && {
+                'multipoint': false,
+                'dev-mgmt': [],
+                'dev-mgmt-action': {seq: 0, action: 0, id: ''},
+            },
+
             ...this._modelData.gestureOptions && {
                 'gestures': this._createDefaultGestures(),
             },
@@ -200,6 +209,12 @@ export const NothingBudsDevice = GObject.registerClass({
             this._ringState = 'stopped';
             if (!this._modelData.ringLegacy && !this._modelData.batterySingle)
                 this._ringStateLeft = 'stopped';
+        }
+
+        if (this._modelData.dualConnection) {
+            this._multipoint = this._settingsItems['multipoint'];
+            this._dualConnectionDevices = this._settingsItems['dev-mgmt'] ?? [];
+            this._devMgmtAction = this._settingsItems['dev-mgmt-action'];
         }
 
         if (this._modelData.gestureOptions)
@@ -295,6 +310,31 @@ export const NothingBudsDevice = GObject.registerClass({
                 if (this._ringStateLeft !== stateLeft) {
                     this._ringStateLeft = stateLeft;
                     this._setRingMyBuds(stateLeft, true);
+                }
+            }
+        }
+
+        if (this._modelData.dualConnection) {
+            const multipoint = this._settingsItems['multipoint'];
+
+            if (this._multipoint !== multipoint) {
+                this._multipoint = multipoint;
+                this._setDualConnection(multipoint);
+            }
+
+            const devMgmtAction = this._settingsItems['dev-mgmt-action'];
+
+            if (this._devMgmtAction.seq !== devMgmtAction.seq) {
+                this._devMgmtAction = devMgmtAction;
+
+                switch (devMgmtAction.action) {
+                    case DeviceManagementAction.Connect:
+                        this._setDualConnectionDevice(devMgmtAction.id, true);
+                        break;
+
+                    case DeviceManagementAction.Disconnect:
+                        this._setDualConnectionDevice(devMgmtAction.id, false);
+                        break;
                 }
             }
         }
@@ -697,6 +737,66 @@ export const NothingBudsDevice = GObject.registerClass({
 
     _setSpatialAudio(enable) {
         this._nothingBudsSocket?.setSpatialAudio(enable);
+    }
+
+    updateDualConnection(enable) {
+        if (this._multipoint === enable)
+            return;
+
+        this._multipoint = enable;
+
+        if (this._settingsItems) {
+            this._settingsItems['multipoint'] = enable;
+            this._updateGsettings();
+        }
+    }
+
+    _setDualConnection(enable) {
+        if (!this._modelData.dualConnection)
+            return;
+
+        this._nothingBudsSocket?.setDualConnection(enable);
+    }
+
+    _dualConnectionDevicesEqual(a = [], b = []) {
+        if (a.length !== b.length)
+            return false;
+
+        return a.every((device, index) => {
+            const other = b[index];
+
+            return device.id === other.id &&
+                device.name === other.name &&
+                device.connected === other.connected &&
+                device.state === other.state;
+        });
+    }
+
+    updateDualConnectionDevices(devices) {
+        const updatedDevices = devices.map(device => ({
+            id: device.mac.toLowerCase(),
+            name: device.name,
+            connected: device.connected,
+            state: BtDeviceState.Ready,
+        }));
+
+        if (this._dualConnectionDevicesEqual(
+            this._dualConnectionDevices, updatedDevices))
+            return;
+
+        this._dualConnectionDevices = updatedDevices;
+
+        if (this._settingsItems) {
+            this._settingsItems['dev-mgmt'] = updatedDevices;
+            this._updateGsettings();
+        }
+    }
+
+    _setDualConnectionDevice(mac, connect) {
+        if (!this._modelData.dualConnection)
+            return;
+
+        this._nothingBudsSocket?.setDualConnectionDevice(mac, connect);
     }
 
     _createDefaultGestures() {

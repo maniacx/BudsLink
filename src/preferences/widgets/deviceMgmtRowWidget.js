@@ -23,6 +23,7 @@ const DeviceManagementDialog = GObject.registerClass({
         this._rows = new Map();
         this._connectedRows = [];
         this._pairedRows = [];
+        this._connMaxedFlag = false;
 
         const toolbarView = new Adw.ToolbarView();
         const headerBar = new Adw.HeaderBar({
@@ -73,7 +74,8 @@ const DeviceManagementDialog = GObject.registerClass({
             page.add(pairModeGroup);
         }
 
-        if (this._mgmtRow.config.hasActiveFix) {
+        if (!this._mgmtRow.config.hasConnectDisconnectOnly &&
+                this._mgmtRow.config.hasActiveFix) {
             const activeFixedGroup = new Adw.PreferencesGroup({title: _('Playback Device')});
             const title = _('Lock Playback Device');
             const subtitle = _('Prevent playback from switching to another connected device ' +
@@ -171,7 +173,8 @@ const DeviceManagementDialog = GObject.registerClass({
 
             info.row.spinner.visible = isProcessing || isInitializing;
 
-            if (this._mgmtRow.config.hasRoutingIndicator) {
+            if (!this._mgmtRow.config.hasConnectDisconnectOnly &&
+                        this._mgmtRow.config.hasRoutingIndicator) {
                 const isRouteDevice = this._routeDevice === device.id;
                 info.row.routeIcon.visible = !isInitializing && !isProcessing &&
                         device.connected && isRouteDevice;
@@ -193,7 +196,9 @@ const DeviceManagementDialog = GObject.registerClass({
                 targetGroup.add(info.row);
                 info.group = targetGroup;
             }
-            this._updateDeviceMenu(info.row, device);
+
+            if (!this._mgmtRow.config.hasConnectDisconnectOnly)
+                this._updateDeviceMenu(info.row, device);
         }
 
         const connectedIds = devices.filter(device => device.connected).map(device => device.id);
@@ -239,6 +244,90 @@ const DeviceManagementDialog = GObject.registerClass({
     }
 
     _createDeviceRow(device) {
+        if (this._mgmtRow.config.hasConnectDisconnectOnly)
+            return this._createDeviceSwitchRow(device);
+
+        return this._createDevicePopupMenuRow(device);
+    }
+
+    _createDeviceSwitchRow(device) {
+        const isOwnDevice = device.id === this._ownDevice;
+        const isInitializing = device.state === BtDeviceState.NotInitialized;
+        const isProcessing = device.state === BtDeviceState.Processing;
+
+        let title;
+        if (isInitializing)
+            title = _('Loading Device Information...');
+        else if (isOwnDevice)
+            title = `${device.name} <span alpha="60%"><i>${_('(This Device)')}</i></span>`;
+        else
+            title = device.name;
+
+        const subtitle = this._mgmtRow.config.showMac ? this._formatMac(device.id) : '';
+        const row = new Adw.ActionRow({title, subtitle});
+
+        const spinner = new Adw.Spinner({
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.CENTER,
+            width_request: 16,
+            height_request: 16,
+            margin_start: 8,
+            margin_end: 8,
+            visible: isInitializing || isProcessing,
+        });
+
+        const connSwitch = new Gtk.Switch({
+            valign: Gtk.Align.CENTER,
+            active: device.connected,
+        });
+
+        spinner.bind_property(
+            'visible',
+            connSwitch,
+            'visible',
+            GObject.BindingFlags.INVERT_BOOLEAN | GObject.BindingFlags.SYNC_CREATE
+        );
+
+        row.add_suffix(spinner);
+        row.add_suffix(connSwitch);
+
+        connSwitch.connect('notify::active', () => {
+            if (this._connMaxedFlag) {
+                this._connMaxedFlag = false;
+                return;
+            }
+            const active = connSwitch.active;
+
+            if (active) {
+                const maxReached = this._mgmtRow.config.maxConnected > 0 &&
+                this._connectedRows.length >= this._mgmtRow.config.maxConnected;
+
+                if (maxReached) {
+                    const dialog = new Adw.AlertDialog({
+                        heading: _('Connection Limit Reached'),
+                        body: _('Disconnect another device before connecting this device.'),
+                    });
+                    dialog.add_response('ok', _('OK'));
+                    dialog.set_default_response('ok');
+                    dialog.set_close_response('ok');
+                    dialog.present(this);
+                    this._connMaxedFlag = true;
+                    connSwitch.active = false;
+                    return;
+                }
+
+                this._mgmtRow?.emit('device-action', DeviceManagementAction.Connect, device.id);
+            } else {
+                this._mgmtRow?.emit('device-action', DeviceManagementAction.Disconnect, device.id);
+            }
+        });
+
+        row.spinner = spinner;
+        row.connSwitch = connSwitch;
+        return row;
+    }
+
+    _createDevicePopupMenuRow(device) {
         const isOwnDevice = device.id === this._ownDevice;
         const isInitializing = device.state === BtDeviceState.NotInitialized;
         const isProcessing = device.state === BtDeviceState.Processing;
@@ -396,6 +485,9 @@ const DeviceManagementDialog = GObject.registerClass({
     }
 
     updateRouteDevice(id) {
+        if (this._mgmtRow.config.hasConnectDisconnectOnly)
+            return;
+
         if (!this._mgmtRow.config.hasRoutingIndicator && !this._mgmtRow.config.hasRoutingControl)
             return;
 
@@ -451,6 +543,7 @@ export const DeviceManagementRow = GObject.registerClass({
             hasActiveFix: false,
             showMac: true,
             refreshOnWindowOpen: false,
+            hasConnectDisconnectOnly: false,
             ...config,
         };
 

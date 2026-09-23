@@ -2,9 +2,9 @@
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
-import {createLogger, getDeviceIdentifier} from '../logger.js';
+import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
 import {SocketHandler} from '../socketByProfile.js';
-import {booleanFromByte, isValidByte} from '../deviceUtils.js';
+import {booleanFromByte, isValidByte, bytesToHex, hexToBytes} from '../deviceUtils.js';
 import {getBluezDeviceProxy} from '../../bluezDeviceProxy.js';
 import {
     crc16Ansi, NothingBudsModelList, PayloadType, BatteryType
@@ -43,6 +43,8 @@ export const NothingBudsSocket = GObject.registerClass({
         this._pendingRequest = null;
         this._pendingTimeout = null;
         this._modelInitialized = false;
+        this._dualConnectionDevices = [];
+        this._dualListRequests = 0;
 
         this._callbacks = callbacks;
 
@@ -154,7 +156,7 @@ export const NothingBudsSocket = GObject.registerClass({
             return this._parseMessage(raw);
         }
 
-        if (buf.length > 300)
+        if (buf.length > 1500)
             this._rxBuffer = [];
 
         return null;
@@ -179,6 +181,8 @@ export const NothingBudsSocket = GObject.registerClass({
 
     _parseData(resp) {
         const {payloadType, payload} = resp;
+
+        this._log.info(`type: ${hexBytes(payloadType)} payload: [${hexBytes(payload)}]`);
 
         switch (payloadType) {
             case PayloadType.PROTOCOL_RET:
@@ -247,6 +251,19 @@ export const NothingBudsSocket = GObject.registerClass({
                 if (this._modelData?.spatialAudioSwitch)
                     this._parseSpatialAudio(payload);
                 break;
+            case PayloadType.DUAL_CONNECTION_RET:
+            case PayloadType.DUAL_CONNECTION_NTFY:
+                if (this._modelData?.dualConnection)
+                    this._parseDualConnection(payload);
+                break;
+            case PayloadType.DUAL_CONNECTION_DEVICES_RET:
+                if (this._modelData?.dualConnection)
+                    this._parseDualConnectionDevices(payload);
+                break;
+            case PayloadType.DUAL_CONNECTION_DEVICES_NTFY:
+                if (this._modelData?.dualConnection)
+                    this._parseDualConnectionDeviceEvent(payload);
+                break;
         }
     }
 
@@ -303,6 +320,11 @@ export const NothingBudsSocket = GObject.registerClass({
 
         if (this._modelData?.spatialAudioSwitch)
             this._getSpatialAudio();
+
+        if (this._modelData?.dualConnection) {
+            this._getDualConnection();
+            this._getDualConnectionDevices();
+        }
     }
 
     _getModelByName() {
@@ -859,6 +881,109 @@ export const NothingBudsSocket = GObject.registerClass({
         const loginfo = 'Set SpatialAudio';
         const payload = [enable ? 0x01 : 0x00];
         this._sendPacket(PayloadType.SPATIAL_AUDIO_SET, loginfo, payload);
+    }
+
+    _getDualConnection() {
+        const loginfo = 'Request DualConnection';
+        this._sendPacket(PayloadType.DUAL_CONNECTION_GET, loginfo);
+    }
+
+    _parseDualConnection(payload) {
+        this._log.info('Parse DualConnection');
+        if (!payload || payload.length < 1)
+            return;
+
+        const enable = payload[0] === 0x01;
+        this._callbacks?.updateDualConnection?.(enable);
+    }
+
+    setDualConnection(enable) {
+        const loginfo = 'Set DualConnection';
+        const payload = [enable ? 0x01 : 0x00];
+        this._sendPacket(PayloadType.DUAL_CONNECTION_SET, loginfo, payload);
+    }
+
+    _getDualConnectionDevices() {
+        const loginfo = 'Request Dual Connection Devices';
+        const payload = [this._dualConnectionDevices.length];
+        this._sendPacket(PayloadType.DUAL_CONNECTION_DEVICES_GET, loginfo, payload);
+    }
+
+    _parseDualConnectionDevices(payload) {
+        this._log.info('Parse Dual Connection Devices');
+
+        if (!payload || payload.length < 3)
+            return;
+
+        let deviceCount = payload[2];
+        let index = 3;
+        let addedNewDevice = false;
+
+        while (index + 8 <= payload.length && deviceCount > 0) {
+            const flags = payload[index];
+            const connected = (flags & 0x0F) === 0x01;
+            const mac = bytesToHex(payload.slice(index + 1, index + 7));
+            const lengthByte = payload[index + 7];
+            const clippedName = (lengthByte & 0x80) !== 0;
+            const nameLength = clippedName ? 0x1F : lengthByte & 0x7F;
+
+            index += 8;
+
+            if (index + nameLength > payload.length)
+                break;
+
+            const nameBytes = payload.slice(index, index + nameLength);
+            let name = new TextDecoder().decode(new Uint8Array(nameBytes)).replace(/\uFFFD/g, '');
+
+            if (clippedName)
+                name += '...';
+
+            index += nameLength;
+            deviceCount--;
+
+            const device = {mac, name, connected};
+            const existingIndex = this._dualConnectionDevices.findIndex(item => item.mac === mac);
+
+            if (existingIndex >= 0) {
+                this._dualConnectionDevices[existingIndex] = device;
+            } else {
+                this._dualConnectionDevices.push(device);
+                addedNewDevice = true;
+            }
+        }
+
+        this._callbacks?.updateDualConnectionDevices?.(this._dualConnectionDevices);
+        if (addedNewDevice && this._dualListRequests < 20) {
+            this._dualListRequests++;
+            this._getDualConnectionDevices();
+        }
+    }
+
+    _parseDualConnectionDeviceEvent(payload) {
+        this._log.info('Parse Dual Connection Device Event');
+
+        if (!payload || payload.length < 15)
+            return;
+
+        const connected = payload[8] === 0x01;
+        const mac = bytesToHex(payload.slice(9, 15));
+        const device = this._dualConnectionDevices.find(item => item.mac === mac);
+
+        if (device) {
+            device.connected = connected;
+            this._callbacks?.updateDualConnectionDevices?.(this._dualConnectionDevices);
+        } else {
+            this._dualConnectionDevices = [];
+            this._dualListRequests = 0;
+            this._getDualConnectionDevices();
+        }
+    }
+
+    setDualConnectionDevice(macHex, connect) {
+        const loginfo =  'Set DualConnectionDevice';
+        const mac = hexToBytes(macHex);
+        const payload = [connect ? 0x01 : 0x00, ...mac];
+        this._sendPacket(PayloadType.DUAL_CONNECTION_DEVICES_SET, loginfo, payload);
     }
 
     destroy() {
