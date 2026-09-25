@@ -239,5 +239,11 @@
         <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsWireless5ANC.js</file>
         <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsAir7Pro.js</file>
         <file>preferences/devices/opoBuds/configureWindow.js</file>
+
+        <file>lib/devices/cambridgeBuds/cambridgeBudsConfig.js</file>
+        <file>lib/devices/cambridgeBuds/cambridgeBudsDevice.js</file>
+        <file>lib/devices/cambridgeBuds/cambridgeBudsSocket.js</file>
+        <file>lib/devices/cambridgeBuds/deviceConfigs/MelomaniaA100.js</file>
+        <file>preferences/devices/cambridgeBuds/configureWindow.js</file>
     </gresource>
 </gresources>

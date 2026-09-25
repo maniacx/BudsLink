@@ -9,6 +9,7 @@ import * as SenhBuds from '../preferences/devices/senhBuds/configureWindow.js';
 import * as BoseBuds from '../preferences/devices/boseBuds/configureWindow.js';
 import * as EdifierBuds from '../preferences/devices/edifierBuds/configureWindow.js';
 import * as OpoBuds from '../preferences/devices/opoBuds/configureWindow.js';
+import * as CambridgeBuds from '../preferences/devices/cambridgeBuds/configureWindow.js';
 import * as Gfps from '../preferences/devices/gfps/configureWindow.js';
 
 let _settings = null;
@@ -74,6 +75,10 @@ export function createConfigureWindow({
         case 'opoBuds':
             Prefs = OpoBuds;
             schemaKey = 'opo-buds-list';
+            break;
+        case 'cambridgeBuds':
+            Prefs = CambridgeBuds;
+            schemaKey = 'cambridge-buds-list';
             break;
         case 'gfps':
             Prefs = Gfps;

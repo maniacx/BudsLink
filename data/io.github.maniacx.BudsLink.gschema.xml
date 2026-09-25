@@ -49,6 +49,9 @@
         <key name="opo-buds-list" type="as">
             <default>[]</default>
         </key>
+        <key name="cambridge-buds-list" type="as">
+            <default>[]</default>
+        </key>
         <key name="gfps-list" type="as">
             <default>[]</default>
         </key>
