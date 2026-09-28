@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-09-13 10:51+0000\n"
+"PO-Revision-Date: 2026-09-29 03:51+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: none\n"
 "Language: id\n"
@@ -608,19 +608,19 @@ msgstr "Tambahkan kedalaman untuk pengalaman yang lebih imersif"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:347
 msgid "Track Head Movement"
-msgstr ""
+msgstr "Lacak Pergerakan Kepala"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:348
 msgid "Audio moves with your head"
-msgstr ""
+msgstr "Audio bergerak mengikuti gerakan kepala Anda"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:370
 msgid "Spatial Audio Scene"
-msgstr ""
+msgstr "Adegan Audio Spasial"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:371
 msgid "Select the sound environment"
-msgstr ""
+msgstr "Pilih lingkungan suara"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:397
 #: src/preferences/devices/nothingBuds/configureWindow.js:348
@@ -1433,7 +1433,7 @@ msgstr "Nada Suara Sekitar"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:326
 msgid "Deep Bass"
-msgstr ""
+msgstr "Bass Dalam"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:327
 #: src/preferences/devices/opoBuds/configureWindow.js:329
@@ -1442,37 +1442,37 @@ msgstr "Vokal"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:328
 msgid "Clear Bass"
-msgstr ""
+msgstr "Bass Jernih"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:471
 #: src/preferences/devices/opoBuds/configureWindow.js:479
 #: src/preferences/devices/opoBuds/configureWindow.js:556
 msgid "Add Custom Preset"
-msgstr ""
+msgstr "Tambah Prasetel Kustom"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:472
 msgid "Create a new custom equalizer profile"
-msgstr ""
+msgstr "Buat profil equalizer kustom baru"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:505
 msgid "Currently active"
-msgstr ""
+msgstr "Sedang aktif"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:512
 msgid "Adjust Equalizer"
-msgstr ""
+msgstr "Sesuaikan Equalizer"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:522
 msgid "Rename Preset"
-msgstr ""
+msgstr "Ubah Nama Prasetel"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:531
 msgid "Delete Preset"
-msgstr ""
+msgstr "Hapus Prasetel"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:557
 msgid "Enter a name for the new custom equalizer profile"
-msgstr ""
+msgstr "Masukkan nama untuk profil equalizer kustom baru"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:563
 #: src/preferences/devices/opoBuds/configureWindow.js:611
@@ -1493,12 +1493,12 @@ msgstr "Tambah"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:604
 msgid "Rename Custom Preset"
-msgstr ""
+msgstr "Ubah Nama Prasetel Kustom"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:605
 #, javascript-format
 msgid "Enter a new name for \"%s\""
-msgstr ""
+msgstr "Masukkan nama baru untuk \"%s\""
 
 #: src/preferences/devices/opoBuds/configureWindow.js:612
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:283
@@ -1507,12 +1507,12 @@ msgstr "Ganti Nama"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:638
 msgid "Delete Custom Preset?"
-msgstr ""
+msgstr "Hapus Prasetel Kustom?"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:639
 #, javascript-format
 msgid "\"%s\" will be removed from the device"
-msgstr ""
+msgstr "\"%s\" akan dihapus dari perangkat"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:644
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:74
@@ -1521,19 +1521,19 @@ msgstr "Hapus"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:681
 msgid "Audio Effects"
-msgstr ""
+msgstr "Efek Audio"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:687
 msgid "Dynamic Audio"
-msgstr ""
+msgstr "Audio Dinamis"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:688
 msgid "Real-time dynamic bass and 3-band equalization"
-msgstr ""
+msgstr "Bass dinamis secara real-time dan equalizer 3 pita"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:711
 msgid "-5"
-msgstr ""
+msgstr "-5"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:713
 #: src/preferences/devices/sony/configureWindow.js:418
@@ -1542,44 +1542,44 @@ msgstr "0"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:715
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:721
 msgid "Low Frequency"
-msgstr ""
+msgstr "Frekuensi Rendah"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:729
 msgid "Mid Frequency"
-msgstr ""
+msgstr "Frekuensi Menengah"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:737
 msgid "High Frequency"
-msgstr ""
+msgstr "Frekuensi Tinggi"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:795
 msgid "Volume Enhancer"
-msgstr ""
+msgstr "Peningkat Volume"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:796
 msgid "Boost overall sound output for louder playback"
-msgstr ""
+msgstr "Tingkatkan keluaran suara keseluruhan untuk pemutaran yang lebih keras"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:961
 msgid "Find My Phone"
-msgstr ""
+msgstr "Temukan Ponsel Saya"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:962
 msgid "Allow triggering phone ringing from neckband controls"
-msgstr ""
+msgstr "Izinkan pemicu dering ponsel dari kontrol neckband"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1052
 #: src/preferences/devices/opoBuds/configureWindow.js:1209
 msgid "Gesture and Button Controls"
-msgstr ""
+msgstr "Kontrol Gestur dan Tombol"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1053
 msgid "Customize actions for buttons and touch gestures"
-msgstr ""
+msgstr "Sesuaikan tindakan untuk tombol dan gestur sentuh"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1066
 #: src/preferences/devices/boseBuds/configureWindow.js:797
@@ -1588,35 +1588,35 @@ msgstr "Beralih Perangkat"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1095
 msgid "Configure controls"
-msgstr ""
+msgstr "Konfigurasikan kontrol"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1153
 msgid "Noise Control Button Cycling"
-msgstr ""
+msgstr "Peralihan Mode Tombol Kontrol Kebisingan"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1174
 msgid "Select modes to cycle through"
-msgstr ""
+msgstr "Pilih mode yang akan dialihkan"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1199
 msgid "Left Earbud"
-msgstr ""
+msgstr "Earbud Kiri"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1201
 msgid "Right Earbud"
-msgstr ""
+msgstr "Earbud Kanan"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1203
 msgid "Button Controls"
-msgstr ""
+msgstr "Kontrol Tombol"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1205
 msgid "Multi-Function Button"
-msgstr ""
+msgstr "Tombol Multifungsi"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1207
 msgid "Noise Control Button"
-msgstr ""
+msgstr "Tombol Kontrol Kebisingan"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:56
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:380
@@ -2275,93 +2275,107 @@ msgstr ""
 #: src/preferences/widgets/earTipFitTestRow.js:19
 #: src/preferences/widgets/earTipFitTestRow.js:290
 msgid "Earbud Fit Test"
-msgstr ""
+msgstr "Uji Kesesuaian Earbud"
 
 #: src/preferences/widgets/earTipFitTestRow.js:92
 msgid "Good Fit"
-msgstr ""
+msgstr "Pas dengan Baik"
 
 #: src/preferences/widgets/earTipFitTestRow.js:142
 #: src/preferences/widgets/earTipFitTestRow.js:196
 msgid "Run test"
-msgstr ""
+msgstr "Jalankan Uji"
 
 #: src/preferences/widgets/earTipFitTestRow.js:164
 msgid "Test in progress…"
-msgstr ""
+msgstr "Pengujian berlangsung…"
 
 #: src/preferences/widgets/earTipFitTestRow.js:185
 msgid "Please Wait…"
-msgstr ""
+msgstr "Harap Tunggu…"
 
 #: src/preferences/widgets/earTipFitTestRow.js:187
 msgid "Keep your earbuds in your ears and wait for the fit test to complete."
 msgstr ""
+"Tetap gunakan earbud di telinga Anda dan tunggu hingga uji kesesuaian "
+"selesai."
 
 #: src/preferences/widgets/earTipFitTestRow.js:212
 msgid "Good Seal"
-msgstr ""
+msgstr "Segel Baik"
 
 #: src/preferences/widgets/earTipFitTestRow.js:218
 #: src/preferences/widgets/earTipFitTestRow.js:248
 msgid "Poor Seal"
-msgstr ""
+msgstr "Segel Kurang Baik"
 
 #: src/preferences/widgets/earTipFitTestRow.js:224
 msgid "Test Failed"
-msgstr ""
+msgstr "Pengujian Gagal"
 
 #: src/preferences/widgets/earTipFitTestRow.js:239
 msgid "Ear Tip Fit Test"
-msgstr ""
+msgstr "Uji Kesesuaian Eartip"
 
 #: src/preferences/widgets/earTipFitTestRow.js:241
 msgid ""
 "Place earbuds in both ears so they are comfortable and secure, then Run Test"
 msgstr ""
+"Pasang earbud di kedua telinga hingga terasa nyaman dan aman, lalu Jalankan "
+"Uji"
 
 #: src/preferences/widgets/earTipFitTestRow.js:244
 #: src/preferences/widgets/earTipFitTestRow.js:253
 #: src/preferences/widgets/earTipFitTestRow.js:258
 #: src/preferences/widgets/earTipFitTestRow.js:263
 msgid "Ear Tip Fit Test Results"
-msgstr ""
+msgstr "Hasil Uji Kesesuaian Eartip"
 
 #: src/preferences/widgets/earTipFitTestRow.js:245
 msgid "Your earbuds have a good seal."
-msgstr ""
+msgstr "Earbud Anda memiliki segel yang baik."
 
 #: src/preferences/widgets/earTipFitTestRow.js:250
 msgid ""
 "Adjust the position of the left earbud or change the ear tip size, then Run "
 "Test again."
 msgstr ""
+"Sesuaikan posisi earbud kiri atau ganti ukuran eartip, lalu Jalankan Uji "
+"kembali."
 
 #: src/preferences/widgets/earTipFitTestRow.js:255
 msgid ""
 "Adjust the position of the right earbud or change the ear tip size, then Run "
 "Test again."
 msgstr ""
+"Sesuaikan posisi earbud kanan atau ganti ukuran eartip, lalu Jalankan Uji "
+"kembali."
 
 #: src/preferences/widgets/earTipFitTestRow.js:260
 msgid ""
 "Adjust the position of both earbuds or change the ear tip size, then Run "
 "Test again."
 msgstr ""
+"Sesuaikan posisi kedua earbud atau ganti ukuran eartip, lalu Jalankan Uji "
+"kembali."
 
 #: src/preferences/widgets/earTipFitTestRow.js:265
 msgid ""
 "The fit test could not be completed. Make sure your earbuds are worn "
 "correctly, then Run Test again."
 msgstr ""
+"Uji kesesuaian tidak dapat diselesaikan. Pastikan earbud Anda digunakan "
+"dengan benar, lalu Jalankan Uji kembali."
 
 #: src/preferences/widgets/earTipFitTestRow.js:292
 msgid "Check acoustic seal for optimal sound quality and noise cancellation"
 msgstr ""
+"Periksa segel akustik untuk kualitas suara dan peredam kebisingan yang "
+"optimal"
 
 #: src/preferences/widgets/earTipFitTestRow.js:299
 msgid "Test"
-msgstr ""
+msgstr "Uji"
 
 #: src/preferences/widgets/iconSelectorWidget.js:28
 msgid "Icon"
@@ -2373,7 +2387,7 @@ msgstr "Pilih Ikon"
 
 #: src/preferences/widgets/iconSelectorWidget.js:30
 msgid "Choose the icon used to represent this device"
-msgstr ""
+msgstr "Pilih ikon yang digunakan untuk mewakili perangkat ini"
 
 #: src/preferences/widgets/iconSelectorWidget.js:49
 #: src/preferences/widgets/iconSelectorWidget.js:67
@@ -2509,7 +2523,7 @@ msgstr "Fokus pada Suara"
 #: src/lib/devices/opoBuds/opoBudsDevice.js:615
 #: src/lib/devices/opoBuds/opoBudsDevice.js:626
 msgid "Wind Noise Reduction"
-msgstr ""
+msgstr "Pengurangan Kebisingan Angin"
 
 #: src/lib/devices/boseBuds/boseBudsDevice.js:684
 msgid "Wind"
@@ -2632,201 +2646,3 @@ msgstr "Konfigurasikan"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Tingkat Baterai"
-
-#~ msgid "Select the icon used for the indicator and quick menu"
-#~ msgstr "Pilih ikon yang digunakan untuk indikator dan menu cepat"
-
-#~ msgid "Audio Mode"
-#~ msgstr "Mode Audio"
-
-#~ msgid "Enable Bass Boost"
-#~ msgstr "Aktifkan Peningkatan Bass"
-
-#~ msgid "Enable In-Ear Detection"
-#~ msgstr "Aktifkan Deteksi Dalam Telinga"
-
-#~ msgid "Enable On Head Detection"
-#~ msgstr "Aktifkan Deteksi di Kepala"
-
-#~ msgid "Automatically Answer Calls When Worn"
-#~ msgstr "Jawab Panggilan Secara Otomatis Saat Dipakai"
-
-#~ msgid "Pause Media When Transparency Mode Is Enabled"
-#~ msgstr "Jeda Media Saat Mode Transparansi Diaktifkan"
-
-#~ msgid "Automatically Power Off When Not Worn"
-#~ msgstr "Matikan Secara Otomatis Saat Tidak Dipakai"
-
-#~ msgid "Choose playback behavior for in-ear detection"
-#~ msgstr "Pilih perilaku pemutaran untuk deteksi dalam telinga"
-
-#~ msgid "Choose playback behavior for on-head detection"
-#~ msgstr "Pilih perilaku pemutaran untuk deteksi di kepala"
-
-#~ msgid "More Bass"
-#~ msgstr "Bass Lebih Kuat"
-
-#~ msgid "More Treble"
-#~ msgstr "Treble Lebih Kuat"
-
-#~ msgid "Decrease bass"
-#~ msgstr "Kurangi bass"
-
-#~ msgid "Standard 2"
-#~ msgstr "Standar 2"
-
-#~ msgid "Automatically answer phone calls"
-#~ msgstr "Jawab panggilan telepon secara otomatis"
-
-#~ msgid "Enable low latency mode"
-#~ msgstr "Aktifkan mode latensi rendah"
-
-#~ msgid "Enhance Vocals"
-#~ msgstr "Tingkatkan Vokal"
-
-#~ msgid "Bass Boost Level"
-#~ msgstr "Level Peningkatan Bass"
-
-#~ msgid "Enable Spatial Audio"
-#~ msgstr "Aktifkan Audio Spasial"
-
-#~ msgid "Enable in ear detection"
-#~ msgstr "Aktifkan deteksi dalam telinga"
-
-#~ msgid "Walkie Takie"
-#~ msgstr "Walkie-talkie"
-
-#~ msgid "Choose playback behavior for Ear detection"
-#~ msgstr "Pilih perilaku pemutaran untuk deteksi earbud"
-
-#~ msgid "Select any two toggles"
-#~ msgstr "Pilih dua toggle"
-
-#~ msgid "Heavy bass"
-#~ msgstr "Bass kuat"
-
-#~ msgid "Light bass"
-#~ msgstr "Bass ringan"
-
-#~ msgid "Vocal boost"
-#~ msgstr "Peningkatan vokal"
-
-#~ msgid "Last saved"
-#~ msgstr "Terakhir disimpan"
-
-#~ msgid "Reduce audio latency while gaming"
-#~ msgstr "Kurangi latensi audio saat bermain game"
-
-#~ msgid "Let the earbuds detect when they are worn"
-#~ msgstr "Biarkan earbud mendeteksi saat sedang dipakai"
-
-#~ msgid "Auto Pause"
-#~ msgstr "Jeda Otomatis"
-
-#~ msgid "Control media playback using in-ear detection"
-#~ msgstr "Kontrol pemutaran media menggunakan deteksi dalam telinga"
-
-#~ msgid "Pause when both removed"
-#~ msgstr "Jeda saat keduanya dilepas"
-
-#~ msgid "Pause when either removed"
-#~ msgstr "Jeda saat salah satunya dilepas"
-
-#~ msgid "Automatically switch to Transparency mode when an earbud is removed"
-#~ msgstr ""
-#~ "Beralih secara otomatis ke mode Transparansi saat salah satu earbud "
-#~ "dilepas"
-
-#~ msgid "Enable Voice Prompts"
-#~ msgstr "Aktifkan Perintah Suara"
-
-#~ msgid "Preset modes cannot be deleted."
-#~ msgstr "Mode preset tidak dapat dihapus."
-
-#~ msgid "At least 2 modes must be selected."
-#~ msgstr "Minimal 2 mode harus dipilih."
-
-#~ msgid "Maximum favorites limit reached."
-#~ msgstr "Batas maksimum favorit telah tercapai."
-
-#~ msgid "Notification"
-#~ msgstr "Notifikasi"
-
-#~ msgid "Voice Notification"
-#~ msgstr "Notifikasi Suara"
-
-#~ msgid "Enable voice notification"
-#~ msgstr "Aktifkan notifikasi suara"
-
-#~ msgid "Voice Notification Volume"
-#~ msgstr "Volume Notifikasi Suara"
-
-#~ msgid "Headset Take off"
-#~ msgstr "Melepas Headset"
-
-#~ msgid "Automatically Power Off"
-#~ msgstr "Mati Otomatis"
-
-#~ msgid "Automatically power off when not worn."
-#~ msgstr "Matikan secara otomatis saat tidak dipakai."
-
-#~ msgid "Pause when device is not worn"
-#~ msgstr "Jeda saat perangkat tidak dipakai"
-
-#~ msgid ""
-#~ "Pause playback when the device is removed,resume when it is put back on"
-#~ msgstr ""
-#~ "Jeda pemutaran saat perangkat dilepas, lalu lanjutkan saat perangkat "
-#~ "dipakai kembali"
-
-#~ msgid "Adjust the tone volume of sound effects played by AirPods"
-#~ msgstr "Sesuaikan volume nada efek suara yang diputar oleh AirPods"
-
-#~ msgid "Mac Address"
-#~ msgstr "Alamat MAC"
-
-#~ msgid "Personalised ANC"
-#~ msgstr "ANC yang Dipersonalisasi"
-
-#~ msgid "AirPods / Beats Bluetooth audio devices"
-#~ msgstr "Perangkat audio Bluetooth AirPods/Beats"
-
-#~ msgid "Sony Bluetooth audio devices"
-#~ msgstr "Perangkat audio Bluetooth Sony"
-
-#~ msgid "Samsung Galaxy Bluetooth audio devices"
-#~ msgstr "Perangkat audio Bluetooth Samsung Galaxy"
-
-#~ msgid "Nothing / CMF Bluetooth audio devices"
-#~ msgstr "Perangkat audio Bluetooth Nothing/CMF"
-
-#~ msgid "Google Pixel Buds Bluetooth audio devices"
-#~ msgstr "Perangkat audio Bluetooth Google Pixel Buds"
-
-#~ msgid "Redmi / Xiaomi Bluetooth audio devices"
-#~ msgstr "Perangkat audio Bluetooth Redmi/Xiaomi"
-
-#~ msgid "Sennheiser Bluetooth audio devices"
-#~ msgstr "Perangkat audio Bluetooth Sennheiser"
-
-#~ msgid "Bose Bluetooth audio devices"
-#~ msgstr "Perangkat audio Bluetooth Bose"
-
-#~ msgid "Edifier Bluetooth audio devices"
-#~ msgstr "Perangkat audio Bluetooth Edifier"
-
-#~ msgid "Google Fast Pair Bluetooth audio devices"
-#~ msgstr "Perangkat audio Bluetooth Google Fast Pair"
-
-#, javascript-format
-#~ msgid "Could not access advanced features for %s."
-#~ msgstr "Tidak dapat mengakses fitur lanjutan untuk %s."
-
-#, javascript-format
-#~ msgid ""
-#~ "Another app or session is already using the Bluetooth socket/profile on "
-#~ "%s. Close any other apps using this device, then restart this app."
-#~ msgstr ""
-#~ "Aplikasi atau sesi lain sedang menggunakan soket/profil Bluetooth pada "
-#~ "%s. Tutup aplikasi lain yang menggunakan perangkat ini, lalu mulai ulang "
-#~ "aplikasi ini."
