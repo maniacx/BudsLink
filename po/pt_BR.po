@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-09-26 20:51+0000\n"
+"PO-Revision-Date: 2026-10-02 18:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
@@ -109,7 +109,7 @@ msgstr "Retomar com qualquer fone, pausar se ambos forem removidos"
 #: src/preferences/devices/senhBuds/configureWindow.js:643
 #: src/preferences/devices/boseBuds/configureWindow.js:442
 msgid "Choose Playback Behavior for In-Ear Detection"
-msgstr ""
+msgstr "Escolher comportamento de reprodução para detecção Intra-auricular"
 
 #: src/preferences/devices/airpods/configureWindow.js:117
 #: src/preferences/devices/redmiBuds/configureWindow.js:229
@@ -126,11 +126,12 @@ msgstr "Nível do Volume"
 
 #: src/preferences/devices/airpods/configureWindow.js:137
 msgid "Lower volume during conversation awareness"
-msgstr ""
+msgstr "Abaixar volume durante detecção de conversa"
 
 #: src/preferences/devices/airpods/configureWindow.js:138
 msgid "Automatically lower the volume when conversation awareness is active"
 msgstr ""
+"Abaixar volume automaticamente quando Detecção de Conversa estiver ativo"
 
 #: src/preferences/devices/airpods/configureWindow.js:156
 msgid "Conversation awareness volume limit"
@@ -281,7 +282,7 @@ msgstr "Volume do Tom"
 
 #: src/preferences/devices/airpods/configureWindow.js:284
 msgid "Adjust the volume of audio cues"
-msgstr ""
+msgstr "Ajustar o volume das dicas auditivas"
 
 #: src/preferences/devices/airpods/configureWindow.js:286
 msgid "15%"
@@ -378,7 +379,7 @@ msgstr ""
 #: src/preferences/devices/redmiBuds/configureWindow.js:228
 #: src/preferences/devices/galaxyBuds/configureWindow.js:122
 msgid "Choose Playback Behavior for Ear Detection"
-msgstr ""
+msgstr "Escolher o comportamento da Detecção Intra-auricular"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:248
 #: src/preferences/devices/senhBuds/configureWindow.js:223
@@ -422,7 +423,7 @@ msgstr "Aumento de agudos"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:258
 msgid "Volume Boost"
-msgstr ""
+msgstr "Aumento de Volume"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:259
 #: src/preferences/devices/nothingBuds/configureWindow.js:220
@@ -446,13 +447,13 @@ msgstr "Clássico"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:261
 msgid "Audiophile"
-msgstr ""
+msgstr "Audiófilo"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:262
 #: src/preferences/devices/boseBuds/configureWindow.js:278
 #: src/preferences/devices/googleBuds/configureWindow.js:81
 msgid "Bass Reducer"
-msgstr ""
+msgstr "Redutor de Grave"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:263
 msgid "Harman EFX"
@@ -465,11 +466,11 @@ msgstr "Harman Master"
 #: src/preferences/devices/redmiBuds/configureWindow.js:266
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:617
 msgid "Outdoor"
-msgstr ""
+msgstr "Lado de fora"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:267
 msgid "Underwater"
-msgstr ""
+msgstr "Submerso"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:268
 #: src/preferences/devices/nothingBuds/configureWindow.js:210
@@ -508,7 +509,7 @@ msgstr "Predefinição do equalizador"
 #: src/preferences/devices/boseBuds/configureWindow.js:306
 #: src/preferences/devices/sony/configureWindow.js:240
 msgid "Change the sound signature"
-msgstr ""
+msgstr "Mudar a Assinatura de som"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:302
 msgid "62"
@@ -560,7 +561,7 @@ msgstr "8k"
 #: src/preferences/devices/redmiBuds/configureWindow.js:303
 #: src/preferences/devices/senhBuds/configureWindow.js:315
 msgid "12k"
-msgstr ""
+msgstr "12k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:303
 #: src/preferences/devices/senhBuds/configureWindow.js:316
@@ -621,7 +622,7 @@ msgstr ""
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:371
 msgid "Select the sound environment"
-msgstr ""
+msgstr "Selecionar ambiente de som"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:397
 #: src/preferences/devices/nothingBuds/configureWindow.js:348
@@ -762,7 +763,7 @@ msgstr "Gesto de pinça e segura"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:520
 msgid "Swipe"
-msgstr ""
+msgstr "Arrastar"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:524
 #: src/preferences/devices/nothingBuds/configureWindow.js:593
