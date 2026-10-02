@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-09-22 17:52+0000\n"
+"PO-Revision-Date: 2026-10-02 18:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -32,7 +32,7 @@ msgstr "Geen compatibel apparaat gevonden"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:63
 msgid "Settings"
-msgstr ""
+msgstr "Instellingen"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:68
 #: src/preferences/devices/redmiBuds/configureWindow.js:447
@@ -40,7 +40,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:826
 #: src/preferences/devices/opoBuds/configureWindow.js:1065
 msgid "Game Mode"
-msgstr ""
+msgstr "Spel modus"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:69
 #: src/preferences/devices/redmiBuds/configureWindow.js:448
@@ -397,7 +397,7 @@ msgstr "Standaard"
 #: src/preferences/devices/nothingBuds/configureWindow.js:211
 #: src/preferences/devices/sony/configureWindow.js:214
 msgid "Vocals"
-msgstr ""
+msgstr "Vocalen"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:256
 #: src/preferences/devices/nothingBuds/configureWindow.js:213
@@ -418,7 +418,7 @@ msgstr "Meer hoge tonen"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:258
 msgid "Volume Boost"
-msgstr ""
+msgstr "Volume boost"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:259
 #: src/preferences/devices/nothingBuds/configureWindow.js:220
@@ -438,7 +438,7 @@ msgstr "Aangepast"
 #: src/preferences/devices/redmiBuds/configureWindow.js:260
 #: src/preferences/devices/opoBuds/configureWindow.js:333
 msgid "Classic"
-msgstr ""
+msgstr "Klassiek"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:261
 msgid "Audiophile"
@@ -461,11 +461,11 @@ msgstr "Harman Master"
 #: src/preferences/devices/redmiBuds/configureWindow.js:266
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:617
 msgid "Outdoor"
-msgstr ""
+msgstr "Buiten"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:267
 msgid "Underwater"
-msgstr ""
+msgstr "Onderwater"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:268
 #: src/preferences/devices/nothingBuds/configureWindow.js:210
@@ -556,7 +556,7 @@ msgstr "8.000"
 #: src/preferences/devices/redmiBuds/configureWindow.js:303
 #: src/preferences/devices/senhBuds/configureWindow.js:315
 msgid "12k"
-msgstr ""
+msgstr "12k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:303
 #: src/preferences/devices/senhBuds/configureWindow.js:316
@@ -609,7 +609,7 @@ msgstr ""
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:348
 msgid "Audio moves with your head"
-msgstr ""
+msgstr "Het geluid beweegt mee met jouw hoofd"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:370
 msgid "Spatial Audio Scene"
@@ -638,7 +638,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:945
 #: src/preferences/devices/boseBuds/configureWindow.js:401
 msgid "Answer Calls Automatically"
-msgstr ""
+msgstr "Beantwoord berichten automatisch"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:418
 #: src/preferences/devices/senhBuds/configureWindow.js:590
@@ -758,7 +758,7 @@ msgstr "Drukken en ingedrukt houden"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:520
 msgid "Swipe"
-msgstr ""
+msgstr "Swipen"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:524
 #: src/preferences/devices/nothingBuds/configureWindow.js:593
@@ -856,13 +856,13 @@ msgstr "Lage latentiemodus in-/uitschakelen"
 #: src/preferences/devices/redmiBuds/configureWindow.js:625
 #: src/preferences/devices/nothingBuds/configureWindow.js:678
 msgid "Take Photo"
-msgstr ""
+msgstr "Foto maken"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:204
 #: src/preferences/devices/senhBuds/configureWindow.js:215
 #: src/preferences/devices/boseBuds/configureWindow.js:267
 msgid "Sound Settings"
-msgstr ""
+msgstr "Geluidssysteem"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:214
 msgid "Dirac"
@@ -2623,8 +2623,3 @@ msgstr "Instellen"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Batterijniveau"
-
-#~ msgid "Select the icon used for the indicator and quick menu"
-#~ msgstr ""
-#~ "Selecteer het icoon dat wordt gebruikt voor de indicator en het snelle "
-#~ "menu"
