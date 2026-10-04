@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-09-23 20:49+0000\n"
+"PO-Revision-Date: 2026-10-04 10:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -625,7 +625,7 @@ msgstr ""
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:371
 msgid "Select the sound environment"
-msgstr ""
+msgstr "Выбрать звуковое сопровождение"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:397
 #: src/preferences/devices/nothingBuds/configureWindow.js:348
@@ -1445,7 +1445,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:327
 #: src/preferences/devices/opoBuds/configureWindow.js:329
 msgid "Vocal"
-msgstr ""
+msgstr "Вокал"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:328
 msgid "Clear Bass"
@@ -1455,11 +1455,11 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:479
 #: src/preferences/devices/opoBuds/configureWindow.js:556
 msgid "Add Custom Preset"
-msgstr ""
+msgstr "Добавить кастомный пресет"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:472
 msgid "Create a new custom equalizer profile"
-msgstr ""
+msgstr "Создать новый кастомный профиль эквалайзера"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:505
 msgid "Currently active"
@@ -1471,15 +1471,15 @@ msgstr ""
 
 #: src/preferences/devices/opoBuds/configureWindow.js:522
 msgid "Rename Preset"
-msgstr ""
+msgstr "Переименовать пресет"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:531
 msgid "Delete Preset"
-msgstr ""
+msgstr "Удалить пресет"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:557
 msgid "Enter a name for the new custom equalizer profile"
-msgstr ""
+msgstr "Введите имя для нового кастомного профиля эквалайзера"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:563
 #: src/preferences/devices/opoBuds/configureWindow.js:611
@@ -1500,12 +1500,12 @@ msgstr "Добавить"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:604
 msgid "Rename Custom Preset"
-msgstr ""
+msgstr "Переименовать кастомный пресет"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:605
 #, javascript-format
 msgid "Enter a new name for \"%s\""
-msgstr ""
+msgstr "Введите новое имя для \"%s\""
 
 #: src/preferences/devices/opoBuds/configureWindow.js:612
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:283
@@ -1514,12 +1514,12 @@ msgstr "Переименовать"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:638
 msgid "Delete Custom Preset?"
-msgstr ""
+msgstr "Удалить кастомный пресет?"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:639
 #, javascript-format
 msgid "\"%s\" will be removed from the device"
-msgstr ""
+msgstr "\"%s\" будет удалён с вашего устройства"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:644
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:74
@@ -1528,19 +1528,20 @@ msgstr "Удалить"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:681
 msgid "Audio Effects"
-msgstr ""
+msgstr "Аудио эффекты"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:687
 msgid "Dynamic Audio"
-msgstr ""
+msgstr "Динамическое аудио"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:688
+#, fuzzy
 msgid "Real-time dynamic bass and 3-band equalization"
-msgstr ""
+msgstr "Динамический бас в реальном времени и 3-ёх групповый эквалайзер"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:711
 msgid "-5"
-msgstr ""
+msgstr "-5"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:713
 #: src/preferences/devices/sony/configureWindow.js:418
@@ -1549,23 +1550,23 @@ msgstr "0"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:715
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:721
 msgid "Low Frequency"
-msgstr ""
+msgstr "Низкая частота"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:729
 msgid "Mid Frequency"
-msgstr ""
+msgstr "Ср. частота"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:737
 msgid "High Frequency"
-msgstr ""
+msgstr "Высокая частота"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:795
 msgid "Volume Enhancer"
-msgstr ""
+msgstr "Усилитель громкости"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:796
 msgid "Boost overall sound output for louder playback"
@@ -1573,7 +1574,7 @@ msgstr ""
 
 #: src/preferences/devices/opoBuds/configureWindow.js:961
 msgid "Find My Phone"
-msgstr ""
+msgstr "Найти мой телефон"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:962
 msgid "Allow triggering phone ringing from neckband controls"
@@ -1582,11 +1583,11 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1052
 #: src/preferences/devices/opoBuds/configureWindow.js:1209
 msgid "Gesture and Button Controls"
-msgstr ""
+msgstr "Жестовое и кнопочное управление"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1053
 msgid "Customize actions for buttons and touch gestures"
-msgstr ""
+msgstr "Кастомизировать действия для кнопок и жестов"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1066
 #: src/preferences/devices/boseBuds/configureWindow.js:797
@@ -1594,8 +1595,9 @@ msgid "Switch Devices"
 msgstr "Переключение устройств"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1095
+#, fuzzy
 msgid "Configure controls"
-msgstr ""
+msgstr "Конфигурировать управление"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1153
 msgid "Noise Control Button Cycling"
@@ -1615,11 +1617,11 @@ msgstr ""
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1203
 msgid "Button Controls"
-msgstr ""
+msgstr "Кнопочное управление"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1205
 msgid "Multi-Function Button"
-msgstr ""
+msgstr "Мультифункциональная кнопка"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1207
 msgid "Noise Control Button"
@@ -2291,15 +2293,15 @@ msgstr ""
 #: src/preferences/widgets/earTipFitTestRow.js:142
 #: src/preferences/widgets/earTipFitTestRow.js:196
 msgid "Run test"
-msgstr ""
+msgstr "Запустить тест"
 
 #: src/preferences/widgets/earTipFitTestRow.js:164
 msgid "Test in progress…"
-msgstr ""
+msgstr "Тест в прогрессе…"
 
 #: src/preferences/widgets/earTipFitTestRow.js:185
 msgid "Please Wait…"
-msgstr ""
+msgstr "Пожалуйста подождите …"
 
 #: src/preferences/widgets/earTipFitTestRow.js:187
 msgid "Keep your earbuds in your ears and wait for the fit test to complete."
@@ -2315,8 +2317,9 @@ msgid "Poor Seal"
 msgstr ""
 
 #: src/preferences/widgets/earTipFitTestRow.js:224
+#, fuzzy
 msgid "Test Failed"
-msgstr ""
+msgstr "Тест провален"
 
 #: src/preferences/widgets/earTipFitTestRow.js:239
 msgid "Ear Tip Fit Test"
@@ -2368,7 +2371,7 @@ msgstr ""
 
 #: src/preferences/widgets/earTipFitTestRow.js:299
 msgid "Test"
-msgstr ""
+msgstr "Тест"
 
 #: src/preferences/widgets/iconSelectorWidget.js:28
 msgid "Icon"
@@ -2595,7 +2598,7 @@ msgstr "Журналирование пакетов"
 
 #: src/lib/widgets/settingsButton.js:93
 msgid "Run in Background"
-msgstr ""
+msgstr "Запустить на фоне"
 
 #: src/lib/widgets/settingsButton.js:100
 msgid "BudsLink Companion"
@@ -2640,6 +2643,3 @@ msgstr "Настроить"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Уровень заряда"
-
-#~ msgid "Select the icon used for the indicator and quick menu"
-#~ msgstr "Выберите значок для индикатора и быстрого меню"
