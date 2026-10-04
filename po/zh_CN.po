@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-09-22 17:52+0000\n"
+"PO-Revision-Date: 2026-10-04 10:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
@@ -451,7 +451,7 @@ msgstr "Harman Master"
 #: src/preferences/devices/redmiBuds/configureWindow.js:266
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:617
 msgid "Outdoor"
-msgstr ""
+msgstr "户外模式"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:267
 msgid "Underwater"
@@ -472,7 +472,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:246
 #: src/preferences/devices/googleBuds/configureWindow.js:108
 msgid "Custom Equalizer"
-msgstr ""
+msgstr "自定义EQ"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:285
 #: src/preferences/devices/nothingBuds/configureWindow.js:237
@@ -484,7 +484,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:239
 #: src/preferences/devices/googleBuds/configureWindow.js:102
 msgid "Equalizer Preset"
-msgstr ""
+msgstr "EQ预设"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:286
 #: src/preferences/devices/nothingBuds/configureWindow.js:238
@@ -559,7 +559,7 @@ msgstr ""
 #: src/preferences/devices/senhBuds/configureWindow.js:333
 #: src/preferences/devices/sony/configureWindow.js:268
 msgid "Frequency (Hz)"
-msgstr ""
+msgstr "频率（Hz）"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:313
 #: src/preferences/devices/nothingBuds/configureWindow.js:263
@@ -569,7 +569,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:269
 #: src/preferences/devices/googleBuds/configureWindow.js:139
 msgid "Gain (dB)"
-msgstr ""
+msgstr "增益（dB）"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:327
 #: src/preferences/devices/nothingBuds/configureWindow.js:326
@@ -666,7 +666,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1074
 #: src/preferences/devices/boseBuds/configureWindow.js:693
 msgid "Single Tap"
-msgstr ""
+msgstr "单击"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:506
 #: src/preferences/devices/nothingBuds/configureWindow.js:436
@@ -674,7 +674,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1071
 #: src/preferences/devices/boseBuds/configureWindow.js:694
 msgid "Double Tap"
-msgstr ""
+msgstr "双击"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:507
 #: src/preferences/devices/nothingBuds/configureWindow.js:437
@@ -687,7 +687,7 @@ msgstr ""
 #: src/preferences/devices/redmiBuds/configureWindow.js:508
 #: src/preferences/devices/nothingBuds/configureWindow.js:438
 msgid "Tap and Hold"
-msgstr ""
+msgstr "长按"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:510
 #: src/preferences/devices/nothingBuds/configureWindow.js:441
@@ -790,19 +790,19 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:803
 #: src/preferences/devices/boseBuds/configureWindow.js:809
 msgid "Voice Assistant"
-msgstr ""
+msgstr "语音助手"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:607
 #: src/preferences/devices/nothingBuds/configureWindow.js:627
 #: src/preferences/devices/opoBuds/configureWindow.js:1061
 msgid "Volume Up"
-msgstr ""
+msgstr "音量+"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:610
 #: src/preferences/devices/nothingBuds/configureWindow.js:630
 #: src/preferences/devices/opoBuds/configureWindow.js:1062
 msgid "Volume Down"
-msgstr ""
+msgstr "音量-"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:613
 #: src/preferences/devices/nothingBuds/configureWindow.js:636
@@ -841,12 +841,12 @@ msgstr ""
 #: src/preferences/devices/redmiBuds/configureWindow.js:622
 #: src/preferences/devices/nothingBuds/configureWindow.js:672
 msgid "Toggle Low Latency"
-msgstr ""
+msgstr "切换至低延迟模式"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:625
 #: src/preferences/devices/nothingBuds/configureWindow.js:678
 msgid "Take Photo"
-msgstr ""
+msgstr "拍摄照片"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:204
 #: src/preferences/devices/senhBuds/configureWindow.js:215
@@ -862,18 +862,18 @@ msgstr "Dirac"
 #: src/preferences/devices/senhBuds/configureWindow.js:259
 #: src/preferences/devices/opoBuds/configureWindow.js:330
 msgid "Rock"
-msgstr ""
+msgstr "摇滚"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:216
 #: src/preferences/devices/opoBuds/configureWindow.js:332
 msgid "Electronic"
-msgstr "電子"
+msgstr "电子"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:217
 #: src/preferences/devices/senhBuds/configureWindow.js:260
 #: src/preferences/devices/opoBuds/configureWindow.js:331
 msgid "Pop"
-msgstr ""
+msgstr "流行"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:218
 #: src/preferences/devices/googleBuds/configureWindow.js:83
@@ -945,7 +945,7 @@ msgstr "+"
 #: src/preferences/devices/opoBuds/configureWindow.js:1075
 #: src/preferences/devices/boseBuds/configureWindow.js:697
 msgid "Double Tap and Hold"
-msgstr ""
+msgstr "双击并按住"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:445
 #: src/preferences/devices/nothingBuds/configureWindow.js:460
@@ -961,15 +961,15 @@ msgstr ""
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:454
 msgid "Slide to Adjust"
-msgstr ""
+msgstr "滑动以调整"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:461
 msgid "Rotate"
-msgstr ""
+msgstr "旋转"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:484
 msgid "Unknown Gesture"
-msgstr ""
+msgstr "未知手势"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:590
 #: src/preferences/devices/nothingBuds/configureWindow.js:608
