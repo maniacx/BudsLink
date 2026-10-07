@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-10-04 10:51+0000\n"
+"PO-Revision-Date: 2026-10-07 10:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -593,7 +593,7 @@ msgstr "Усиление (дБ)"
 #: src/preferences/devices/nothingBuds/configureWindow.js:326
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:176
 msgid "Immersive Audio"
-msgstr "Пространственное аудио"
+msgstr "Иммерсивное Аудио"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:332
 #: src/preferences/devices/nothingBuds/configureWindow.js:330
@@ -603,7 +603,7 @@ msgstr "Пространственное аудио"
 #: src/preferences/devices/boseBuds/configureWindow.js:794
 #: src/lib/devices/boseBuds/boseBudsDevice.js:762
 msgid "Spatial Audio"
-msgstr "Пространственное аудио"
+msgstr "Пространственное Аудио"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:333
 #: src/preferences/devices/nothingBuds/configureWindow.js:331
@@ -613,15 +613,15 @@ msgstr "Добавляет глубину для эффекта погружен
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:347
 msgid "Track Head Movement"
-msgstr ""
+msgstr "Отслеживание движения головы"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:348
 msgid "Audio moves with your head"
-msgstr ""
+msgstr "Аудио движется вместе с вашей головой"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:370
 msgid "Spatial Audio Scene"
-msgstr ""
+msgstr "Пространственная аудиосцена"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:371
 msgid "Select the sound environment"
@@ -1440,7 +1440,7 @@ msgstr "Тональность окружающего звука"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:326
 msgid "Deep Bass"
-msgstr ""
+msgstr "Глубокий бас"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:327
 #: src/preferences/devices/opoBuds/configureWindow.js:329
@@ -1449,7 +1449,7 @@ msgstr "Вокал"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:328
 msgid "Clear Bass"
-msgstr ""
+msgstr "Чистый бас"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:471
 #: src/preferences/devices/opoBuds/configureWindow.js:479
@@ -1463,11 +1463,11 @@ msgstr "Создать новый кастомный профиль эквала
 
 #: src/preferences/devices/opoBuds/configureWindow.js:505
 msgid "Currently active"
-msgstr ""
+msgstr "В данный момент активен"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:512
 msgid "Adjust Equalizer"
-msgstr ""
+msgstr "Настроить эквалайзер"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:522
 msgid "Rename Preset"
@@ -1535,9 +1535,8 @@ msgid "Dynamic Audio"
 msgstr "Динамическое аудио"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:688
-#, fuzzy
 msgid "Real-time dynamic bass and 3-band equalization"
-msgstr "Динамический бас в реальном времени и 3-ёх групповый эквалайзер"
+msgstr "Динамический бас в реальном времени и 3-полосный эквалайзер"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:711
 msgid "-5"
