@@ -309,6 +309,9 @@ export const OpoBudsSocket = GObject.registerClass({
 
         if (modelData.dualConnection)
             this._getMultiConnectInfo();
+
+        if (modelData.dynamicBass && modelData.dynamicBassOpo)
+            this._getDynamicBassOpo();
     }
 
     _parseData(resp) {
@@ -352,6 +355,10 @@ export const OpoBudsSocket = GObject.registerClass({
 
             case Cmd.EQ_NOTIFY:
                 this._parseEqNotify(payload);
+                break;
+
+            case Cmd.GET_BASS_ENGINE_RSP:
+                this._parseDynamicBassOpo(payload);
                 break;
 
             case Cmd.CUSTOM_EQ_NOTIFY:
@@ -582,6 +589,43 @@ export const OpoBudsSocket = GObject.registerClass({
         this._log.info(`Set Dynamic Audio EQ: Low=${low}, Med=${med}, High=${high}`);
         const payload = [0x03, lowByte, medByte, highByte];
         this._queuePacket(Cmd.SET_EQ_INFO, payload, 'Set Dynamic Audio EQ');
+    }
+
+    _getDynamicBassOpo() {
+        this._queuePacket(Cmd.GET_BASS_ENGINE, [], 'Query Bass Level');
+    }
+
+    _parseDynamicBassOpo(payload) {
+        if (!this._modelData?.dynamicBassOpo)
+            return;
+
+        const offset = payload.length >= 4 && payload[0] === 0x00 ? 1 : 0;
+
+        if (payload.length < offset + 3)
+            return;
+
+        const fromByte = v => v > 127 ? v - 256 : v;
+
+        const min = fromByte(payload[offset]);
+        const max = fromByte(payload[offset + 1]);
+        const current = fromByte(payload[offset + 2]);
+
+        this._log.info(
+            `Parsed Bass Level: min=${min}, max=${max}, current=${current}`
+        );
+
+        this._callbacks?.updateBassLevel?.(current);
+    }
+
+    setBassLevel(level) {
+        const toByte = v => (v < 0 ? 256 + v : v) & 0xFF;
+        const minByte = toByte(-5);
+        const maxByte = toByte(5);
+        const currentByte = toByte(level);
+        this._log.info(`Set Bass Level: ${level}`);
+
+        const payload = [minByte, maxByte, currentByte];
+        this._queuePacket(Cmd.SET_BASS_ENGINE, payload, 'Set Bass Level');
     }
 
     _parseCustomEqInfo(payload) {

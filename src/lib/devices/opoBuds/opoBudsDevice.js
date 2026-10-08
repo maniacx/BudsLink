@@ -85,6 +85,7 @@ export const OpoBudsDevice = GObject.registerClass({
             updateNoiseControlCycle: this.updateNoiseControlCycle.bind(this),
             updateFitTestResult: this.updateFitTestResult.bind(this),
             updateCustomEqs: this.updateCustomEqs.bind(this),
+            updateBassLevel: this.updateBassLevel.bind(this),
         };
 
         const profile = {type: DeviceTypeOpoBuds, uuid: OpoBudsUUID};
@@ -369,8 +370,12 @@ export const OpoBudsDevice = GObject.registerClass({
                         this._dynamicAudioLow = low;
                         this._dynamicAudioMed = med;
                         this._dynamicAudioHigh = high;
-                        if (this._dynamicBass)
-                            this._opoBudsSocket?.setDynamicAudioEq(low, med, high);
+                        if (this._dynamicBass) {
+                            if (this._modelData.dynamicBassOpo)
+                                this._opoBudsSocket?.setBassLevel(low);
+                            else
+                                this._opoBudsSocket?.setDynamicAudioEq(low, med, high);
+                        }
                     }
                 }
 
@@ -983,6 +988,10 @@ export const OpoBudsDevice = GObject.registerClass({
 
     updateDynamicBass(dynamicBass) {
         this._updateSimpleSetting('_dynamicBass', 'dynamic-bass', dynamicBass);
+    }
+
+    updateBassLevel(level) {
+        this._updateSettingKey('dynamic-audio-low', level);
     }
 
     updateAutoAnswer(autoAnswer) {

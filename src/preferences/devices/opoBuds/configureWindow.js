@@ -682,10 +682,13 @@ export const ConfigureWindow = GObject.registerClass({
         });
 
         if (this._modelData.dynamicBass) {
+            const bassOpo = !!this._modelData.dynamicBassOpo;
             const isDynamicBassActive = this._settingsItems['dynamic-bass'] ?? false;
             const dynamicAudioExpander = new Adw.ExpanderRow({
-                title: _('Dynamic Audio'),
-                subtitle: _('Real-time dynamic bass and 3-band equalization'),
+                title: bassOpo ? _('Bass Enhancement') : _('Dynamic Audio'),
+                subtitle: bassOpo ? _('Enhances bass in real time')
+                    : _('Real-time dynamic bass and 3-band equalization'),
+
                 show_enable_switch: true,
                 enable_expansion: isDynamicBassActive,
                 expanded: isDynamicBassActive,
@@ -718,32 +721,35 @@ export const ConfigureWindow = GObject.registerClass({
             });
 
             this._lowFreq = new SliderRowWidget({
-                rowTitle: _('Low Frequency'),
+                rowTitle: bassOpo ? _('Bass Enhancement Level') : _('Low Frequency'),
                 range,
                 marks,
                 snapOnStep: true,
                 initialValue: this._settingsItems['dynamic-audio-low'],
             });
 
-            this._midFreq = new SliderRowWidget({
-                rowTitle: _('Mid Frequency'),
-                range,
-                marks,
-                snapOnStep: true,
-                initialValue: this._settingsItems['dynamic-audio-med'],
-            });
-
-            this._highFreq = new SliderRowWidget({
-                rowTitle: _('High Frequency'),
-                range,
-                marks,
-                snapOnStep: true,
-                initialValue: this._settingsItems['dynamic-audio-high'],
-            });
-
             this._lowFreq.compact_mode = this._isCompactMode;
-            this._midFreq.compact_mode = this._isCompactMode;
-            this._highFreq.compact_mode = this._isCompactMode;
+
+            if (!bassOpo) {
+                this._midFreq = new SliderRowWidget({
+                    rowTitle: _('Mid Frequency'),
+                    range,
+                    marks,
+                    snapOnStep: true,
+                    initialValue: this._settingsItems['dynamic-audio-med'],
+                });
+
+                this._highFreq = new SliderRowWidget({
+                    rowTitle: _('High Frequency'),
+                    range,
+                    marks,
+                    snapOnStep: true,
+                    initialValue: this._settingsItems['dynamic-audio-high'],
+                });
+
+                this._midFreq.compact_mode = this._isCompactMode;
+                this._highFreq.compact_mode = this._isCompactMode;
+            }
 
             const debounceEqUpdate = () => {
                 if (this._isUpdatingUI)
@@ -756,21 +762,22 @@ export const ConfigureWindow = GObject.registerClass({
                     this._eqDebounceId = null;
                     this._updateMultipleGsettings({
                         'dynamic-audio-low': this._lowFreq.value,
-                        'dynamic-audio-med': this._midFreq.value,
-                        'dynamic-audio-high': this._highFreq.value,
+                        'dynamic-audio-med': this._midFreq?.value ?? 0,
+                        'dynamic-audio-high': this._highFreq?.value ?? 0,
                     });
                     return GLib.SOURCE_REMOVE;
                 });
             };
 
             this._lowFreq.connect('notify::value', debounceEqUpdate);
-            this._midFreq.connect('notify::value', debounceEqUpdate);
-            this._highFreq.connect('notify::value', debounceEqUpdate);
-
             dynamicAudioExpander.add_row(this._lowFreq);
-            dynamicAudioExpander.add_row(this._midFreq);
-            dynamicAudioExpander.add_row(this._highFreq);
 
+            if (!bassOpo) {
+                this._midFreq.connect('notify::value', debounceEqUpdate);
+                this._highFreq.connect('notify::value', debounceEqUpdate);
+                dynamicAudioExpander.add_row(this._midFreq);
+                dynamicAudioExpander.add_row(this._highFreq);
+            }
             effectsGroup.add(dynamicAudioExpander);
         }
 
