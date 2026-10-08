@@ -170,7 +170,7 @@ export const OpoBudsSocket = GObject.registerClass({
         ];
 
         const packet = [...header, ...payload];
-        this._log.info(`Send -> Cmd: 0x${hexBytes(cmd)} Data: ${hexBytes(packet)}`);
+        this._log.info(`Send -> Cmd: ${hexBytes(cmd)} Data: ${hexBytes(packet)}`);
         this._sendPacket(packet);
         return true;
     }
@@ -194,7 +194,6 @@ export const OpoBudsSocket = GObject.registerClass({
             return;
 
         const incoming = Array.from(byteArray);
-        this._log.bytes(`Raw Received bytes (${incoming.length}): ${hexBytes(incoming)}`);
 
         for (let i = 0; i < incoming.length; i++)
             this._rxBuffer.push(incoming[i]);
@@ -262,7 +261,7 @@ export const OpoBudsSocket = GObject.registerClass({
 
     _handleMessage(msg) {
         const {cmd, seq, payload} = msg;
-        this._log.info(`Recv <- Cmd: 0x${hexBytes(cmd)} Data: ${hexBytes(payload)}`);
+        this._log.info(`Recv <- Cmd: ${hexBytes(cmd)} Payload: ${hexBytes(payload)}`);
 
         if (seq !== 0xFF && (cmd & 0x8000) !== 0)
             this._completePendingRequest(seq);
@@ -377,7 +376,7 @@ export const OpoBudsSocket = GObject.registerClass({
             case 0x050E:
             case 0x0513:
             case 0x0516:
-                this._log.info(`Multi-connect notify/ack (cmd=0x${hexBytes(cmd)}): ` +
+                this._log.info(`Multi-connect notify/ack (cmd=${hexBytes(cmd)}): ` +
                         'refreshing device list');
                 this._getMultiConnectInfo();
                 break;
@@ -385,7 +384,7 @@ export const OpoBudsSocket = GObject.registerClass({
             case Cmd.GET_COMPACTNESS_INFO_RSP:
             case Cmd.START_COMPACTNESS_DETECT_RSP:
             case 0x840A:
-                this._log.info(`Compactness / Power cmd response (cmd=0x${hexBytes(cmd)}):` +
+                this._log.info(`Compactness / Power cmd response (cmd=${hexBytes(cmd)}):` +
                         `payload= ${hexBytes(payload)}`);
                 break;
 
@@ -394,7 +393,7 @@ export const OpoBudsSocket = GObject.registerClass({
                 break;
 
             default:
-                this._log.info(`Unhandled packet cmd=0x${hexBytes(cmd)} ` +
+                this._log.info(`Unhandled packet cmd=${hexBytes(cmd)} ` +
                         `payload= ${hexBytes(payload)}`);
                 break;
         }
@@ -556,7 +555,7 @@ export const OpoBudsSocket = GObject.registerClass({
             return;
 
         const presetId = payload[1];
-        this._log.info(`Parsed EQ Preset Response: 0x${hexBytes(presetId)}`);
+        this._log.info(`Parsed EQ Preset Response: ${hexBytes(presetId)}`);
         this._callbacks?.updateEqPreset?.(presetId);
     }
 
@@ -565,7 +564,7 @@ export const OpoBudsSocket = GObject.registerClass({
             return;
 
         const presetId = payload.length >= 2 && payload[0] === 0x00 ? payload[1] : payload[0];
-        this._log.info(`Parsed EQ Preset Notify: 0x${hexBytes(presetId)}`);
+        this._log.info(`Parsed EQ Preset Notify: ${hexBytes(presetId)}`);
         this._callbacks?.updateEqPreset?.(presetId);
     }
 
@@ -890,7 +889,7 @@ export const OpoBudsSocket = GObject.registerClass({
         const isResponse = cmd === Cmd.GET_MULTI_CONNECT_INFO_RSP;
         if (isResponse) {
             if (payload.length < 2 || payload[0] !== 0x00) {
-                this._log.info(`Multi-connect query error status: 0x${hexBytes(payload[0])}`);
+                this._log.info(`Multi-connect query error status: ${hexBytes(payload[0])}`);
                 return;
             }
         }
