@@ -1072,6 +1072,8 @@ export const ConfigureWindow = GObject.registerClass({
             'noise-control': _('Noise Control'),
             'game-mode': _('Game Mode'),
             'device-switch': _('Switch Devices'),
+            'change-volume': _('Volume Control'),
+            'switch-track': _('Switch Track'),
         };
 
         const gestureSlotNames = {
@@ -1089,6 +1091,10 @@ export const ConfigureWindow = GObject.registerClass({
             'triple': _('Triple Press'),
             'action-hold': _('Press and Hold'),
             'double-action-hold': _('Double Press and Hold'),
+        };
+
+        const swipeSlotNames = {
+            'swipe': _('Swipe'),
         };
 
         const currentGesturesHex = this._settingsItems['gestures'] ||
@@ -1125,9 +1131,15 @@ export const ConfigureWindow = GObject.registerClass({
                     ? this._gestureSlotMap[slotKey] : values[0];
 
                 const isPress = slot.group === 'mfb' || gestureDef?.type === 'press';
-                const rowTitle = isPress && pressSlotNames[slot.type]
-                    ? pressSlotNames[slot.type]
-                    : gestureSlotNames[slot.type] ?? slot.type;
+                let rowTitle;
+
+                if (gestureDef?.type === 'swipe')
+                    rowTitle = swipeSlotNames[slot.type] ?? slot.type;
+                else if (isPress)
+                    rowTitle = pressSlotNames[slot.type] ?? slot.type;
+                else
+                    rowTitle = gestureSlotNames[slot.type] ?? slot.type;
+
 
                 const dropdown = new DropDownRowWidget({
                     title: rowTitle,
