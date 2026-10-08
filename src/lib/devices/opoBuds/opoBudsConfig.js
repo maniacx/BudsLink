@@ -3,11 +3,13 @@
 import RealmeBudsAir7 from './deviceConfigs/RealmeBudsAir7.js';
 import RealmeBudsWireless5ANC from './deviceConfigs/RealmeBudsWireless5ANC.js';
 import RealmeBudsAir7Pro from './deviceConfigs/RealmeBudsAir7Pro.js';
+import OnePlusBuds4 from './deviceConfigs/OnePlusBuds4.js';
 
 export const OpoBudsModelList = [
     RealmeBudsAir7,
     RealmeBudsWireless5ANC,
     RealmeBudsAir7Pro,
+    OnePlusBuds4,
 ];
 
 export const Cmd = {
