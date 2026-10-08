@@ -81,7 +81,6 @@ export const OpoBudsDevice = GObject.registerClass({
             updateGestures: this.updateGestures.bind(this),
             updateSingleGesture: this.updateSingleGesture.bind(this),
             updateMultiConnectDevices: this.updateMultiConnectDevices.bind(this),
-            updateAdaptiveAncSubLevel: this.updateAdaptiveAncSubLevel.bind(this),
             updateNoiseControlCycle: this.updateNoiseControlCycle.bind(this),
             updateFitTestResult: this.updateFitTestResult.bind(this),
             updateCustomEqs: this.updateCustomEqs.bind(this),
@@ -262,7 +261,7 @@ export const OpoBudsDevice = GObject.registerClass({
             this._ringState = this._settingsItems['ring-state'];
 
         if (this._modelData.noiseControl)
-            this._ncCycleMask = this._settingsItems['nc-cycle-mask'] ?? 0x0B;
+            this._ncCycleMask = this._settingsItems['nc-cycle-mask'] ?? 0x00;
     }
 
     _addPropsToSettings(devicesList) {
@@ -495,7 +494,6 @@ export const OpoBudsDevice = GObject.registerClass({
         this._config.albumArtIcon = this._commonIcon;
         this._config.showSettingsButton = true;
         this._config.labelIndicatorEnabled = 1;
-        this._props.labelIndicator1 = '';
 
         this._config.battery1ShowOnDisconnect = true;
         if (this._modelData?.batteryLR) {
@@ -611,6 +609,9 @@ export const OpoBudsDevice = GObject.registerClass({
                     _('Noise Cancellation'), flatBytes);
             }
         }
+
+        if (nc.adaptive)
+            addToggle('adaptive', toBytes(nc.adaptive), 'bbm-adaptive-symbolic', _('Adaptive'));
 
         this._config.optionsBox1 = [];
         if (nc.noiseCancellation?.levels)
@@ -740,8 +741,6 @@ export const OpoBudsDevice = GObject.registerClass({
             ancMode = toggle.modeBytes;
         }
 
-        this._updateLabelIndicator();
-
         if (this._isReady && !isSameState && ancMode != null)
             this._opoBudsSocket?.setNoiseControl(ancMode);
     }
@@ -751,7 +750,6 @@ export const OpoBudsDevice = GObject.registerClass({
             return;
 
         this._props.box1RadioButtonState = index;
-        this._updateLabelIndicator();
 
         const modeBytes = this._ancRadioMap[index];
         if (modeBytes?.length)
@@ -870,15 +868,21 @@ export const OpoBudsDevice = GObject.registerClass({
         let activeType = 'off';
 
         for (const [index, {matchBytes, type}] of Object.entries(this._ancToggleMap)) {
-            const matched = modeArr.some(b => matchBytes.includes(b)) ||
-                matchBytes.some(b => modeArr.includes(b));
+            let matched;
+
+            if (modeArr.length > 1) {
+                matched = matchBytes.length === modeArr.length &&
+                        matchBytes.every((b, i) => b === modeArr[i]);
+            } else {
+                matched = matchBytes.includes(modeArr[0]);
+            }
+
             if (matched) {
                 toggleIndex = Number(index);
                 activeType = type;
                 break;
             }
         }
-
         this._props.toggle1State = toggleIndex;
 
         if (activeType === 'noiseCancellation') {
@@ -892,43 +896,10 @@ export const OpoBudsDevice = GObject.registerClass({
         } else {
             this._props.optionsBoxVisible = 0;
         }
-
-        this._updateLabelIndicator();
     }
 
     updateNoiseControlCycle(maskByte) {
         this._updateSimpleSetting('_ncCycleMask', 'nc-cycle-mask', maskByte);
-    }
-
-    _updateLabelIndicator() {
-        const toggle = this._ancToggleMap?.[this._props.toggle1State];
-        const isAnc = toggle?.type === 'noiseCancellation';
-        const isSmart = this._props.box1RadioButtonState === 1;
-
-        const hasSmartLevel = this._modelData.noiseControl?.noiseCancellation?.levels?.smart ||
-            this._modelData.noiseControl?.noiseCancellation?.levels?.auto;
-
-        if (isAnc && isSmart && hasSmartLevel) {
-            const sub = this._smartSubName ?? '';
-            this._props.labelIndicator1 = sub ? `${_('Adaptive')}: ${sub}` : _('Adaptive');
-        } else {
-            this._props.labelIndicator1 = '';
-        }
-        this.dataHandler?.setProps(this._props);
-    }
-
-    updateAdaptiveAncSubLevel(subByte) {
-        const subNames = {
-            0x04: _('Low'),
-            0x10: _('Mid'),
-            0x08: _('High'),
-        };
-        const subName = subNames[subByte] ?? '';
-        this._log.info(`Real-Time Adaptive ANC Level: ${subName} (0x${subByte.toString(16)})`);
-        this._smartSubName = subName;
-        if (subName && this._settingsItems)
-            this._updateSettingKey('smart-anc-sublevel', subName);
-        this._updateLabelIndicator();
     }
 
     updateInEar(inEar) {

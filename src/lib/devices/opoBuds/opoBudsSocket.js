@@ -6,7 +6,7 @@ import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
 import {SocketHandler} from '../socketByProfile.js';
 import {
     OpoBudsModelList, Cmd, FeatureId, EventCode, BatteryComponent,
-    cycleEnumToMask, macToReversedBytes, reversedBytesToMac,
+    macToReversedBytes, reversedBytesToMac,
     FEATURE_CONFIG_MAP, resolveFeatureByte, DefaultBroadcastEvents, CustomEqAction
 } from './opoBudsConfig.js';
 
@@ -741,9 +741,13 @@ export const OpoBudsSocket = GObject.registerClass({
                         ' ignoring');
                 return;
             }
-            const mask = cycleEnumToMask(valByte);
-            this._log.info(`Parsed ANC cycle response: raw=0x${hexBytes(valByte)} -> ` +
-                    `mask=0x${hexBytes(mask)}`);
+
+            let mask = 0;
+
+            for (let i = 3; i < payload.length; i++)
+                mask |= payload[i] << (i - 3) * 8;
+
+            this._log.info(`Parsed ANC cycle response: mask=${hexBytes(payload.slice(3))}`);
 
             this._callbacks?.updateNoiseControlCycle?.(mask);
         } else {
@@ -762,15 +766,16 @@ export const OpoBudsSocket = GObject.registerClass({
         const valByte = eventData.length >= 3 ? eventData[2] : eventData[eventData.length - 1];
 
         if (action === 0x02) {
-            const mask = cycleEnumToMask(valByte);
-            this._log.info(`Parsed ANC cycle event: raw=0x${hexBytes(valByte)} -> ` +
-                    `mask=0x${hexBytes(mask)}`);
+            let mask = 0;
+
+            for (let i = 2; i < eventData.length; i++)
+                mask |= eventData[i] << (i - 2) * 8;
+
+            this._log.info(`Parsed ANC cycle event: mask=${hexBytes(eventData.slice(2))}`);
 
             this._callbacks?.updateNoiseControlCycle?.(mask);
-        } else if (action === 0x04) {
-            this._callbacks?.updateAdaptiveAncSubLevel?.(valByte);
-        } else {
-            const modeBytes = eventData.length >= 3 ? eventData.slice(2, 3) : [valByte];
+        } else if (!action === 0x04) {
+            const modeBytes = eventData.length >= 3 ? eventData.slice(2) : [valByte];
             this._log.info(`Parsed ANC mode event: ${hexBytes(modeBytes)}`);
             this._callbacks?.updateNoiseControl?.(
                 modeBytes.length === 1 ? modeBytes[0] : modeBytes);
@@ -1081,21 +1086,32 @@ export const OpoBudsSocket = GObject.registerClass({
         this._queuePacket(Cmd.SET_KEY_FUNCTION, payload, `Set ${slots.length} gesture slots`);
     }
 
-    setNoiseControlCycle(maskByte) {
-        this._log.info(`Set ANC cycle: mask=0x${maskByte.toString(16).padStart(2, '0')}`);
+    setNoiseControlCycle(mask) {
+        this._log.info(`Set ANC cycle: mask=${hexBytes(mask)}`);
+
         const cycleType = this._modelData?.noiseControl?.ancCycleType ??
                  this._modelData?.ancCycleType ?? 1;
 
+        const maskBytes = [];
+
+        while (mask > 0) {
+            maskBytes.push(mask & 0xff);
+            mask >>>= 8;
+        }
+
+        if (maskBytes.length === 0)
+            maskBytes.push(0x00);
+
         if (cycleType === 2) {
-            this._queuePacket(Cmd.SET_ANC, [0x02, 0x02, maskByte],
+            this._queuePacket(Cmd.SET_ANC, [0x02, 0x02, ...maskBytes],
                 'Set ANC Cycle (Action 2, Type 2)');
         } else if (cycleType === 'both') {
-            this._queuePacket(Cmd.SET_ANC, [0x02, 0x01, maskByte],
+            this._queuePacket(Cmd.SET_ANC, [0x02, 0x01, ...maskBytes],
                 'Set ANC Cycle (Action 2, Type 1)');
-            this._queuePacket(Cmd.SET_ANC, [0x02, 0x02, maskByte],
+            this._queuePacket(Cmd.SET_ANC, [0x02, 0x02, ...maskBytes],
                 'Set ANC Cycle (Action 2, Type 2)');
         } else {
-            this._queuePacket(Cmd.SET_ANC, [0x02, 0x01, maskByte],
+            this._queuePacket(Cmd.SET_ANC, [0x02, 0x01, ...maskBytes],
                 'Set ANC Cycle (Action 2, Type 1)');
         }
     }

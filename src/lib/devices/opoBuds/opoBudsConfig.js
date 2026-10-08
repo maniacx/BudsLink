@@ -10,50 +10,6 @@ export const OpoBudsModelList = [
     RealmeBudsAir7Pro,
 ];
 
-export const CommonRealmeEqPresets = {
-    original_sound: 0x00,
-    deep_bass: 0x01,
-    serenade: 0x02,
-    clear_bass: 0x03,
-};
-
-export const CommonRealmeAncLevels = {
-    off: [0x01],
-    transparency: {
-        levels: {
-            regular: [0x02],
-        },
-    },
-    noiseCancellation: {
-        levels: {
-            smart: [0x20],
-            mild: [0x04],
-            moderate: [0x10],
-            deep: [0x08],
-        },
-    },
-};
-
-export const CommonGestureMapping = {
-    gestureTypes: {
-        'single': 0x01,
-        'double': 0x02,
-        'triple': 0x03,
-        'action-hold': 0x04,
-        'double-action-hold': 0x06,
-    },
-    actions: {
-        'none': [0x00],
-        'play-pause': [0x01],
-        'voice-assistant': [0x04],
-        'skip-back': [0x05],
-        'skip-forward': [0x06],
-        'noise-control': [0x08],
-        'device-switch': [0x0A],
-        'game-mode': [0x11],
-    },
-};
-
 export const Cmd = {
     HANDSHAKE: 0x0100,
     HANDSHAKE_RSP: 0x8100,
@@ -226,72 +182,12 @@ export const BatteryComponent = {
     CASE: 3,
 };
 
-export const NC_CYCLE_BITS = [0x01, 0x02, 0x08];
-
 export function safeJsonParse(str) {
     try {
         return JSON.parse(str);
     } catch {
         return null;
     }
-}
-
-export function cycleMaskToEnum(mask) {
-    const hasOff = (mask & 0x01) !== 0;
-    const hasTrans = (mask & 0x02) !== 0;
-    const hasAnc = (mask & 0x08) !== 0;
-
-    if (hasAnc && hasTrans && hasOff)
-        return 0x04;
-    if (hasAnc && hasTrans)
-        return 0x01;
-    if (hasAnc && hasOff)
-        return 0x02;
-    if (hasTrans && hasOff)
-        return 0x03;
-
-    return 0x04;
-}
-
-export function cycleEnumToMask(code) {
-    switch (code) {
-        case 0x01:
-            return 0x0A;
-        case 0x02:
-            return 0x09;
-        case 0x03:
-            return 0x03;
-        case 0x04:
-            return 0x0B;
-        case 0x07:
-            return 0x0B;
-        case 0x0B:
-            return 0x0B;
-        default:
-            return code;
-    }
-}
-
-export function widgetMaskToProtocolMask(widgetMask) {
-    let mask = 0;
-    if (widgetMask & 1 << 0)
-        mask |= 0x01;
-    if (widgetMask & 1 << 1)
-        mask |= 0x02;
-    if (widgetMask & 1 << 2)
-        mask |= 0x08;
-    return mask;
-}
-
-export function protocolMaskToWidgetMask(protocolMask) {
-    let widgetMask = 0;
-    if (protocolMask & 0x01)
-        widgetMask |= 1 << 0;
-    if (protocolMask & 0x02)
-        widgetMask |= 1 << 1;
-    if (protocolMask & 0x08 || protocolMask & 0x04)
-        widgetMask |= 1 << 2;
-    return widgetMask;
 }
 
 export function macToReversedBytes(mac) {
