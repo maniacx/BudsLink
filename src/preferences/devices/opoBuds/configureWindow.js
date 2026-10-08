@@ -323,6 +323,7 @@ export const ConfigureWindow = GObject.registerClass({
 
         const presetLabels = {
             originalSound: _('Balanced'),
+            bass: _('Bass'),
             deepBass: _('Deep Bass'),
             serenade: _('Vocal'),
             clearBass: _('Clear Bass'),
