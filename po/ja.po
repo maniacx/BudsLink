@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-09-22 17:51+0000\n"
+"PO-Revision-Date: 2026-10-10 04:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ja\n"
@@ -24,11 +24,12 @@ msgstr "BudsLink"
 
 #: src/app.js:238
 msgid "Devices"
-msgstr ""
+msgstr "デバイス"
 
 #: src/app.js:240
+#, fuzzy
 msgid "No compatible device found"
-msgstr ""
+msgstr "互換性のあるデバイスがみつかりません"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:63
 msgid "Settings"
@@ -40,7 +41,7 @@ msgstr "設定"
 #: src/preferences/devices/opoBuds/configureWindow.js:826
 #: src/preferences/devices/opoBuds/configureWindow.js:1065
 msgid "Game Mode"
-msgstr ""
+msgstr "ゲームモード"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:69
 #: src/preferences/devices/redmiBuds/configureWindow.js:448
@@ -61,8 +62,9 @@ msgstr ""
 #: src/preferences/devices/nothingBuds/configureWindow.js:370
 #: src/preferences/devices/senhBuds/configureWindow.js:563
 #: src/preferences/devices/boseBuds/configureWindow.js:375
+#, fuzzy
 msgid "Enable features based on wearing detection"
-msgstr ""
+msgstr "着用検出に基づき機能の有効化"
 
 #: src/preferences/devices/airpods/configureWindow.js:103
 #: src/preferences/devices/redmiBuds/configureWindow.js:218
@@ -120,20 +122,24 @@ msgid "Automatically pause or resume playback based on wearing detection."
 msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:133
+#, fuzzy
 msgid "Volume Level"
-msgstr ""
+msgstr "音量レベル"
 
 #: src/preferences/devices/airpods/configureWindow.js:137
+#, fuzzy
 msgid "Lower volume during conversation awareness"
-msgstr ""
+msgstr "会話認識中に低音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:138
+#, fuzzy
 msgid "Automatically lower the volume when conversation awareness is active"
-msgstr ""
+msgstr "会話を認識したときに音量を自動的に下げる"
 
 #: src/preferences/devices/airpods/configureWindow.js:156
+#, fuzzy
 msgid "Conversation awareness volume limit"
-msgstr ""
+msgstr "会話認識音量制限"
 
 #: src/preferences/devices/airpods/configureWindow.js:157
 msgid ""
@@ -142,12 +148,14 @@ msgid ""
 msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:180
+#, fuzzy
 msgid "Turn off listening modes"
-msgstr ""
+msgstr "リスニングモードを切ります"
 
 #: src/preferences/devices/airpods/configureWindow.js:184
+#, fuzzy
 msgid "Allows to turn off all listening mode technology"
-msgstr ""
+msgstr "すべてのリスニングモードの技術を消すことを許可"
 
 #: src/preferences/devices/airpods/configureWindow.js:185
 msgid ""
@@ -263,11 +271,11 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1176
 #: src/preferences/devices/sony/configureWindow.js:374
 msgid "Apply"
-msgstr ""
+msgstr "適用"
 
 #: src/preferences/devices/airpods/configureWindow.js:279
 msgid "Notification Volume"
-msgstr ""
+msgstr "通知音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:283
 msgid "Tone Volume"
@@ -309,7 +317,7 @@ msgstr ""
 #: src/preferences/devices/airpods/configureWindow.js:370
 #: src/preferences/devices/googleBuds/configureWindow.js:79
 msgid "Default"
-msgstr ""
+msgstr "デフォルト"
 
 #: src/preferences/devices/airpods/configureWindow.js:319
 #: src/preferences/devices/airpods/configureWindow.js:352
@@ -381,7 +389,7 @@ msgstr "イコライザ"
 #: src/preferences/devices/sony/configureWindow.js:151
 #: src/lib/devices/sony/sonyDevice.js:197
 msgid "Standard"
-msgstr ""
+msgstr "標準"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:255
 #: src/preferences/devices/nothingBuds/configureWindow.js:211
@@ -622,7 +630,7 @@ msgstr ""
 #: src/preferences/devices/redmiBuds/configureWindow.js:403
 #: src/preferences/widgets/deviceMgmtRowWidget.js:460
 msgid "Allow Connections to Multiple Devices"
-msgstr ""
+msgstr "複数のデバイスに接続を許可"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:417
 #: src/preferences/devices/senhBuds/configureWindow.js:589
@@ -775,7 +783,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1060
 #: src/preferences/devices/boseBuds/configureWindow.js:833
 msgid "Previous Track"
-msgstr ""
+msgstr "現在のトラック"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:601
 #: src/preferences/devices/nothingBuds/configureWindow.js:621
@@ -2572,7 +2580,7 @@ msgstr ""
 
 #: src/lib/widgets/settingsButton.js:93
 msgid "Run in Background"
-msgstr ""
+msgstr "バックグラウンドで実行"
 
 #: src/lib/widgets/settingsButton.js:100
 msgid "BudsLink Companion"
@@ -2600,7 +2608,7 @@ msgstr ""
 
 #: src/lib/widgets/settingsButton.js:500
 msgid "GNOME Extension"
-msgstr ""
+msgstr "GNOME拡張"
 
 #: src/lib/widgets/settingsButton.js:506
 msgid "Plasma Widget"
