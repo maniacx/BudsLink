@@ -45,8 +45,6 @@ export default {
     highResAudio: true,
     dynamicBass: true,
     dynamicBassOpo: true,
-    autoAnswer: true,
-    findMyPhone: true,
     fitTest: true,
     ring: true,
 
@@ -56,19 +54,16 @@ export default {
             {group: 'left',  device: 0x01, buttonId: 0x01, type: 'double'},
             {group: 'left',  device: 0x01, buttonId: 0x01, type: 'triple'},
             {group: 'left',  device: 0x01, buttonId: 0x01, type: 'swipe'},
-            {group: 'left',  device: 0x01, buttonId: 0x01, type: 'action-hold'},
             {group: 'right',  device: 0x02, buttonId: 0x01, type: 'single'},
             {group: 'right', device: 0x02, buttonId: 0x01, type: 'double'},
             {group: 'right', device: 0x02, buttonId: 0x01, type: 'triple'},
             {group: 'right',  device: 0x02, buttonId: 0x01, type: 'swipe'},
-            {group: 'right', device: 0x02, buttonId: 0x01, type: 'action-hold'},
         ],
         mapping: {
             gestureTypes: {
                 'single': 0x01,
                 'double': 0x02,
                 'triple': 0x03,
-                'action-hold': 0x04,
                 'swipe': 0x05,
             },
             actions: {
@@ -77,7 +72,6 @@ export default {
                 'voice-assistant': [0x04],
                 'skip-back': [0x05],
                 'skip-forward': [0x06],
-                'noise-control': [0x08],
                 'device-switch': [0x0A],
                 'game-mode': [0x11],
                 'change-volume': [0x07],
@@ -119,16 +113,6 @@ export default {
                     'none',
                     'change-volume',
                     'switch-track',
-                ],
-            },
-            'action-hold': {
-                type: 'tap',
-                actions: [
-                    'noise-control',
-                    'voice-assistant',
-                    'game-mode',
-                    'device-switch',
-                    'none',
                 ],
             },
         },
