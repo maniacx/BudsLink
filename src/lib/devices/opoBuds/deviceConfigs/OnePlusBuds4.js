@@ -8,8 +8,8 @@ export default {
     batteryCase: true,
 
     eqPreset: {
-        originalSound: 0x0B,
-        serenade: 0x0E,
+        originalSound: 0x00,
+        serenade: 0x02,
         bass: 0x01,
     },
 
