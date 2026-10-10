@@ -122,6 +122,7 @@ export default {
             'noise-cancellation': 0x08,
             'adaptive': 0x8000,
         },
+        minimumNoiseControlModes: 1,
     },
 
     albumArtIcon: 'earbuds-stem',

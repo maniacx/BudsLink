@@ -1292,7 +1292,7 @@ export const ConfigureWindow = GObject.registerClass({
                 items: ncCycleItems,
                 applyBtnName: _('Apply'),
                 initialValue: initialWidgetMask,
-                minRequired: 2,
+                minRequired: this._modelData.gestureOptions.minimumNoiseControlModes ?? 2,
             });
 
             this._ncCycleWidget.compact_mode = this._isCompactMode;
