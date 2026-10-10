@@ -142,5 +142,5 @@ export default {
 
     albumArtIcon: 'earbuds-stem',
     budsIcon: 'earbuds-stem',
-    case: 'case-round',
+    case: 'case-oval',
 };
