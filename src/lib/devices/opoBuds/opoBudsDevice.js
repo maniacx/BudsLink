@@ -557,23 +557,45 @@ export const OpoBudsDevice = GObject.registerClass({
             addToggle('off', toBytes(nc.off), 'bbm-anc-off-symbolic', _('Off'));
 
         if (nc.transparency) {
-            let transDefault = [];
-            const transMatch = [];
+            const flatBytes = [];
+            this._ancTransparencyMap = {};
+            this._ancTransparencyReverse = {};
+
             if (nc.transparency.levels) {
-                const transLevels = nc.transparency.levels;
-                const keys = Object.keys(transLevels);
-                keys.forEach(k => {
-                    const b = toBytes(transLevels[k]);
-                    if (transDefault.length === 0 && b.length > 0)
-                        transDefault = b;
-                    transMatch.push(...b);
+                const levelsObj = nc.transparency.levels;
+                const levelKeys = Object.keys(levelsObj);
+
+                const levelNames = {
+                    'regular': _('Regular'),
+                    'voice': _('Voice'),
+                };
+
+                const radioNames = [];
+                let firstLevelBytes = [];
+                levelKeys.forEach((key, idx) => {
+                    const num = idx + 1;
+                    const displayName = levelNames[key] ??
+                        key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
+                    radioNames.push(displayName);
+                    const modeBytes = toBytes(levelsObj[key]);
+                    if (firstLevelBytes.length === 0 && modeBytes.length > 0)
+                        firstLevelBytes = modeBytes;
+                    this._ancTransparencyMap[num] = modeBytes;
+                    modeBytes.forEach(b => {
+                        this._ancTransparencyReverse[b] = num;
+                    });
+                    flatBytes.push(...modeBytes);
                 });
+
+                this._config.box2RadioButton = radioNames;
+                this._config.box2RadioTitle = _('Transparency Level');
+                addToggle('transparency', firstLevelBytes.length ? firstLevelBytes : flatBytes,
+                    'bbm-transperancy-symbolic', _('Transparency'), flatBytes);
             } else {
-                transDefault = toBytes(nc.transparency);
-                transMatch.push(...transDefault);
+                flatBytes.push(...toBytes(nc.transparency));
+                addToggle('transparency', flatBytes, 'bbm-transperancy-symbolic',
+                    _('Transparency'), flatBytes);
             }
-            addToggle('transparency', transDefault,
-                'bbm-transperancy-symbolic', _('Transparency'), transMatch);
         }
 
         if (nc.noiseCancellation) {
@@ -713,6 +735,8 @@ export const OpoBudsDevice = GObject.registerClass({
                     this._toggle1ButtonClicked(value);
                 else if (command === 'box1RadioButtonState')
                     this._box1RadioButtonStateChanged(value);
+                else if (command === 'box2RadioButtonState')
+                    this._box2RadioButtonStateChanged(value);
                 else if (command === 'box1CheckButton1State')
                     this._box1CheckButton1Changed(value);
                 else if (command === 'box2CheckButton1State')
@@ -760,6 +784,7 @@ export const OpoBudsDevice = GObject.registerClass({
             ancMode = toggle.modeBytes;
         }
 
+        this.dataHandler?.setProps(this._props);
         if (this._isReady && !isSameState && ancMode != null)
             this._opoBudsSocket?.setNoiseControl(ancMode);
     }
@@ -769,8 +794,21 @@ export const OpoBudsDevice = GObject.registerClass({
             return;
 
         this._props.box1RadioButtonState = index;
+        this.dataHandler?.setProps(this._props);
 
         const modeBytes = this._ancRadioMap[index];
+        if (modeBytes?.length)
+            this._opoBudsSocket?.setNoiseControl(modeBytes);
+    }
+
+    _box2RadioButtonStateChanged(index) {
+        if (!this._ancTransparencyMap)
+            return;
+
+        this._props.box2RadioButtonState = index;
+        this.dataHandler?.setProps(this._props);
+
+        const modeBytes = this._ancTransparencyMap[index];
         if (modeBytes?.length)
             this._opoBudsSocket?.setNoiseControl(modeBytes);
     }
@@ -905,16 +943,27 @@ export const OpoBudsDevice = GObject.registerClass({
         this._props.toggle1State = toggleIndex;
 
         if (activeType === 'noiseCancellation') {
-            if (this._ancRadioReverse && this._ancRadioReverse[lastByte] !== undefined)
-                this._props.box1RadioButtonState = this._ancRadioReverse[lastByte];
-            else if (!this._props.box1RadioButtonState)
-                this._props.box1RadioButtonState = 1;
+            if (nc.noiseCancellation?.levels) {
+                if (this._ancRadioReverse && this._ancRadioReverse[lastByte] !== undefined)
+                    this._props.box1RadioButtonState = this._ancRadioReverse[lastByte];
+                else if (!this._props.box1RadioButtonState)
+                    this._props.box1RadioButtonState = 1;
+            }
             this._props.optionsBoxVisible = this._config.optionsBox1?.length ? 1 : 0;
         } else if (activeType === 'transparency') {
+            if (nc.transparency?.levels) {
+                if (this._ancTransparencyReverse &&
+                    this._ancTransparencyReverse[lastByte] !== undefined)
+                    this._props.box2RadioButtonState = this._ancTransparencyReverse[lastByte];
+                else if (!this._props.box2RadioButtonState)
+                    this._props.box2RadioButtonState = 1;
+            }
             this._props.optionsBoxVisible = this._config.optionsBox2?.length ? 2 : 0;
         } else {
             this._props.optionsBoxVisible = 0;
         }
+
+        this.dataHandler?.setProps(this._props);
     }
 
     updateNoiseControlCycle(maskByte) {

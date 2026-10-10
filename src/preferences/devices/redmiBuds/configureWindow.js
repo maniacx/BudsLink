@@ -321,25 +321,25 @@ export const ConfigureWindow = GObject.registerClass({
     }
 
     _addSpatialAudio() {
-        if(!this._modelData.immersiveSound)
+        if (!this._modelData.immersiveSound)
             return;
 
         const spatialAudioGroup = new Adw.PreferencesGroup({title: _('Immersive Audio')});
         this._page.add(spatialAudioGroup);
 
 
-            this._immersiveSoundSwitch = new Adw.SwitchRow({
-                title: _('Spatial Audio'),
-                subtitle: _('Add depth for a more immersive experience'),
-            });
+        this._immersiveSoundSwitch = new Adw.SwitchRow({
+            title: _('Spatial Audio'),
+            subtitle: _('Add depth for a more immersive experience'),
+        });
 
-            this._immersiveSoundSwitch.active = this._settingsItems['immersive-sound'];
+        this._immersiveSoundSwitch.active = this._settingsItems['immersive-sound'];
 
-            this._immersiveSoundSwitch.connect('notify::active', () => {
-                this._updateGsettings('immersive-sound', this._immersiveSoundSwitch.active);
-            });
+        this._immersiveSoundSwitch.connect('notify::active', () => {
+            this._updateGsettings('immersive-sound', this._immersiveSoundSwitch.active);
+        });
 
-            spatialAudioGroup.add(this._immersiveSoundSwitch);
+        spatialAudioGroup.add(this._immersiveSoundSwitch);
 
 
         if (this._modelData.headTracking) {
@@ -385,8 +385,6 @@ export const ConfigureWindow = GObject.registerClass({
                 this._spatialAudioSceneDropdown, 'visible',
                 GObject.BindingFlags.SYNC_CREATE);
         }
-
-
     }
 
     _addMiscSetting() {
