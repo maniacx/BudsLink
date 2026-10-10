@@ -151,8 +151,11 @@ export const ConfigureWindow = GObject.registerClass({
                         this._eqPresetDropdown.selected_item = this._settingsItems['eq-preset'];
                 }
 
-                if (this._modelData.dynamicBass && this._dynamicBassSwitch)
-                    this._dynamicBassSwitch.active = this._settingsItems['dynamic-bass'];
+                if (this._modelData.dynamicBass && this._dynamicAudioExpander) {
+                    const enabled = this._settingsItems['dynamic-bass'];
+                    this._dynamicAudioExpander.enable_expansion = enabled;
+                    this._dynamicAudioExpander.expanded = enabled;
+                }
 
                 if (this._modelData.spatialAudio && this._spatialAudioSwitch)
                     this._spatialAudioSwitch.active = this._settingsItems['spatial'];
@@ -196,6 +199,9 @@ export const ConfigureWindow = GObject.registerClass({
 
                 if (this._highFreq)
                     this._highFreq.value = this._settingsItems['dynamic-audio-high'];
+
+                if (this._bassLevel)
+                    this._bassLevel.value = this._settingsItems['bass-level'];
 
                 if (this._modelData.gestureOptions && this._gestureDropdowns) {
                     const gesturesHex = this._settingsItems['gestures'] ||
@@ -690,24 +696,21 @@ export const ConfigureWindow = GObject.registerClass({
             title: _('Audio Effects'),
         });
 
-        if (this._modelData.dynamicBass) {
-            const bassOpo = !!this._modelData.dynamicBassOpo;
+        if (this._modelData.dynamicBass && !this._modelData.dynamicBassOpo) {
             const isDynamicBassActive = this._settingsItems['dynamic-bass'] ?? false;
-            const dynamicAudioExpander = new Adw.ExpanderRow({
-                title: bassOpo ? _('Bass Enhancement') : _('Dynamic Audio'),
-                subtitle: bassOpo ? _('Enhances bass in real time')
-                    : _('Real-time dynamic bass and 3-band equalization'),
-
+            this._dynamicAudioExpander = new Adw.ExpanderRow({
+                title: _('Dynamic Audio'),
+                subtitle: _('Real-time dynamic bass and 3-band equalization'),
                 show_enable_switch: true,
                 enable_expansion: isDynamicBassActive,
                 expanded: isDynamicBassActive,
             });
 
-            dynamicAudioExpander.connect('notify::enable-expansion', () => {
+            this._dynamicAudioExpander.connect('notify::enable-expansion', () => {
                 if (this._isUpdatingUI)
                     return;
-                const enabled = dynamicAudioExpander.enable_expansion;
-                dynamicAudioExpander.expanded = enabled;
+                const enabled = this._dynamicAudioExpander.enable_expansion;
+                this._dynamicAudioExpander.expanded = enabled;
                 this._updateGsettings('dynamic-bass', enabled);
             });
 
@@ -730,35 +733,32 @@ export const ConfigureWindow = GObject.registerClass({
             });
 
             this._lowFreq = new SliderRowWidget({
-                rowTitle: bassOpo ? _('Bass Enhancement Level') : _('Low Frequency'),
+                rowTitle: _('Low Frequency'),
                 range,
                 marks,
                 snapOnStep: true,
                 initialValue: this._settingsItems['dynamic-audio-low'],
             });
 
+            this._midFreq = new SliderRowWidget({
+                rowTitle: _('Mid Frequency'),
+                range,
+                marks,
+                snapOnStep: true,
+                initialValue: this._settingsItems['dynamic-audio-med'],
+            });
+
+            this._highFreq = new SliderRowWidget({
+                rowTitle: _('High Frequency'),
+                range,
+                marks,
+                snapOnStep: true,
+                initialValue: this._settingsItems['dynamic-audio-high'],
+            });
+
             this._lowFreq.compact_mode = this._isCompactMode;
-
-            if (!bassOpo) {
-                this._midFreq = new SliderRowWidget({
-                    rowTitle: _('Mid Frequency'),
-                    range,
-                    marks,
-                    snapOnStep: true,
-                    initialValue: this._settingsItems['dynamic-audio-med'],
-                });
-
-                this._highFreq = new SliderRowWidget({
-                    rowTitle: _('High Frequency'),
-                    range,
-                    marks,
-                    snapOnStep: true,
-                    initialValue: this._settingsItems['dynamic-audio-high'],
-                });
-
-                this._midFreq.compact_mode = this._isCompactMode;
-                this._highFreq.compact_mode = this._isCompactMode;
-            }
+            this._midFreq.compact_mode = this._isCompactMode;
+            this._highFreq.compact_mode = this._isCompactMode;
 
             const debounceEqUpdate = () => {
                 if (this._isUpdatingUI)
@@ -771,23 +771,84 @@ export const ConfigureWindow = GObject.registerClass({
                     this._eqDebounceId = null;
                     this._updateMultipleGsettings({
                         'dynamic-audio-low': this._lowFreq.value,
-                        'dynamic-audio-med': this._midFreq?.value ?? 0,
-                        'dynamic-audio-high': this._highFreq?.value ?? 0,
+                        'dynamic-audio-med': this._midFreq.value,
+                        'dynamic-audio-high': this._highFreq.value,
                     });
                     return GLib.SOURCE_REMOVE;
                 });
             };
 
             this._lowFreq.connect('notify::value', debounceEqUpdate);
-            dynamicAudioExpander.add_row(this._lowFreq);
+            this._midFreq.connect('notify::value', debounceEqUpdate);
+            this._highFreq.connect('notify::value', debounceEqUpdate);
 
-            if (!bassOpo) {
-                this._midFreq.connect('notify::value', debounceEqUpdate);
-                this._highFreq.connect('notify::value', debounceEqUpdate);
-                dynamicAudioExpander.add_row(this._midFreq);
-                dynamicAudioExpander.add_row(this._highFreq);
-            }
-            effectsGroup.add(dynamicAudioExpander);
+            this._dynamicAudioExpander.add_row(this._lowFreq);
+            this._dynamicAudioExpander.add_row(this._midFreq);
+            this._dynamicAudioExpander.add_row(this._highFreq);
+
+            effectsGroup.add(this._dynamicAudioExpander);
+        } else if (this._modelData.dynamicBass && this._modelData.dynamicBassOpo) {
+            const isBassActive = this._settingsItems['dynamic-bass'] ?? false;
+
+            this._dynamicAudioExpander = new Adw.ExpanderRow({
+                title: _('Bass Enhancement'),
+                subtitle: _('Enhances bass in real time'),
+                show_enable_switch: true,
+                enable_expansion: isBassActive,
+                expanded: isBassActive,
+            });
+
+            this._dynamicAudioExpander.connect('notify::enable-expansion', () => {
+                if (this._isUpdatingUI)
+                    return;
+
+                const enabled = this._dynamicAudioExpander.enable_expansion;
+                this._dynamicAudioExpander.expanded = enabled;
+                this._updateGsettings('dynamic-bass', enabled);
+            });
+
+            const range = [-5, 5, 1];
+
+            const marks = Array.from({length: 11}, (_o, i) => {
+                const value = i - 5;
+                const mark = {mark: value};
+
+                if (value === -5 || value === 0 || value === 5)
+                    mark.label = _(String(value));
+
+                return mark;
+            });
+
+            this._bassLevel = new SliderRowWidget({
+                rowTitle: _('Bass Enhancement Level'),
+                range,
+                marks,
+                snapOnStep: true,
+                initialValue: this._settingsItems['bass-level'],
+            });
+
+            this._bassLevel.compact_mode = this._isCompactMode;
+
+            const debounceBassUpdate = () => {
+                if (this._isUpdatingUI)
+                    return;
+
+                if (this._eqDebounceId)
+                    GLib.source_remove(this._eqDebounceId);
+
+                this._eqDebounceId = GLib.timeout_add(
+                    GLib.PRIORITY_DEFAULT, 350, () => {
+                        this._eqDebounceId = null;
+                        this._updateGsettings('bass-level', this._bassLevel.value);
+                        return GLib.SOURCE_REMOVE;
+                    }
+                );
+            };
+
+            this._bassLevel.connect('notify::value', debounceBassUpdate);
+            this._dynamicAudioExpander.add_row(this._bassLevel);
+
+            effectsGroup.add(this._dynamicAudioExpander);
         }
 
         if (this._modelData.spatialAudio) {

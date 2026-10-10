@@ -242,10 +242,15 @@ export const OpoBudsDevice = GObject.registerClass({
             this._highRes = this._settingsItems['high-res'];
 
         if (this._modelData.dynamicBass) {
-            this._dynamicBass = this._settingsItems['dynamic-bass'];
-            this._dynamicAudioLow = this._settingsItems['dynamic-audio-low'] ?? 0;
-            this._dynamicAudioMed = this._settingsItems['dynamic-audio-med'] ?? 0;
-            this._dynamicAudioHigh = this._settingsItems['dynamic-audio-high'] ?? 0;
+            this._dynamicBass = this._settingsItems['dynamic-bass'] ?? false;
+
+            if (this._modelData.dynamicBassOpo) {
+                this._bassLevel = this._settingsItems['bass-level'] ?? 0;
+            } else {
+                this._dynamicAudioLow = this._settingsItems['dynamic-audio-low'] ?? 0;
+                this._dynamicAudioMed = this._settingsItems['dynamic-audio-med'] ?? 0;
+                this._dynamicAudioHigh = this._settingsItems['dynamic-audio-high'] ?? 0;
+            }
         }
 
         if (this._modelData.autoAnswer)
@@ -324,11 +329,15 @@ export const OpoBudsDevice = GObject.registerClass({
                             }
 
                             if (item.key === 'dynamic-bass' && val === true) {
-                                this._opoBudsSocket?.setDynamicAudioEq(
-                                    this._dynamicAudioLow ?? 0,
-                                    this._dynamicAudioMed ?? 0,
-                                    this._dynamicAudioHigh ?? 0
-                                );
+                                if (this._modelData.dynamicBassOpo) {
+                                    this._opoBudsSocket?.setBassLevel(this._bassLevel ?? 0);
+                                } else {
+                                    this._opoBudsSocket?.setDynamicAudioEq(
+                                        this._dynamicAudioLow ?? 0,
+                                        this._dynamicAudioMed ?? 0,
+                                        this._dynamicAudioHigh ?? 0
+                                    );
+                                }
                             }
                         }
                     }
@@ -359,20 +368,30 @@ export const OpoBudsDevice = GObject.registerClass({
                 }
 
                 if (this._modelData.dynamicBass) {
-                    const low = this._settingsItems['dynamic-audio-low'] ?? 0;
-                    const med = this._settingsItems['dynamic-audio-med'] ?? 0;
-                    const high = this._settingsItems['dynamic-audio-high'] ?? 0;
-                    const changed = this._dynamicAudioLow !== low ||
-                             this._dynamicAudioMed !== med || this._dynamicAudioHigh !== high;
+                    if (this._modelData.dynamicBassOpo) {
+                        const level = this._settingsItems['bass-level'] ?? 0;
 
-                    if (changed) {
-                        this._dynamicAudioLow = low;
-                        this._dynamicAudioMed = med;
-                        this._dynamicAudioHigh = high;
-                        if (this._dynamicBass) {
-                            if (this._modelData.dynamicBassOpo)
-                                this._opoBudsSocket?.setBassLevel(low);
-                            else
+                        if (this._bassLevel !== level) {
+                            this._bassLevel = level;
+
+                            if (this._dynamicBass)
+                                this._opoBudsSocket?.setBassLevel(level);
+                        }
+                    } else {
+                        const low = this._settingsItems['dynamic-audio-low'] ?? 0;
+                        const med = this._settingsItems['dynamic-audio-med'] ?? 0;
+                        const high = this._settingsItems['dynamic-audio-high'] ?? 0;
+
+                        const changed = this._dynamicAudioLow !== low ||
+                                this._dynamicAudioMed !== med ||
+                                this._dynamicAudioHigh !== high;
+
+                        if (changed) {
+                            this._dynamicAudioLow = low;
+                            this._dynamicAudioMed = med;
+                            this._dynamicAudioHigh = high;
+
+                            if (this._dynamicBass)
                                 this._opoBudsSocket?.setDynamicAudioEq(low, med, high);
                         }
                     }
@@ -962,7 +981,7 @@ export const OpoBudsDevice = GObject.registerClass({
     }
 
     updateBassLevel(level) {
-        this._updateSettingKey('dynamic-audio-low', level);
+        this._updateSettingKey('bass-level', level);
     }
 
     updateAutoAnswer(autoAnswer) {
