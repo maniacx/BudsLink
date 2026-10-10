@@ -361,6 +361,10 @@ export const OpoBudsSocket = GObject.registerClass({
                 this._parseDynamicBassOpo(payload);
                 break;
 
+            case Cmd.BASSLEVEL_NOTIFY:
+                this._parseDynamicBassOpo(payload);
+                break;
+
             case Cmd.CUSTOM_EQ_NOTIFY:
                 this._parseCustomEqInfo(payload);
                 break;
@@ -369,7 +373,6 @@ export const OpoBudsSocket = GObject.registerClass({
                 this._parseGestures(payload);
                 break;
 
-            case Cmd.KEY_FUNCTION_NOTIFY:
             case 0x0501:
                 this._getGestures();
                 break;
