@@ -58,6 +58,10 @@ export default {
             {group: 'right', device: 0x02, buttonId: 0x01, type: 'double'},
             {group: 'right', device: 0x02, buttonId: 0x01, type: 'triple'},
             {group: 'right',  device: 0x02, buttonId: 0x01, type: 'swipe'},
+            {group: 'left-call',  device: 0x01, buttonId: 0x06, type: 'double-call'},
+            {group: 'left-call',  device: 0x01, buttonId: 0x06, type: 'long-action-hold-call'},
+            {group: 'right-call',  device: 0x02, buttonId: 0x06, type: 'double-call'},
+            {group: 'right-call',  device: 0x02, buttonId: 0x06, type: 'long-action-hold-call'},
         ],
         mapping: {
             gestureTypes: {
@@ -65,6 +69,8 @@ export default {
                 'double': 0x02,
                 'triple': 0x03,
                 'swipe': 0x05,
+                'double-call': 0x02,
+                'long-action-hold-call': 0x06,
             },
             actions: {
                 'none': [0x00],
@@ -76,6 +82,8 @@ export default {
                 'game-mode': [0x11],
                 'change-volume': [0x07],
                 'switch-track': [0x0A],
+                'answer-end-call': [0x1D],
+                'decline-call': [0x1C],
             },
         },
         gestures: {
@@ -113,6 +121,20 @@ export default {
                     'none',
                     'change-volume',
                     'switch-track',
+                ],
+            },
+            'double-call': {
+                type: 'tap',
+                actions: [
+                    'answer-end-call',
+                    'none',
+                ],
+            },
+            'long-action-hold-call': {
+                type: 'tap',
+                actions: [
+                    'decline-call',
+                    'none',
                 ],
             },
         },

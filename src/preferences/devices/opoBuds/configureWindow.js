@@ -1143,6 +1143,8 @@ export const ConfigureWindow = GObject.registerClass({
             'device-switch': _('Switch Devices'),
             'change-volume': _('Volume Control'),
             'switch-track': _('Switch Track'),
+            'answer-end-call': _('Answer Call or End Call'),
+            'decline-call': _('Decline Call'),
         };
 
         const gestureSlotNames = {
@@ -1152,6 +1154,8 @@ export const ConfigureWindow = GObject.registerClass({
             'action-hold': _('Touch and Hold'),
             'anc-single': _('Single Tap'),
             'double-action-hold': _('Double Tap and Hold'),
+            'double-call': _('Double Tap'),
+            'long-action-hold-call': _('Long Touch and Hold'),
         };
 
         const pressSlotNames = {
@@ -1160,6 +1164,8 @@ export const ConfigureWindow = GObject.registerClass({
             'triple': _('Triple Press'),
             'action-hold': _('Press and Hold'),
             'double-action-hold': _('Double Press and Hold'),
+            'double-call': _('Double Press'),
+            'long-action-hold-call': _('Long Press and Hold'),
         };
 
         const swipeSlotNames = {
@@ -1324,6 +1330,10 @@ export const ConfigureWindow = GObject.registerClass({
                 return _('Left Earbud');
             case 'right':
                 return _('Right Earbud');
+            case 'left-call':
+                return _('Left Earbud Call Controls');
+            case 'right-call':
+                return _('Right Earbud Call Controls');
             case 'single':
                 return _('Button Controls');
             case 'mfb':
