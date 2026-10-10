@@ -1050,7 +1050,7 @@ export const OpoBudsSocket = GObject.registerClass({
         const startIdx = 2;
         const needed = count * 4;
 
-        if (count < 1 || count > 16 || payload.length < startIdx + needed)
+        if (count < 1 || payload.length < startIdx + needed)
             return;
 
         const slotsBytes = payload.slice(startIdx, startIdx + needed);
