@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-09-22 17:52+0000\n"
+"PO-Revision-Date: 2026-10-11 11:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: tr\n"
@@ -24,11 +24,11 @@ msgstr "BudsLink"
 
 #: src/app.js:238
 msgid "Devices"
-msgstr ""
+msgstr "Cihazlar"
 
 #: src/app.js:240
 msgid "No compatible device found"
-msgstr ""
+msgstr "Uyumlu cihaz bulunamadı"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:63
 msgid "Settings"
@@ -40,14 +40,14 @@ msgstr "Ayarlar"
 #: src/preferences/devices/opoBuds/configureWindow.js:826
 #: src/preferences/devices/opoBuds/configureWindow.js:1065
 msgid "Game Mode"
-msgstr ""
+msgstr "Oyun Modu"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:69
 #: src/preferences/devices/redmiBuds/configureWindow.js:448
 #: src/preferences/devices/nothingBuds/configureWindow.js:355
 #: src/preferences/devices/opoBuds/configureWindow.js:827
 msgid "Reduces latency and enhances in-game audio"
-msgstr ""
+msgstr "Gecikmeyi azaltır ve oyun içi ses kalitesini artırır"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:80
 #: src/preferences/devices/nothingBuds/configureWindow.js:369
@@ -55,14 +55,14 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:842
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "In-Ear Detection"
-msgstr ""
+msgstr "Kulak İçi Algılama"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:81
 #: src/preferences/devices/nothingBuds/configureWindow.js:370
 #: src/preferences/devices/senhBuds/configureWindow.js:563
 #: src/preferences/devices/boseBuds/configureWindow.js:375
 msgid "Enable features based on wearing detection"
-msgstr ""
+msgstr "Giyme algılamasına dayalı özellikleri etkinleştirin"
 
 #: src/preferences/devices/airpods/configureWindow.js:103
 #: src/preferences/devices/redmiBuds/configureWindow.js:218
@@ -70,7 +70,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:112
 #: src/preferences/devices/boseBuds/configureWindow.js:428
 msgid "Playback Behavior"
-msgstr ""
+msgstr "Oynatma Davranışı"
 
 #: src/preferences/devices/airpods/configureWindow.js:107
 #: src/preferences/devices/airpods/configureWindow.js:110
@@ -81,13 +81,13 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:433
 #: src/preferences/devices/boseBuds/configureWindow.js:437
 msgid "Default behavior"
-msgstr ""
+msgstr "Varsayılan davranış"
 
 #: src/preferences/devices/airpods/configureWindow.js:108
 #: src/preferences/devices/senhBuds/configureWindow.js:639
 #: src/preferences/devices/boseBuds/configureWindow.js:438
 msgid "Resume when worn"
-msgstr ""
+msgstr "Takıldığında devam edin"
 
 #: src/preferences/devices/airpods/configureWindow.js:111
 #: src/preferences/devices/redmiBuds/configureWindow.js:223
@@ -96,6 +96,8 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:434
 msgid "Resume with both earbuds, Pause if any removed"
 msgstr ""
+"Her iki kulaklık da takılıyken devam edin,herhangi biri çıkarılırsa "
+"duraklatın"
 
 #: src/preferences/devices/airpods/configureWindow.js:112
 #: src/preferences/devices/redmiBuds/configureWindow.js:224
@@ -104,12 +106,14 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:435
 msgid "Resume with any earbud, Pause if both removed"
 msgstr ""
+"Kulaklıklardan herhangi biriyle devam edin, her ikisi de çıkarıldığında "
+"duraklatın"
 
 #: src/preferences/devices/airpods/configureWindow.js:116
 #: src/preferences/devices/senhBuds/configureWindow.js:643
 #: src/preferences/devices/boseBuds/configureWindow.js:442
 msgid "Choose Playback Behavior for In-Ear Detection"
-msgstr ""
+msgstr "Kulak İçi Algılama için Oynatma Davranışını Seçin"
 
 #: src/preferences/devices/airpods/configureWindow.js:117
 #: src/preferences/devices/redmiBuds/configureWindow.js:229
@@ -118,36 +122,40 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:447
 msgid "Automatically pause or resume playback based on wearing detection."
 msgstr ""
+"Takma algılamasına bağlı olarak oynatmayı otomatik olarak duraklatın veya "
+"devam ettirin."
 
 #: src/preferences/devices/airpods/configureWindow.js:133
 msgid "Volume Level"
-msgstr ""
+msgstr "Ses Seviyesi"
 
 #: src/preferences/devices/airpods/configureWindow.js:137
 msgid "Lower volume during conversation awareness"
-msgstr ""
+msgstr "Konuşma sırasında ses seviyesini düşürme farkındalığı"
 
 #: src/preferences/devices/airpods/configureWindow.js:138
 msgid "Automatically lower the volume when conversation awareness is active"
-msgstr ""
+msgstr "Konuşma algılama etkin olduğunda ses seviyesini otomatik olarak düşürün"
 
 #: src/preferences/devices/airpods/configureWindow.js:156
 msgid "Conversation awareness volume limit"
-msgstr ""
+msgstr "Konuşma farkındalığı ses seviyesi sınırı"
 
 #: src/preferences/devices/airpods/configureWindow.js:157
 msgid ""
 "Limits media volume to this percentage during conversation. Note: No change "
 "if current volume is below this level."
 msgstr ""
+"Konuşma sırasında medya ses seviyesini bu yüzdeyle sınırlandırır. Not: "
+"Mevcut ses seviyesi bu seviyenin altındaysa değişiklik olmaz."
 
 #: src/preferences/devices/airpods/configureWindow.js:180
 msgid "Turn off listening modes"
-msgstr ""
+msgstr "Dinleme modlarını kapatın"
 
 #: src/preferences/devices/airpods/configureWindow.js:184
 msgid "Allows to turn off all listening mode technology"
-msgstr ""
+msgstr "Tüm dinleme modu teknolojilerini kapatmanıza olanak tanır"
 
 #: src/preferences/devices/airpods/configureWindow.js:185
 msgid ""
@@ -155,6 +163,9 @@ msgid ""
 "disabled. Disabling listening modes also turns off Hearing Aid features and "
 "reduces power usage."
 msgstr ""
+"Gürültü Engelleme, Şeffaflık ve Uyarlanabilir modlarının tamamen devre dışı "
+"bırakılmasına olanak tanır. Dinleme modlarının devre dışı bırakılması, "
+"işitme cihazı özelliklerini de kapatır ve güç tüketimini azaltır."
 
 #: src/preferences/devices/airpods/configureWindow.js:219
 #: src/preferences/devices/redmiBuds/configureWindow.js:477
@@ -190,7 +201,7 @@ msgstr ""
 #: src/lib/devices/googleBuds/googleBudsDevice.js:211
 #: src/lib/widgets/settingsButton.js:401 src/lib/widgets/settingsButton.js:438
 msgid "Off"
-msgstr ""
+msgstr "Kapalı"
 
 #: src/preferences/devices/airpods/configureWindow.js:226
 #: src/preferences/devices/opoBuds/configureWindow.js:1162
@@ -202,7 +213,7 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:554
 #: src/lib/devices/googleBuds/googleBudsDevice.js:217
 msgid "Transparency"
-msgstr ""
+msgstr "Şeffaflık"
 
 #: src/preferences/devices/airpods/configureWindow.js:232
 #: src/preferences/devices/redmiBuds/configureWindow.js:479
@@ -225,7 +236,7 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:187
 #: src/lib/devices/googleBuds/googleBudsDevice.js:223
 msgid "Noise Cancellation"
-msgstr ""
+msgstr "Gürültü Engelleme"
 
 #: src/preferences/devices/airpods/configureWindow.js:239
 #: src/preferences/devices/galaxyBuds/configureWindow.js:530
@@ -241,11 +252,11 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:908
 #: src/lib/devices/googleBuds/googleBudsDevice.js:229
 msgid "Adaptive"
-msgstr ""
+msgstr "Uyarlanabilir"
 
 #: src/preferences/devices/airpods/configureWindow.js:248
 msgid "Press and Hold Cycle"
-msgstr ""
+msgstr "Basılı Tutma Döngüsü"
 
 #: src/preferences/devices/airpods/configureWindow.js:251
 msgid "Press and hold cycles between"
