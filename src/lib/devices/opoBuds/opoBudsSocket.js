@@ -170,7 +170,7 @@ export const OpoBudsSocket = GObject.registerClass({
         ];
 
         const packet = [...header, ...payload];
-        this._log.info(`Send -> Cmd: ${hexBytes(cmd)} Data: ${hexBytes(packet)}`);
+        this._log.info(`Send -> Cmd: ${hexBytes(cmd)} Data: ${hexBytes(payload)}`);
         this._sendPacket(packet);
         return true;
     }
