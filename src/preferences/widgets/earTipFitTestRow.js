@@ -14,13 +14,14 @@ export const EarTipStatus = {
 const EarTipFitTestDialog = GObject.registerClass({
     GTypeName: 'EarTipTestDialog',
 }, class EarTipFitTestDialog extends Adw.Dialog {
-    _init(parentRow, deviceIcon) {
+    _init(parentRow, deviceIcon, noCancelButton) {
         super._init({
             title: _('Earbud Fit Test'),
             content_width: 300,
         });
 
         this._deviceIcon = deviceIcon;
+        this._noCancelButton = noCancelButton;
 
         const toolbarView = new Adw.ToolbarView();
         toolbarView.add_top_bar(new Adw.HeaderBar());
@@ -130,52 +131,46 @@ const EarTipFitTestDialog = GObject.registerClass({
         earbudsBox.append(rightCell);
         box.append(earbudsBox);
 
-        const buttonGrp = new Adw.PreferencesGroup();
-
-        const buttonBox = new Gtk.Box({
-            orientation: Gtk.Orientation.VERTICAL,
-            spacing: 8,
-            hexpand: true,
-        });
-
-        this._button = new Gtk.Button({
-            label: _('Run test'),
-            height_request: 48,
-            hexpand: true,
-            halign: Gtk.Align.FILL,
-        });
-
-        this._button.add_css_class('suggested-action');
-
-        this._buttonSpinner = new Adw.Spinner({
+        const spinner = new Adw.Spinner({
             width_request: 16,
             height_request: 16,
         });
 
-        const testingContent = new Gtk.Box({
-            orientation: Gtk.Orientation.HORIZONTAL,
-            spacing: 8,
-            halign: Gtk.Align.CENTER,
+        const inProgressLabel = new Gtk.Label({
+            label: _('Test in progress…'),
         });
 
-        testingContent.append(this._buttonSpinner);
+        this._testingProgressContent = new Gtk.Box({
+            orientation: Gtk.Orientation.HORIZONTAL,
+            spacing: 8,
+            margin_top: 16,
+            halign: Gtk.Align.CENTER,
+            visible: false,
+        });
 
-        testingContent.append(new Gtk.Label({
-            label: _('Test in progress…'),
-        }));
+        this._testingProgressContent.append(spinner);
+        this._testingProgressContent.append(inProgressLabel);
 
-        this._button.connect('clicked', () => {
-            if (this.testing)
+        box.append(this._testingProgressContent);
+
+        const buttonGrp = new Adw.PreferencesGroup();
+        this._button = new Adw.ButtonRow({title: _('Run test')});
+        this._button.add_css_class('suggested-action');
+
+        this._button.connect('activated', () => {
+            if (this.testingInProgress) {
+                parentRow.emit('cancel-test');
+                this.updateStatus(EarTipStatus.NotInitialized, EarTipStatus.NotInitialized);
                 return;
+            }
 
-            this.testing = true;
-            this._button.child = testingContent;
+            this.testingInProgress = true;
             this._setTestingLabels();
+            this._updateButtonRow();
             parentRow.emit('start-test');
         });
 
-        buttonBox.append(this._button);
-        buttonGrp.add(buttonBox);
+        buttonGrp.add(this._button);
         page.add(buttonGrp);
 
         this.updateStatus(EarTipStatus.NotInitialized, EarTipStatus.NotInitialized);
@@ -188,13 +183,39 @@ const EarTipFitTestDialog = GObject.registerClass({
         );
     }
 
-    updateStatus(left, right) {
-        if (left !== EarTipStatus.NotInitialized ||
-            right !== EarTipStatus.NotInitialized) {
-            this.testing = false;
-            this._button.child = null;
-            this._button.label = _('Run test');
+    _updateButtonRow() {
+        this._button.remove_css_class('suggested-action');
+        this._button.remove_css_class('destructive-action');
+
+        if (this.testingInProgress) {
+            this._leftStatusLabel.visible = false;
+            this._rightStatusLabel.visible = false;
+            this._testingProgressContent.visible = true;
+
+            if (this._noCancelButton) {
+                this._button.sensitive = false;
+            } else {
+                this._button.title = _('Cancel');
+                this._button.add_css_class('destructive-action');
+            }
+        } else {
+            this._leftStatusLabel.visible = true;
+            this._rightStatusLabel.visible = true;
+            this._testingProgressContent.visible = false;
+
+            if (this._noCancelButton) {
+                this._button.add_css_class('suggested-action');
+                this._button.sensitive = true;
+            } else {
+                this._button.title = _('Run test');
+                this._button.add_css_class('suggested-action');
+            }
         }
+    }
+
+    updateStatus(left, right) {
+        this.testingInProgress = false;
+        this._updateButtonRow();
 
         const updateSide = (icon, label, status) => {
             icon.remove_css_class('success');
@@ -283,9 +304,10 @@ export const EarTipFitTestRow = GObject.registerClass({
     GTypeName: 'EarTipTestRow',
     Signals: {
         'start-test': {},
+        'cancel-test': {},
     },
 }, class EarTipFitTestRow extends Adw.ActionRow {
-    _init(window, icon) {
+    _init(window, icon, noCancelButton = false) {
         super._init({
             title: _('Earbud Fit Test'),
             subtitle: _(
@@ -293,7 +315,7 @@ export const EarTipFitTestRow = GObject.registerClass({
             ),
         });
 
-        this._dialog = new EarTipFitTestDialog(this, icon);
+        this._dialog = new EarTipFitTestDialog(this, icon, noCancelButton);
 
         const testButton = new Gtk.Button({
             label: _('Test'),
@@ -302,7 +324,7 @@ export const EarTipFitTestRow = GObject.registerClass({
         testButton.add_css_class('suggested-action');
 
         testButton.connect('clicked', () => {
-            if (!this._dialog.testing) {
+            if (!this._dialog.testingInProgress) {
                 this._dialog.updateStatus(EarTipStatus.NotInitialized,
                     EarTipStatus.NotInitialized);
             }
@@ -322,11 +344,7 @@ export const EarTipFitTestRow = GObject.registerClass({
     }
 
     isTestInProgress() {
-        return this._dialog?.testing ?? false;
-    }
-
-    destroy() {
-        this._dialog.close();
+        return this._dialog?.testingInProgress ?? false;
     }
 });
 
