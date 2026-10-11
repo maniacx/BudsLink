@@ -103,7 +103,7 @@ export default {
                 ],
             },
             'action-hold': {
-                type: 'tap',
+                type: 'hold',
                 actions: [
                     'noise-control',
                     'voice-assistant',
@@ -112,11 +112,6 @@ export default {
                     'none',
                 ],
             },
-        },
-        noiseControlModes: {
-            'off': 0x01,
-            'transparency': 0x02,
-            'noise-cancellation': 0x08,
         },
     },
 

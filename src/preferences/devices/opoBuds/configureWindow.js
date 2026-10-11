@@ -19,7 +19,8 @@ import {
 } from '../../../lib/widgets/iconGroups.js';
 import {
     OpoBudsModelList, safeJsonParse,
-    buildPlaceholderGesturesHex, decodeGesturesHex, encodeGesturesHex
+    buildPlaceholderGesturesHex, decodeGesturesHex, encodeGesturesHex,
+    widgetMaskToProtocolMask, protocolMaskToWidgetMask
 } from '../../../lib/devices/opoBuds/opoBudsConfig.js';
 
 export const ConfigureWindow = GObject.registerClass({
@@ -216,18 +217,9 @@ export const ConfigureWindow = GObject.registerClass({
                     });
                 }
 
-                if (this._modelData.gestureOptions?.noiseControlModes && this._ncCycleWidget &&
-                        this._ncCycleProtocolMasks) {
-                    const mask = this._settingsItems['nc-cycle-mask'] ?? 0;
-
-                    let widgetMask = 0;
-
-                    for (let i = 0; i < this._ncCycleProtocolMasks.length; i++) {
-                        if (mask & this._ncCycleProtocolMasks[i])
-                            widgetMask |= 1 << i;
-                    }
-
-                    this._ncCycleWidget.toggled_value = widgetMask;
+                if (this._modelData.noiseControl && this._ncCycleWidget) {
+                    const mask = this._settingsItems['nc-cycle-mask'] ?? 0x0B;
+                    this._ncCycleWidget.toggled_value = protocolMaskToWidgetMask(mask);
                 }
 
                 if (this._fitTestRow) {
@@ -1241,57 +1233,29 @@ export const ConfigureWindow = GObject.registerClass({
 
         this._page.add(gestureGroup);
 
-        if (this._modelData.gestureOptions?.noiseControlModes) {
-            const initialMask = this._settingsItems['nc-cycle-mask'] ?? 0;
+        if (this._modelData.noiseControl) {
+            const initialMask = this._settingsItems['nc-cycle-mask'] ?? 0x0B;
 
             const ncCycleGroup = new Adw.PreferencesGroup({
                 title: _('Noise Control Button Cycling'),
             });
 
-            const modeInfo = {
-                'off': {
+            const ncCycleItems = [
+                {
                     name: _('Off'),
                     icon: 'bbm-anc-off-symbolic',
                 },
-                'transparency': {
+                {
                     name: _('Transparency'),
                     icon: 'bbm-transperancy-symbolic',
                 },
-                'noise-cancellation': {
+                {
                     name: _('Noise Cancellation'),
                     icon: 'bbm-anc-on-symbolic',
                 },
-                'adaptive': {
-                    name: _('Adaptive'),
-                    icon: 'bbm-adaptive-symbolic',
-                },
-            };
+            ];
 
-            const ncCycleItems = [];
-            this._ncCycleProtocolMasks = [];
-
-            for (const [mode, protocolMask] of Object.entries(
-                this._modelData.gestureOptions.noiseControlModes
-            )) {
-                const info = modeInfo[mode];
-
-                if (!info)
-                    continue;
-
-                ncCycleItems.push({
-                    name: info.name,
-                    icon: info.icon,
-                });
-
-                this._ncCycleProtocolMasks.push(protocolMask);
-            }
-
-            let initialWidgetMask = 0;
-
-            for (let i = 0; i < this._ncCycleProtocolMasks.length; i++) {
-                if (initialMask & this._ncCycleProtocolMasks[i])
-                    initialWidgetMask |= 1 << i;
-            }
+            const initialWidgetMask = protocolMaskToWidgetMask(initialMask);
 
             this._ncCycleWidget = new CheckBoxesRowWidget({
                 rowTitle: _('Select modes to cycle through'),
@@ -1306,16 +1270,8 @@ export const ConfigureWindow = GObject.registerClass({
             this._ncCycleWidget.connect('notify::toggled-value', () => {
                 if (this._isUpdatingUI)
                     return;
-
                 const toggled = this._ncCycleWidget.toggled_value;
-
-                let mask = 0;
-
-                for (let i = 0; i < this._ncCycleProtocolMasks.length; i++) {
-                    if (toggled & 1 << i)
-                        mask |= this._ncCycleProtocolMasks[i];
-                }
-
+                const mask = widgetMaskToProtocolMask(toggled);
                 this._updateGsettings('nc-cycle-mask', mask);
             });
 

@@ -111,11 +111,6 @@ export default {
                 ],
             },
         },
-        noiseControlModes: {
-            'off': 0x01,
-            'transparency': 0x02,
-            'noise-cancellation': 0x08,
-        },
     },
 
     albumArtIcon: 'earbuds-neckband',
