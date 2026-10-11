@@ -23,7 +23,11 @@ export default {
     noiseControl: {
         ancCycleType: 2,
         off: [0x01],
-        transparency: [0x02],
+        transparency: {
+            levels: {
+                regular: [0x02],
+            },
+        },
         noiseCancellation: {
             levels: {
                 smart: [0x20],

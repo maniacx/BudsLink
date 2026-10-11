@@ -22,7 +22,11 @@ export default {
     noiseControl: {
         ancCycleType: 2,
         off: [0x01],
-        transparency: 0x04,
+        transparency: {
+            levels: {
+                regular: [0x04],
+            },
+        },
         noiseCancellation: {
             levels: {
                 smart: [0x80],
@@ -31,7 +35,7 @@ export default {
                 deep: [0x10],
             },
         },
-        adaptive: [0x00, 0x08],
+        adaptive: [0x00, 0x80],
     },
 
     inEarDetection: true,
@@ -136,9 +140,9 @@ export default {
         },
         noiseControlModes: {
             'off': 0x01,
-            'transparency': 0x04,
-            'noise-cancellation': 0x02,
-            'adaptive': 0x0800,
+            'transparency': 0x02,
+            'noise-cancellation': 0x08,
+            'adaptive': 0x8000,
         },
         minimumNoiseControlModes: 1,
     },
