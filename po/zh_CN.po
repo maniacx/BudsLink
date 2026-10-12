@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-10-04 10:51+0000\n"
+"PO-Revision-Date: 2026-10-13 04:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
@@ -47,7 +47,7 @@ msgstr "游戏模式"
 #: src/preferences/devices/nothingBuds/configureWindow.js:355
 #: src/preferences/devices/opoBuds/configureWindow.js:827
 msgid "Reduces latency and enhances in-game audio"
-msgstr ""
+msgstr "降低延迟以增强游戏音效"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:80
 #: src/preferences/devices/nothingBuds/configureWindow.js:369
@@ -55,14 +55,14 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:842
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "In-Ear Detection"
-msgstr ""
+msgstr "入耳检测"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:81
 #: src/preferences/devices/nothingBuds/configureWindow.js:370
 #: src/preferences/devices/senhBuds/configureWindow.js:563
 #: src/preferences/devices/boseBuds/configureWindow.js:375
 msgid "Enable features based on wearing detection"
-msgstr ""
+msgstr "根据佩戴检测启用相关功能"
 
 #: src/preferences/devices/airpods/configureWindow.js:103
 #: src/preferences/devices/redmiBuds/configureWindow.js:218
@@ -70,7 +70,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:112
 #: src/preferences/devices/boseBuds/configureWindow.js:428
 msgid "Playback Behavior"
-msgstr ""
+msgstr "播放行为"
 
 #: src/preferences/devices/airpods/configureWindow.js:107
 #: src/preferences/devices/airpods/configureWindow.js:110
@@ -81,13 +81,13 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:433
 #: src/preferences/devices/boseBuds/configureWindow.js:437
 msgid "Default behavior"
-msgstr ""
+msgstr "默认行为"
 
 #: src/preferences/devices/airpods/configureWindow.js:108
 #: src/preferences/devices/senhBuds/configureWindow.js:639
 #: src/preferences/devices/boseBuds/configureWindow.js:438
 msgid "Resume when worn"
-msgstr ""
+msgstr "佩戴后恢复播放"
 
 #: src/preferences/devices/airpods/configureWindow.js:111
 #: src/preferences/devices/redmiBuds/configureWindow.js:223
@@ -95,7 +95,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:117
 #: src/preferences/devices/boseBuds/configureWindow.js:434
 msgid "Resume with both earbuds, Pause if any removed"
-msgstr ""
+msgstr "双耳佩戴恢复播放，取下任一耳机暂停"
 
 #: src/preferences/devices/airpods/configureWindow.js:112
 #: src/preferences/devices/redmiBuds/configureWindow.js:224
@@ -103,13 +103,13 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:118
 #: src/preferences/devices/boseBuds/configureWindow.js:435
 msgid "Resume with any earbud, Pause if both removed"
-msgstr ""
+msgstr "佩戴任一耳机恢复播放，取下双耳耳机暂停"
 
 #: src/preferences/devices/airpods/configureWindow.js:116
 #: src/preferences/devices/senhBuds/configureWindow.js:643
 #: src/preferences/devices/boseBuds/configureWindow.js:442
 msgid "Choose Playback Behavior for In-Ear Detection"
-msgstr ""
+msgstr "选择入耳检测的播放行为"
 
 #: src/preferences/devices/airpods/configureWindow.js:117
 #: src/preferences/devices/redmiBuds/configureWindow.js:229
@@ -117,37 +117,37 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:123
 #: src/preferences/devices/boseBuds/configureWindow.js:447
 msgid "Automatically pause or resume playback based on wearing detection."
-msgstr ""
+msgstr "根据佩戴检测自动暂停或恢复播放。"
 
 #: src/preferences/devices/airpods/configureWindow.js:133
 msgid "Volume Level"
-msgstr ""
+msgstr "音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:137
 msgid "Lower volume during conversation awareness"
-msgstr ""
+msgstr "对话感知期间降低音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:138
 msgid "Automatically lower the volume when conversation awareness is active"
-msgstr ""
+msgstr "对话感知生效时自动降低音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:156
 msgid "Conversation awareness volume limit"
-msgstr ""
+msgstr "对话感知音量上限"
 
 #: src/preferences/devices/airpods/configureWindow.js:157
 msgid ""
 "Limits media volume to this percentage during conversation. Note: No change "
 "if current volume is below this level."
-msgstr ""
+msgstr "对话期间，将媒体音量限制为此百分比。注意：若当前音量低于此值，则保持不变。"
 
 #: src/preferences/devices/airpods/configureWindow.js:180
 msgid "Turn off listening modes"
-msgstr ""
+msgstr "关闭聆听模式"
 
 #: src/preferences/devices/airpods/configureWindow.js:184
 msgid "Allows to turn off all listening mode technology"
-msgstr ""
+msgstr "允许关闭所有聆听模式功能"
 
 #: src/preferences/devices/airpods/configureWindow.js:185
 msgid ""
@@ -155,6 +155,8 @@ msgid ""
 "disabled. Disabling listening modes also turns off Hearing Aid features and "
 "reduces power usage."
 msgstr ""
+"允许完全关闭降噪、通透和自适应模式。关闭聆听模式也会关闭助听功能，并降低耗电"
+"量。"
 
 #: src/preferences/devices/airpods/configureWindow.js:219
 #: src/preferences/devices/redmiBuds/configureWindow.js:477
@@ -190,7 +192,7 @@ msgstr ""
 #: src/lib/devices/googleBuds/googleBudsDevice.js:211
 #: src/lib/widgets/settingsButton.js:401 src/lib/widgets/settingsButton.js:438
 msgid "Off"
-msgstr ""
+msgstr "关闭"
 
 #: src/preferences/devices/airpods/configureWindow.js:226
 #: src/preferences/devices/opoBuds/configureWindow.js:1162
@@ -202,7 +204,7 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:554
 #: src/lib/devices/googleBuds/googleBudsDevice.js:217
 msgid "Transparency"
-msgstr ""
+msgstr "透传模式"
 
 #: src/preferences/devices/airpods/configureWindow.js:232
 #: src/preferences/devices/redmiBuds/configureWindow.js:479
@@ -225,7 +227,7 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:187
 #: src/lib/devices/googleBuds/googleBudsDevice.js:223
 msgid "Noise Cancellation"
-msgstr ""
+msgstr "降噪模式"
 
 #: src/preferences/devices/airpods/configureWindow.js:239
 #: src/preferences/devices/galaxyBuds/configureWindow.js:530
@@ -241,11 +243,11 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:908
 #: src/lib/devices/googleBuds/googleBudsDevice.js:229
 msgid "Adaptive"
-msgstr ""
+msgstr "自适应"
 
 #: src/preferences/devices/airpods/configureWindow.js:248
 msgid "Press and Hold Cycle"
-msgstr ""
+msgstr "长按循环切换"
 
 #: src/preferences/devices/airpods/configureWindow.js:251
 msgid "Press and hold cycles between"
