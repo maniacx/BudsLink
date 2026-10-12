@@ -572,24 +572,32 @@ export const ConfigureWindow = GObject.registerClass({
 
         const allSlots = this._settingsItems.gestures ?? [];
 
+        const gestureGroup = new Adw.PreferencesGroup({
+            title: _('Gesture Controls'),
+            description: _('Customize actions for buttons and touch gestures'),
+        });
+
         const GESTURE_DISPLAY = {
             'single-tap': _('Single Tap'),
             'double-tap': _('Double Tap'),
             'triple-tap': _('Triple Tap'),
             'action-hold-tap': _('Tap and Hold'),
             'double-action-hold-tap': _('Double Tap and Hold'),
+            'both-buds-action-tap': _('Tap Both Buds'),
 
             'single-press': _('Single Press'),
             'double-press': _('Double Press'),
             'triple-press': _('Triple Press'),
             'action-hold-press': _('Press and Hold'),
             'double-action-hold-press': _('Double Press and Hold'),
+            'both-buds-action-press': _('Press Both Buds'),
 
             'single-pinch': _('Single Pinch'),
             'double-pinch': _('Double Pinch'),
             'triple-pinch': _('Triple Pinch'),
             'action-hold-pinch': _('Pinch and Hold'),
             'double-action-hold-pinch': _('Double Pinch and Hold'),
+            'both-buds-action-pinch': _('Pinch Both Buds'),
 
             'roller-action-hold-press': _('Press and Hold'),
             'slider-single-slide': _('Slide to Adjust'),
@@ -607,8 +615,7 @@ export const ConfigureWindow = GObject.registerClass({
                 return null;
 
             const actions = gestureConfig.actions;
-            const onlyNoiseControl =
-            actions.length === 1 && actions[0] === 'noise-control';
+            const onlyNoiseControl = actions.length === 1 && actions[0] === 'noise-control';
 
             const typeByte = gc.mapping.gestureTypes?.[gestureKey];
             if (typeByte === undefined)
@@ -616,10 +623,7 @@ export const ConfigureWindow = GObject.registerClass({
 
             const deviceByte = slot.device;
 
-            let savedSlot = allSlots.find(s =>
-                s.device === deviceByte &&
-            s.type === typeByte
-            );
+            let savedSlot = allSlots.find(s => s.device === deviceByte && s.type === typeByte);
 
             const displayKey = `${slot.type}-${gestureConfig.type}`;
             const title = GESTURE_DISPLAY[displayKey] ?? _('Unknown Gesture');
@@ -694,12 +698,13 @@ export const ConfigureWindow = GObject.registerClass({
 
         for (const slot of gc.slots) {
             if (!groups.has(slot.group)) {
-                const groupWidget = new Adw.PreferencesGroup({
+                const expander = new Adw.ExpanderRow({
                     title: this._getGroupTitle(slot.group),
+                    subtitle: _('Configure controls'),
                 });
 
-                groups.set(slot.group, groupWidget);
-                this._page.add(groupWidget);
+                groups.set(slot.group, expander);
+                gestureGroup.add(expander);
             }
         }
 
@@ -709,8 +714,8 @@ export const ConfigureWindow = GObject.registerClass({
             if (!gestureConfig)
                 continue;
 
-            const groupWidget = groups.get(slot.group);
-            if (!groupWidget)
+            const expander = groups.get(slot.group);
+            if (!expander)
                 continue;
 
             const widgets = makeDropdown(gestureKey, gestureConfig, slot);
@@ -718,11 +723,13 @@ export const ConfigureWindow = GObject.registerClass({
                 continue;
 
             if (widgets.dropdown)
-                groupWidget.add(widgets.dropdown);
+                expander.add_row(widgets.dropdown);
 
             if (widgets.checkBoxWidget)
-                groupWidget.add(widgets.checkBoxWidget);
+                expander.add_row(widgets.checkBoxWidget);
         }
+
+        this._page.add(gestureGroup);
     }
 
     _getGroupTitle(group) {
@@ -731,19 +738,19 @@ export const ConfigureWindow = GObject.registerClass({
                 return _('Gesture Controls');
 
             case 'left':
-                return _('Left Buds Gesture Control');
+                return _('Left Earbud');
 
             case 'right':
-                return _('Right Buds Gesture Control');
+                return _('Right Earbud');
 
             case 'roller':
-                return _('Roller Gesture Control');
+                return _('Roller Controls');
 
             case 'case-knob':
-                return _('Case Gesture Control');
+                return _('Charging Case');
 
             case 'slider':
-                return _('Slider Gesture Control');
+                return _('Slider Controls');
 
             default:
                 return _('Gesture Controls');
@@ -817,6 +824,12 @@ export const ConfigureWindow = GObject.registerClass({
 
             case 'take-photo':
                 return _('Take Photo');
+
+            case 'recording':
+                return _('Start / Stop Recording');
+
+            case 'mic-mute':
+                return _('Mute / Unmute Mic');
 
             default:
                 return action;
