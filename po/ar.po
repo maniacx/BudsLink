@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-09-22 17:51+0000\n"
+"PO-Revision-Date: 2026-10-13 04:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ar\n"
@@ -25,11 +25,11 @@ msgstr "BudsLink"
 
 #: src/app.js:238
 msgid "Devices"
-msgstr ""
+msgstr "الأجهزة"
 
 #: src/app.js:240
 msgid "No compatible device found"
-msgstr ""
+msgstr "لم يعثر على جهاز ملائم"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:63
 msgid "Settings"
@@ -41,14 +41,14 @@ msgstr "الإعدادات"
 #: src/preferences/devices/opoBuds/configureWindow.js:826
 #: src/preferences/devices/opoBuds/configureWindow.js:1065
 msgid "Game Mode"
-msgstr ""
+msgstr "وضع اللعب"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:69
 #: src/preferences/devices/redmiBuds/configureWindow.js:448
 #: src/preferences/devices/nothingBuds/configureWindow.js:355
 #: src/preferences/devices/opoBuds/configureWindow.js:827
 msgid "Reduces latency and enhances in-game audio"
-msgstr ""
+msgstr "يقلل التأخر ويحسن الصوت داخل اللعبة"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:80
 #: src/preferences/devices/nothingBuds/configureWindow.js:369
@@ -56,14 +56,14 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:842
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "In-Ear Detection"
-msgstr ""
+msgstr "كشف ارتداء السماعة"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:81
 #: src/preferences/devices/nothingBuds/configureWindow.js:370
 #: src/preferences/devices/senhBuds/configureWindow.js:563
 #: src/preferences/devices/boseBuds/configureWindow.js:375
 msgid "Enable features based on wearing detection"
-msgstr ""
+msgstr "فعل المزايا المعتمدة على استشعار الارتداء"
 
 #: src/preferences/devices/airpods/configureWindow.js:103
 #: src/preferences/devices/redmiBuds/configureWindow.js:218
@@ -71,7 +71,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:112
 #: src/preferences/devices/boseBuds/configureWindow.js:428
 msgid "Playback Behavior"
-msgstr ""
+msgstr "سلوك التشغيل"
 
 #: src/preferences/devices/airpods/configureWindow.js:107
 #: src/preferences/devices/airpods/configureWindow.js:110
@@ -82,13 +82,13 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:433
 #: src/preferences/devices/boseBuds/configureWindow.js:437
 msgid "Default behavior"
-msgstr ""
+msgstr "السلوك الاعتيادي"
 
 #: src/preferences/devices/airpods/configureWindow.js:108
 #: src/preferences/devices/senhBuds/configureWindow.js:639
 #: src/preferences/devices/boseBuds/configureWindow.js:438
 msgid "Resume when worn"
-msgstr ""
+msgstr "الاستمرار حين الاردتاء"
 
 #: src/preferences/devices/airpods/configureWindow.js:111
 #: src/preferences/devices/redmiBuds/configureWindow.js:223
@@ -96,7 +96,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:117
 #: src/preferences/devices/boseBuds/configureWindow.js:434
 msgid "Resume with both earbuds, Pause if any removed"
-msgstr ""
+msgstr "الاستمرار فقط في حال ارتداء القطعتين"
 
 #: src/preferences/devices/airpods/configureWindow.js:112
 #: src/preferences/devices/redmiBuds/configureWindow.js:224
@@ -104,13 +104,13 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:118
 #: src/preferences/devices/boseBuds/configureWindow.js:435
 msgid "Resume with any earbud, Pause if both removed"
-msgstr ""
+msgstr "الاستمرار بارتداء اي القطعتين والتوقف في حال ازيلت كلتاهما"
 
 #: src/preferences/devices/airpods/configureWindow.js:116
 #: src/preferences/devices/senhBuds/configureWindow.js:643
 #: src/preferences/devices/boseBuds/configureWindow.js:442
 msgid "Choose Playback Behavior for In-Ear Detection"
-msgstr ""
+msgstr "اختر سلوك التشغيل لتقنية استشعار الارتداء"
 
 #: src/preferences/devices/airpods/configureWindow.js:117
 #: src/preferences/devices/redmiBuds/configureWindow.js:229
@@ -118,37 +118,39 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:123
 #: src/preferences/devices/boseBuds/configureWindow.js:447
 msgid "Automatically pause or resume playback based on wearing detection."
-msgstr ""
+msgstr "ايقاف او استئناف التشغيل تلقائيا بناءا على استشعار الارتداء."
 
 #: src/preferences/devices/airpods/configureWindow.js:133
 msgid "Volume Level"
-msgstr ""
+msgstr "مستوى الصوت"
 
 #: src/preferences/devices/airpods/configureWindow.js:137
 msgid "Lower volume during conversation awareness"
-msgstr ""
+msgstr "خفض الصوت خلال استشعار محادثة"
 
 #: src/preferences/devices/airpods/configureWindow.js:138
 msgid "Automatically lower the volume when conversation awareness is active"
-msgstr ""
+msgstr "خفض الصوت تلقائيا حين يكون استشعار المحادثات فعالا"
 
 #: src/preferences/devices/airpods/configureWindow.js:156
 msgid "Conversation awareness volume limit"
-msgstr ""
+msgstr "حد الصوت حين استشعار المحادثات"
 
 #: src/preferences/devices/airpods/configureWindow.js:157
 msgid ""
 "Limits media volume to this percentage during conversation. Note: No change "
 "if current volume is below this level."
 msgstr ""
+"ضع حد لمستوى الصوت لهذه النسبة عند استشعار محادثة. ملاحظة: لن يطرأ تغييرا ان "
+"كان الصوت ادنى من المستوى الموضوع."
 
 #: src/preferences/devices/airpods/configureWindow.js:180
 msgid "Turn off listening modes"
-msgstr ""
+msgstr "اطفى وضع الاستماع"
 
 #: src/preferences/devices/airpods/configureWindow.js:184
 msgid "Allows to turn off all listening mode technology"
-msgstr ""
+msgstr "يسمح اطفاء جميع تقنيات طور الاستماع"
 
 #: src/preferences/devices/airpods/configureWindow.js:185
 msgid ""
@@ -156,6 +158,8 @@ msgid ""
 "disabled. Disabling listening modes also turns off Hearing Aid features and "
 "reduces power usage."
 msgstr ""
+"يسمح باطفاء اطوار الغاء الضوضاء والشفافية والتأقلم بشكل كامل. ان اطفاء اطوار "
+"الاستماع سيطفئ ايضا خاصية المساعدة السمعية ويقلل من استهلاك الطاقة."
 
 #: src/preferences/devices/airpods/configureWindow.js:219
 #: src/preferences/devices/redmiBuds/configureWindow.js:477
@@ -191,7 +195,7 @@ msgstr ""
 #: src/lib/devices/googleBuds/googleBudsDevice.js:211
 #: src/lib/widgets/settingsButton.js:401 src/lib/widgets/settingsButton.js:438
 msgid "Off"
-msgstr ""
+msgstr "مغلق"
 
 #: src/preferences/devices/airpods/configureWindow.js:226
 #: src/preferences/devices/opoBuds/configureWindow.js:1162
@@ -203,7 +207,7 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:554
 #: src/lib/devices/googleBuds/googleBudsDevice.js:217
 msgid "Transparency"
-msgstr ""
+msgstr "شفافية الصوت"
 
 #: src/preferences/devices/airpods/configureWindow.js:232
 #: src/preferences/devices/redmiBuds/configureWindow.js:479
@@ -226,7 +230,7 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:187
 #: src/lib/devices/googleBuds/googleBudsDevice.js:223
 msgid "Noise Cancellation"
-msgstr ""
+msgstr "الغاء الضوضاء"
 
 #: src/preferences/devices/airpods/configureWindow.js:239
 #: src/preferences/devices/galaxyBuds/configureWindow.js:530
@@ -242,11 +246,11 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:908
 #: src/lib/devices/googleBuds/googleBudsDevice.js:229
 msgid "Adaptive"
-msgstr ""
+msgstr "تأقلمي"
 
 #: src/preferences/devices/airpods/configureWindow.js:248
 msgid "Press and Hold Cycle"
-msgstr ""
+msgstr "دورة الضغط والاستمرار بالضغط"
 
 #: src/preferences/devices/airpods/configureWindow.js:251
 msgid "Press and hold cycles between"
@@ -254,7 +258,7 @@ msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:252
 msgid "Settings don’t reflect current state"
-msgstr ""
+msgstr "الاعدادات لا تعكس الحالة الحالية"
 
 #: src/preferences/devices/airpods/configureWindow.js:254
 #: src/preferences/devices/redmiBuds/configureWindow.js:485
@@ -264,11 +268,11 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1176
 #: src/preferences/devices/sony/configureWindow.js:374
 msgid "Apply"
-msgstr ""
+msgstr "طبق"
 
 #: src/preferences/devices/airpods/configureWindow.js:279
 msgid "Notification Volume"
-msgstr ""
+msgstr "مستوى صوت الاشعارات"
 
 #: src/preferences/devices/airpods/configureWindow.js:283
 msgid "Tone Volume"
@@ -295,7 +299,7 @@ msgstr "125%"
 #: src/preferences/devices/galaxyBuds/configureWindow.js:465
 #: src/preferences/devices/sony/configureWindow.js:312
 msgid "Volume Control"
-msgstr ""
+msgstr "التحكم بمستوى الصوت"
 
 #: src/preferences/devices/airpods/configureWindow.js:309
 msgid "Volume Swipe"
@@ -303,24 +307,24 @@ msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:310
 msgid "Enable or disable volume adjustment by swiping on earbud stems"
-msgstr ""
+msgstr "فعل او اطفئ خاصية تعديل الصوت بتمرير الاصبع على السماعة"
 
 #: src/preferences/devices/airpods/configureWindow.js:319
 #: src/preferences/devices/airpods/configureWindow.js:352
 #: src/preferences/devices/airpods/configureWindow.js:370
 #: src/preferences/devices/googleBuds/configureWindow.js:79
 msgid "Default"
-msgstr ""
+msgstr "الاعتيادي"
 
 #: src/preferences/devices/airpods/configureWindow.js:319
 #: src/preferences/devices/airpods/configureWindow.js:352
 msgid "Longer"
-msgstr ""
+msgstr "اطول"
 
 #: src/preferences/devices/airpods/configureWindow.js:319
 #: src/preferences/devices/airpods/configureWindow.js:352
 msgid "Longest"
-msgstr ""
+msgstr "الاطول"
 
 #: src/preferences/devices/airpods/configureWindow.js:323
 msgid "Swipe Duration"
@@ -348,11 +352,11 @@ msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:370
 msgid "Shorter"
-msgstr ""
+msgstr "اقصر"
 
 #: src/preferences/devices/airpods/configureWindow.js:370
 msgid "Shortest"
-msgstr ""
+msgstr "الاقصر"
 
 #: src/preferences/devices/airpods/configureWindow.js:373
 msgid "Press and Hold Duration"
@@ -360,12 +364,12 @@ msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:374
 msgid "Set how long you need to press and hold before an action occurs"
-msgstr ""
+msgstr "ضبط مدة اللمس واستمرار اللمس قبل حصول شيئ ما"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:228
 #: src/preferences/devices/galaxyBuds/configureWindow.js:122
 msgid "Choose Playback Behavior for Ear Detection"
-msgstr ""
+msgstr "اختر سلوك التشغيل لاستشعار الاذن"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:248
 #: src/preferences/devices/senhBuds/configureWindow.js:223
@@ -373,9 +377,8 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:321
 #: src/preferences/devices/sony/configureWindow.js:206
 #: src/preferences/devices/googleBuds/configureWindow.js:66
-#, fuzzy
 msgid "Equalizer"
-msgstr "تسوية"
+msgstr "المعادل الصوتي"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:254
 #: src/preferences/devices/redmiBuds/configureWindow.js:265
@@ -383,7 +386,7 @@ msgstr "تسوية"
 #: src/preferences/devices/sony/configureWindow.js:151
 #: src/lib/devices/sony/sonyDevice.js:197
 msgid "Standard"
-msgstr ""
+msgstr "قياسي"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:255
 #: src/preferences/devices/nothingBuds/configureWindow.js:211
@@ -425,12 +428,12 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:293
 #: src/preferences/devices/googleBuds/configureWindow.js:86
 msgid "Custom"
-msgstr ""
+msgstr "مخصص"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:260
 #: src/preferences/devices/opoBuds/configureWindow.js:333
 msgid "Classic"
-msgstr ""
+msgstr "تقليدي"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:261
 msgid "Audiophile"
@@ -453,18 +456,18 @@ msgstr "Harman Master"
 #: src/preferences/devices/redmiBuds/configureWindow.js:266
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:617
 msgid "Outdoor"
-msgstr ""
+msgstr "الاماكن الخارجية"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:267
 msgid "Underwater"
-msgstr ""
+msgstr "تحت الماء"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:268
 #: src/preferences/devices/nothingBuds/configureWindow.js:210
 #: src/preferences/devices/opoBuds/configureWindow.js:325
 #: src/preferences/devices/googleBuds/configureWindow.js:82
 msgid "Balanced"
-msgstr ""
+msgstr "معتدل"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:280
 #: src/preferences/devices/nothingBuds/configureWindow.js:232
@@ -474,7 +477,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:246
 #: src/preferences/devices/googleBuds/configureWindow.js:108
 msgid "Custom Equalizer"
-msgstr ""
+msgstr "معادل صوت متخصص"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:285
 #: src/preferences/devices/nothingBuds/configureWindow.js:237
@@ -486,7 +489,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:239
 #: src/preferences/devices/googleBuds/configureWindow.js:102
 msgid "Equalizer Preset"
-msgstr ""
+msgstr "معادل صوتي معد مسبقا"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:286
 #: src/preferences/devices/nothingBuds/configureWindow.js:238
@@ -561,7 +564,7 @@ msgstr ""
 #: src/preferences/devices/senhBuds/configureWindow.js:333
 #: src/preferences/devices/sony/configureWindow.js:268
 msgid "Frequency (Hz)"
-msgstr ""
+msgstr "التردد(هيرتز)"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:313
 #: src/preferences/devices/nothingBuds/configureWindow.js:263
@@ -618,34 +621,34 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:821
 #: src/preferences/devices/boseBuds/configureWindow.js:562
 msgid "Additional Settings"
-msgstr ""
+msgstr "الاعدادات الاضافية"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:403
 #: src/preferences/widgets/deviceMgmtRowWidget.js:460
 msgid "Allow Connections to Multiple Devices"
-msgstr ""
+msgstr "السماح بالتوصيلات لعدة اجهزة"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:417
 #: src/preferences/devices/senhBuds/configureWindow.js:589
 #: src/preferences/devices/opoBuds/configureWindow.js:945
 #: src/preferences/devices/boseBuds/configureWindow.js:401
 msgid "Answer Calls Automatically"
-msgstr ""
+msgstr "اخذ المكالمات تلقائيا"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:418
 #: src/preferences/devices/senhBuds/configureWindow.js:590
 #: src/preferences/devices/opoBuds/configureWindow.js:946
 #: src/preferences/devices/boseBuds/configureWindow.js:402
 msgid "Answer calls when the earbuds are worn"
-msgstr ""
+msgstr "اجابة المكالمات في حال وضع السماعات"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:432
 msgid "Adaptive Sound"
-msgstr ""
+msgstr "الصوت التأقلمي"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:433
 msgid "Automatically adjust sound to your ear shape"
-msgstr ""
+msgstr "تعديل الصوت بشكل تلقائي بناءا على شكل اذنيك"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:478
 #: src/preferences/devices/nothingBuds/configureWindow.js:404
@@ -654,7 +657,7 @@ msgstr ""
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:697
 #: src/lib/devices/sony/sonyDevice.js:184
 msgid "Ambient"
-msgstr ""
+msgstr "في الخلفية"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:483
 #: src/preferences/devices/nothingBuds/configureWindow.js:414
@@ -697,7 +700,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1079
 #: src/preferences/devices/boseBuds/configureWindow.js:699
 msgid "Single Press"
-msgstr ""
+msgstr "ضغطة واحدة"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:511
 #: src/preferences/devices/nothingBuds/configureWindow.js:442
@@ -705,7 +708,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1080
 #: src/preferences/devices/boseBuds/configureWindow.js:700
 msgid "Double Press"
-msgstr ""
+msgstr "ضغطتان"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:512
 #: src/preferences/devices/nothingBuds/configureWindow.js:443
@@ -713,7 +716,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1081
 #: src/preferences/devices/boseBuds/configureWindow.js:701
 msgid "Triple Press"
-msgstr ""
+msgstr "ثلاث ضغطات"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:513
 #: src/preferences/devices/nothingBuds/configureWindow.js:444
@@ -769,7 +772,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1058
 #: src/preferences/devices/boseBuds/configureWindow.js:818
 msgid "Play / Pause"
-msgstr ""
+msgstr "استئناف/ايقاف"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:598
 #: src/preferences/devices/nothingBuds/configureWindow.js:618
@@ -792,19 +795,19 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:803
 #: src/preferences/devices/boseBuds/configureWindow.js:809
 msgid "Voice Assistant"
-msgstr ""
+msgstr "المساعد الصوتي"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:607
 #: src/preferences/devices/nothingBuds/configureWindow.js:627
 #: src/preferences/devices/opoBuds/configureWindow.js:1061
 msgid "Volume Up"
-msgstr ""
+msgstr "رفع الصوت"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:610
 #: src/preferences/devices/nothingBuds/configureWindow.js:630
 #: src/preferences/devices/opoBuds/configureWindow.js:1062
 msgid "Volume Down"
-msgstr ""
+msgstr "خفض الصوت"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:613
 #: src/preferences/devices/nothingBuds/configureWindow.js:636
@@ -826,7 +829,7 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:180
 #: src/lib/devices/googleBuds/googleBudsDevice.js:199
 msgid "Noise Control"
-msgstr ""
+msgstr "التحكم بالضوضاء"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:616
 #: src/preferences/devices/nothingBuds/configureWindow.js:642
@@ -838,7 +841,7 @@ msgstr ""
 #: src/preferences/devices/redmiBuds/configureWindow.js:619
 #: src/preferences/devices/nothingBuds/configureWindow.js:645
 msgid "Change Volume"
-msgstr ""
+msgstr "تغيير الصوت"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:622
 #: src/preferences/devices/nothingBuds/configureWindow.js:672
@@ -848,13 +851,13 @@ msgstr ""
 #: src/preferences/devices/redmiBuds/configureWindow.js:625
 #: src/preferences/devices/nothingBuds/configureWindow.js:678
 msgid "Take Photo"
-msgstr ""
+msgstr "التقط صورة"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:204
 #: src/preferences/devices/senhBuds/configureWindow.js:215
 #: src/preferences/devices/boseBuds/configureWindow.js:267
 msgid "Sound Settings"
-msgstr ""
+msgstr "اعدادات الصوت"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:214
 msgid "Dirac"
@@ -868,7 +871,6 @@ msgstr "الروك"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:216
 #: src/preferences/devices/opoBuds/configureWindow.js:332
-#, fuzzy
 msgid "Electronic"
 msgstr "إلكترونية"
 
@@ -876,7 +878,7 @@ msgstr "إلكترونية"
 #: src/preferences/devices/senhBuds/configureWindow.js:260
 #: src/preferences/devices/opoBuds/configureWindow.js:331
 msgid "Pop"
-msgstr ""
+msgstr "شعبية"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:218
 #: src/preferences/devices/googleBuds/configureWindow.js:83
@@ -968,18 +970,18 @@ msgstr ""
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:461
 msgid "Rotate"
-msgstr ""
+msgstr "اقلب"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:484
 msgid "Unknown Gesture"
-msgstr ""
+msgstr "حركة غير معروفة"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:590
 #: src/preferences/devices/nothingBuds/configureWindow.js:608
 #: src/preferences/devices/boseBuds/configureWindow.js:772
 #: src/preferences/devices/boseBuds/configureWindow.js:781
 msgid "Gesture Controls"
-msgstr ""
+msgstr "التحكم بالحركات"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:599
 msgid "Roller Gesture Control"
@@ -1007,7 +1009,7 @@ msgstr ""
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:657
 msgid "Mic On/Off"
-msgstr ""
+msgstr "تشغيل/اطفاء الميكروفون"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:663
 #, fuzzy
@@ -1024,7 +1026,7 @@ msgstr "بث صوتي"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:225
 msgid "Sound personalization"
-msgstr ""
+msgstr "تخصيص الصوت"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:226
 #: src/preferences/widgets/peqRowWidget.js:880
@@ -1034,11 +1036,11 @@ msgstr ""
 
 #: src/preferences/devices/senhBuds/configureWindow.js:237
 msgid "Sound Customization"
-msgstr ""
+msgstr "نحصيص الصوت"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:238
 msgid "Customize your listening experience"
-msgstr ""
+msgstr "خصص تجربة الاستماع"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:258
 #: src/preferences/devices/boseBuds/configureWindow.js:276
@@ -1109,7 +1111,7 @@ msgstr ""
 #: src/lib/devices/boseBuds/boseBudsDevice.js:682
 #: src/lib/devices/sony/sonyDevice.js:197
 msgid "Low"
-msgstr ""
+msgstr "واطئ"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:440
 #: src/preferences/devices/boseBuds/configureWindow.js:489
@@ -1122,7 +1124,7 @@ msgstr ""
 #: src/lib/devices/boseBuds/boseBudsDevice.js:683
 #: src/lib/devices/sony/sonyDevice.js:197
 msgid "High"
-msgstr ""
+msgstr "عالي"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:451
 msgid "Crossfeed"
