@@ -16,18 +16,34 @@ export default {
 
     noiseControl: {
         ancCycleType: 1,
-        off: [0x01],
-        transparency: {
-            levels: {
-                regular: [0x02],
+        modes: {
+            off: {
+                set: [0x01],
+                event: [0x01],
             },
-        },
-        noiseCancellation: {
-            levels: {
-                smart: [0x20],
-                mild: [0x04],
-                moderate: [0x10],
-                deep: [0x08],
+            transparency: {
+                set: [0x02],
+                event: [0x02],
+            },
+            noiseCancellation: {
+                levels: {
+                    auto: {
+                        set: [0x20],
+                        event: [0x20],
+                    },
+                    low: {
+                        set: [0x04],
+                        event: [0x04],
+                    },
+                    mid: {
+                        set: [0x10],
+                        event: [0x10],
+                    },
+                    high: {
+                        set: [0x08],
+                        event: [0x08],
+                    },
+                },
             },
         },
     },
@@ -110,6 +126,11 @@ export default {
                     'none',
                 ],
             },
+        },
+        noiseControlModes: {
+            'off': 0x01,
+            'transparency': 0x02,
+            'noise-cancellation': 0x08,
         },
     },
 

@@ -81,7 +81,6 @@ export const OpoBudsDevice = GObject.registerClass({
             updateGestures: this.updateGestures.bind(this),
             updateSingleGesture: this.updateSingleGesture.bind(this),
             updateMultiConnectDevices: this.updateMultiConnectDevices.bind(this),
-            updateAdaptiveAncSubLevel: this.updateAdaptiveAncSubLevel.bind(this),
             updateNoiseControlCycle: this.updateNoiseControlCycle.bind(this),
             updateFitTestResult: this.updateFitTestResult.bind(this),
             updateCustomEqs: this.updateCustomEqs.bind(this),
@@ -267,7 +266,7 @@ export const OpoBudsDevice = GObject.registerClass({
             this._ringState = this._settingsItems['ring-state'];
 
         if (this._modelData.noiseControl)
-            this._ncCycleMask = this._settingsItems['nc-cycle-mask'] ?? 0x0B;
+            this._ncCycleMask = this._settingsItems['nc-cycle-mask'] ?? 0x00;
     }
 
     _addPropsToSettings(devicesList) {
@@ -514,7 +513,6 @@ export const OpoBudsDevice = GObject.registerClass({
         this._config.albumArtIcon = this._commonIcon;
         this._config.showSettingsButton = true;
         this._config.labelIndicatorEnabled = 1;
-        this._props.labelIndicator1 = '';
 
         this._config.battery1ShowOnDisconnect = true;
         if (this._modelData?.batteryLR) {
@@ -531,115 +529,108 @@ export const OpoBudsDevice = GObject.registerClass({
 
     _updateAncConfig() {
         const nc = this._modelData?.noiseControl;
-        if (!nc)
+        if (!nc?.modes)
             return;
+
+        const modes = nc.modes;
 
         let buttonIndex = 1;
         this._ancToggleMap = {};
         this._config.toggle1Title = _('Noise Control');
 
-        const addToggle = (type, modeBytes, icon, name, matchBytes = modeBytes) => {
+        const addToggle = (type, mode, icon, name, matchModes = [mode]) => {
             this._config[`toggle1Button${buttonIndex}Icon`] = icon;
             this._config[`toggle1Button${buttonIndex}Name`] = name;
-            this._ancToggleMap[buttonIndex] = {type, modeBytes, matchBytes};
+            this._ancToggleMap[buttonIndex] = {type, mode, matchModes};
             buttonIndex++;
         };
 
-        const toBytes = entry => {
-            if (Array.isArray(entry))
-                return entry;
-            if (typeof entry === 'number')
-                return [entry];
-            if (entry?.byte !== undefined)
-                return [entry.byte];
-            return [];
-        };
+        const addMode = (type, icon, name) => {
+            const config = modes[type];
+            if (!config)
+                return;
 
-        if (nc.off)
-            addToggle('off', toBytes(nc.off), 'bbm-anc-off-symbolic', _('Off'));
-
-        if (nc.transparency) {
-            let transDefault = [];
-            const transMatch = [];
-            if (nc.transparency.levels) {
-                const transLevels = nc.transparency.levels;
-                const keys = Object.keys(transLevels);
-                keys.forEach(k => {
-                    const b = toBytes(transLevels[k]);
-                    if (transDefault.length === 0 && b.length > 0)
-                        transDefault = b;
-                    transMatch.push(...b);
-                });
-            } else {
-                transDefault = toBytes(nc.transparency);
-                transMatch.push(...transDefault);
+            if (!config.levels) {
+                addToggle(type, type, icon, name);
+                return;
             }
-            addToggle('transparency', transDefault,
-                'bbm-transperancy-symbolic', _('Transparency'), transMatch);
-        }
 
-        if (nc.noiseCancellation) {
-            const flatBytes = [];
-            this._ancRadioMap = {};
-            this._ancRadioReverse = {};
+            const levels = Object.keys(config.levels);
+            const modeIds = levels.map(level => `${type}.${level}`);
+            const isTransparency = type === 'transparency';
+            const radioNames = [];
 
-            if (nc.noiseCancellation.levels) {
-                const levelsObj = nc.noiseCancellation.levels;
-                const levelKeys = Object.keys(levelsObj);
-
-                const levelNames = {
-                    'smart': _('Auto'),
-                    'auto': _('Auto'),
-                    'mild': _('Low'),
-                    'low': _('Low'),
-                    'moderate': _('Mid'),
-                    'mid': _('Mid'),
-                    'deep': _('High'),
-                    'high': _('High'),
-                    'max': _('Max'),
+            const levelNames = isTransparency
+                ? {
+                    regular: _('Regular'),
+                    voice: _('Voice'),
+                }
+                : {
+                    auto: _('Auto'),
+                    low: _('Low'),
+                    mid: _('Mid'),
+                    high: _('High'),
                 };
 
-                const radioNames = [];
-                let firstLevelBytes = [];
-                levelKeys.forEach((key, idx) => {
-                    const num = idx + 1;
-                    const displayName = levelNames[key] ??
-                        key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
-                    radioNames.push(displayName);
-                    const modeBytes = toBytes(levelsObj[key]);
-                    if (firstLevelBytes.length === 0 && modeBytes.length > 0)
-                        firstLevelBytes = modeBytes;
-                    this._ancRadioMap[num] = modeBytes;
-                    modeBytes.forEach(b => {
-                        this._ancRadioReverse[b] = num;
-                    });
-                    flatBytes.push(...modeBytes);
-                });
+            const radioMap = isTransparency
+                ? this._ancTransparencyMap = {}
+                : this._ancRadioMap = {};
 
+            const radioReverse = isTransparency
+                ? this._ancTransparencyReverse = {}
+                : this._ancRadioReverse = {};
+
+            levels.forEach((key, idx) => {
+                const num = idx + 1;
+                const displayName = levelNames[key] ??
+                key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
+
+                radioNames.push(displayName);
+                radioMap[num] = modeIds[idx];
+                radioReverse[modeIds[idx]] = num;
+            });
+
+            if (isTransparency) {
+                this._config.optionsBox2.push('radio-button');
+                this._config.box2RadioButton = radioNames;
+                this._config.box2RadioTitle = _('Transparency Level');
+            } else {
+                this._config.optionsBox1.push('radio-button');
                 this._config.box1RadioButton = radioNames;
                 this._config.box1RadioTitle = _('Noise Cancellation Level');
-                addToggle('noiseCancellation', firstLevelBytes.length ? firstLevelBytes : flatBytes,
-                    'bbm-anc-on-symbolic', _('Noise Cancellation'), flatBytes);
-            } else if (nc.noiseCancellation.byte !== undefined) {
-                flatBytes.push(nc.noiseCancellation.byte);
-                addToggle('noiseCancellation', flatBytes, 'bbm-anc-on-symbolic',
-                    _('Noise Cancellation'), flatBytes);
-            } else {
-                flatBytes.push(...toBytes(nc.noiseCancellation));
-                addToggle('noiseCancellation', flatBytes, 'bbm-anc-on-symbolic',
-                    _('Noise Cancellation'), flatBytes);
             }
-        }
 
-        this._config.optionsBox1 = [];
-        if (nc.noiseCancellation?.levels)
-            this._config.optionsBox1.push('radio-button');
+            addToggle(type, modeIds[0], icon, name, modeIds);
+        };
+
+        this._ancRadioMap = {};
+        this._ancRadioReverse = {};
+        this._ancTransparencyMap = {};
+        this._ancTransparencyReverse = {};
+
+        if (modes.off)
+            addToggle('off', 'off', 'bbm-anc-off-symbolic', _('Off'));
+
+        addMode(
+            'transparency',
+            'bbm-transperancy-symbolic',
+            _('Transparency')
+        );
+
+        addMode(
+            'noiseCancellation',
+            'bbm-anc-on-symbolic',
+            _('Noise Cancellation')
+        );
+
+        if (modes.adaptive)
+            addToggle('adaptive', 'adaptive', 'bbm-adaptive-symbolic', _('Adaptive'));
+
         if (this._modelData.windNoiseReduction) {
             this._config.optionsBox1.push('check-button');
             this._config.box1CheckButton = [_('Wind Noise Reduction')];
         }
 
-        this._config.optionsBox2 = [];
         this._box2Map = [];
         const box2Labels = [];
         if (this._modelData.volumeEnhancer) {
@@ -712,6 +703,8 @@ export const OpoBudsDevice = GObject.registerClass({
                     this._toggle1ButtonClicked(value);
                 else if (command === 'box1RadioButtonState')
                     this._box1RadioButtonStateChanged(value);
+                else if (command === 'box2RadioButtonState')
+                    this._box2RadioButtonStateChanged(value);
                 else if (command === 'box1CheckButton1State')
                     this._box1CheckButton1Changed(value);
                 else if (command === 'box2CheckButton1State')
@@ -740,28 +733,35 @@ export const OpoBudsDevice = GObject.registerClass({
         this._props.toggle1State = index;
 
         let ancMode = null;
+
         if (toggle.type === 'noiseCancellation') {
             this._props.optionsBoxVisible = this._config.optionsBox1?.length ? 1 : 0;
 
-            if (toggle.matchBytes.length > 1) {
-                const radioIndex = this._props.box1RadioButtonState || 1;
+            if (toggle.matchModes.length > 1) {
+                const radioIndex = this._props.box1RadioButtonState;
                 this._props.box1RadioButtonState = radioIndex;
-                const modeBytes = this._ancRadioMap?.[radioIndex] || [toggle.matchBytes[0]];
-                ancMode = modeBytes;
+                ancMode = this._ancRadioMap?.[radioIndex] ?? toggle.mode;
             } else {
-                ancMode = toggle.modeBytes;
+                ancMode = toggle.mode;
             }
         } else if (toggle.type === 'transparency') {
             this._props.optionsBoxVisible = this._config.optionsBox2?.length ? 2 : 0;
-            ancMode = toggle.modeBytes;
+
+            if (toggle.matchModes.length > 1) {
+                const radioIndex = this._props.box2RadioButtonState;
+                this._props.box2RadioButtonState = radioIndex;
+                ancMode = this._ancTransparencyMap?.[radioIndex] ?? toggle.mode;
+            } else {
+                ancMode = toggle.mode;
+            }
         } else {
             this._props.optionsBoxVisible = 0;
-            ancMode = toggle.modeBytes;
+            ancMode = toggle.mode;
         }
 
-        this._updateLabelIndicator();
+        this.dataHandler?.setProps(this._props);
 
-        if (this._isReady && !isSameState && ancMode != null)
+        if (this._isReady && !isSameState && ancMode !== null)
             this._opoBudsSocket?.setNoiseControl(ancMode);
     }
 
@@ -770,11 +770,23 @@ export const OpoBudsDevice = GObject.registerClass({
             return;
 
         this._props.box1RadioButtonState = index;
-        this._updateLabelIndicator();
+        this.dataHandler?.setProps(this._props);
 
-        const modeBytes = this._ancRadioMap[index];
-        if (modeBytes?.length)
-            this._opoBudsSocket?.setNoiseControl(modeBytes);
+        const mode = this._ancRadioMap[index];
+        if (mode)
+            this._opoBudsSocket?.setNoiseControl(mode);
+    }
+
+    _box2RadioButtonStateChanged(index) {
+        if (!this._ancTransparencyMap)
+            return;
+
+        this._props.box2RadioButtonState = index;
+        this.dataHandler?.setProps(this._props);
+
+        const mode = this._ancTransparencyMap[index];
+        if (mode)
+            this._opoBudsSocket?.setNoiseControl(mode);
     }
 
     _box1CheckButton1Changed(value) {
@@ -878,22 +890,17 @@ export const OpoBudsDevice = GObject.registerClass({
             return;
         }
 
-        const nc = this._modelData?.noiseControl;
-        if (!nc)
+        const modes = this._modelData?.noiseControl?.modes;
+        if (!modes)
             return;
-
-        const modeArr = Array.isArray(mode) ? mode : [mode];
-        const lastByte = modeArr[modeArr.length - 1];
 
         let toggleIndex = 0;
         let activeType = 'off';
 
-        for (const [index, {matchBytes, type}] of Object.entries(this._ancToggleMap)) {
-            const matched = modeArr.some(b => matchBytes.includes(b)) ||
-                matchBytes.some(b => modeArr.includes(b));
-            if (matched) {
+        for (const [index, toggle] of Object.entries(this._ancToggleMap)) {
+            if (toggle.matchModes.includes(mode)) {
                 toggleIndex = Number(index);
-                activeType = type;
+                activeType = toggle.type;
                 break;
             }
         }
@@ -901,53 +908,34 @@ export const OpoBudsDevice = GObject.registerClass({
         this._props.toggle1State = toggleIndex;
 
         if (activeType === 'noiseCancellation') {
-            if (this._ancRadioReverse && this._ancRadioReverse[lastByte] !== undefined)
-                this._props.box1RadioButtonState = this._ancRadioReverse[lastByte];
-            else if (!this._props.box1RadioButtonState)
-                this._props.box1RadioButtonState = 1;
+            if (modes.noiseCancellation?.levels) {
+                const radioIndex = this._ancRadioReverse?.[mode];
+                if (radioIndex !== undefined)
+                    this._props.box1RadioButtonState = radioIndex;
+                else if (!this._props.box1RadioButtonState)
+                    this._props.box1RadioButtonState = 1;
+            }
+
             this._props.optionsBoxVisible = this._config.optionsBox1?.length ? 1 : 0;
         } else if (activeType === 'transparency') {
+            if (modes.transparency?.levels) {
+                const radioIndex = this._ancTransparencyReverse?.[mode];
+                if (radioIndex !== undefined)
+                    this._props.box2RadioButtonState = radioIndex;
+                else if (!this._props.box2RadioButtonState)
+                    this._props.box2RadioButtonState = 1;
+            }
+
             this._props.optionsBoxVisible = this._config.optionsBox2?.length ? 2 : 0;
         } else {
             this._props.optionsBoxVisible = 0;
         }
 
-        this._updateLabelIndicator();
+        this.dataHandler?.setProps(this._props);
     }
 
     updateNoiseControlCycle(maskByte) {
         this._updateSimpleSetting('_ncCycleMask', 'nc-cycle-mask', maskByte);
-    }
-
-    _updateLabelIndicator() {
-        const toggle = this._ancToggleMap?.[this._props.toggle1State];
-        const isAnc = toggle?.type === 'noiseCancellation';
-        const isSmart = this._props.box1RadioButtonState === 1;
-
-        const hasSmartLevel = this._modelData.noiseControl?.noiseCancellation?.levels?.smart ||
-            this._modelData.noiseControl?.noiseCancellation?.levels?.auto;
-
-        if (isAnc && isSmart && hasSmartLevel) {
-            const sub = this._smartSubName ?? '';
-            this._props.labelIndicator1 = sub ? `${_('Adaptive')}: ${sub}` : _('Adaptive');
-        } else {
-            this._props.labelIndicator1 = '';
-        }
-        this.dataHandler?.setProps(this._props);
-    }
-
-    updateAdaptiveAncSubLevel(subByte) {
-        const subNames = {
-            0x04: _('Low'),
-            0x10: _('Mid'),
-            0x08: _('High'),
-        };
-        const subName = subNames[subByte] ?? '';
-        this._log.info(`Real-Time Adaptive ANC Level: ${subName} (0x${subByte.toString(16)})`);
-        this._smartSubName = subName;
-        if (subName && this._settingsItems)
-            this._updateSettingKey('smart-anc-sublevel', subName);
-        this._updateLabelIndicator();
     }
 
     updateInEar(inEar) {
