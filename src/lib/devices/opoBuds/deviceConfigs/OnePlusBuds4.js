@@ -9,8 +9,8 @@ export default {
 
     eqPreset: {
         originalSound: 0x00,
-        serenade: 0x02,
-        bass: 0x01,
+        serenade: 0x01,
+        bass: 0x02,
     },
 
     customEqSupport: true,
