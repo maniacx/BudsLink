@@ -1,5 +1,6 @@
 'use strict';
 import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import {gettext as _} from 'gettext';
 
@@ -13,6 +14,7 @@ import {IconSelectorWidget} from './../../widgets/iconSelectorWidget.js';
 import {RingMyBudsRow} from './../../widgets/ringMyBudsRow.js';
 import {EqualizerWidget} from './../../widgets/equalizerWidget.js';
 import {DeviceManagementRow} from './../../widgets/deviceMgmtRowWidget.js';
+import {EarTipStatus, EarTipFitTestRow} from '../../widgets/earTipFitTestRow.js';
 import {
     NothingBudsModelList
 } from '../../../lib/devices/nothingBuds/nothingBudsConfig.js';
@@ -159,6 +161,18 @@ export const ConfigureWindow = GObject.registerClass({
             if (this._modelData?.spatialAudioSwitch)
                 this._spatialAudioSwitch.active = this._settingsItems['spatial'];
 
+            if (this._fitTestRow) {
+                if (this._fitTestRow.isTestInProgress()) {
+                    const res = this._settingsItems['fit-test-result'];
+
+                    if (res)
+                        this._onFitTestCompleted?.(res);
+                }
+
+                const deviceIcon = this._settingsItems['icon'];
+                this._fitTestRow.updateIcon(deviceIcon);
+            }
+
             if (this._dualConnSwitch) {
                 this._dualConnSwitch.active = this._settingsItems['multipoint'];
                 this._dualConnSwitch.updateDevices(this._settingsItems['dev-mgmt'] ?? []);
@@ -176,6 +190,24 @@ export const ConfigureWindow = GObject.registerClass({
                     if (ringStateLeft === 'playing')
                         this._updateGsettings('ring-state-left', 'stopped');
                 }
+            }
+
+            if (this._fitTestTimeoutId) {
+                GLib.source_remove(this._fitTestTimeoutId);
+                this._fitTestTimeoutId = null;
+            }
+
+            if (this._modelData?.fitTest && this._fitTestRow) {
+                if (this._fitTestRow.isTestInProgress())
+                    this._updateGsettings('fit-test-op', {action: 'stop', ts: Date.now()});
+
+                if (this._fitTestRowCancelId)
+                    this._fitTestRow.disconnect(this._fitTestRowCancelId);
+                this._fitTestRowCancelId = null;
+
+                if (this._fitTestRowStartId)
+                    this._fitTestRow.disconnect(this._fitTestRowStartId);
+                this._fitTestRowStartId = null;
             }
 
             this._eq?.destroy();
@@ -351,7 +383,7 @@ export const ConfigureWindow = GObject.registerClass({
         let miscGroup;
 
         if (this._modelData?.lowLatencyMode || this._modelData?.inEarDetection ||
-                this._modelData?.ring) {
+                this._modelData.fitTest || this._modelData?.ring) {
             miscGroup = new Adw.PreferencesGroup({title: _('Additional Settings')});
             this._page.add(miscGroup);
         }
@@ -385,6 +417,54 @@ export const ConfigureWindow = GObject.registerClass({
 
             miscGroup.add(this._inEarSwitch);
         }
+
+        if (this._modelData.fitTest) {
+            const deviceIcon = this._settingsItems['icon'];
+
+            this._fitTestRow = new EarTipFitTestRow(this, deviceIcon);
+
+            this._fitTestRowStartId = this._fitTestRow.connect('start-test', () => {
+                this._updateGsettings('fit-test-result', null);
+                this._updateGsettings('fit-test-op', {action: 'start', ts: Date.now()});
+
+                if (this._fitTestTimeoutId) {
+                    GLib.source_remove(this._fitTestTimeoutId);
+                    this._fitTestTimeoutId = null;
+                }
+
+                this._fitTestTimeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 10, () => {
+                    this._fitTestTimeoutId = null;
+                    this._fitTestRow.updateStatus(EarTipStatus.Error, EarTipStatus.Error);
+
+                    return GLib.SOURCE_REMOVE;
+                });
+            });
+
+            this._fitTestRowCancelId = this._fitTestRow.connect('cancel-test', () => {
+                if (this._fitTestTimeoutId) {
+                    GLib.source_remove(this._fitTestTimeoutId);
+                    this._fitTestTimeoutId = null;
+                }
+
+                this._updateGsettings('fit-test-result', null);
+                this._updateGsettings('fit-test-op', {action: 'stop', ts: Date.now()});
+            });
+
+            miscGroup.add(this._fitTestRow);
+
+            this._onFitTestCompleted = res => {
+                if (!this._fitTestRow)
+                    return;
+
+                if (this._fitTestTimeoutId) {
+                    GLib.source_remove(this._fitTestTimeoutId);
+                    this._fitTestTimeoutId = null;
+                }
+
+                this._fitTestRow.updateStatus(res.left, res.right);
+            };
+        }
+
 
         if (this._modelData?.ring) {
             const dual = !this._modelData.ringLegacy && !this._modelData.batterySingle;

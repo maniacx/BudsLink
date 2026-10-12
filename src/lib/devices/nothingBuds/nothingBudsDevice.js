@@ -55,6 +55,7 @@ export const NothingBudsDevice = GObject.registerClass({
             updateLatency: this.updateLatency.bind(this),
             updateInEar: this.updateInEar.bind(this),
             updateSpatialAudio: this.updateSpatialAudio.bind(this),
+            updateFitTestResult: this.updateFitTestResult.bind(this),
             updateDualConnection: this.updateDualConnection.bind(this),
             updateDualConnectionDevices: this.updateDualConnectionDevices.bind(this),
             updateGestures: this.updateGestures.bind(this),
@@ -155,6 +156,11 @@ export const NothingBudsDevice = GObject.registerClass({
                 },
             },
 
+            ...this._modelData.fitTest && {
+                'fit-test-op': null,
+                'fit-test-result': null,
+            },
+
             ...this._modelData.dualConnection && {
                 'multipoint': false,
                 'dev-mgmt': [],
@@ -210,6 +216,9 @@ export const NothingBudsDevice = GObject.registerClass({
             if (!this._modelData.ringLegacy && !this._modelData.batterySingle)
                 this._ringStateLeft = 'stopped';
         }
+
+        if (this._modelData.fitTest)
+            this._lastFitTestOpTs = this._settingsItems['fit-test-op']?.ts ?? 0;
 
         if (this._modelData.dualConnection) {
             this._multipoint = this._settingsItems['multipoint'];
@@ -295,6 +304,15 @@ export const NothingBudsDevice = GObject.registerClass({
             if (this._spatialAudio !== enable) {
                 this._spatialAudio = enable;
                 this._setSpatialAudio(enable);
+            }
+        }
+
+        if (this._modelData.fitTest) {
+            const fitTestOp = this._settingsItems['fit-test-op'];
+            if (fitTestOp && fitTestOp.ts !== this._lastFitTestOpTs) {
+                this._lastFitTestOpTs = fitTestOp.ts;
+                if (fitTestOp.action === 'start' || fitTestOp.action === 'stop')
+                    this._setFitTest(fitTestOp.action);
             }
         }
 
@@ -925,6 +943,19 @@ export const NothingBudsDevice = GObject.registerClass({
 
     _setGesture(slot) {
         this._nothingBudsSocket?.setGesture(slot);
+    }
+
+    updateFitTestResult(result) {
+        this._log.info(`Update Fit Test Result: left=${result?.left}, right=${result?.right}`);
+        this._fitTestResult = result;
+        if (this._settingsItems) {
+            this._settingsItems['fit-test-result'] = result;
+            this._updateGsettings();
+        }
+    }
+
+    _setFitTest(action) {
+        this._nothingBudsSocket?.setFitTest(action);
     }
 
     _setRingMyBuds(state, isLeft = false) {

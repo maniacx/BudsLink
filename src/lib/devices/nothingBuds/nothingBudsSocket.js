@@ -5,6 +5,7 @@ import GObject from 'gi://GObject';
 import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
 import {SocketHandler} from '../socketByProfile.js';
 import {booleanFromByte, isValidByte, bytesToHex, hexToBytes} from '../deviceUtils.js';
+import {EarTipStatus} from '../commonEmuns.js';
 import {getBluezDeviceProxy} from '../../bluezDeviceProxy.js';
 import {
     crc16Ansi, NothingBudsModelList, PayloadType, BatteryType
@@ -320,6 +321,9 @@ export const NothingBudsSocket = GObject.registerClass({
 
         if (this._modelData?.spatialAudioSwitch)
             this._getSpatialAudio();
+
+        if (this._modelData?.fitTest)
+            this._parseFitTest();
 
         if (this._modelData?.dualConnection) {
             this._getDualConnection();
@@ -796,6 +800,38 @@ export const NothingBudsSocket = GObject.registerClass({
         const loginfo = 'Set InEar';
         const payload = [0x00, 0x00, enable ? 0x01 : 0x00];
         this._sendPacket(PayloadType.IN_EAR_SET, loginfo, payload);
+    }
+
+    _parseFitTest(payload) {
+        this._log.info('Parse FitTest');
+
+        if (!payload || payload.length < 2)
+            return;
+
+        const mapFitResult = result => {
+            switch (result) {
+                case 0:
+                    return EarTipStatus.GoodSeal;
+                case 1:
+                    return EarTipStatus.BadSeal;
+                case 2:
+                default:
+                    return EarTipStatus.Error;
+            }
+        };
+
+        const result = {
+            left: mapFitResult(payload[0]),
+            right: mapFitResult(payload[1]),
+        };
+
+        this._callbacks?.updateFitTestResult?.(result);
+    }
+
+    setFitTest(action) {
+        const loginfo = 'Set Start FitTest';
+        const payload = [action === 'start' ? 0x01 : 0x00];
+        this._sendPacket(PayloadType.EAR_FIT_TEST_SET, loginfo, payload);
     }
 
     setRingMyBuds(state, isLeft) {
