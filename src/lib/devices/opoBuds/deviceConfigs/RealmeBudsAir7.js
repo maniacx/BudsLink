@@ -21,7 +21,6 @@ export default {
     },
 
     noiseControl: {
-        ancCycleType: 2,
         modes: {
             off: {
                 set: [0x01],
@@ -134,6 +133,7 @@ export default {
             'transparency': 0x02,
             'noise-cancellation': 0x08,
         },
+        ancCycleType: 2,
     },
 
     albumArtIcon: 'earbuds-stem',

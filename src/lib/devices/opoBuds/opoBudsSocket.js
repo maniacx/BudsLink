@@ -338,7 +338,7 @@ export const OpoBudsSocket = GObject.registerClass({
                 break;
 
             case Cmd.ANC_RSP:
-                this._parseAncEvent(payload);
+                this._parseAncResponse(payload);
                 break;
 
             case Cmd.FEATURE_SWITCH_RSP:
@@ -1123,8 +1123,7 @@ export const OpoBudsSocket = GObject.registerClass({
     setNoiseControlCycle(mask) {
         this._log.info(`Set ANC cycle: mask=${hexBytes(mask)}`);
 
-        const cycleType = this._modelData?.noiseControl?.ancCycleType ??
-                 this._modelData?.ancCycleType ?? 1;
+        const cycleType = this._modelData?.gestureOptions?.ancCycleType ?? 1;
 
         const maskBytes = [];
 

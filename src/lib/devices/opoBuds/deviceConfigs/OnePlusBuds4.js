@@ -20,7 +20,6 @@ export default {
     },
 
     noiseControl: {
-        ancCycleType: 2,
         modes: {
             off: {
                 set: [0x01],
@@ -163,6 +162,7 @@ export default {
             'noise-cancellation': 0x02,
             'adaptive': 0x0800,
         },
+        ancCycleType: 2,
         minimumNoiseControlModes: 1,
     },
 
