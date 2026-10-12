@@ -247,5 +247,11 @@
         <file>lib/devices/cambridgeBuds/cambridgeBudsSocket.js</file>
         <file>lib/devices/cambridgeBuds/deviceConfigs/MelomaniaA100.js</file>
         <file>preferences/devices/cambridgeBuds/configureWindow.js</file>
+
+        <file>lib/devices/soundcore/soundcoreConfig.js</file>
+        <file>lib/devices/soundcore/soundcoreDevice.js</file>
+        <file>lib/devices/soundcore/soundcoreSocket.js</file>
+        <file>lib/devices/soundcore/deviceConfigs/Liberty-4-NC.js</file>
+        <file>preferences/devices/soundcore/configureWindow.js</file>
     </gresource>
 </gresources>
