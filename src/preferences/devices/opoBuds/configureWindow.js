@@ -275,12 +275,21 @@ export const ConfigureWindow = GObject.registerClass({
                 GLib.source_remove(id);
             }
 
-            if (this._isTestingFit) {
-                this._updateGsettings('fit-test-op', {
-                    action: 'stop',
-                    ts: Date.now(),
-                });
-                this._isTestingFit = false;
+            if (this._modelData?.fitTest && this._fitTestRow) {
+                if (this._fitTestRow?.isTestInProgress()) {
+                    this._updateGsettings('fit-test-op', {
+                        action: 'stop',
+                        ts: Date.now(),
+                    });
+                }
+
+                if (this._fitTestRowCancelId)
+                    this._fitTestRow.disconnect(this._fitTestRowCancelId);
+                this._fitTestRowCancelId = null;
+
+                if (this._fitTestRowStartId)
+                    this._fitTestRow.disconnect(this._fitTestRowStartId);
+                this._fitTestRowStartId = null;
             }
 
             if (this._modelData?.ring) {
@@ -1052,9 +1061,9 @@ export const ConfigureWindow = GObject.registerClass({
         if (this._modelData.fitTest) {
             const deviceIcon = this._settingsItems['icon'];
 
-            this._fitTestRow = new EarTipFitTestRow(this, deviceIcon, true);
+            this._fitTestRow = new EarTipFitTestRow(this, deviceIcon);
 
-            this._fitTestRow.connect('start-test', () => {
+            this._fitTestRowStartId = this._fitTestRow.connect('start-test', () => {
                 this._updateMultipleGsettings({
                     'fit-test-result': null,
                     'fit-test-op': {
@@ -1082,6 +1091,21 @@ export const ConfigureWindow = GObject.registerClass({
                         return GLib.SOURCE_REMOVE;
                     }
                 );
+            });
+
+            this._fitTestRowCancelId = this._fitTestRow.connect('cancel-test', () => {
+                if (this._fitTestTimeoutId) {
+                    GLib.source_remove(this._fitTestTimeoutId);
+                    this._fitTestTimeoutId = null;
+                }
+
+                this._updateMultipleGsettings({
+                    'fit-test-result': null,
+                    'fit-test-op': {
+                        action: 'stop',
+                        ts: Date.now(),
+                    },
+                });
             });
 
             miscGroup.add(this._fitTestRow);
