@@ -14,6 +14,7 @@ import NothingHeadphone1 from './deviceConfigs/NothingHeadphone1.js';
 import NothingEarA from './deviceConfigs/NothingEarA.js';
 import NothingEara from './deviceConfigs/NothingEara.js';
 import NothingEarOpen from './deviceConfigs/NothingEarOpen.js';
+import NothingEar3a from './deviceConfigs/NothingEar3a.js';
 import NothingEar3 from './deviceConfigs/NothingEar3.js';
 import Ear2 from './deviceConfigs/Ear2.js';
 import NothingEar1 from './deviceConfigs/NothingEar1.js';
@@ -37,6 +38,7 @@ export const NothingBudsModelList = [
     NothingEarA,
     NothingEara,
     NothingEarOpen,
+    NothingEar3a,
     NothingEar3,
     Ear2,
     NothingEar1,
