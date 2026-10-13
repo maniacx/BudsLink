@@ -999,14 +999,16 @@ export const NothingBudsSocket = GObject.registerClass({
     _parseDualConnectionDeviceEvent(payload) {
         this._log.info('Parse Dual Connection Device Event');
 
-        if (!payload || payload.length < 15)
+        if (!payload || payload.length < 7)
             return;
 
-        const connected = payload[8] === 0x01;
-        const mac = bytesToHex(payload.slice(9, 15));
+        const connected = payload[0] === 0x01;
+        const mac = bytesToHex(payload.slice(1, 7));
+        const needUpdate = (payload[7] ?? 0) === 0x01;
+
         const device = this._dualConnectionDevices.find(item => item.mac === mac);
 
-        if (device) {
+        if (device && !needUpdate) {
             device.connected = connected;
             this._callbacks?.updateDualConnectionDevices?.(this._dualConnectionDevices);
         } else {
