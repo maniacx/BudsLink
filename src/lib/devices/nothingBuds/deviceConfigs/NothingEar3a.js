@@ -16,7 +16,6 @@ export default {
         custom: 0x05,
         advance: 0x06,
     },
-    eqListeningModeType: true,
 
     noiseControl: {
         off: {byte: 0x05},
