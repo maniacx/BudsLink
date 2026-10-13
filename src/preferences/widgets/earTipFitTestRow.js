@@ -164,6 +164,7 @@ const EarTipFitTestDialog = GObject.registerClass({
                 return;
             }
 
+            this.updateStatus(EarTipStatus.NotInitialized, EarTipStatus.NotInitialized);
             this.testingInProgress = true;
             this._setTestingLabels();
             this._updateButtonRow();
