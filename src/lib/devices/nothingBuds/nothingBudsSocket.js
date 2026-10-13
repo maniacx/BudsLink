@@ -799,7 +799,7 @@ export const NothingBudsSocket = GObject.registerClass({
 
     setInEar(enable) {
         const loginfo = 'Set InEar';
-        const payload = [0x00, 0x00, enable ? 0x01 : 0x00];
+        const payload = [0x01, 0x01, enable ? 0x01 : 0x00];
         this._sendPacket(PayloadType.IN_EAR_SET, loginfo, payload);
     }
 
