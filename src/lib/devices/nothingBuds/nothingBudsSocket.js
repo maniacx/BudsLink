@@ -265,6 +265,10 @@ export const NothingBudsSocket = GObject.registerClass({
                 if (this._modelData?.dualConnection)
                     this._parseDualConnectionDeviceEvent(payload);
                 break;
+            case PayloadType.EAR_FIT_TEST_NTFY:
+                if (this._modelData?.inEarDetection)
+                    this._parseFitTest(payload);
+                break;
         }
     }
 
@@ -321,9 +325,6 @@ export const NothingBudsSocket = GObject.registerClass({
 
         if (this._modelData?.spatialAudioSwitch)
             this._getSpatialAudio();
-
-        if (this._modelData?.fitTest)
-            this._parseFitTest();
 
         if (this._modelData?.dualConnection) {
             this._getDualConnection();
