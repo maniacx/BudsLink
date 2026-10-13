@@ -18,8 +18,6 @@ export default {
     },
     eqListeningModeType: true,
 
-    bassEnhanceLevel: 5,
-
     noiseControl: {
         off: {byte: 0x05},
         transparency: {byte: 0x07},
