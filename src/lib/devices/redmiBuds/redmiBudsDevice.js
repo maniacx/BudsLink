@@ -1,7 +1,7 @@
 'use strict';
 import Gio from 'gi://Gio';
 import GObject from 'gi://GObject';
-import {gettext as _} from 'gettext';
+import {gettext as _, pgettext} from 'gettext';
 
 import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
 import {
@@ -12,6 +12,10 @@ import {MediaController} from '../mediaController.js';
 import {RedmiBudsSocket} from './redmiBudsSocket.js';
 
 export const DeviceTypeRedmiBuds = 'redmiBuds';
+
+// Keep existing translations when a locale has no Redmi-specific entry yet.
+const localizedLabel = (translation, original) =>
+    translation === original ? _(original) : translation;
 
 const RedmiBudsUUID = '0000fd2d-0000-1000-8000-00805f9b34fb';
 export function isRedmiBuds(bluezDeviceProxy, uuids) {
@@ -692,9 +696,9 @@ export const RedmiBudsDevice = GObject.registerClass({
             return;
 
         const transNames = {
-            regular: _('Regular'),
-            voice: _('Voice'),
-            ambient: _('Ambient'),
+            regular: localizedLabel(pgettext('Redmi transparency mode', 'Regular'), 'Regular'),
+            voice: localizedLabel(pgettext('Redmi transparency mode', 'Voice'), 'Voice'),
+            ambient: localizedLabel(pgettext('Redmi transparency mode', 'Ambient'), 'Ambient'),
         };
 
         const keys = Object.keys(data);

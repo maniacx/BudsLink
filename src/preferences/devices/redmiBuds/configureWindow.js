@@ -1,7 +1,7 @@
 'use strict';
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
-import {gettext as _} from 'gettext';
+import {gettext as _, pgettext} from 'gettext';
 
 import {
     supportedAudioSingleIcons, supportedAudioDualIcons, supportedCaseIcons
@@ -13,6 +13,10 @@ import {RadioButtonRowWidget} from './../../widgets/radioButtonRowWidget.js';
 import {RingMyBudsRow} from './../../widgets/ringMyBudsRow.js';
 import {EqualizerWidget} from './../../widgets/equalizerWidget.js';
 import {RedmiBudsModelList} from '../../../lib/devices/redmiBuds/redmiBudsConfig.js';
+
+// Keep existing translations when a locale has no Redmi-specific entry yet.
+const localizedLabel = (translation, original) =>
+    translation === original ? _(original) : translation;
 
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_RedmiBudsConfigureWindow',
@@ -252,7 +256,7 @@ export const ConfigureWindow = GObject.registerClass({
 
         const presetLabels = {
             standard: _('Standard'),
-            voice: _('Vocals'),
+            voice: localizedLabel(pgettext('Redmi equalizer preset', 'Vocals'), 'Vocals'),
             base: _('Bass Boost'),
             treble: _('Treble Boost'),
             boostVolume: _('Volume Boost'),
@@ -363,7 +367,15 @@ export const ConfigureWindow = GObject.registerClass({
 
         if (this._modelData.spatialAudioScenes) {
             const scenes = this._modelData.spatialAudioScenes;
-            const sceneNames = Object.keys(scenes).map(k => _(k));
+            // TRANSLATORS: Spatial audio scene names supplied by device configurations.
+            const sceneLabels = {
+                Standard: _('Standard'),
+                Music: _('Music'),
+                Video: _('Video'),
+                Game: _('Game'),
+                Audiobooks: _('Audiobooks'),
+            };
+            const sceneNames = Object.keys(scenes).map(k => sceneLabels[k] ?? _(k));
             const sceneValues = Object.values(scenes);
 
             this._spatialAudioSceneDropdown = new DropDownRowWidget({
@@ -398,7 +410,8 @@ export const ConfigureWindow = GObject.registerClass({
 
         if (this._modelData.dualConnection) {
             this._dualConnSwitch = new Adw.SwitchRow({
-                title: _('Allow Connections to Multiple Devices'),
+                title: localizedLabel(pgettext('Redmi connection setting',
+                    'Allow Connections to Multiple Devices'), 'Allow Connections to Multiple Devices'),
             });
 
             this._dualConnSwitch.active = this._settingsItems['dual-conn'];
@@ -473,7 +486,8 @@ export const ConfigureWindow = GObject.registerClass({
     _buildNoiseControlRow(title, initialValue) {
         const items = [
             {name: _('Off'), icon: 'bbm-anc-off-symbolic'},
-            {name: _('Ambient'), icon: 'bbm-transperancy-symbolic'},
+            {name: localizedLabel(pgettext('Redmi listening mode', 'Ambient'), 'Ambient'),
+                icon: 'bbm-transperancy-symbolic'},
             {name: _('Noise Cancellation'), icon: 'bbm-anc-on-symbolic'},
         ];
 
