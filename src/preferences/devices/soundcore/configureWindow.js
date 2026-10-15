@@ -633,7 +633,7 @@ export const ConfigureWindow = GObject.registerClass({
 
         if ('cycle-nc' in this._settingsItems) {
             const cycleGroup = new Adw.PreferencesGroup({
-                title: _('Cycle Through Modes'),
+                title: _('Noise Control Button Cycling'),
             });
             page.add(cycleGroup);
 
