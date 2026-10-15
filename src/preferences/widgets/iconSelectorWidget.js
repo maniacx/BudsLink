@@ -34,6 +34,9 @@ export const IconSelectorWidget = GObject.registerClass({
             initialCaseIcon = '',
             mac = '',
             fw = '',
+            lFw = '',
+            rFw = '',
+            caseFw = '',
             serial = '',
             lSn = '',
             rSn = '',
@@ -100,8 +103,49 @@ export const IconSelectorWidget = GObject.registerClass({
 
         addInfo(_('MAC Address'), mac);
 
-        if (fw)
+        if (lFw || rFw || caseFw) {
+            const firmwareBox = new Gtk.Box({
+                orientation: Gtk.Orientation.VERTICAL,
+                spacing: 2,
+                halign: Gtk.Align.CENTER,
+            });
+
+            const firmwareTitle = new Gtk.Label({
+                label: _('Firmware Version'),
+                halign: Gtk.Align.CENTER,
+                css_classes: ['caption-heading'],
+            });
+
+            firmwareBox.append(firmwareTitle);
+
+            if (lFw) {
+                firmwareBox.append(new Gtk.Label({
+                    label: `L: ${lFw}`,
+                    halign: Gtk.Align.CENTER,
+                    css_classes: ['caption', 'dimmed'],
+                }));
+            }
+
+            if (rFw) {
+                firmwareBox.append(new Gtk.Label({
+                    label: `R: ${rFw}`,
+                    halign: Gtk.Align.CENTER,
+                    css_classes: ['caption', 'dimmed'],
+                }));
+            }
+
+            if (caseFw) {
+                firmwareBox.append(new Gtk.Label({
+                    label: `Case: ${caseFw}`,
+                    halign: Gtk.Align.CENTER,
+                    css_classes: ['caption', 'dimmed'],
+                }));
+            }
+
+            infoBox.append(firmwareBox);
+        } else if (fw) {
             addInfo(_('Firmware Version'), fw);
+        }
 
         if (lSn || rSn || caseSn) {
             const serialBox = new Gtk.Box({

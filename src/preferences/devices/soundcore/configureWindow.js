@@ -178,13 +178,28 @@ export const ConfigureWindow = GObject.registerClass({
     }
 
     _addDevicePage(page, mac) {
+        const rFw = this._settingsItems['rFw'] ?? '';
+        let fw = '';
+        let lFw = '';
+
+        if (rFw)
+            lFw = this._settingsItems['lFw'] ?? '';
+        else
+            fw = this._settingsItems['lFw'] ?? '';
+
+        const serial = this._settingsItems['serial'] ?? '';
+
         const iconSelector = new IconSelectorWidget({
             iconList: supportedAudioSingleIcons,
             initialIcon: this._settingsItems['icon'] || this._modelData.budsIcon,
             caseIconList: supportedCaseIcons,
             initialCaseIcon: this._settingsItems['case'] || this._modelData.case,
             mac,
-            fw: '',
+            fw,
+            lFw,
+            rFw,
+            serial,
+
         });
 
         iconSelector.connect('notify::selected-icon', () => {

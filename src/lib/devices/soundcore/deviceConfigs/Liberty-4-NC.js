@@ -17,6 +17,12 @@ export default {
     caseBatteryOffset: 139,
     soundModesOffset: 126,
 
+    firmware: {
+        version: {offset: 6, length: 5},
+        version2: {offset: 11, length: 5},
+    },
+    serial: {offset: 16, length: 16},
+
     // Two simultaneous connections; the device list is read/managed through the 0b xx commands
     dualConnection: {},
     maxConnected: 2,

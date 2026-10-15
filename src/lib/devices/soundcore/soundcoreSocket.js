@@ -134,6 +134,12 @@ export const SoundcoreSocket = GObject.registerClass({
 
         this._emitBattery(body);
 
+        if (m.firmware)
+            this._emitFirmware(body);
+
+        if (m.serial)
+            this._emitSerial(body);
+
         if (m.dualConnection)
             this._callbacks.updateDualEnabled(body[m.dualEnabledOffset] === 1);
 
@@ -328,6 +334,45 @@ export const SoundcoreSocket = GObject.registerClass({
             battery3Level: percent(body[m.caseBatteryOffset], m.caseBatteryMaxLevel),
             battery3Status: 'discharging',
         });
+    }
+
+    _readStateString(body, offset, length) {
+        if (body.length < offset + length) {
+            this._log.info('Unexpected state body length for string');
+            return '';
+        }
+
+        const bytes = new Uint8Array(body.slice(offset, offset + length));
+        const value = new TextDecoder('utf-8').decode(bytes);
+        const str =  value.replace(/\0+$/g, '').trim();
+        return str;
+    }
+
+    _emitFirmware(body) {
+        const {version, version2} = this._modelData.firmware;
+
+        const firmware1 = this._readStateString(body, version.offset, version.length);
+
+        if (firmware1 === null)
+            return;
+
+        let firmware2 = '';
+
+        if (version2)
+            firmware2 = this._readStateString(body, version2.offset, version2.length);
+
+
+        this._callbacks.updateFirmware(firmware1, firmware2);
+    }
+
+    _emitSerial(body) {
+        const {offset, length} = this._modelData.serial;
+        const serialNumber = this._readStateString(body, offset, length);
+
+        if (serialNumber === null)
+            return;
+
+        this._callbacks.updateSerial(serialNumber);
     }
 
     destroy() {

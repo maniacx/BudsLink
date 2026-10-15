@@ -67,6 +67,9 @@ export const SoundcoreDevice = GObject.registerClass({
         this._extPath = extPath;
         this.updateDeviceMapCb = updateDeviceMapCb;
         this._ignoreGsettingsChange = false;
+        this._fwVersion = '';
+        this._fwVersion2 = '';
+        this._serialNo = '';
 
         this._config = createConfig();
         this._props = createProperties();
@@ -85,6 +88,8 @@ export const SoundcoreDevice = GObject.registerClass({
 
         this._callbacks = {
             updateBatteryProps: this.updateBatteryProps.bind(this),
+            updateFirmware: this.updateFirmware.bind(this),
+            updateSerial: this.updateSerial.bind(this),
             updateSoundModes: this.updateSoundModes.bind(this),
             updateDualDevices: this.updateDualDevices.bind(this),
             updateDualEnabled: this.updateDualEnabled.bind(this),
@@ -113,6 +118,9 @@ export const SoundcoreDevice = GObject.registerClass({
             alias: this._alias,
             icon: m.budsIcon,
             case: m.case,
+            'lFw': this._lFwVersion,
+            'rFw': this._rFwVersion,
+            'serial': this._serialNo,
             'ambient-mode': AmbientMode.NORMAL,
             'wind-noise': false,
             'nc-mode': NcMode.MANUAL,
@@ -578,6 +586,21 @@ export const SoundcoreDevice = GObject.registerClass({
             values['nc-level'] = 1;
         this._writeSettings(values);
         this._syncPanelOptions();
+    }
+
+    updateFirmware(lFw, rFw) {
+        if (this._lFwVersion !== lFw || this._rFwVersion !== rFw) {
+            this._lFwVersion = lFw;
+            this._rFwVersion = rFw;
+            this._writeSettings({lFw, rFw});
+        }
+    }
+
+    updateSerial(serial) {
+        if (this._serialNo !== serial) {
+            this._serialNo = serial;
+            this._writeSettings({serial});
+        }
     }
 
     destroy() {
