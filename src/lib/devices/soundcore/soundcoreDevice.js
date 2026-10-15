@@ -42,7 +42,7 @@ const SoundModeKeys = [
 
 function findModelByUuids(uuids) {
     const lower = uuids.map(u => u.toLowerCase());
-    return SoundcoreConfiguration.find(m => lower.includes(vendorUuidForModel(m.modelCode))) ?? null;
+    return SoundcoreConfiguration.find(m => lower.includes(vendorUuidForModel(m.modelCode)));
 }
 
 export function isSoundcore(bluezDeviceProxy, uuids) {
@@ -136,7 +136,11 @@ export const SoundcoreDevice = GObject.registerClass({
                 'hearid-custom': new Array(m.equalizer.freqs.length).fill(0),
             },
             ...m.autoPowerOff && {'auto-power-off': 30},
-            ...m.limitHighVolume && {'limit-volume': false, 'limit-volume-db': 90, 'limit-volume-refresh': 0},
+            ...m.limitHighVolume && {
+                'limit-volume': false,
+                'limit-volume-db': 90,
+                'limit-volume-refresh': 0,
+            },
             ...m.dualConnection && {
                 'dual-conn': true,
                 'dev-mgmt': [],
@@ -447,7 +451,7 @@ export const SoundcoreDevice = GObject.registerClass({
     }
 
     // The same, as last reported by or sent to the earbuds
-    _deviceEqualizer(items) {
+    _deviceEqualizer() {
         const reported = this._deviceEqualizerState ?? {};
         const settings = {mode: reported.mode, hearCustomBands: reported.hearCustomBands};
         if (settings.mode === 'default')

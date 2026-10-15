@@ -76,7 +76,7 @@ export function buildPacket(command, body = []) {
     const packet = [
         ...DIRECTION_HOST_TO_DEVICE,
         ...command,
-        (HEADER_LEN + body.length + 1) & 0xFF, (HEADER_LEN + body.length + 1) >> 8,
+        HEADER_LEN + body.length + 1 & 0xFF, HEADER_LEN + body.length + 1 >> 8,
         ...body,
     ];
     packet.push(checksum(packet));
@@ -260,8 +260,8 @@ export function equalizerInfo(eq, bandCount) {
     return {
         mode: equalizerMode(eq),
         presetId: eq.presetId === EqPreset.CUSTOM ? null : eq.presetId,
-        customBands: eq.presetId === EqPreset.CUSTOM ?
-            tenthsToDb(eq.eq.find(c => c !== null)) : null,
+        customBands: eq.presetId === EqPreset.CUSTOM
+            ? tenthsToDb(eq.eq.find(c => c !== null)) : null,
         hearType: HearIdTypeKey[eq.hearType] ?? 'initial',
         genre: eq.music,
         hearCustomBands: tenthsToDb(eq.customCurve.find(c => c !== null)),
@@ -379,7 +379,8 @@ export function equalizerForMode(eq, settings) {
 
     // Replaces the editable bands of a channel; the two bands past them stay as the earbuds
     // reported them
-    const withBands = (channel, tenths) => channel && [...toBytes(tenths), ...channel.slice(tenths.length)];
+    const withBands = (channel, tenths) => channel &&
+            [...toBytes(tenths), ...channel.slice(tenths.length)];
 
     if (settings.hearCustomBands) {
         const tenths = settings.hearCustomBands.map(v => Math.round(v * 10));

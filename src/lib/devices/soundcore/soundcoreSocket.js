@@ -5,10 +5,10 @@ import GObject from 'gi://GObject';
 import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
 import {SocketHandler} from '../socketByProfile.js';
 import {
-    Cmd, CmdDual, Rsp, HEADER_LEN, DIRECTION_DEVICE_TO_HOST, buildPacket, checksum, decodeSoundModes,
+    Cmd, CmdDual, Rsp, HEADER_LEN, DIRECTION_DEVICE_TO_HOST, buildPacket, checksum,
     encodeSoundModes, decodeDualDevices, macToBytes, ButtonId, ButtonSide, TouchActionId,
-    touchActionFromId, ActionDisabled, EQ_BLOCK_LENGTH, decodeEqualizer, equalizerMode,
-    equalizerInfo, encodeEqualizer, equalizerForMode
+    touchActionFromId, ActionDisabled, EQ_BLOCK_LENGTH, decodeEqualizer,
+    equalizerInfo, encodeEqualizer, equalizerForMode, decodeSoundModes
 } from './soundcoreConfig.js';
 
 const SOUND_MODES_LENGTH = 7;
@@ -229,7 +229,10 @@ export const SoundcoreSocket = GObject.registerClass({
 
         if (m.limitHighVolume) {
             const {offset} = m.limitHighVolume;
-            this._callbacks.updateVolumeLimit(body[offset] === 1, body[offset + 1], body[offset + 2]);
+            const enabled = body[offset] === 1;
+            const db = body[offset + 1];
+            const refreshRate = body[offset + 2];
+            this._callbacks.updateVolumeLimit(enabled, db, refreshRate);
         }
     }
 
@@ -281,7 +284,7 @@ export const SoundcoreSocket = GObject.registerClass({
             return;
 
         // Only the nibble for earbuds out of the case changes
-        const byte = ((this._buttonBytes[key] ?? 0) & 0xF0) | id;
+        const byte = (this._buttonBytes[key] ?? 0) & 0xF0 | id;
         this._buttonBytes[key] = byte;
         this._send(buildPacket(Cmd.SET_BUTTON_ACTION, [sideId, buttonId, byte]));
     }
