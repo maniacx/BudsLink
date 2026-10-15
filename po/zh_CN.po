@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-23 14:54-0600\n"
-"PO-Revision-Date: 2026-10-13 04:51+0000\n"
-"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"PO-Revision-Date: 2026-10-14 03:45+0000\n"
+"Last-Translator: Yudong An <ayd@immiq.top>\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: polib 1.2.0\n"
 
 #: src/app.js:228 src/lib/widgets/deviceRow.js:56
 msgid "BudsLink"
@@ -47,7 +47,7 @@ msgstr "游戏模式"
 #: src/preferences/devices/nothingBuds/configureWindow.js:355
 #: src/preferences/devices/opoBuds/configureWindow.js:827
 msgid "Reduces latency and enhances in-game audio"
-msgstr "降低延迟以增强游戏音效"
+msgstr "降低延迟并增强游戏音效"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:80
 #: src/preferences/devices/nothingBuds/configureWindow.js:369
@@ -55,7 +55,7 @@ msgstr "降低延迟以增强游戏音效"
 #: src/preferences/devices/opoBuds/configureWindow.js:842
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "In-Ear Detection"
-msgstr "入耳检测"
+msgstr "佩戴检测"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:81
 #: src/preferences/devices/nothingBuds/configureWindow.js:370
@@ -109,7 +109,7 @@ msgstr "佩戴任一耳机恢复播放，取下双耳耳机暂停"
 #: src/preferences/devices/senhBuds/configureWindow.js:643
 #: src/preferences/devices/boseBuds/configureWindow.js:442
 msgid "Choose Playback Behavior for In-Ear Detection"
-msgstr "选择入耳检测的播放行为"
+msgstr "选择佩戴检测的播放行为"
 
 #: src/preferences/devices/airpods/configureWindow.js:117
 #: src/preferences/devices/redmiBuds/configureWindow.js:229
@@ -204,7 +204,7 @@ msgstr "关闭"
 #: src/lib/devices/opoBuds/opoBudsDevice.js:554
 #: src/lib/devices/googleBuds/googleBudsDevice.js:217
 msgid "Transparency"
-msgstr "透传模式"
+msgstr "通透"
 
 #: src/preferences/devices/airpods/configureWindow.js:232
 #: src/preferences/devices/redmiBuds/configureWindow.js:479
@@ -227,7 +227,7 @@ msgstr "透传模式"
 #: src/lib/devices/sony/sonyDevice.js:187
 #: src/lib/devices/googleBuds/googleBudsDevice.js:223
 msgid "Noise Cancellation"
-msgstr "降噪模式"
+msgstr "降噪"
 
 #: src/preferences/devices/airpods/configureWindow.js:239
 #: src/preferences/devices/galaxyBuds/configureWindow.js:530
@@ -251,11 +251,11 @@ msgstr "长按循环切换"
 
 #: src/preferences/devices/airpods/configureWindow.js:251
 msgid "Press and hold cycles between"
-msgstr ""
+msgstr "长按时循环切换以下模式"
 
 #: src/preferences/devices/airpods/configureWindow.js:252
 msgid "Settings don’t reflect current state"
-msgstr ""
+msgstr "这些设置不反映当前状态"
 
 #: src/preferences/devices/airpods/configureWindow.js:254
 #: src/preferences/devices/redmiBuds/configureWindow.js:485
@@ -265,19 +265,19 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1176
 #: src/preferences/devices/sony/configureWindow.js:374
 msgid "Apply"
-msgstr ""
+msgstr "应用"
 
 #: src/preferences/devices/airpods/configureWindow.js:279
 msgid "Notification Volume"
-msgstr ""
+msgstr "通知音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:283
 msgid "Tone Volume"
-msgstr ""
+msgstr "提示音音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:284
 msgid "Adjust the volume of audio cues"
-msgstr ""
+msgstr "调整提示音的音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:286
 msgid "15%"
@@ -296,77 +296,77 @@ msgstr "125%"
 #: src/preferences/devices/galaxyBuds/configureWindow.js:465
 #: src/preferences/devices/sony/configureWindow.js:312
 msgid "Volume Control"
-msgstr ""
+msgstr "音量控制"
 
 #: src/preferences/devices/airpods/configureWindow.js:309
 msgid "Volume Swipe"
-msgstr ""
+msgstr "滑动调节音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:310
 msgid "Enable or disable volume adjustment by swiping on earbud stems"
-msgstr ""
+msgstr "启用或关闭通过滑动耳机柄调节音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:319
 #: src/preferences/devices/airpods/configureWindow.js:352
 #: src/preferences/devices/airpods/configureWindow.js:370
 #: src/preferences/devices/googleBuds/configureWindow.js:79
 msgid "Default"
-msgstr ""
+msgstr "默认"
 
 #: src/preferences/devices/airpods/configureWindow.js:319
 #: src/preferences/devices/airpods/configureWindow.js:352
 msgid "Longer"
-msgstr ""
+msgstr "较长"
 
 #: src/preferences/devices/airpods/configureWindow.js:319
 #: src/preferences/devices/airpods/configureWindow.js:352
 msgid "Longest"
-msgstr ""
+msgstr "最长"
 
 #: src/preferences/devices/airpods/configureWindow.js:323
 msgid "Swipe Duration"
-msgstr ""
+msgstr "滑动间隔"
 
 #: src/preferences/devices/airpods/configureWindow.js:324
 msgid ""
 "To prevent unintended adjustments,select the preferred wait time between "
 "swipes"
-msgstr ""
+msgstr "选择两次滑动之间的等待时间，以防止误调音量"
 
 #: src/preferences/devices/airpods/configureWindow.js:349
 msgid "Stem and Crown Response"
-msgstr ""
+msgstr "耳机柄与旋钮响应"
 
 #: src/preferences/devices/airpods/configureWindow.js:356
 msgid "Press Speed"
-msgstr ""
+msgstr "按压速度"
 
 #: src/preferences/devices/airpods/configureWindow.js:357
 msgid ""
 "Adjust how quickly you must double or triple-press the stem or Digital Crown "
 "before an action occurs"
-msgstr ""
+msgstr "调整触发操作时，双击或三击耳机柄或数码旋钮所需的按压速度"
 
 #: src/preferences/devices/airpods/configureWindow.js:370
 msgid "Shorter"
-msgstr ""
+msgstr "较短"
 
 #: src/preferences/devices/airpods/configureWindow.js:370
 msgid "Shortest"
-msgstr ""
+msgstr "最短"
 
 #: src/preferences/devices/airpods/configureWindow.js:373
 msgid "Press and Hold Duration"
-msgstr ""
+msgstr "长按时长"
 
 #: src/preferences/devices/airpods/configureWindow.js:374
 msgid "Set how long you need to press and hold before an action occurs"
-msgstr ""
+msgstr "设置触发操作所需的长按时间"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:228
 #: src/preferences/devices/galaxyBuds/configureWindow.js:122
 msgid "Choose Playback Behavior for Ear Detection"
-msgstr ""
+msgstr "选择佩戴检测的播放行为"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:248
 #: src/preferences/devices/senhBuds/configureWindow.js:223
@@ -375,7 +375,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:206
 #: src/preferences/devices/googleBuds/configureWindow.js:66
 msgid "Equalizer"
-msgstr "等化器"
+msgstr "均衡器"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:254
 #: src/preferences/devices/redmiBuds/configureWindow.js:265
@@ -383,13 +383,13 @@ msgstr "等化器"
 #: src/preferences/devices/sony/configureWindow.js:151
 #: src/lib/devices/sony/sonyDevice.js:197
 msgid "Standard"
-msgstr ""
+msgstr "标准"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:255
 #: src/preferences/devices/nothingBuds/configureWindow.js:211
 #: src/preferences/devices/sony/configureWindow.js:214
 msgid "Vocals"
-msgstr ""
+msgstr "人声"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:256
 #: src/preferences/devices/nothingBuds/configureWindow.js:213
@@ -398,7 +398,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:216
 #: src/preferences/devices/googleBuds/configureWindow.js:80
 msgid "Bass Boost"
-msgstr ""
+msgstr "低音增强"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:257
 #: src/preferences/devices/nothingBuds/configureWindow.js:212
@@ -406,11 +406,11 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:279
 #: src/preferences/devices/sony/configureWindow.js:215
 msgid "Treble Boost"
-msgstr ""
+msgstr "高音增强"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:258
 msgid "Volume Boost"
-msgstr ""
+msgstr "音量增强"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:259
 #: src/preferences/devices/nothingBuds/configureWindow.js:220
@@ -425,12 +425,12 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:293
 #: src/preferences/devices/googleBuds/configureWindow.js:86
 msgid "Custom"
-msgstr ""
+msgstr "自定义"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:260
 #: src/preferences/devices/opoBuds/configureWindow.js:333
 msgid "Classic"
-msgstr ""
+msgstr "经典"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:261
 msgid "Audiophile"
@@ -440,7 +440,7 @@ msgstr "音响爱好者"
 #: src/preferences/devices/boseBuds/configureWindow.js:278
 #: src/preferences/devices/googleBuds/configureWindow.js:81
 msgid "Bass Reducer"
-msgstr ""
+msgstr "低音减弱"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:263
 msgid "Harman EFX"
@@ -457,14 +457,14 @@ msgstr "户外模式"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:267
 msgid "Underwater"
-msgstr ""
+msgstr "水下"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:268
 #: src/preferences/devices/nothingBuds/configureWindow.js:210
 #: src/preferences/devices/opoBuds/configureWindow.js:325
 #: src/preferences/devices/googleBuds/configureWindow.js:82
 msgid "Balanced"
-msgstr ""
+msgstr "均衡"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:280
 #: src/preferences/devices/nothingBuds/configureWindow.js:232
@@ -496,7 +496,7 @@ msgstr "EQ预设"
 #: src/preferences/devices/boseBuds/configureWindow.js:306
 #: src/preferences/devices/sony/configureWindow.js:240
 msgid "Change the sound signature"
-msgstr ""
+msgstr "调整声音风格"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:302
 msgid "62"
@@ -525,37 +525,37 @@ msgstr "500"
 #: src/preferences/devices/sony/configureWindow.js:257
 #: src/preferences/devices/sony/configureWindow.js:259
 msgid "1k"
-msgstr ""
+msgstr "1k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:302
 #: src/preferences/devices/senhBuds/configureWindow.js:308
 #: src/preferences/devices/sony/configureWindow.js:259
 msgid "2k"
-msgstr ""
+msgstr "2k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:302
 #: src/preferences/devices/senhBuds/configureWindow.js:311
 #: src/preferences/devices/sony/configureWindow.js:259
 msgid "4k"
-msgstr ""
+msgstr "4k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:303
 #: src/preferences/devices/senhBuds/configureWindow.js:314
 #: src/preferences/devices/sony/configureWindow.js:259
 msgid "8k"
-msgstr ""
+msgstr "8k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:303
 #: src/preferences/devices/senhBuds/configureWindow.js:315
 msgid "12k"
-msgstr ""
+msgstr "12k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:303
 #: src/preferences/devices/senhBuds/configureWindow.js:316
 #: src/preferences/devices/sony/configureWindow.js:257
 #: src/preferences/devices/sony/configureWindow.js:259
 msgid "16k"
-msgstr ""
+msgstr "16k"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:312
 #: src/preferences/devices/senhBuds/configureWindow.js:333
@@ -577,7 +577,7 @@ msgstr "增益（dB）"
 #: src/preferences/devices/nothingBuds/configureWindow.js:326
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:176
 msgid "Immersive Audio"
-msgstr ""
+msgstr "沉浸式音频"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:332
 #: src/preferences/devices/nothingBuds/configureWindow.js:330
@@ -587,29 +587,29 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:794
 #: src/lib/devices/boseBuds/boseBudsDevice.js:762
 msgid "Spatial Audio"
-msgstr ""
+msgstr "空间音频"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:333
 #: src/preferences/devices/nothingBuds/configureWindow.js:331
 #: src/preferences/devices/opoBuds/configureWindow.js:780
 msgid "Add depth for a more immersive experience"
-msgstr ""
+msgstr "增加声音的空间感，带来更沉浸的体验"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:347
 msgid "Track Head Movement"
-msgstr ""
+msgstr "头部追踪"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:348
 msgid "Audio moves with your head"
-msgstr ""
+msgstr "声音随头部转动而变化"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:370
 msgid "Spatial Audio Scene"
-msgstr ""
+msgstr "空间音频场景"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:371
 msgid "Select the sound environment"
-msgstr ""
+msgstr "选择声音环境"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:397
 #: src/preferences/devices/nothingBuds/configureWindow.js:348
@@ -618,34 +618,34 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:821
 #: src/preferences/devices/boseBuds/configureWindow.js:562
 msgid "Additional Settings"
-msgstr ""
+msgstr "更多设置"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:403
 #: src/preferences/widgets/deviceMgmtRowWidget.js:460
 msgid "Allow Connections to Multiple Devices"
-msgstr ""
+msgstr "允许连接多个设备"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:417
 #: src/preferences/devices/senhBuds/configureWindow.js:589
 #: src/preferences/devices/opoBuds/configureWindow.js:945
 #: src/preferences/devices/boseBuds/configureWindow.js:401
 msgid "Answer Calls Automatically"
-msgstr ""
+msgstr "自动接听电话"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:418
 #: src/preferences/devices/senhBuds/configureWindow.js:590
 #: src/preferences/devices/opoBuds/configureWindow.js:946
 #: src/preferences/devices/boseBuds/configureWindow.js:402
 msgid "Answer calls when the earbuds are worn"
-msgstr ""
+msgstr "佩戴耳机时接听电话"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:432
 msgid "Adaptive Sound"
-msgstr ""
+msgstr "自适应听感"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:433
 msgid "Automatically adjust sound to your ear shape"
-msgstr ""
+msgstr "根据耳道形状自动调整听感"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:478
 #: src/preferences/devices/nothingBuds/configureWindow.js:404
@@ -654,12 +654,12 @@ msgstr ""
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:697
 #: src/lib/devices/sony/sonyDevice.js:184
 msgid "Ambient"
-msgstr ""
+msgstr "环境音"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:483
 #: src/preferences/devices/nothingBuds/configureWindow.js:414
 msgid "Noise Control Cycle: "
-msgstr ""
+msgstr "噪声控制循环切换： "
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:505
 #: src/preferences/devices/nothingBuds/configureWindow.js:435
@@ -684,7 +684,7 @@ msgstr "双击"
 #: src/preferences/devices/opoBuds/configureWindow.js:1072
 #: src/preferences/devices/boseBuds/configureWindow.js:695
 msgid "Triple Tap"
-msgstr ""
+msgstr "三击"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:508
 #: src/preferences/devices/nothingBuds/configureWindow.js:438
@@ -697,7 +697,7 @@ msgstr "长按"
 #: src/preferences/devices/opoBuds/configureWindow.js:1079
 #: src/preferences/devices/boseBuds/configureWindow.js:699
 msgid "Single Press"
-msgstr ""
+msgstr "按一下"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:511
 #: src/preferences/devices/nothingBuds/configureWindow.js:442
@@ -705,7 +705,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1080
 #: src/preferences/devices/boseBuds/configureWindow.js:700
 msgid "Double Press"
-msgstr ""
+msgstr "按两下"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:512
 #: src/preferences/devices/nothingBuds/configureWindow.js:443
@@ -713,7 +713,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1081
 #: src/preferences/devices/boseBuds/configureWindow.js:701
 msgid "Triple Press"
-msgstr ""
+msgstr "按三下"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:513
 #: src/preferences/devices/nothingBuds/configureWindow.js:444
@@ -722,68 +722,68 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1082
 #: src/preferences/devices/boseBuds/configureWindow.js:702
 msgid "Press and Hold"
-msgstr ""
+msgstr "长按"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:515
 #: src/preferences/devices/nothingBuds/configureWindow.js:447
 #: src/preferences/devices/boseBuds/configureWindow.js:705
 msgid "Single Pinch"
-msgstr ""
+msgstr "捏按一次"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:516
 #: src/preferences/devices/nothingBuds/configureWindow.js:448
 #: src/preferences/devices/boseBuds/configureWindow.js:706
 msgid "Double Pinch"
-msgstr ""
+msgstr "捏按两次"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:517
 #: src/preferences/devices/nothingBuds/configureWindow.js:449
 #: src/preferences/devices/boseBuds/configureWindow.js:707
 msgid "Triple Pinch"
-msgstr ""
+msgstr "捏按三次"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:518
 #: src/preferences/devices/nothingBuds/configureWindow.js:450
 #: src/preferences/devices/boseBuds/configureWindow.js:708
 msgid "Pinch and Hold"
-msgstr ""
+msgstr "捏按并保持"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:520
 msgid "Swipe"
-msgstr ""
+msgstr "滑动"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:524
 #: src/preferences/devices/nothingBuds/configureWindow.js:593
 #: src/preferences/devices/boseBuds/configureWindow.js:775
 msgid "Left Buds Gesture Control"
-msgstr ""
+msgstr "左耳机手势设置"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:528
 #: src/preferences/devices/nothingBuds/configureWindow.js:596
 #: src/preferences/devices/boseBuds/configureWindow.js:778
 msgid "Right Buds Gesture Control"
-msgstr ""
+msgstr "右耳机手势设置"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:595
 #: src/preferences/devices/nothingBuds/configureWindow.js:615
 #: src/preferences/devices/opoBuds/configureWindow.js:1058
 #: src/preferences/devices/boseBuds/configureWindow.js:818
 msgid "Play / Pause"
-msgstr ""
+msgstr "播放／暂停"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:598
 #: src/preferences/devices/nothingBuds/configureWindow.js:618
 #: src/preferences/devices/opoBuds/configureWindow.js:1060
 #: src/preferences/devices/boseBuds/configureWindow.js:833
 msgid "Previous Track"
-msgstr ""
+msgstr "上一首"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:601
 #: src/preferences/devices/nothingBuds/configureWindow.js:621
 #: src/preferences/devices/opoBuds/configureWindow.js:1059
 #: src/preferences/devices/boseBuds/configureWindow.js:836
 msgid "Next Track"
-msgstr ""
+msgstr "下一首"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:604
 #: src/preferences/devices/nothingBuds/configureWindow.js:624
@@ -826,24 +826,24 @@ msgstr "音量-"
 #: src/lib/devices/sony/sonyDevice.js:180
 #: src/lib/devices/googleBuds/googleBudsDevice.js:199
 msgid "Noise Control"
-msgstr ""
+msgstr "噪声控制"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:616
 #: src/preferences/devices/nothingBuds/configureWindow.js:642
 #: src/preferences/devices/opoBuds/configureWindow.js:1057
 #: src/preferences/devices/boseBuds/configureWindow.js:788
 msgid "No Action"
-msgstr ""
+msgstr "无操作"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:619
 #: src/preferences/devices/nothingBuds/configureWindow.js:645
 msgid "Change Volume"
-msgstr ""
+msgstr "调节音量"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:622
 #: src/preferences/devices/nothingBuds/configureWindow.js:672
 msgid "Toggle Low Latency"
-msgstr "切换至低延迟模式"
+msgstr "切换低延迟模式"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:625
 #: src/preferences/devices/nothingBuds/configureWindow.js:678
@@ -854,7 +854,7 @@ msgstr "拍摄照片"
 #: src/preferences/devices/senhBuds/configureWindow.js:215
 #: src/preferences/devices/boseBuds/configureWindow.js:267
 msgid "Sound Settings"
-msgstr ""
+msgstr "音效设置"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:214
 msgid "Dirac"
@@ -880,7 +880,7 @@ msgstr "流行"
 #: src/preferences/devices/nothingBuds/configureWindow.js:218
 #: src/preferences/devices/googleBuds/configureWindow.js:83
 msgid "Vocal Boost"
-msgstr ""
+msgstr "人声增强"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:219
 #: src/preferences/devices/senhBuds/configureWindow.js:263
@@ -893,7 +893,7 @@ msgstr "古典音乐"
 #: src/preferences/devices/sony/configureWindow.js:257
 #: src/preferences/devices/googleBuds/configureWindow.js:128
 msgid "Bass"
-msgstr ""
+msgstr "低音"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:254
 #: src/preferences/devices/boseBuds/configureWindow.js:317
@@ -904,14 +904,14 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:572
 #: src/lib/devices/opoBuds/opoBudsDevice.js:918
 msgid "Mid"
-msgstr ""
+msgstr "中音"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:254
 #: src/preferences/devices/nothingBuds/configureWindow.js:669
 #: src/preferences/devices/boseBuds/configureWindow.js:318
 #: src/preferences/devices/googleBuds/configureWindow.js:130
 msgid "Treble"
-msgstr ""
+msgstr "高音"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:262
 #: src/preferences/devices/boseBuds/configureWindow.js:333
@@ -919,21 +919,21 @@ msgstr ""
 #: src/preferences/widgets/peqRowWidget.js:980
 #: src/preferences/widgets/peqRowWidget.js:1148
 msgid "Band"
-msgstr ""
+msgstr "频段"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:280
 #: src/preferences/devices/senhBuds/configureWindow.js:362
 msgid "Bass Enhancement"
-msgstr ""
+msgstr "低音增强"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:281
 #: src/preferences/devices/senhBuds/configureWindow.js:363
 msgid "Enhances bass in real time"
-msgstr ""
+msgstr "实时增强低音"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:293
 msgid "Bass Enhancement Level"
-msgstr ""
+msgstr "低音增强程度"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:296
 msgid "-"
@@ -954,12 +954,12 @@ msgstr "双击并按住"
 #: src/preferences/devices/opoBuds/configureWindow.js:1083
 #: src/preferences/devices/boseBuds/configureWindow.js:703
 msgid "Double Press and Hold"
-msgstr ""
+msgstr "按两次并保持"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:451
 #: src/preferences/devices/boseBuds/configureWindow.js:709
 msgid "Double Pinch and Hold"
-msgstr ""
+msgstr "捏按两次并保持"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:454
 msgid "Slide to Adjust"
@@ -978,35 +978,35 @@ msgstr "未知手势"
 #: src/preferences/devices/boseBuds/configureWindow.js:772
 #: src/preferences/devices/boseBuds/configureWindow.js:781
 msgid "Gesture Controls"
-msgstr ""
+msgstr "手势设置"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:599
 msgid "Roller Gesture Control"
-msgstr ""
+msgstr "滚轮手势控制"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:602
 msgid "Case Gesture Control"
-msgstr ""
+msgstr "充电盒手势控制"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:605
 msgid "Slider Gesture Control"
-msgstr ""
+msgstr "滑块手势控制"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:639
 msgid "ANC Type"
-msgstr ""
+msgstr "主动降噪类型"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:648
 msgid "Channel Hop"
-msgstr ""
+msgstr "切换音源"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:651
 msgid "New Reporter"
-msgstr ""
+msgstr "新闻播报"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:657
 msgid "Mic On/Off"
-msgstr ""
+msgstr "开启／关闭麦克风"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:663
 msgid "Walkie-Talkie"
@@ -1014,7 +1014,7 @@ msgstr "无线对讲机"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:675
 msgid "Essential Space"
-msgstr ""
+msgstr "Essential Space"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:224
 msgid "Podcast"
@@ -1022,39 +1022,38 @@ msgstr "播客"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:225
 msgid "Sound personalization"
-msgstr ""
+msgstr "个性化音效"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:226
 #: src/preferences/widgets/peqRowWidget.js:880
 #: src/preferences/widgets/peqRowWidget.js:1302
 msgid "Parametric Equalizer"
-msgstr ""
+msgstr "参数均衡器"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:237
 msgid "Sound Customization"
-msgstr ""
+msgstr "声音自定义"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:238
 msgid "Customize your listening experience"
-msgstr ""
+msgstr "自定义聆听体验"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:258
 #: src/preferences/devices/boseBuds/configureWindow.js:276
 msgid "Flat"
-msgstr ""
+msgstr "平直"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:261
-#, fuzzy
 msgid "Dance"
-msgstr "舞"
+msgstr "舞曲"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:262
 msgid "Hip Hop"
-msgstr ""
+msgstr "嘻哈"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:264
 msgid "Movie"
-msgstr ""
+msgstr "电影"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:265
 msgid "Jazz"
@@ -1081,20 +1080,20 @@ msgstr "800"
 #: src/preferences/devices/senhBuds/configureWindow.js:309
 #: src/preferences/devices/sony/configureWindow.js:257
 msgid "2.5k"
-msgstr ""
+msgstr "2.5k"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:310
 msgid "3k"
-msgstr ""
+msgstr "3k"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:312
 #: src/preferences/devices/sony/configureWindow.js:257
 msgid "6.3k"
-msgstr ""
+msgstr "6.3k"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:313
 msgid "7k"
-msgstr ""
+msgstr "7k"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:439
 #: src/preferences/devices/boseBuds/configureWindow.js:487
@@ -1107,7 +1106,7 @@ msgstr ""
 #: src/lib/devices/boseBuds/boseBudsDevice.js:682
 #: src/lib/devices/sony/sonyDevice.js:197
 msgid "Low"
-msgstr ""
+msgstr "低"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:440
 #: src/preferences/devices/boseBuds/configureWindow.js:489
@@ -1120,213 +1119,213 @@ msgstr ""
 #: src/lib/devices/boseBuds/boseBudsDevice.js:683
 #: src/lib/devices/sony/sonyDevice.js:197
 msgid "High"
-msgstr ""
+msgstr "高"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:451
 msgid "Crossfeed"
-msgstr ""
+msgstr "交叉馈送"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:452
 msgid "Blend channels for natural sound"
-msgstr ""
+msgstr "混合左右声道，使声音更自然"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:556
 #: src/preferences/devices/boseBuds/configureWindow.js:366
 msgid "In Ear Settings"
-msgstr ""
+msgstr "入耳检测设置"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:556
 #: src/preferences/devices/boseBuds/configureWindow.js:367
 msgid "On Head Settings"
-msgstr ""
+msgstr "头戴检测设置"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:562
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "On Head Detection"
-msgstr ""
+msgstr "头戴检测"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:576
 #: src/preferences/devices/opoBuds/configureWindow.js:843
 #: src/preferences/devices/boseBuds/configureWindow.js:388
 msgid "Pause Media When Not Worn"
-msgstr ""
+msgstr "未佩戴时暂停播放"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:577
 #: src/preferences/devices/boseBuds/configureWindow.js:389
 msgid "Playback controlled by the OEM app"
-msgstr ""
+msgstr "使用厂商提供的自动暂停功能"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:602
 #: src/preferences/devices/boseBuds/configureWindow.js:567
 msgid "Never"
-msgstr ""
+msgstr "从不"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:603
 msgid "After 15 minutes"
-msgstr ""
+msgstr "15 分钟后"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:604
 #: src/preferences/devices/sony/configureWindow.js:477
 msgid "After 30 minutes"
-msgstr ""
+msgstr "30 分钟后"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:605
 #: src/preferences/devices/boseBuds/configureWindow.js:571
 #: src/preferences/devices/sony/configureWindow.js:478
 msgid "After 1 hour"
-msgstr ""
+msgstr "1 小时后"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:613
 #: src/preferences/devices/sony/configureWindow.js:460
 msgid "Automatic Power Off"
-msgstr ""
+msgstr "自动关机"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:614
 #: src/preferences/devices/boseBuds/configureWindow.js:581
 #: src/preferences/devices/sony/configureWindow.js:461
 msgid "Automatically power off when not worn"
-msgstr ""
+msgstr "未佩戴时自动关机"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:630
 #: src/preferences/devices/boseBuds/configureWindow.js:429
 msgid "Playback controlled by the BudsLink"
-msgstr ""
+msgstr "由 BudsLink 控制播放"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:644
 #: src/preferences/devices/boseBuds/configureWindow.js:443
 msgid "Choose Playback Behavior for On-Head Detection"
-msgstr ""
+msgstr "选择头戴检测的播放行为"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:679
 #: src/preferences/devices/boseBuds/configureWindow.js:482
 msgid "Calls Settings"
-msgstr ""
+msgstr "通话设置"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:691
 #: src/preferences/devices/galaxyBuds/configureWindow.js:611
 #: src/preferences/devices/boseBuds/configureWindow.js:496
 msgid "Ambient Sound During Calls"
-msgstr ""
+msgstr "通话时的环境音"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:692
 #: src/preferences/devices/boseBuds/configureWindow.js:497
 msgid "Adjust your voice feedback level"
-msgstr ""
+msgstr "调整自己声音的回馈音量"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:710
 msgid "Comfort Calls"
-msgstr ""
+msgstr "舒适通话"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:711
 msgid "Make phone calls sound more natural"
-msgstr ""
+msgstr "使通话声音更自然"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:731
 msgid "Pause Media in Transparency Mode"
-msgstr ""
+msgstr "通透模式下暂停播放"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:732
 msgid "Automatically pause media when transparency mode is enabled"
-msgstr ""
+msgstr "开启通透模式时自动暂停播放"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:747
 #: src/preferences/devices/boseBuds/configureWindow.js:514
 #: src/preferences/devices/sony/configureWindow.js:612
 msgid "Connection Management"
-msgstr ""
+msgstr "连接管理"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:246
 msgid "Voice detection"
-msgstr ""
+msgstr "语音检测"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:249
 msgid "5 seconds"
-msgstr ""
+msgstr "5 秒"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:249
 msgid "10 seconds"
-msgstr ""
+msgstr "10 秒"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:249
 msgid "15 seconds"
-msgstr ""
+msgstr "15 秒"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:252
 #: src/preferences/devices/sony/configureWindow.js:130
 msgid "Duration"
-msgstr ""
+msgstr "时长"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:273
 msgid "Soft"
-msgstr ""
+msgstr "柔和"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:274
 msgid "Dynamic"
-msgstr ""
+msgstr "动态"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:275
 msgid "Clear"
-msgstr ""
+msgstr "清晰"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:307
 msgid "Balance"
-msgstr ""
+msgstr "声道平衡"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:311
 msgid "Left"
-msgstr ""
+msgstr "左"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:312
 msgid "Center"
-msgstr ""
+msgstr "居中"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:313
 #: src/preferences/widgets/earTipFitTestRow.js:121
 msgid "Right"
-msgstr ""
+msgstr "右"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:331
 msgid "Earbuds Controls"
-msgstr ""
+msgstr "耳机控制"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:337
 msgid "Media Controls (Pinch And Swipe)"
-msgstr ""
+msgstr "媒体控制（捏按与滑动）"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:337
 msgid "Enable Touch Controls "
-msgstr ""
+msgstr "启用触控 "
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:393
 #: src/preferences/devices/opoBuds/configureWindow.js:1073
 #: src/preferences/devices/boseBuds/configureWindow.js:696
 msgid "Touch and Hold"
-msgstr ""
+msgstr "长按触控区"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:412
 msgid "Pinch to Answer Call or End Call"
-msgstr ""
+msgstr "捏按接听或挂断电话"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:413
 msgid "Double Tap to Answer Call or End Call"
-msgstr ""
+msgstr "双击接听或挂断电话"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:427
 msgid "Pinch and Hold to Decline Call"
-msgstr ""
+msgstr "捏按并保持以拒接电话"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:428
 msgid "Touch and Hold to Decline Call"
-msgstr ""
+msgstr "长按触控区以拒接电话"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:464
 msgid "Quick Ambient Sound"
-msgstr ""
+msgstr "快速开启环境音"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:466
 #: src/lib/devices/edifierBuds/edifierBudsDevice.js:284
 msgid "Ambient Sound"
-msgstr ""
+msgstr "环境音"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:467
 #: src/preferences/devices/boseBuds/configureWindow.js:800
@@ -1339,130 +1338,130 @@ msgstr "ANC"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:485
 msgid "Left Earbud Pinch and Hold Function"
-msgstr ""
+msgstr "左耳机长捏按功能"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:486
 msgid "Left Earbud Touch and Hold Function"
-msgstr ""
+msgstr "左耳机长按触控功能"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:489
 msgid "Right Earbud Pinch and Hold Function"
-msgstr ""
+msgstr "右耳机长捏按功能"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:490
 msgid "Right Earbud Touch and Hold Function"
-msgstr ""
+msgstr "右耳机长按触控功能"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:540
 msgid "Pinch and Hold Cycle for Left Earbud"
-msgstr ""
+msgstr "左耳机长捏按循环切换"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:541
 msgid "Pinch and hold cycles between modes (Left)"
-msgstr ""
+msgstr "长捏按时循环切换模式（左耳）"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:542
 msgid "Pinch and Hold Cycle for Right Earbud"
-msgstr ""
+msgstr "右耳机长捏按循环切换"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:543
 msgid "Pinch and hold cycles between modes (Right)"
-msgstr ""
+msgstr "长捏按时循环切换模式（右耳）"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:545
 msgid "Touch and Hold Cycle for Left Earbud"
-msgstr ""
+msgstr "左耳机长按触控循环切换"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:546
 msgid "Touch and hold cycles between modes (Left)"
-msgstr ""
+msgstr "长按触控区时循环切换模式（左耳）"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:547
 msgid "Touch and Hold Cycle for Right Earbud"
-msgstr ""
+msgstr "右耳机长按触控循环切换"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:548
 msgid "Touch and hold cycles between modes (Right)"
-msgstr ""
+msgstr "长按触控区时循环切换模式（右耳）"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:551
 msgid "Pinch and Hold Cycle"
-msgstr ""
+msgstr "长捏按循环切换"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:552
 msgid "Pinch and hold cycles between modes"
-msgstr ""
+msgstr "长捏按时循环切换模式"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:554
 msgid "Touch and Hold Cycle"
-msgstr ""
+msgstr "长按触控循环切换"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:555
 msgid "Touch and hold cycles between modes"
-msgstr ""
+msgstr "长按触控区时循环切换模式"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:625
 msgid "Noise Controls With One Earbud"
-msgstr ""
+msgstr "单耳佩戴时的降噪控制"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:639
 msgid "Double Tap Outside Edge For Volume Controls"
-msgstr ""
+msgstr "双击外侧边缘调节音量"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:682
 msgid "Left Ambient Sound Volume"
-msgstr ""
+msgstr "左耳环境音音量"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:703
 msgid "Right Ambient Sound Volume"
-msgstr ""
+msgstr "右耳环境音音量"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:724
 msgid "Ambient Sound Tone"
-msgstr ""
+msgstr "环境音音色"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:326
 msgid "Deep Bass"
-msgstr ""
+msgstr "深沉低音"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:327
 #: src/preferences/devices/opoBuds/configureWindow.js:329
 msgid "Vocal"
-msgstr ""
+msgstr "人声"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:328
 msgid "Clear Bass"
-msgstr ""
+msgstr "清晰低音"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:471
 #: src/preferences/devices/opoBuds/configureWindow.js:479
 #: src/preferences/devices/opoBuds/configureWindow.js:556
 msgid "Add Custom Preset"
-msgstr ""
+msgstr "添加自定义预设"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:472
 msgid "Create a new custom equalizer profile"
-msgstr ""
+msgstr "创建新的自定义均衡器配置"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:505
 msgid "Currently active"
-msgstr ""
+msgstr "当前启用"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:512
 msgid "Adjust Equalizer"
-msgstr ""
+msgstr "调整均衡器"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:522
 msgid "Rename Preset"
-msgstr ""
+msgstr "重命名预设"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:531
 msgid "Delete Preset"
-msgstr ""
+msgstr "删除预设"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:557
 msgid "Enter a name for the new custom equalizer profile"
-msgstr ""
+msgstr "输入新的自定义均衡器配置名称"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:563
 #: src/preferences/devices/opoBuds/configureWindow.js:611
@@ -1474,56 +1473,56 @@ msgstr ""
 #: src/preferences/widgets/ringMyBudsRow.js:146
 #: src/lib/widgets/settingsButton.js:304
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:564
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:607
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:604
 msgid "Rename Custom Preset"
-msgstr ""
+msgstr "重命名自定义预设"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:605
 #, javascript-format
 msgid "Enter a new name for \"%s\""
-msgstr ""
+msgstr "为“%s”输入新名称"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:612
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:283
 msgid "Rename"
-msgstr ""
+msgstr "重命名"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:638
 msgid "Delete Custom Preset?"
-msgstr ""
+msgstr "删除自定义预设？"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:639
 #, javascript-format
 msgid "\"%s\" will be removed from the device"
-msgstr ""
+msgstr "将从设备中删除“%s”"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:644
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:74
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:681
 msgid "Audio Effects"
-msgstr ""
+msgstr "音效"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:687
 msgid "Dynamic Audio"
-msgstr ""
+msgstr "动态音频"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:688
 msgid "Real-time dynamic bass and 3-band equalization"
-msgstr ""
+msgstr "实时动态低音与三段均衡调节"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:711
 msgid "-5"
-msgstr ""
+msgstr "-5"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:713
 #: src/preferences/devices/sony/configureWindow.js:418
@@ -1532,99 +1531,99 @@ msgstr "0"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:715
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:721
 msgid "Low Frequency"
-msgstr ""
+msgstr "低频"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:729
 msgid "Mid Frequency"
-msgstr ""
+msgstr "中频"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:737
 msgid "High Frequency"
-msgstr ""
+msgstr "高频"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:795
 msgid "Volume Enhancer"
-msgstr ""
+msgstr "音量增强"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:796
 msgid "Boost overall sound output for louder playback"
-msgstr ""
+msgstr "提升整体输出音量，使播放声音更响亮"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:961
 msgid "Find My Phone"
-msgstr ""
+msgstr "查找手机"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:962
 msgid "Allow triggering phone ringing from neckband controls"
-msgstr ""
+msgstr "允许通过颈挂式耳机的按键让手机响铃"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1052
 #: src/preferences/devices/opoBuds/configureWindow.js:1209
 msgid "Gesture and Button Controls"
-msgstr ""
+msgstr "手势与按键控制"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1053
 msgid "Customize actions for buttons and touch gestures"
-msgstr ""
+msgstr "自定义按键和触控手势的操作"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1066
 #: src/preferences/devices/boseBuds/configureWindow.js:797
 msgid "Switch Devices"
-msgstr ""
+msgstr "切换设备"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1095
 msgid "Configure controls"
-msgstr ""
+msgstr "配置控制方式"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1153
 msgid "Noise Control Button Cycling"
-msgstr ""
+msgstr "噪声控制按键循环切换"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1174
 msgid "Select modes to cycle through"
-msgstr ""
+msgstr "选择循环切换的模式"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1199
 msgid "Left Earbud"
-msgstr ""
+msgstr "左耳机"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1201
 msgid "Right Earbud"
-msgstr ""
+msgstr "右耳机"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1203
 msgid "Button Controls"
-msgstr ""
+msgstr "按键控制"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1205
 msgid "Multi-Function Button"
-msgstr ""
+msgstr "多功能按键"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1207
 msgid "Noise Control Button"
-msgstr ""
+msgstr "噪声控制按键"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:56
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:380
 msgid "Show in toggle"
-msgstr ""
+msgstr "显示在切换列表中"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:61
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:386
 msgid "Favorite"
-msgstr ""
+msgstr "收藏"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:73
 msgid "Preset modes cannot be deleted"
-msgstr ""
+msgstr "无法删除预设模式"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:85
 msgid "Mode"
-msgstr ""
+msgstr "模式"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:121
 #: src/lib/devices/nothingBuds/nothingBudsDevice.js:393
@@ -1632,73 +1631,73 @@ msgstr ""
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:678
 #: src/lib/devices/opoBuds/opoBudsDevice.js:596
 msgid "Noise Cancellation Level"
-msgstr ""
+msgstr "降噪强度"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:157
 msgid "Wind Block"
-msgstr ""
+msgstr "防风噪"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:181
 #: src/lib/devices/boseBuds/boseBudsDevice.js:766
 msgid "Still"
-msgstr ""
+msgstr "静止"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:181
 #: src/lib/devices/boseBuds/boseBudsDevice.js:768
 msgid "Motion"
-msgstr ""
+msgstr "移动"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:235
 msgid "Remove Mode?"
-msgstr ""
+msgstr "移除模式？"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:236
 msgid "This mode will be removed."
-msgstr ""
+msgstr "将移除此模式。"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:240
 #: src/preferences/widgets/deviceMgmtRowWidget.js:329
 #: src/preferences/widgets/deviceMgmtRowWidget.js:349
 #: src/preferences/widgets/peqRowWidget.js:1118
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:278
 msgid "Rename Mode?"
-msgstr ""
+msgstr "重命名模式？"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:279
 #, javascript-format
 msgid "Change the mode name to \"%s\"?"
-msgstr ""
+msgstr "将模式名称改为“%s”？"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:394
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:488
 msgid "Maximum 4 modes can be selected"
-msgstr ""
+msgstr "最多可选择 4 个模式"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:502
 msgid "At least 2 modes must be selected"
-msgstr ""
+msgstr "至少必须选择 2 个模式"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:542
 msgid "Maximum favorites limit reached"
-msgstr ""
+msgstr "已达到收藏数量上限"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:557
 msgid "At least 2 favorites are required."
-msgstr ""
+msgstr "至少需要 2 个收藏模式。"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:613
 msgid "Commute"
-msgstr ""
+msgstr "通勤"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:614
 msgid "Focus"
-msgstr ""
+msgstr "专注"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:615
 msgid "Home"
@@ -1710,165 +1709,164 @@ msgstr "音乐"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:618
 msgid "Relax"
-msgstr ""
+msgstr "放松"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:619
 msgid "Run"
-msgstr ""
+msgstr "跑步"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:620
 msgid "Walk"
-msgstr ""
+msgstr "步行"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:621
 msgid "Work"
 msgstr "劳动"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:622
-#, fuzzy
 msgid "Workout"
-msgstr "體能鍛煉"
+msgstr "体能锻炼"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:623
 msgid "Stereo"
-msgstr ""
+msgstr "立体声"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:724
 #: src/lib/devices/boseBuds/boseBudsDevice.js:712
 msgid "Modes"
-msgstr ""
+msgstr "模式"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:253
 msgid "Remember my mode"
-msgstr ""
+msgstr "记住我的模式"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:280
 msgid "Treble Reducer"
-msgstr ""
+msgstr "高音减弱"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:414
 msgid "Automatic Transparency Mode"
-msgstr ""
+msgstr "自动通透模式"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:415
 msgid "Switch to Transparency mode when an earbud is removed"
-msgstr ""
+msgstr "取下一只耳机时切换至通透模式"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:488
 msgid "Medium"
-msgstr ""
+msgstr "中"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:568
 #: src/preferences/devices/sony/configureWindow.js:476
 msgid "After 5 minutes"
-msgstr ""
+msgstr "5 分钟后"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:569
 msgid "After 20 minutes"
-msgstr ""
+msgstr "20 分钟后"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:570
 msgid "After 40 minutes"
-msgstr ""
+msgstr "40 分钟后"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:572
 #: src/preferences/devices/sony/configureWindow.js:479
 msgid "After 3 hours"
-msgstr ""
+msgstr "3 小时后"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:580
 #: src/preferences/devices/sony/configureWindow.js:490
 msgid "Automatic Power Off Duration"
-msgstr ""
+msgstr "自动关机等待时间"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:601
 #: src/preferences/devices/sony/configureWindow.js:390
 msgid "Voice Prompt Settings"
-msgstr ""
+msgstr "语音提示设置"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:617
 msgid "Voice Prompts"
-msgstr ""
+msgstr "语音提示"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:618
 #: src/preferences/devices/sony/configureWindow.js:395
 msgid "Enable voice prompts for guidance and status updates"
-msgstr ""
+msgstr "启用语音提示，以提供操作指引和状态信息"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:646
 msgid "Prompt Language"
-msgstr ""
+msgstr "提示语言"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:647
 msgid "Select the language for voice prompts"
-msgstr ""
+msgstr "选择语音提示的语言"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:660
 msgid "Announce Battery Level at Startup"
-msgstr ""
+msgstr "开机时播报电量"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:661
 msgid "Announce the battery level when powered on"
-msgstr ""
+msgstr "开机时播报电量"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:791
 msgid "Cycle Through Modes"
-msgstr ""
+msgstr "循环切换模式"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:806
 msgid "Not Configured"
-msgstr ""
+msgstr "未配置"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:815
 msgid "Hear Battery Level"
-msgstr ""
+msgstr "播报电量"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:821
 msgid "Increase Noise Cancellation"
-msgstr ""
+msgstr "增强降噪"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:824
 msgid "Decrease Noise Cancellation"
-msgstr ""
+msgstr "减弱降噪"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:827
 msgid "Toggle Wake Word"
-msgstr ""
+msgstr "开启／关闭唤醒词"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:830
 msgid "Conversation Mode"
-msgstr ""
+msgstr "对话模式"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:839
 msgid "Hear Notifications"
-msgstr ""
+msgstr "播报通知"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:842
 msgid "Wind Mode"
-msgstr ""
+msgstr "防风噪模式"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:845
 msgid "Client Interaction"
-msgstr ""
+msgstr "客户端交互"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:848
 msgid "Audio Line-In"
-msgstr ""
+msgstr "音频线路输入"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:851
 msgid "Speaker Link"
-msgstr ""
+msgstr "音箱联动"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:854
 msgid "Disabled"
-msgstr ""
+msgstr "已禁用"
 
 #: src/preferences/devices/sony/configureWindow.js:109
 #: src/lib/devices/airpods/airpodsDevice.js:239
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:689
 #: src/lib/devices/sony/sonyDevice.js:211
 msgid "Conversation Awareness"
-msgstr ""
+msgstr "对话感知"
 
 #: src/preferences/devices/sony/configureWindow.js:111
 #: src/preferences/devices/sony/configureWindow.js:290
@@ -1876,40 +1874,40 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:567
 #: src/lib/devices/opoBuds/opoBudsDevice.js:568
 msgid "Auto"
-msgstr ""
+msgstr "自动"
 
 #: src/preferences/devices/sony/configureWindow.js:114
 msgid "Voice Detection Sensitivity"
-msgstr ""
+msgstr "语音检测灵敏度"
 
 #: src/preferences/devices/sony/configureWindow.js:127
 msgid "Short"
-msgstr ""
+msgstr "短"
 
 #: src/preferences/devices/sony/configureWindow.js:127
 msgid "Long"
-msgstr ""
+msgstr "长"
 
 #: src/preferences/devices/sony/configureWindow.js:147
 #: src/preferences/devices/sony/configureWindow.js:163
 msgid "Listening Mode"
-msgstr ""
+msgstr "聆听模式"
 
 #: src/preferences/devices/sony/configureWindow.js:152
 msgid "Background Music"
-msgstr ""
+msgstr "背景音乐"
 
 #: src/preferences/devices/sony/configureWindow.js:153
 msgid "Cinema"
-msgstr "電影院"
+msgstr "电影院"
 
 #: src/preferences/devices/sony/configureWindow.js:178
 msgid "My Room"
-msgstr ""
+msgstr "我的房间"
 
 #: src/preferences/devices/sony/configureWindow.js:179
 msgid "Living Room"
-msgstr ""
+msgstr "客厅"
 
 #: src/preferences/devices/sony/configureWindow.js:180
 msgid "Cafe"
@@ -1917,43 +1915,43 @@ msgstr "咖啡店"
 
 #: src/preferences/devices/sony/configureWindow.js:190
 msgid "Background Music Effects"
-msgstr ""
+msgstr "背景音乐音效"
 
 #: src/preferences/devices/sony/configureWindow.js:210
 msgid "Bright"
-msgstr ""
+msgstr "明亮"
 
 #: src/preferences/devices/sony/configureWindow.js:211
 msgid "Excited"
-msgstr ""
+msgstr "活力"
 
 #: src/preferences/devices/sony/configureWindow.js:212
 msgid "Mellow"
-msgstr ""
+msgstr "醇厚"
 
 #: src/preferences/devices/sony/configureWindow.js:213
 msgid "Relaxed"
-msgstr ""
+msgstr "舒缓"
 
 #: src/preferences/devices/sony/configureWindow.js:217
 msgid "Speech"
-msgstr "說話"
+msgstr "说话"
 
 #: src/preferences/devices/sony/configureWindow.js:218
 msgid "Manual"
-msgstr ""
+msgstr "手动"
 
 #: src/preferences/devices/sony/configureWindow.js:219
 msgid "Custom 1"
-msgstr ""
+msgstr "自定义 1"
 
 #: src/preferences/devices/sony/configureWindow.js:220
 msgid "Custom 2"
-msgstr ""
+msgstr "自定义 2"
 
 #: src/preferences/devices/sony/configureWindow.js:258
 msgid "31"
-msgstr ""
+msgstr "31"
 
 #: src/preferences/devices/sony/configureWindow.js:285
 msgid "DSEE"
@@ -1961,60 +1959,60 @@ msgstr "DSEE"
 
 #: src/preferences/devices/sony/configureWindow.js:289
 msgid "Enable DSEE enhancement"
-msgstr ""
+msgstr "启用 DSEE 音质增强"
 
 #: src/preferences/devices/sony/configureWindow.js:303
 msgid "Button/Touch Settings"
-msgstr ""
+msgstr "按键／触控设置"
 
 #: src/preferences/devices/sony/configureWindow.js:307
 msgid "Ambient Sound Control"
-msgstr ""
+msgstr "环境音控制"
 
 #: src/preferences/devices/sony/configureWindow.js:308
 msgid "Ambient Sound Control / Quick Access"
-msgstr ""
+msgstr "环境音控制／快捷访问"
 
 #: src/preferences/devices/sony/configureWindow.js:310
 #: src/preferences/devices/sony/configureWindow.js:311
 msgid "Playback Control"
-msgstr ""
+msgstr "播放控制"
 
 #: src/preferences/devices/sony/configureWindow.js:313
 msgid "Not Assigned"
-msgstr ""
+msgstr "未分配"
 
 #: src/preferences/devices/sony/configureWindow.js:329
 msgid "Left Bud"
-msgstr ""
+msgstr "左耳机"
 
 #: src/preferences/devices/sony/configureWindow.js:343
 msgid "Right Bud"
-msgstr ""
+msgstr "右耳机"
 
 #: src/preferences/devices/sony/configureWindow.js:360
 msgid "ANC Button Configuration"
-msgstr ""
+msgstr "降噪按键配置"
 
 #: src/preferences/devices/sony/configureWindow.js:371
 msgid "[NC/AMB] Button Settings"
-msgstr ""
+msgstr "[NC/AMB] 按键设置"
 
 #: src/preferences/devices/sony/configureWindow.js:372
 msgid "Select the modes to toggle when the button is pressed"
-msgstr ""
+msgstr "选择按下按键时切换的模式"
 
 #: src/preferences/devices/sony/configureWindow.js:394
 msgid "Voice Prompt"
-msgstr ""
+msgstr "语音提示"
 
 #: src/preferences/devices/sony/configureWindow.js:413
 msgid "Voice Prompt Volume"
-msgstr ""
+msgstr "语音提示音量"
 
 #: src/preferences/devices/sony/configureWindow.js:414
 msgid "Adjust the volume of voice prompts"
-msgstr ""
+msgstr "调整语音提示的音量"
 
 #: src/preferences/devices/sony/configureWindow.js:416
 msgid "-2"
@@ -2034,112 +2032,112 @@ msgstr "+2"
 
 #: src/preferences/devices/sony/configureWindow.js:439
 msgid "Headset Take Off"
-msgstr ""
+msgstr "摘下耳机"
 
 #: src/preferences/devices/sony/configureWindow.js:446
 msgid "Pause when taken off"
-msgstr ""
+msgstr "摘下时暂停播放"
 
 #: src/preferences/devices/googleBuds/configureWindow.js:70
 msgid "Volume EQ"
-msgstr ""
+msgstr "音量均衡器"
 
 #: src/preferences/devices/googleBuds/configureWindow.js:84
 msgid "Clarity"
-msgstr ""
+msgstr "清晰度"
 
 #: src/preferences/devices/googleBuds/configureWindow.js:85
 msgid "Last Saved"
-msgstr ""
+msgstr "上次保存"
 
 #: src/preferences/devices/googleBuds/configureWindow.js:127
 msgid "Low Bass"
-msgstr ""
+msgstr "超低音"
 
 #: src/preferences/devices/googleBuds/configureWindow.js:131
 msgid "Upper Treble"
-msgstr ""
+msgstr "超高音"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:30
 msgid "Connection Manager"
-msgstr ""
+msgstr "连接管理器"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:37
 msgid "Pairing Mode"
-msgstr ""
+msgstr "配对模式"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:39
 msgid "Enable Pairing Mode"
-msgstr ""
+msgstr "启用配对模式"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:40
 msgid "Allow a new Bluetooth device to pair."
-msgstr ""
+msgstr "允许新的蓝牙设备配对。"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:77
 msgid "Playback Device"
-msgstr ""
+msgstr "音源设备"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:78
 msgid "Lock Playback Device"
-msgstr ""
+msgstr "锁定音源设备"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:79
 msgid ""
 "Prevent playback from switching to another connected device while the set "
 "playback device is streaming."
-msgstr ""
+msgstr "指定的音源设备正在播放音频时，防止切换至其他已连接设备。"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:95
 msgid "Connected"
-msgstr ""
+msgstr "已连接"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:96
 msgid "Paired"
-msgstr ""
+msgstr "已配对"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:97
 msgid "No device connected"
-msgstr ""
+msgstr "没有设备连接"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:98
 msgid "No additional device paired"
-msgstr ""
+msgstr "没有其他已配对设备"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:161
 #: src/preferences/widgets/deviceMgmtRowWidget.js:248
 msgid "Loading Device Information..."
-msgstr ""
+msgstr "正在加载设备信息…"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:163
 #: src/preferences/widgets/deviceMgmtRowWidget.js:250
 msgid "(This Device)"
-msgstr ""
+msgstr "（本设备）"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:299
 msgid "Connection Limit Reached"
-msgstr ""
+msgstr "已达到连接数量上限"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:300
 msgid "Disconnect another device before connecting this device."
-msgstr ""
+msgstr "连接此设备之前，请先断开其他设备。"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:303
 #: src/lib/widgets/settingsButton.js:305
 msgid "OK"
-msgstr ""
+msgstr "确定"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:324
 msgid "Remove Device?"
-msgstr ""
+msgstr "移除设备？"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:325
 msgid "The device will be removed from the paired devices list."
-msgstr ""
+msgstr "将从已配对设备列表中移除此设备。"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:346
 msgid "Set as Playback Device"
-msgstr ""
+msgstr "设为音源设备"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:347
 msgid "Connect"
@@ -2151,39 +2149,39 @@ msgstr "断开连接"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:461
 msgid "Manage Device Connections"
-msgstr ""
+msgstr "管理设备连接"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:473
 msgid "Manage Devices"
-msgstr ""
+msgstr "管理设备"
 
 #: src/preferences/widgets/peqRowWidget.js:630
 msgid "Peak"
-msgstr ""
+msgstr "钟形滤波器"
 
 #: src/preferences/widgets/peqRowWidget.js:631
 msgid "Low Pass Filter"
-msgstr ""
+msgstr "低通滤波器"
 
 #: src/preferences/widgets/peqRowWidget.js:632
 msgid "High Pass Filter"
-msgstr ""
+msgstr "高通滤波器"
 
 #: src/preferences/widgets/peqRowWidget.js:633
 msgid "Low Shelf Filter"
-msgstr ""
+msgstr "低架滤波器"
 
 #: src/preferences/widgets/peqRowWidget.js:634
 msgid "High Shelf Filter"
-msgstr ""
+msgstr "高架滤波器"
 
 #: src/preferences/widgets/peqRowWidget.js:640
 msgid "Frequency"
-msgstr "頻率"
+msgstr "频率"
 
 #: src/preferences/widgets/peqRowWidget.js:648
 msgid "Quality Factor"
-msgstr ""
+msgstr "品质因数"
 
 #: src/preferences/widgets/peqRowWidget.js:656
 msgid "Gain"
@@ -2191,167 +2189,167 @@ msgstr "增益"
 
 #: src/preferences/widgets/peqRowWidget.js:781
 msgid "Bypass"
-msgstr ""
+msgstr "旁通"
 
 #: src/preferences/widgets/peqRowWidget.js:789
 #, javascript-format
 msgid "%d Hz,  %s dB,  Q: %s"
-msgstr ""
+msgstr "%d Hz，%s dB，Q：%s"
 
 #: src/preferences/widgets/peqRowWidget.js:928
 msgid "Pre Amp Gain"
-msgstr ""
+msgstr "前级增益"
 
 #: src/preferences/widgets/peqRowWidget.js:960
 msgid "Add Band"
-msgstr ""
+msgstr "添加频段"
 
 #: src/preferences/widgets/peqRowWidget.js:966
 msgid "Remove Last Band"
-msgstr ""
+msgstr "移除最后一个频段"
 
 #: src/preferences/widgets/peqRowWidget.js:1101
 #, javascript-format
 msgid "Band %d"
-msgstr ""
+msgstr "频段 %d"
 
 #: src/preferences/widgets/peqRowWidget.js:1113
 msgid "Remove Band?"
-msgstr ""
+msgstr "移除频段？"
 
 #: src/preferences/widgets/peqRowWidget.js:1114
 #, javascript-format
 msgid "Band %d will be removed."
-msgstr ""
+msgstr "将移除频段 %d。"
 
 #: src/preferences/widgets/peqRowWidget.js:1334
 msgid "Show"
-msgstr ""
+msgstr "显示"
 
 #: src/preferences/widgets/ringMyBudsRow.js:27
 msgid "Find my earbuds"
-msgstr ""
+msgstr "查找耳机"
 
 #: src/preferences/widgets/ringMyBudsRow.js:28
 msgid "Ring your earbuds to locate them"
-msgstr ""
+msgstr "让耳机响铃以便查找"
 
 #: src/preferences/widgets/ringMyBudsRow.js:39
 #: src/preferences/widgets/ringMyBudsRow.js:60
 #: src/preferences/widgets/ringMyBudsRow.js:103
 #: src/preferences/widgets/ringMyBudsRow.js:147
 msgid "Play"
-msgstr ""
+msgstr "播放铃声"
 
 #: src/preferences/widgets/ringMyBudsRow.js:100
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: src/preferences/widgets/ringMyBudsRow.js:138
 msgid "Continue?"
-msgstr ""
+msgstr "继续？"
 
 #: src/preferences/widgets/ringMyBudsRow.js:140
 msgid ""
 "Your earbuds/headset may be in use. Be sure to remove them from your ears "
 "before you continue. A loud sound will be played which could be "
 "uncomfortable for anyone wearing them."
-msgstr ""
+msgstr "耳机可能正在使用中。继续之前，请务必将耳机从耳朵上取下。耳机将播放较大的声音，可能让佩戴者感到不适。"
 
 #: src/preferences/widgets/earTipFitTestRow.js:19
 #: src/preferences/widgets/earTipFitTestRow.js:290
 msgid "Earbud Fit Test"
-msgstr ""
+msgstr "耳机贴合度检测"
 
 #: src/preferences/widgets/earTipFitTestRow.js:92
 msgid "Good Fit"
-msgstr ""
+msgstr "贴合良好"
 
 #: src/preferences/widgets/earTipFitTestRow.js:142
 #: src/preferences/widgets/earTipFitTestRow.js:196
 msgid "Run test"
-msgstr ""
+msgstr "开始检测"
 
 #: src/preferences/widgets/earTipFitTestRow.js:164
 msgid "Test in progress…"
-msgstr ""
+msgstr "正在检测…"
 
 #: src/preferences/widgets/earTipFitTestRow.js:185
 msgid "Please Wait…"
-msgstr ""
+msgstr "请稍候…"
 
 #: src/preferences/widgets/earTipFitTestRow.js:187
 msgid "Keep your earbuds in your ears and wait for the fit test to complete."
-msgstr ""
+msgstr "保持佩戴耳机，等待贴合度检测完成。"
 
 #: src/preferences/widgets/earTipFitTestRow.js:212
 msgid "Good Seal"
-msgstr ""
+msgstr "密封良好"
 
 #: src/preferences/widgets/earTipFitTestRow.js:218
 #: src/preferences/widgets/earTipFitTestRow.js:248
 msgid "Poor Seal"
-msgstr ""
+msgstr "密封不佳"
 
 #: src/preferences/widgets/earTipFitTestRow.js:224
 msgid "Test Failed"
-msgstr ""
+msgstr "检测失败"
 
 #: src/preferences/widgets/earTipFitTestRow.js:239
 msgid "Ear Tip Fit Test"
-msgstr ""
+msgstr "耳塞贴合度检测"
 
 #: src/preferences/widgets/earTipFitTestRow.js:241
 msgid ""
 "Place earbuds in both ears so they are comfortable and secure, then Run Test"
-msgstr ""
+msgstr "将两只耳机舒适、稳固地戴入耳中，然后开始检测"
 
 #: src/preferences/widgets/earTipFitTestRow.js:244
 #: src/preferences/widgets/earTipFitTestRow.js:253
 #: src/preferences/widgets/earTipFitTestRow.js:258
 #: src/preferences/widgets/earTipFitTestRow.js:263
 msgid "Ear Tip Fit Test Results"
-msgstr ""
+msgstr "耳塞贴合度检测结果"
 
 #: src/preferences/widgets/earTipFitTestRow.js:245
 msgid "Your earbuds have a good seal."
-msgstr ""
+msgstr "耳机的密封效果良好。"
 
 #: src/preferences/widgets/earTipFitTestRow.js:250
 msgid ""
 "Adjust the position of the left earbud or change the ear tip size, then Run "
 "Test again."
-msgstr ""
+msgstr "调整左耳机的位置或更换耳塞尺寸，然后重新开始检测。"
 
 #: src/preferences/widgets/earTipFitTestRow.js:255
 msgid ""
 "Adjust the position of the right earbud or change the ear tip size, then Run "
 "Test again."
-msgstr ""
+msgstr "调整右耳机的位置或更换耳塞尺寸，然后重新开始检测。"
 
 #: src/preferences/widgets/earTipFitTestRow.js:260
 msgid ""
 "Adjust the position of both earbuds or change the ear tip size, then Run "
 "Test again."
-msgstr ""
+msgstr "调整两只耳机的位置或更换耳塞尺寸，然后重新开始检测。"
 
 #: src/preferences/widgets/earTipFitTestRow.js:265
 msgid ""
 "The fit test could not be completed. Make sure your earbuds are worn "
 "correctly, then Run Test again."
-msgstr ""
+msgstr "无法完成贴合度检测。请确认耳机佩戴正确，然后重新开始检测。"
 
 #: src/preferences/widgets/earTipFitTestRow.js:292
 msgid "Check acoustic seal for optimal sound quality and noise cancellation"
-msgstr ""
+msgstr "检查声学密封效果，以获得更好的音质和降噪效果"
 
 #: src/preferences/widgets/earTipFitTestRow.js:299
 msgid "Test"
-msgstr ""
+msgstr "检测"
 
 #: src/preferences/widgets/iconSelectorWidget.js:28
 msgid "Icon"
-msgstr ""
+msgstr "图标"
 
 #: src/preferences/widgets/iconSelectorWidget.js:29
 msgid "Select Icon"
@@ -2359,25 +2357,25 @@ msgstr "选择图标"
 
 #: src/preferences/widgets/iconSelectorWidget.js:30
 msgid "Choose the icon used to represent this device"
-msgstr ""
+msgstr "选择用于表示此设备的图标"
 
 #: src/preferences/widgets/iconSelectorWidget.js:49
 #: src/preferences/widgets/iconSelectorWidget.js:67
 msgid "Device information"
-msgstr ""
+msgstr "设备信息"
 
 #: src/preferences/widgets/iconSelectorWidget.js:101
 msgid "MAC Address"
-msgstr ""
+msgstr "MAC 地址"
 
 #: src/preferences/widgets/iconSelectorWidget.js:104
 msgid "Firmware Version"
-msgstr ""
+msgstr "固件版本"
 
 #: src/preferences/widgets/iconSelectorWidget.js:114
 #: src/preferences/widgets/iconSelectorWidget.js:147
 msgid "Serial Number"
-msgstr ""
+msgstr "序列号"
 
 #: src/lib/devices/notifier.js:25
 msgid "AirPods / Beats"
@@ -2422,7 +2420,7 @@ msgstr "Google Fast Pair"
 #: src/lib/devices/notifier.js:49
 #, javascript-format
 msgid "Could not access advanced features for %s Bluetooth audio devices."
-msgstr ""
+msgstr "无法访问 %s 蓝牙音频设备的高级功能。"
 
 #: src/lib/devices/notifier.js:53
 #, javascript-format
@@ -2430,56 +2428,55 @@ msgid ""
 "Another app or session is already using the Bluetooth socket/profile for %s "
 "Bluetooth audio devices. Close any other apps using this device, then "
 "restart this app."
-msgstr ""
+msgstr "其他应用或会话正在使用 %s 蓝牙音频设备的蓝牙套接字／协议服务。请关闭其他正在使用此设备的应用，然后重新启动本应用。"
 
 #: src/lib/devices/airpods/airpodsDevice.js:233
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:665
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:675
 #: src/lib/devices/sony/sonyDevice.js:190
 msgid "Ambient Level"
-msgstr ""
+msgstr "环境音音量"
 
 #: src/lib/devices/airpods/airpodsDevice.js:241
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:691
 #: src/lib/devices/sony/sonyDevice.js:213 src/lib/widgets/settingsButton.js:400
 #: src/lib/widgets/settingsButton.js:437
 msgid "On"
-msgstr ""
+msgstr "开启"
 
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:673
 msgid "Noise Cancellation Strength"
-msgstr ""
+msgstr "降噪强度"
 
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:686
 #: src/lib/devices/senhBuds/senhBudsDevice.js:582
 msgid "Noise Level"
-msgstr ""
+msgstr "降噪强度"
 
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:695
 msgid "Regular"
-msgstr ""
+msgstr "常规"
 
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:696
-#, fuzzy
 msgid "Voice"
-msgstr "人聲"
+msgstr "人声"
 
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:717
 msgid "Transparency Strength"
-msgstr ""
+msgstr "通透强度"
 
 #: src/lib/devices/nothingBuds/nothingBudsDevice.js:429
 msgid "Personalized ANC"
-msgstr ""
+msgstr "个性化降噪"
 
 #: src/lib/devices/senhBuds/senhBudsDevice.js:590
 #: src/lib/devices/opoBuds/opoBudsDevice.js:575
 msgid "Max"
-msgstr ""
+msgstr "最大"
 
 #: src/lib/devices/senhBuds/senhBudsDevice.js:601
 msgid "Anti Wind"
-msgstr ""
+msgstr "防风噪"
 
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:671
 #: src/lib/devices/opoBuds/opoBudsDevice.js:622
@@ -2487,25 +2484,25 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:195
 #: src/lib/devices/sony/sonyDevice.js:199
 msgid "Focus on Voice"
-msgstr ""
+msgstr "突出人声"
 
 #: src/lib/devices/opoBuds/opoBudsDevice.js:615
 #: src/lib/devices/opoBuds/opoBudsDevice.js:626
 msgid "Wind Noise Reduction"
-msgstr ""
+msgstr "风噪抑制"
 
 #: src/lib/devices/boseBuds/boseBudsDevice.js:684
 msgid "Wind"
-msgstr "風"
+msgstr "风"
 
 #: src/lib/devices/sony/sonyDevice.js:193
 #: src/lib/devices/sony/sonyDevice.js:195
 msgid "Auto Ambient"
-msgstr ""
+msgstr "自动环境音"
 
 #: src/lib/devices/sony/sonyDevice.js:196
 msgid "Auto Ambient Sensitivity"
-msgstr ""
+msgstr "自动环境音灵敏度"
 
 #: src/lib/widgets/settingsButton.js:26
 msgid "Application Settings"
@@ -2566,15 +2563,15 @@ msgstr "语言"
 
 #: src/lib/widgets/settingsButton.js:86
 msgid "Packet Logging"
-msgstr ""
+msgstr "数据包日志"
 
 #: src/lib/widgets/settingsButton.js:93
 msgid "Run in Background"
-msgstr ""
+msgstr "后台运行"
 
 #: src/lib/widgets/settingsButton.js:100
 msgid "BudsLink Companion"
-msgstr ""
+msgstr "BudsLink Companion"
 
 #: src/lib/widgets/settingsButton.js:107
 msgid "About BudsLink"
@@ -2586,27 +2583,27 @@ msgstr "翻译"
 
 #: src/lib/widgets/settingsButton.js:200
 msgid "Light"
-msgstr ""
+msgstr "浅色"
 
 #: src/lib/widgets/settingsButton.js:201
 msgid "Dark"
-msgstr ""
+msgstr "深色"
 
 #: src/lib/widgets/settingsButton.js:301
 msgid "Restart required to apply language change"
-msgstr ""
+msgstr "更改语言后需要重新启动"
 
 #: src/lib/widgets/settingsButton.js:500
 msgid "GNOME Extension"
-msgstr ""
+msgstr "GNOME 扩展"
 
 #: src/lib/widgets/settingsButton.js:506
 msgid "Plasma Widget"
-msgstr ""
+msgstr "Plasma 小组件"
 
 #: src/lib/widgets/settingsButton.js:512
 msgid "Cinnamon Spice"
-msgstr ""
+msgstr "Cinnamon 小组件"
 
 #: src/lib/widgets/deviceRow.js:98
 msgid "Configure"
@@ -2614,4 +2611,236 @@ msgstr "配置"
 
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
-msgstr "电池水平"
+msgstr "电量"
+
+#: src/lib/devices/opoBuds/opoBudsDevice.js:596
+msgid "Transparency Level"
+msgstr "通透强度"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:83
+msgid "Blues"
+msgstr "布鲁斯"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:85
+msgid "Natural"
+msgstr "自然"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:119
+msgid "60"
+msgstr "60"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:120
+msgid "120"
+msgstr "120"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:125
+msgid "10k"
+msgstr "10k"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:174
+msgid "Dynamic EQ"
+msgstr "动态均衡"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:175
+msgid "Adjusts the tonal balance at low volume"
+msgstr "低音量时调整音色平衡"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:176
+msgid "Mono Audio"
+msgstr "单声道音频"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:177
+msgid "Play the same audio in both earbuds"
+msgstr "在两只耳机中播放相同的音频"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:178
+msgid "LDAC"
+msgstr "LDAC"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:179
+msgid "High resolution codec. The earbuds reconnect when this changes"
+msgstr "高解析度音频编码。更改此设置后，耳机会重新连接"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:180
+msgid "Gaming Mode"
+msgstr "游戏模式"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:186
+msgid "Wear Detection"
+msgstr "佩戴检测"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:188
+msgid "Sleep Mode"
+msgstr "睡眠模式"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:189
+msgid "Disable touch controls and prompts while sleeping"
+msgstr "睡眠时关闭触控和提示音"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:191
+msgid "Audible Feedback"
+msgstr "声音反馈"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:194
+msgid "Tones"
+msgstr "提示音"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:194
+msgid "English"
+msgstr "英语"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:194
+msgid "German"
+msgstr "德语"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:194
+msgid "French"
+msgstr "法语"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:194
+msgid "Spanish"
+msgstr "西班牙语"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:195
+msgid "Italian"
+msgstr "意大利语"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:195
+msgid "Mandarin"
+msgstr "普通话"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:195
+msgid "Cantonese"
+msgstr "粤语"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:195
+msgid "Korean"
+msgstr "韩语"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:195
+msgid "Southwark"
+msgstr "Southwark"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:204
+msgid "Auto Power Off"
+msgstr "自动关机"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:206
+msgid "30 minutes"
+msgstr "30 分钟"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:206
+msgid "60 minutes"
+msgstr "60 分钟"
+
+#: src/preferences/devices/cambridgeBuds/configureWindow.js:231
+msgid "Touch controls"
+msgstr "触控"
+
+#: src/preferences/devices/nothingBuds/configureWindow.js:586
+msgid "Tap Both Buds"
+msgstr "同时轻点两只耳机"
+
+#: src/preferences/devices/nothingBuds/configureWindow.js:593
+msgid "Press Both Buds"
+msgstr "同时按压两只耳机"
+
+#: src/preferences/devices/nothingBuds/configureWindow.js:600
+msgid "Pinch Both Buds"
+msgstr "同时捏按两只耳机"
+
+#: src/preferences/devices/nothingBuds/configureWindow.js:747
+msgid "Roller Controls"
+msgstr "滚轮控制"
+
+#: src/preferences/devices/nothingBuds/configureWindow.js:750
+msgid "Charging Case"
+msgstr "充电盒"
+
+#: src/preferences/devices/nothingBuds/configureWindow.js:753
+msgid "Slider Controls"
+msgstr "滑块控制"
+
+#: src/preferences/devices/nothingBuds/configureWindow.js:829
+msgid "Start / Stop Recording"
+msgstr "开始／停止录音"
+
+#: src/preferences/devices/nothingBuds/configureWindow.js:832
+msgid "Mute / Unmute Mic"
+msgstr "麦克风静音／取消静音"
+
+#: src/preferences/devices/opoBuds/configureWindow.js:1169
+msgid "Switch Track"
+msgstr "切换曲目"
+
+#: src/preferences/devices/opoBuds/configureWindow.js:1170
+msgid "Answer Call or End Call"
+msgstr "接听或挂断电话"
+
+#: src/preferences/devices/opoBuds/configureWindow.js:1171
+msgid "Decline Call"
+msgstr "拒接电话"
+
+#: src/preferences/devices/opoBuds/configureWindow.js:1182
+msgid "Long Touch and Hold"
+msgstr "长时间按住触控区"
+
+#: src/preferences/devices/opoBuds/configureWindow.js:1192
+msgid "Long Press and Hold"
+msgstr "长时间按住按键"
+
+#: src/preferences/devices/opoBuds/configureWindow.js:1358
+msgid "Left Earbud Call Controls"
+msgstr "左耳机通话控制"
+
+#: src/preferences/devices/opoBuds/configureWindow.js:1360
+msgid "Right Earbud Call Controls"
+msgstr "右耳机通话控制"
+
+#. Spatial audio scene label passed dynamically to gettext in
+#. redmiBuds/configureWindow.js.
+#: src/preferences/devices/redmiBuds/configureWindow.js:374
+msgid "Video"
+msgstr "视频"
+
+#. Spatial audio scene label passed dynamically to gettext in
+#. redmiBuds/configureWindow.js.
+#: src/preferences/devices/redmiBuds/configureWindow.js:375
+msgid "Game"
+msgstr "游戏"
+
+#. Spatial audio scene label passed dynamically to gettext in
+#. redmiBuds/configureWindow.js.
+#: src/preferences/devices/redmiBuds/configureWindow.js:376
+msgid "Audiobooks"
+msgstr "有声书"
+
+#: src/lib/devices/redmiBuds/redmiBudsDevice.js:699
+msgctxt "Redmi transparency mode"
+msgid "Regular"
+msgstr "标准通透"
+
+#: src/lib/devices/redmiBuds/redmiBudsDevice.js:700
+msgctxt "Redmi transparency mode"
+msgid "Voice"
+msgstr "人声增强"
+
+#: src/lib/devices/redmiBuds/redmiBudsDevice.js:701
+msgctxt "Redmi transparency mode"
+msgid "Ambient"
+msgstr "环境增强"
+
+#: src/preferences/devices/redmiBuds/configureWindow.js:259
+msgctxt "Redmi equalizer preset"
+msgid "Vocals"
+msgstr "人声增强"
+
+#: src/preferences/devices/redmiBuds/configureWindow.js:406
+msgctxt "Redmi connection setting"
+msgid "Allow Connections to Multiple Devices"
+msgstr "双设备连接"
+
+#: src/preferences/devices/redmiBuds/configureWindow.js:481
+msgctxt "Redmi listening mode"
+msgid "Ambient"
+msgstr "通透"
