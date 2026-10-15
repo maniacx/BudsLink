@@ -12,6 +12,7 @@ import {DropDownRowWidget} from './../../widgets/dropDownRowWidget.js';
 import {EqualizerWidget} from './../../widgets/equalizerWidget.js';
 import {DeviceManagementRow} from './../../widgets/deviceMgmtRowWidget.js';
 import {SliderRowWidget} from './../../widgets/sliderRowWidget.js';
+import {CheckBoxesRowWidget} from './../../widgets/checkBoxesRowWidget.js';
 import {
     SoundcoreConfiguration, AmbientMode, NcMode, TransparencyMode, TransportMode,
     TouchActionCustom, EqPresets
@@ -30,6 +31,29 @@ export const ConfigureWindow = GObject.registerClass({
             height_request: 100,
             modal,
             transient_for: parentWindow ?? null,
+        });
+
+        this._isCompactMode = false;
+
+        this._breakpointCompact = new Adw.Breakpoint({
+            condition: Adw.BreakpointCondition.parse('max-width: 500px'),
+        });
+
+        this._breakpointExpanded = new Adw.Breakpoint({
+            condition: Adw.BreakpointCondition.parse('min-width: 550px'),
+        });
+
+        this.add_breakpoint(this._breakpointCompact);
+        this.add_breakpoint(this._breakpointExpanded);
+
+        this._breakpointCompact.connect('apply', () => {
+            this._isCompactMode = true;
+            this._updateCompactStatus();
+        });
+
+        this._breakpointExpanded.connect('apply', () => {
+            this._isCompactMode = false;
+            this._updateCompactStatus();
         });
 
         this._settings = settings;
@@ -610,13 +634,43 @@ export const ConfigureWindow = GObject.registerClass({
         if ('cycle-nc' in this._settingsItems) {
             const cycleGroup = new Adw.PreferencesGroup({
                 title: _('Cycle Through Modes'),
-                description: _('Select modes to cycle through'),
             });
             page.add(cycleGroup);
 
-            this._addSwitch(cycleGroup, 'cycle-nc', _('Noise Cancellation'), '');
-            this._addSwitch(cycleGroup, 'cycle-normal', _('Off'), '');
-            this._addSwitch(cycleGroup, 'cycle-transparency', _('Transparency'), '');
+            const cycleItems = [
+                {
+                    key: 'cycle-normal',
+                    name: _('Off'),
+                    icon: 'bbm-anc-off-symbolic',
+                },
+                {
+                    key: 'cycle-transparency',
+                    name: _('Transparency'),
+                    icon: 'bbm-transperancy-symbolic',
+                },
+                {
+                    key: 'cycle-nc',
+                    name: _('Noise Cancellation'),
+                    icon: 'bbm-anc-on-symbolic',
+                },
+            ];
+
+            this._ambientCycleWidget = new CheckBoxesRowWidget({
+                rowTitle: _('Cycle through modes'),
+                rowSubtitle: _('Select at least two modes to cycle through'),
+                items: cycleItems,
+                applyBtnName: _('Apply'),
+                initialValue: this._settingsItems['cycle-nc'],
+                minRequired: 2,
+            });
+
+            this._ambientCycleWidget.compact_mode = this._isCompactMode;
+
+            this._ambientCycleWidget.connect('notify::toggled-value', () => {
+                const toggled = this._ambientCycleWidget.toggled_value;
+                this._updateGsettings('cycle-nc', toggled);
+            });
+            cycleGroup.add(this._ambientCycleWidget);
         }
     }
 
@@ -675,5 +729,9 @@ export const ConfigureWindow = GObject.registerClass({
             pairedDevice[existingPathIndex] = JSON.stringify(existingItem);
             this._settings.set_strv(SettingsKey, pairedDevice);
         }
+    }
+
+    _updateCompactStatus() {
+        this._ambientCycleWidget?.set_property('compact-mode', this._isCompactMode);
     }
 });

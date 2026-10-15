@@ -166,12 +166,6 @@ export const TouchActionId = {
 export const TouchActionCustom = 'custom';
 export const ActionDisabled = 0x0F;
 
-export const AmbientCycleBit = {
-    'cycle-nc': 1 << 0,
-    'cycle-transparency': 1 << 1,
-    'cycle-normal': 1 << 2,
-};
-
 export function touchActionFromId(id) {
     return Object.entries(TouchActionId).find(([, v]) => v === id)?.[0] ?? TouchActionCustom;
 }

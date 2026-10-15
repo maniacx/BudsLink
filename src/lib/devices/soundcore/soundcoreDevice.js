@@ -12,7 +12,7 @@ import {createConfig, createProperties, DataHandler} from '../../dataHandler.js'
 import {getBluezDeviceProxy} from '../../bluezDeviceProxy.js';
 import {SoundcoreSocket} from './soundcoreSocket.js';
 import {
-    SoundcoreConfiguration, vendorUuidForModel, AmbientMode, NcMode, AmbientCycleBit,
+    SoundcoreConfiguration, vendorUuidForModel, AmbientMode, NcMode,
     TouchActionId
 } from './soundcoreConfig.js';
 
@@ -132,7 +132,7 @@ export const SoundcoreDevice = GObject.registerClass({
             ...Object.fromEntries((m.flags ?? []).map(f => [f.key, false])),
             ...Object.fromEntries((m.buttons?.order ?? []).map(n => [`gesture-${n}`, 'none'])),
             ...m.ambientCycleOffset && {
-                'cycle-nc': true, 'cycle-transparency': true, 'cycle-normal': true,
+                'cycle-nc': 0,
             },
             ...m.equalizer && {
                 'eq-mode': 'hearid',
@@ -404,8 +404,14 @@ export const SoundcoreDevice = GObject.registerClass({
         }
 
         if (state['ambient-cycle'] !== undefined && 'cycle-nc' in items) {
-            const mask = Object.entries(AmbientCycleBit)
-                .reduce((sum, [key, bit]) => sum | (items[key] ? bit : 0), 0);
+            const value = items['cycle-nc'];
+
+            const off = !!(value & 1);
+            const transparency = !!(value & 2);
+            const nc = !!(value & 4);
+
+            const mask = (nc ? 1 : 0) | (transparency ? 2 : 0) | (off ? 4 : 0);
+
             if (mask !== state['ambient-cycle']) {
                 state['ambient-cycle'] = mask;
                 this._socket?.setAmbientCycle(mask);
@@ -513,8 +519,14 @@ export const SoundcoreDevice = GObject.registerClass({
 
     updateAmbientCycle(mask) {
         this._deviceState['ambient-cycle'] = mask;
-        this._writeSettings(Object.fromEntries(Object.entries(AmbientCycleBit)
-            .map(([key, bit]) => [key, (mask & bit) !== 0])));
+
+        const nc = !!(mask & 1);
+        const transparency = !!(mask & 2);
+        const off = !!(mask & 4);
+
+        const value = (off ? 1 : 0) | (transparency ? 2 : 0) | (nc ? 4 : 0);
+
+        this._writeSettings({'cycle-nc': value});
     }
 
     updateAutoPowerOff(minutes) {
