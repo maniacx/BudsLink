@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-15 19:26+0000\n"
+"PO-Revision-Date: 2026-10-23 04:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -407,7 +407,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:77
 #: src/preferences/devices/boseBuds/configureWindow.js:267
 msgid "Sound Settings"
-msgstr ""
+msgstr "Paramètres du son"
 
 #: src/preferences/devices/soundcore/configureWindow.js:94
 #: src/preferences/devices/nothingBuds/configureWindow.js:580
@@ -420,7 +420,7 @@ msgstr "Commandes gestuelles"
 
 #: src/preferences/devices/soundcore/configureWindow.js:96
 msgid "Device"
-msgstr ""
+msgstr "Appareil"
 
 #: src/preferences/devices/soundcore/configureWindow.js:158
 #: src/preferences/devices/galaxyBuds/configureWindow.js:466
@@ -3172,12 +3172,3 @@ msgstr "Configurer"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Niveau de batterie"
-
-#~ msgid "Roller Gesture Control"
-#~ msgstr "Commande gestuelle de la molette"
-
-#~ msgid "Case Gesture Control"
-#~ msgstr "Commande gestuelle du boîtier"
-
-#~ msgid "Slider Gesture Control"
-#~ msgstr "Commande gestuelle du curseur"
