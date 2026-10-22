@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-22 02:51+0000\n"
+"PO-Revision-Date: 2026-10-23 04:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
@@ -1026,14 +1026,14 @@ msgstr "Pressão e segura"
 #: src/preferences/devices/opoBuds/configureWindow.js:1361
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Left Earbud"
-msgstr ""
+msgstr "Fone Esquerdo"
 
 #: src/preferences/devices/soundcore/configureWindow.js:624
 #: src/preferences/devices/nothingBuds/configureWindow.js:748
 #: src/preferences/devices/opoBuds/configureWindow.js:1363
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Right Earbud"
-msgstr ""
+msgstr "Fone Direito"
 
 #: src/preferences/devices/soundcore/configureWindow.js:625
 #: src/preferences/devices/opoBuds/configureWindow.js:1369
@@ -1043,15 +1043,15 @@ msgstr "Controles de Botões"
 #: src/preferences/devices/soundcore/configureWindow.js:636
 #: src/preferences/devices/opoBuds/configureWindow.js:1279
 msgid "Noise Control Button Cycling"
-msgstr ""
+msgstr "Botão de Rolagem de Controle de Ruído"
 
 #: src/preferences/devices/soundcore/configureWindow.js:659
 msgid "Cycle through modes"
-msgstr ""
+msgstr "Rolagem de modos"
 
 #: src/preferences/devices/soundcore/configureWindow.js:660
 msgid "Select at least two modes to cycle through"
-msgstr ""
+msgstr "Selecione pelo menos dois modos para rolagem"
 
 #: src/preferences/devices/soundcore/configureWindow.js:681
 #: src/preferences/devices/nothingBuds/configureWindow.js:494
