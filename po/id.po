@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-09-29 03:51+0000\n"
+"PO-Revision-Date: 2026-10-22 02:51+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: none\n"
 "Language: id\n"
@@ -416,7 +416,7 @@ msgstr "Kontrol Gestur"
 
 #: src/preferences/devices/soundcore/configureWindow.js:96
 msgid "Device"
-msgstr ""
+msgstr "Perangkat"
 
 #: src/preferences/devices/soundcore/configureWindow.js:158
 #: src/preferences/devices/galaxyBuds/configureWindow.js:466
@@ -443,11 +443,11 @@ msgstr "Manual"
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/soundcore/configureWindow.js:172
 msgid "Transportation"
-msgstr ""
+msgstr "Transportasi"
 
 #: src/preferences/devices/soundcore/configureWindow.js:169
 msgid "Environment Detection"
-msgstr ""
+msgstr "Deteksi Lingkungan"
 
 #: src/preferences/devices/soundcore/configureWindow.js:171
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:121
@@ -460,31 +460,31 @@ msgstr "Tingkat Peredam Bising"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Plane"
-msgstr ""
+msgstr "Pesawat"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Train"
-msgstr ""
+msgstr "Kereta"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Bus"
-msgstr ""
+msgstr "Bus"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Car"
-msgstr ""
+msgstr "Mobil"
 
 #: src/preferences/devices/soundcore/configureWindow.js:177
 msgid "Transparency Type"
-msgstr ""
+msgstr "Jenis Transparansi"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Fully Transparent"
-msgstr ""
+msgstr "Transparansi Penuh"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Vocal Mode"
-msgstr ""
+msgstr "Mode Vokal"
 
 #: src/preferences/devices/soundcore/configureWindow.js:181
 #: src/lib/devices/opoBuds/opoBudsDevice.js:631
@@ -500,23 +500,23 @@ msgstr "Efek Audio"
 
 #: src/preferences/devices/soundcore/configureWindow.js:190
 msgid "Sound Leak Compensation"
-msgstr ""
+msgstr "Kompensasi Kebocoran Suara"
 
 #: src/preferences/devices/soundcore/configureWindow.js:194
 msgid "Limit High Volume"
-msgstr ""
+msgstr "Batasi Volume Tinggi"
 
 #: src/preferences/devices/soundcore/configureWindow.js:196
 msgid "Volume Limit"
-msgstr ""
+msgstr "Batas Volume"
 
 #: src/preferences/devices/soundcore/configureWindow.js:199
 msgid "Decibel Reading Refresh Rate"
-msgstr ""
+msgstr "Interval Pembaruan Pembacaan Desibel"
 
 #: src/preferences/devices/soundcore/configureWindow.js:200
 msgid "Real time"
-msgstr ""
+msgstr "Waktu nyata"
 
 #: src/preferences/devices/soundcore/configureWindow.js:200
 #: src/preferences/devices/galaxyBuds/configureWindow.js:249
@@ -525,22 +525,24 @@ msgstr "10 detik"
 
 #: src/preferences/devices/soundcore/configureWindow.js:200
 msgid "1 minute"
-msgstr ""
+msgstr "1 menit"
 
 #: src/preferences/devices/soundcore/configureWindow.js:246
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:178
 msgid "LDAC"
-msgstr ""
+msgstr "LDAC"
 
 #: src/preferences/devices/soundcore/configureWindow.js:247
 msgid ""
 "High resolution codec. Turns off connections to multiple devices and the "
 "earbuds reconnect when this changes"
 msgstr ""
+"Codec resolusi tinggi. Menonaktifkan koneksi ke beberapa perangkat, dan "
+"earbud akan terhubung kembali saat pengaturan ini diubah"
 
 #: src/preferences/devices/soundcore/configureWindow.js:249
 msgid "Auto Play/Pause"
-msgstr ""
+msgstr "Putar/Jeda Otomatis"
 
 #: src/preferences/devices/soundcore/configureWindow.js:250
 #: src/preferences/devices/sony/configureWindow.js:446
@@ -549,19 +551,19 @@ msgstr "Jeda saat dilepas"
 
 #: src/preferences/devices/soundcore/configureWindow.js:251
 msgid "Wearing Tone"
-msgstr ""
+msgstr "Nada Saat Dipakai"
 
 #: src/preferences/devices/soundcore/configureWindow.js:253
 msgid "Touch Tone"
-msgstr ""
+msgstr "Nada Sentuhan"
 
 #: src/preferences/devices/soundcore/configureWindow.js:255
 msgid "Touch Lock"
-msgstr ""
+msgstr "Kunci Sentuhan"
 
 #: src/preferences/devices/soundcore/configureWindow.js:257
 msgid "Low Battery Prompt"
-msgstr ""
+msgstr "Peringatan Baterai Lemah"
 
 #: src/preferences/devices/soundcore/configureWindow.js:259
 #: src/preferences/devices/senhBuds/configureWindow.js:613
@@ -578,7 +580,7 @@ msgstr "Jangan pernah"
 
 #: src/preferences/devices/soundcore/configureWindow.js:260
 msgid "After 10 minutes"
-msgstr ""
+msgstr "Setelah 10 menit"
 
 #: src/preferences/devices/soundcore/configureWindow.js:260
 #: src/preferences/devices/boseBuds/configureWindow.js:569
@@ -643,7 +645,7 @@ msgstr "Ubah karakter suara"
 
 #: src/preferences/devices/soundcore/configureWindow.js:377
 msgid "HearID Sound"
-msgstr ""
+msgstr "Suara HearID"
 
 #: src/preferences/devices/soundcore/configureWindow.js:377
 #: src/preferences/devices/soundcore/configureWindow.js:382
@@ -662,26 +664,26 @@ msgstr "Equalizer Kustom"
 
 #: src/preferences/devices/soundcore/configureWindow.js:402
 msgid "Saved Equalizers"
-msgstr ""
+msgstr "Equalizer Tersimpan"
 
 #: src/preferences/devices/soundcore/configureWindow.js:403
 #: src/preferences/devices/soundcore/configureWindow.js:545
 msgid "Not saved"
-msgstr ""
+msgstr "Belum disimpan"
 
 #: src/preferences/devices/soundcore/configureWindow.js:419
 #: src/preferences/devices/soundcore/configureWindow.js:560
 msgid "Save Equalizer"
-msgstr ""
+msgstr "Simpan Equalizer"
 
 #: src/preferences/devices/soundcore/configureWindow.js:422
 #: src/preferences/devices/soundcore/configureWindow.js:565
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 #: src/preferences/devices/soundcore/configureWindow.js:431
 msgid "Delete Saved Equalizer"
-msgstr ""
+msgstr "Hapus Equalizer Tersimpan"
 
 #: src/preferences/devices/soundcore/configureWindow.js:434
 #: src/preferences/devices/opoBuds/configureWindow.js:675
@@ -706,28 +708,28 @@ msgstr "Preset Equalizer"
 #: src/preferences/devices/soundcore/configureWindow.js:461
 #: src/lib/devices/soundcore/soundcoreDevice.js:280
 msgid "HearID"
-msgstr ""
+msgstr "HearID"
 
 #: src/preferences/devices/soundcore/configureWindow.js:462
 msgid "Initial Curve"
-msgstr ""
+msgstr "Kurva Awal"
 
 #: src/preferences/devices/soundcore/configureWindow.js:462
 msgid "Custom HearID"
-msgstr ""
+msgstr "HearID Kustom"
 
 #: src/preferences/devices/soundcore/configureWindow.js:462
 #: src/preferences/devices/soundcore/configureWindow.js:485
 msgid "Favorite Music Genre"
-msgstr ""
+msgstr "Genre Musik Favorit"
 
 #: src/preferences/devices/soundcore/configureWindow.js:502
 msgid "Anker Signature"
-msgstr ""
+msgstr "Anker Signature"
 
 #: src/preferences/devices/soundcore/configureWindow.js:503
 msgid "Acoustic"
-msgstr ""
+msgstr "Akustik"
 
 #: src/preferences/devices/soundcore/configureWindow.js:504
 #: src/preferences/devices/redmiBuds/configureWindow.js:260
@@ -764,7 +766,7 @@ msgstr "Dance"
 
 #: src/preferences/devices/soundcore/configureWindow.js:509
 msgid "Deep"
-msgstr ""
+msgstr "Dalam"
 
 #: src/preferences/devices/soundcore/configureWindow.js:510
 #: src/preferences/devices/nothingBuds/configureWindow.js:256
@@ -792,15 +794,15 @@ msgstr "Jazz"
 
 #: src/preferences/devices/soundcore/configureWindow.js:514
 msgid "Latin"
-msgstr ""
+msgstr "Latin"
 
 #: src/preferences/devices/soundcore/configureWindow.js:515
 msgid "Lounge"
-msgstr ""
+msgstr "Lounge"
 
 #: src/preferences/devices/soundcore/configureWindow.js:516
 msgid "Piano"
-msgstr ""
+msgstr "Piano"
 
 #: src/preferences/devices/soundcore/configureWindow.js:517
 #: src/preferences/devices/nothingBuds/configureWindow.js:257
@@ -811,7 +813,7 @@ msgstr "Pop"
 
 #: src/preferences/devices/soundcore/configureWindow.js:518
 msgid "R&B"
-msgstr ""
+msgstr "R&B"
 
 #: src/preferences/devices/soundcore/configureWindow.js:519
 #: src/preferences/devices/nothingBuds/configureWindow.js:255
@@ -823,11 +825,11 @@ msgstr "Rock"
 
 #: src/preferences/devices/soundcore/configureWindow.js:520
 msgid "Small Speaker(s)"
-msgstr ""
+msgstr "Speaker Kecil"
 
 #: src/preferences/devices/soundcore/configureWindow.js:521
 msgid "Spoken Word"
-msgstr ""
+msgstr "Tuturan"
 
 #: src/preferences/devices/soundcore/configureWindow.js:522
 #: src/preferences/devices/redmiBuds/configureWindow.js:261
@@ -845,7 +847,7 @@ msgstr "Pengurang Treble"
 
 #: src/preferences/devices/soundcore/configureWindow.js:554
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: src/preferences/devices/soundcore/configureWindow.js:561
 #: src/preferences/devices/opoBuds/configureWindow.js:588
@@ -1043,11 +1045,11 @@ msgstr "Peralihan Mode Tombol Kontrol Kebisingan"
 
 #: src/preferences/devices/soundcore/configureWindow.js:659
 msgid "Cycle through modes"
-msgstr ""
+msgstr "Beralih mode secara bergiliran"
 
 #: src/preferences/devices/soundcore/configureWindow.js:660
 msgid "Select at least two modes to cycle through"
-msgstr ""
+msgstr "Pilih setidaknya dua mode untuk beralih secara bergiliran"
 
 #: src/preferences/devices/soundcore/configureWindow.js:681
 #: src/preferences/devices/nothingBuds/configureWindow.js:494
@@ -1083,7 +1085,7 @@ msgstr "Standar"
 #: src/preferences/devices/redmiBuds/configureWindow.js:259
 msgctxt "Redmi equalizer preset"
 msgid "Vocals"
-msgstr ""
+msgstr "Vokal"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:262
 msgid "Volume Boost"
@@ -1212,15 +1214,15 @@ msgstr "Musik"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:374
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:375
 msgid "Game"
-msgstr ""
+msgstr "Gim"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:376
 msgid "Audiobooks"
-msgstr ""
+msgstr "Buku Audio"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:382
 msgid "Spatial Audio Scene"
@@ -1242,7 +1244,7 @@ msgstr "Pengaturan Tambahan"
 #: src/preferences/devices/redmiBuds/configureWindow.js:414
 msgctxt "Redmi connection setting"
 msgid "Allow Connections to Multiple Devices"
-msgstr ""
+msgstr "Izinkan Koneksi ke Beberapa Perangkat"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:428
 #: src/preferences/devices/senhBuds/configureWindow.js:589
@@ -1269,7 +1271,7 @@ msgstr "Sesuaikan suara secara otomatis dengan bentuk telinga Anda"
 #: src/preferences/devices/redmiBuds/configureWindow.js:489
 msgctxt "Redmi listening mode"
 msgid "Ambient"
-msgstr ""
+msgstr "Ambien"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:495
 #: src/preferences/devices/nothingBuds/configureWindow.js:559
@@ -1452,7 +1454,7 @@ msgstr "Ketuk Ganda dan Tahan"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:590
 msgid "Tap Both Buds"
-msgstr ""
+msgstr "Ketuk Kedua Earbud"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:596
 #: src/preferences/devices/nothingBuds/configureWindow.js:613
@@ -1463,7 +1465,7 @@ msgstr "Tekan Ganda dan Tahan"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:597
 msgid "Press Both Buds"
-msgstr ""
+msgstr "Tekan Kedua Earbud"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:603
 #: src/preferences/devices/boseBuds/configureWindow.js:709
@@ -1472,7 +1474,7 @@ msgstr "Cubit Ganda dan Tahan"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:604
 msgid "Pinch Both Buds"
-msgstr ""
+msgstr "Cubit Kedua Earbud"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:607
 msgid "Slide to Adjust"
@@ -1493,15 +1495,15 @@ msgstr "Konfigurasikan kontrol"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:751
 msgid "Roller Controls"
-msgstr ""
+msgstr "Kontrol Roda Putar"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:754
 msgid "Charging Case"
-msgstr ""
+msgstr "Casing Pengisi Daya"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:757
 msgid "Slider Controls"
-msgstr ""
+msgstr "Kontrol Penggeser"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:800
 msgid "Channel Hop"
@@ -1525,11 +1527,11 @@ msgstr "Essential Space"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:833
 msgid "Start / Stop Recording"
-msgstr ""
+msgstr "Mulai / Hentikan Perekaman"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:836
 msgid "Mute / Unmute Mic"
-msgstr ""
+msgstr "Bisukan / Aktifkan Mikrofon"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:225
 msgid "Sound personalization"
@@ -2004,23 +2006,23 @@ msgstr "Beralih Perangkat"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1176
 msgid "Switch Track"
-msgstr ""
+msgstr "Ganti Lagu"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1177
 msgid "Answer Call or End Call"
-msgstr ""
+msgstr "Jawab atau Akhiri Panggilan"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1178
 msgid "Decline Call"
-msgstr ""
+msgstr "Tolak Panggilan"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1189
 msgid "Long Touch and Hold"
-msgstr ""
+msgstr "Sentuh Lama dan Tahan"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1199
 msgid "Long Press and Hold"
-msgstr ""
+msgstr "Tekan Lama dan Tahan"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1328
 msgid "Select modes to cycle through"
@@ -2028,11 +2030,11 @@ msgstr "Pilih mode yang akan dialihkan"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1365
 msgid "Left Earbud Call Controls"
-msgstr ""
+msgstr "Kontrol Panggilan Earbud Kiri"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1367
 msgid "Right Earbud Call Controls"
-msgstr ""
+msgstr "Kontrol Panggilan Earbud Kanan"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1371
 msgid "Multi-Function Button"
@@ -2044,11 +2046,11 @@ msgstr "Tombol Kontrol Kebisingan"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:83
 msgid "Blues"
-msgstr ""
+msgstr "Blues"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:85
 msgid "Natural"
-msgstr ""
+msgstr "Alami"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:87
 #: src/lib/devices/opoBuds/opoBudsDevice.js:566
@@ -2057,55 +2059,57 @@ msgstr "Suara"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:119
 msgid "60"
-msgstr ""
+msgstr "60"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:120
 msgid "120"
-msgstr ""
+msgstr "120"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:125
 msgid "10k"
-msgstr ""
+msgstr "10k"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:174
 msgid "Dynamic EQ"
-msgstr ""
+msgstr "EQ Dinamis"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:175
 msgid "Adjusts the tonal balance at low volume"
-msgstr ""
+msgstr "Menyesuaikan keseimbangan tonal pada volume rendah"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:176
 msgid "Mono Audio"
-msgstr ""
+msgstr "Audio Mono"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:177
 msgid "Play the same audio in both earbuds"
-msgstr ""
+msgstr "Putar audio yang sama di kedua earbud"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:179
 msgid "High resolution codec. The earbuds reconnect when this changes"
 msgstr ""
+"Codec resolusi tinggi. Earbud akan terhubung kembali saat pengaturan ini "
+"diubah"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:180
 msgid "Gaming Mode"
-msgstr ""
+msgstr "Mode Gim"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:186
 msgid "Wear Detection"
-msgstr ""
+msgstr "Deteksi Pemakaian"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:188
 msgid "Sleep Mode"
-msgstr ""
+msgstr "Mode Tidur"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:189
 msgid "Disable touch controls and prompts while sleeping"
-msgstr ""
+msgstr "Nonaktifkan kontrol sentuh dan pemberitahuan saat tidur"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:191
 msgid "Audible Feedback"
-msgstr ""
+msgstr "Umpan Balik Audio"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:192
 #: src/preferences/devices/boseBuds/configureWindow.js:647
@@ -2114,59 +2118,59 @@ msgstr "Pilih bahasa untuk perintah suara"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:194
 msgid "Tones"
-msgstr ""
+msgstr "Nada"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:194
 msgid "English"
-msgstr ""
+msgstr "Bahasa Inggris"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:194
 msgid "German"
-msgstr ""
+msgstr "Bahasa Jerman"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:194
 msgid "French"
-msgstr ""
+msgstr "Bahasa Prancis"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:194
 msgid "Spanish"
-msgstr ""
+msgstr "Bahasa Spanyol"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:195
 msgid "Italian"
-msgstr ""
+msgstr "Bahasa Italia"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:195
 msgid "Mandarin"
-msgstr ""
+msgstr "Bahasa Mandarin"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:195
 msgid "Cantonese"
-msgstr ""
+msgstr "Bahasa Kanton"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:195
 msgid "Korean"
-msgstr ""
+msgstr "Bahasa Korea"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:195
 msgid "Southwark"
-msgstr ""
+msgstr "Southwark"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:204
 msgid "Auto Power Off"
-msgstr ""
+msgstr "Matikan Daya Otomatis"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:206
 msgid "30 minutes"
-msgstr ""
+msgstr "30 menit"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:206
 msgid "60 minutes"
-msgstr ""
+msgstr "60 menit"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:231
 msgid "Touch controls"
-msgstr ""
+msgstr "Kontrol sentuh"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:56
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:380
@@ -2644,11 +2648,11 @@ msgstr "(Perangkat Ini)"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:250
 msgid "Disconnect Device?"
-msgstr ""
+msgstr "Putuskan Koneksi Perangkat?"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:251
 msgid "The device will be disconnected."
-msgstr ""
+msgstr "Koneksi perangkat akan diputus."
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:255
 #: src/preferences/widgets/deviceMgmtRowWidget.js:322
@@ -3023,17 +3027,17 @@ msgstr "Tingkat Kebisingan"
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:699
 msgctxt "Redmi transparency mode"
 msgid "Regular"
-msgstr ""
+msgstr "Standar"
 
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:700
 msgctxt "Redmi transparency mode"
 msgid "Voice"
-msgstr ""
+msgstr "Suara"
 
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:701
 msgctxt "Redmi transparency mode"
 msgid "Ambient"
-msgstr ""
+msgstr "Ambien"
 
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:721
 msgid "Transparency Strength"
@@ -3065,7 +3069,7 @@ msgstr "Biasa"
 
 #: src/lib/devices/opoBuds/opoBudsDevice.js:596
 msgid "Transparency Level"
-msgstr ""
+msgstr "Tingkat Transparansi"
 
 #: src/lib/devices/boseBuds/boseBudsDevice.js:684
 msgid "Wind"
@@ -3188,12 +3192,3 @@ msgstr "Konfigurasikan"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Tingkat Baterai"
-
-#~ msgid "Roller Gesture Control"
-#~ msgstr "Kontrol Gestur Roda"
-
-#~ msgid "Case Gesture Control"
-#~ msgstr "Kontrol Gestur Casing"
-
-#~ msgid "Slider Gesture Control"
-#~ msgstr "Kontrol Gestur Penggeser"

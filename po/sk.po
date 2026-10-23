@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Bluetooth Battery Meter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-09-24 21:51+0000\n"
+"PO-Revision-Date: 2026-10-22 02:51+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <preklady@mayday.sk>\n"
 "Language: sk\n"
@@ -417,7 +417,7 @@ msgstr "Ovládanie gestami"
 
 #: src/preferences/devices/soundcore/configureWindow.js:96
 msgid "Device"
-msgstr ""
+msgstr "Zariadenie"
 
 #: src/preferences/devices/soundcore/configureWindow.js:158
 #: src/preferences/devices/galaxyBuds/configureWindow.js:466
@@ -3193,12 +3193,3 @@ msgstr "Nastaviť"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Úroveň batérie"
-
-#~ msgid "Roller Gesture Control"
-#~ msgstr "Ovládanie gestom kolieska"
-
-#~ msgid "Case Gesture Control"
-#~ msgstr "Ovládanie gestom puzdra"
-
-#~ msgid "Slider Gesture Control"
-#~ msgstr "Ovládanie gestom posuvníka"
