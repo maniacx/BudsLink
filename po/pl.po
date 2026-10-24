@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-09-23 20:49+0000\n"
+"PO-Revision-Date: 2026-10-25 01:00+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pl\n"
@@ -25,11 +25,11 @@ msgstr "BudsLink"
 
 #: src/app.js:240
 msgid "Devices"
-msgstr ""
+msgstr "Urządzenia"
 
 #: src/app.js:242
 msgid "No compatible device found"
-msgstr ""
+msgstr "Nie znaleziono kompatybilnych urządzeń"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:63
 #: src/preferences/devices/soundcore/configureWindow.js:243
@@ -44,7 +44,7 @@ msgstr "Ustawienia"
 #: src/preferences/devices/opoBuds/configureWindow.js:919
 #: src/preferences/devices/opoBuds/configureWindow.js:1173
 msgid "Game Mode"
-msgstr ""
+msgstr "Tryb gry"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:69
 #: src/preferences/devices/soundcore/configureWindow.js:193
@@ -53,7 +53,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:920
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:181
 msgid "Reduces latency and enhances in-game audio"
-msgstr ""
+msgstr "Zmniejsza opóźnienie i poprawia audio w grze"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:80
 #: src/preferences/devices/nothingBuds/configureWindow.js:409
@@ -3154,6 +3154,3 @@ msgstr ""
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr ""
-
-#~ msgid "Select the icon used for the indicator and quick menu"
-#~ msgstr "Wybierz ikonę używaną dla wskaźnika i szybkiego menu"
