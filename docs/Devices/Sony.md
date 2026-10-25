@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Sony
-nav_order: 2
 parent: Devices
 permalink: /sony
 ---
@@ -9,72 +8,41 @@ permalink: /sony
 
 # Sony
 
+* Bluetooth socket for Sony can be accessed by only one application at a time. Close other Sony companion or monitoring apps, such as SonyHeadphonesClient, before using BudsLink.
+* Feature availability varies by model.
+
 {: .note }
 >
-> Sony Bluetooth sockets can be accessed by only one application at a time.
-> Do not run other Sony's companion or monitoring apps while using BudsLink, such as:
->
-> * **SonyHeadphonesClient**
-> * **Bluetooth Battery Meter** GNOME Extension  (disable the Sony feature in the extension preferences)
-
+> Some Sony Headband/Earbuds sockets may remain unavailable to BudsLink while connected to the OEM companion app on a mobile device. Disconnect the earbuds from the mobile app before using BudsLink. 
 
 <br>
 <img src="{{ 'assets/images/sony/sony-main.png' | relative_url }}" width="45%">
-
-* Displays a circular battery widget, supporting either a single battery (headset) or three separate levels for Left, Right, and Case.
-* The case battery is shown only when the Sony report it, usually when the case is charging or when at least one bud is inside.
-* **Conversation Awareness** in Sony term is **Speak to Chat**.
-* Only certain Sony models support ANC mode.
-* Some models support ANC but not Ambient mode.
-* Some models also support Conversation Mode.
-
-## Icons:
-
-Anti-Noise Cancellation (ANC)
-
-|:-:|:-:|
-| <img src="{{ 'assets/images/airpods/anc-off.png' | relative_url }}" width="15%"> | Anti-Noise Cancellation Off  |
-| <img src="{{ 'assets/images/airpods/anc-on.png' | relative_url }}" width="15%"> | Anti-Noise Cancellation On |
-| <img src="{{ 'assets/images/airpods/transperancy.png' | relative_url }}" width="15%"> | Ambient |
-| <img src="{{ 'assets/images/airpods/adaptive.png' | relative_url }}" width="15%"> | Adaptive |
-
-
-Conversation Awareness (Speak to Chat)
-
-|:-:|:-:|
-| <img src="{{ 'assets/images/airpods/ca-on.png' | relative_url }}" width="15%"> | Conversation Awareness On |
-| <img src="{{ 'assets/images/airpods/ca-off.png' | relative_url }}" width="15%"> | Conversation Awareness Off |
-
-
-## Features
-
-When enabled, the system can detect Sony headphones/earbuds among connected Bluetooth devices. It communicates over RFCOMM sockets to support features such as:
-
-* Battery level reporting
-* Control of ANC (Active Noise Cancellation) / Ambient mode (if supported)
-* Conversation Awareness mode (if supported)
-* Adaptive noise level customization (if supported)
-* Configure Stem/Touch, Equalizer, Notifications etc.
-
- 
-## Configuration by Device
-
-Configure per device settings if supported
-
 <img src="{{ 'assets/images/sony/sony-configure.png' | relative_url }}" width="85%">
+
+Most settings are self-explanatory and similar to those available on OEM app. Settings specific to BudsLink are explained below.
 
 ## Icon selection
 
 * Device icons: Select from the available options for your headset type (single-battery or dual-battery devices).
 * Case icon: For models that report a case battery, an additional case icon can be selected.
 
-## Other settings:
-Other settings are self explanatory similar to settings available in OEM Mobile App
-
 ## Compatibility
-Some devices have not yet been tested and may show incorrect features in the configuration. Others may be missing entirely. If you notice missing devices or incorrect feature mappings, please open an issue on GitHub so we can add or correct them.
+<br>
 
-Currently tested and confirmed working:
+**Help update the compatibility list**
+
+If your device is missing from the list or you have additional compatibility information, please help improve the documentation by submitting a pull request to the [Documentation](https://github.com/maniacx/BudsLink/blob/Documentation/docs/Devices/Sony.md) branch to update this page, or opening an issue with your device model and details of features you tested.
+
+<br>
+
+**New Device Configuration**
+
+If your device configuration is missing, you can request its addition by opening an issue with screenshots of the OEM app and the output of `bluetoothctl info <device-MAC>` Alternatively, submit a pull request to the main branch with the new device configuration after successful test.
+
+<br>
+
+**Currently tested and confirmed working:**
+
 * **Sony WF-C510**  ✅ — Credits: G-dH
 * **Sony WH-1000XM4**  ✅ — Credits: Int-Circuit
 * **Sony WF-1000XM5**  ✅ — Credits: kilisei
@@ -86,6 +54,8 @@ Currently tested and confirmed working:
 * **Sony LinkBuds S**  ✅ — Credits: Neikon
 * **Sony WF-C700N**  ✅ — Credits: bertusw
 * **Sony WF-C500** ✅ — Credits: laughingwater
+
+<br>
 
 <style>
 table th:first-of-type {

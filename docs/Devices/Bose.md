@@ -2,43 +2,19 @@
 layout: default
 title: Bose
 parent: Devices
-nav_order: 6
 permalink: /bose
 ---
 
 
 # Bose Headband / Earbuds
 
-{: .note }
->
-> Bose Headband / Earbuds sockets can be accessed by only one application at a time. 
-> Do not run other Bose Headband / Earbuds's companion or monitoring apps while using BudsLink, such as:
->
-> * **Bluetooth Battery Meter** GNOME Extension  (disable the Bose feature in the extension preferences)
-
+* Bluetooth socket for Bose headband/earbuds can be accessed by only one application at a time. Close other Bose companion or monitoring apps, such as bosectl, before using BudsLink.
 
 <br>
 <img src="{{ 'assets/images/bose/bose-main.png' | relative_url }}" width="45%">
-
-* Displays a circular battery widget, supporting either a single battery (headset) or three separate levels for Left, Right, and Case.
-* The case battery is shown only when the Bose  report it, usually when the case is charging or when at least one bud is inside.
-* Main Page has only option to display 4 mode. Other modes can be found in `Configure` page.
-
-
-## Features
-
-When enabled, the system can detect Bose  headphones/earbuds among connected Bluetooth devices. It communicates over RFCOMM sockets to support features such as:
-
-* Battery level reporting
-* Modes (if supported)
-* Spatial Audio, Configure Stem/Touch, Equalizer, Notifications etc.
-
- 
-## Configuration by Device
-
-Configure per device settings if supported
-
 <img src="{{ 'assets/images/bose/bose-configure.png' | relative_url }}" width="85%">
+
+Most settings are self-explanatory and similar to those available on OEM app. Settings specific to BudsLink are explained below.
 
 ## Icon selection
 
@@ -53,18 +29,27 @@ The Modes page provides the same mode selection and configuration options as the
 Clicking `Show in toggle` adds the selected mode to the Main Page toggle, allowing you to switch between modes directly from the main page. A maximum of 4 modes can be added to the Main Page.
 <img src="{{ 'assets/images/bose/bose-add-toggle.png' | relative_url }}" width="100%">
 
-
-## Other settings:
-Other settings are self explanatory similar to settings available in OEM Mobile App
-
 ## Compatibility
-Some devices have not yet been tested and may show incorrect features in the configuration. Others may be missing entirely. If you notice missing devices or incorrect feature mappings, please open an issue on GitHub so we can add or correct them.
+<br>
 
-Currently tested and confirmed working:
+**Help update the compatibility list**
+
+If your device is missing from the list or you have additional compatibility information, please help improve the documentation by submitting a pull request to the [Documentation](https://github.com/maniacx/BudsLink/blob/Documentation/docs/Devices/Bose.md) branch to update this page, or opening an issue with your device model and details of features you tested.
+
+<br>
+
+**New Device Configuration**
+
+If your device configuration is missing, you can request its addition by opening an issue with screenshots of the OEM app and the output of `bluetoothctl info <device-MAC>` Alternatively, submit a pull request to the main branch with the new device configuration after successful test.
+
+<br>
+
+**Currently tested and confirmed working:**
 * **Bose QuietComfort Ultra Earbuds**  ✅ — Credits: SMaiz, MobileAZN
 * **Bose QuietComfort 35 II**  ✅ — Credits: amaxine
 * **Bose QuietComfort 35**  ✅ — Credits: amaxine 
 
+<br>
 
 <style>
 table th:first-of-type {

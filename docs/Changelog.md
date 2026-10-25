@@ -8,7 +8,20 @@ permalink: /changelogs
 # Changelogs
 
 {: .important-title }
-> Version 0.2.2 &emsp;&emsp; Upcoming
+> Version 0.2.2 &emsp;&emsp; Oct 26, 2026
+> * Added Soundcore protocol credits: abdulazizumarovich@github.com 
+> * Added support for Soundcore Liberty 4 NC credits: abdulazizumarovich@github.com
+> * Added Cambridge Audio protocol credits: baarkerlounger@github.com 
+> * Added support for Cambridge Audio Melomania A100 credits: baarkerlounger@github.com 
+> * Added Realme / Oppo / Oneplus protocol credits: shitan198u@github.com 
+> * Added support for Realme Buds Air 7 credits: shitan198u@github.com 
+> * Added support for Realme Buds Wireless 5 ANC credits: shitan198u@github.com 
+> * Added support for Realme Buds Air 7 Pro credits: authorArnauS197@github.com 
+> * Added support for OnePlus Buds 4 credits: easdue@github.com 
+> * Added connection manager for Nothing Devices
+> * Added support for Nothing Ear (3a) credits: rekordskratch@github.com 
+> * Added support for Redmi Buds 6 Pro credits: digoxi@github.com 
+> * Added support for Redmi Buds 8 Pro credits: sjauijn@github.com 
 > * Added support for Redmi Buds 5 Pro credits: LittleHaku@github.com 
 > * Added support for Redmi Buds 8 Lite credits: myemirhan@github.com 
 > * Update Italian translations. credits: albanobattistella@github.com 

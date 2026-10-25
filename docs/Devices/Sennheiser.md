@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Sennheiser
-nav_order: 8
 parent: Devices
 permalink: /sennheiser
 ---
@@ -9,45 +8,15 @@ permalink: /sennheiser
 
 # Sennheiser Headband / Earbuds
 
-{: .note }
->
-> Sennheiser Headband / Earbuds sockets can be accessed by only one application at a time. 
-> Do not run other Sennheiser Headband / Earbuds's companion or monitoring apps while using BudsLink, such as:
->
-> * **Bluetooth Battery Meter** GNOME Extension  (disable the Sennheiser feature in the extension preferences)
 
+* Bluetooth socket for Sennheiser Headband / Earbuds can be accessed by only one application at a time. Close other Sennheiser companion or monitoring apps, before using BudsLink.
+* Feature availability varies by model.
 
 <br>
 <img src="{{ 'assets/images/sennheiser/sennheiser-main.png' | relative_url }}" width="45%">
-
-* Displays a circular battery widget, supporting either a single battery (headset) or three separate levels for Left, Right, and Case.
-* The case battery is shown only when the Sennheiser  report it, usually when the case is charging or when at least one bud is inside.
-* Only certain Sennheiser  models support ANC mode.
-
-## Icons:
-
-Anti-Noise Cancellation (ANC)
-
-|:-:|:-:|
-| <img src="{{ 'assets/images/airpods/anc-off.png' | relative_url }}" width="15%"> | Anti-Noise Cancellation Off  |
-| <img src="{{ 'assets/images/airpods/anc-on.png' | relative_url }}" width="15%"> | Anti-Noise Cancellation On |
-| <img src="{{ 'assets/images/airpods/adaptive.png' | relative_url }}" width="15%"> | Adaptive |
-
-
-## Features
-
-When enabled, the system can detect Sennheiser  headphones/earbuds among connected Bluetooth devices. It communicates over RFCOMM sockets to support features such as:
-
-* Battery level reporting
-* Control of ANC (Active Noise Cancellation) / Ambient mode (if supported)
-* Configure Stem/Touch, Equalizer, Notifications etc.
-
- 
-## Configuration by Device
-
-Configure per device settings if supported
-
 <img src="{{ 'assets/images/sennheiser/sennheiser-configure.png' | relative_url }}" width="85%">
+
+Most settings are self-explanatory and similar to those available on OEM app. Settings specific to BudsLink are explained below.
 
 ## Icon selection
 
@@ -57,16 +26,26 @@ Configure per device settings if supported
 ## Parametric Eq (HDB 630 only)
 <img src="{{ 'assets/images/sennheiser/sennheiser-parametric.png' | relative_url }}" width="85%">
 
-## Other settings:
-Other settings are self explanatory similar to settings available in OEM Mobile App
-
 ## Compatibility
-Some devices have not yet been tested and may show incorrect features in the configuration. Others may be missing entirely. If you notice missing devices or incorrect feature mappings, please open an issue on GitHub so we can add or correct them.
+<br>
 
-Currently tested and confirmed working:
+**Help update the compatibility list**
+
+If your device is missing from the list or you have additional compatibility information, please help improve the documentation by submitting a pull request to the [Documentation](https://github.com/maniacx/BudsLink/blob/Documentation/docs/Devices/Sennheiser.md) branch to update this page, or opening an issue with your device model and details of features you tested.
+
+<br>
+
+**New Device Configuration**
+
+If your device configuration is missing, you can request its addition by opening an issue with screenshots of the OEM app and the output of `bluetoothctl info <device-MAC>` Alternatively, submit a pull request to the main branch with the new device configuration after successful test.
+
+<br>
+
+**Currently tested and confirmed working:**
 * **Sennheiser HDB 630**  ✅ — Credits: TheGentleChainsaw
 * **Sennheiser Momentum Wireless 4**  ✅ — Credits: jacostag
 
+<br>
 
 <style>
 table th:first-of-type {

@@ -1,69 +1,43 @@
 ---
 layout: default
 title: Nothing / CMF
-nav_order: 3
 parent: Devices
 permalink: /nothingcmf
 ---
 
 # Nothing / CMF Buds
 
-{: .note }
->
-> Nothing / CMF Bluetooth sockets can be accessed by only one application at a time. 
-> Do not run other companion or monitoring apps while using BudsLink, such as:
->
-> * **earctl**
-> * **earweb**
-> * **Bluetooth Battery Meter** GNOME Extension  (disable the Nothing / CMF feature in the extension preferences)
+* Bluetooth socket for Nothing / CMF Buds can be accessed by only one application at a time. Close other Nothing / CMF companion or monitoring apps, such as earctl or earweb, before using BudsLink.
+* Feature availability varies by model.
 
 <br>
 <img src="{{ 'assets/images/nothing/nothing-main.png' | relative_url }}" width="45%">
-
-
-* Displays a circular battery widget, supporting either a single battery (headset) or three separate levels for Left, Right, and Case.
-* The case battery is shown only when the buds report it, usually when the case is charging or when at least one bud is inside.
-* Only certain models support ANC mode.
-
-## Icons:
-
-Anti-Noise Cancellation (ANC)
-
-|:-:|:-:|
-| <img src="{{ 'assets/images/airpods/anc-off.png' | relative_url }}" width="15%"> | Anti-Noise Cancellation Off  |
-| <img src="{{ 'assets/images/airpods/anc-on.png' | relative_url }}" width="15%"> | Anti-Noise Cancellation On |
-| <img src="{{ 'assets/images/airpods/transperancy.png' | relative_url }}" width="15%"> | Transperancy |
-| <img src="{{ 'assets/images/airpods/adaptive.png' | relative_url }}" width="15%"> | Adaptive |
-
-
-## Features
-
-* App can detect Nothing and CMF buds / headsets among connected Bluetooth devices.
-* It communicates over RFCOMM sockets to support features such as:
-* Battery level reporting
-* Control of ANC (Active Noise Cancellation) mode (if supported)
-* Adaptive noise level customization (if supported)
-* Configure Stem/Touch  Equalizer, etc.
-
- 
-## Configuration by Device
-
-Configure per device settings if supported
-
 <img src="{{ 'assets/images/nothing/nothing-configure.png' | relative_url }}" width="85%">
+
+Most settings are self-explanatory and similar to those available on OEM app. Settings specific to BudsLink are explained below.
 
 ## Icon selection
 
 * Device icons: Select from the available options for your headset type (single-battery or dual-battery devices).
 * Case icon: For models that report a case battery, an additional case icon can be selected.
 
-## Other settings:
-Other settings are self explanatory similar to settings available in OEM Mobile App
-
 ## Compatibility
-Some devices have not yet been tested and may show incorrect features in the configuration. Others may be missing entirely. If you notice missing devices or incorrect feature mappings, please open an issue on GitHub so we can add or correct them.
+<br>
 
-Currently tested and confirmed working:
+**Help update the compatibility list**
+
+If your device is missing from the list or you have additional compatibility information, please help improve the documentation by submitting a pull request to the [Documentation](https://github.com/maniacx/BudsLink/blob/Documentation/docs/Devices/NothingCMF.md) branch to update this page, or opening an issue with your device model and details of features you tested.
+
+<br>
+
+**New Device Configuration**
+
+If your device configuration is missing, you can request its addition by opening an issue with screenshots of the OEM app and the output of `bluetoothctl info <device-MAC>` Alternatively, submit a pull request to the main branch with the new device configuration after successful test.
+
+<br>
+
+**Currently tested and confirmed working:**
+
 * **CMF Buds 2 Plus [B184]**  ✅ — Credits: ArcticDev78
 * **Nothing Headphone (1) [B170]**  ✅ — Credits: Lascar_s@matrix
 * **CMF Buds Pro 2 [B172]**  ✅ — Credits: khaledkhamis26
@@ -71,7 +45,10 @@ Currently tested and confirmed working:
 * **CMF Buds 2a [B179]**  ✅ — Credits: shakasan
 * **Neckband Pro [B164]**  ✅ — Credits: iamxnfa
 * **Nothing Headphone (a) [B198]**  ✅ — Credits: The-Nyla
+* **Nothing Ear (3a) [B190]**  ✅ — Credits: rekordskratch
 
+
+<br>
 
 <style>
 table th:first-of-type {
@@ -429,4 +406,23 @@ table th:nth-of-type(3) {
 | Find My Buds | ✅ | ✅ |
 | Gesture | ✅ | ✅ |
 
+---
 
+## Nothing Earbuds (3a) (B190)
+
+| Feature | Supported | Tested |
+|:--|:--:|:--:|
+| Battery Level | Left+Right+Case | ✅ |
+| Noise Control | ✅ | ✅ |
+| Noise Control Level | Low, Mid, High | ✅ |
+| Noise Control Adaptive | ✅ | ✅ |
+| Eq Preset | ✅ | ✅ |
+| Eq Custom | Not Implemented | ❌ |
+| Enhanced Bass | ✅ | ✅ |
+| Spatial Audio | ✅ | ✅ |
+| In Ear Detection | ✅ | ✅ |
+| Low Latency Mode | ✅ | ✅ |
+| Find My Buds | ✅ | ✅ |
+| Gesture | ✅ | ✅ |
+
+---

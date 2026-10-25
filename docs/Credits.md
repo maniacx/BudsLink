@@ -155,16 +155,19 @@ permalink: /credits
 
 ## Google Pixel Buds
 
-> Contribution / Testing
+> Maestro protocol
 >
-> * bhack
+> * bhack — Protocol design, development, and testing
+
+> Testing
+>
 > * IGS-GIT
 
 ## Google Fast Pair Devices
 
-> Contribution / Testing
+> Google Fast Pair Devices protocol
 >
-> * IGS-GIT
+> * IGS-GIT — Protocol design, development, and testing
 
 ## Redmi / Xiaomi
 
@@ -220,3 +223,35 @@ permalink: /credits
 > * SMaiz **Special thanks for testing and helping bring up the Bose protocol.**
 > * RupertMichaelBear
 
+## Edifier
+
+> Edifier protocol
+>
+> * muharemovic — Protocol design, development, and testing
+
+## Realme / Oppo / OnePlus
+
+> Oppo protocol
+>
+> * shitan198u — Protocol design, development, and testing
+
+Testing
+>
+> * easdue **Special thanks for testing and helping bring up the OnePlus protocol.**
+> * authorArnauS197
+
+> Leaf-lsgtky/OppoPods
+>
+> <https://github.com/Leaf-lsgtky/OppoPods>
+
+## Cambridge Audio
+
+> Cambridge Audio Protocol
+>
+> * baarkerlounger — Protocol design, development, and testing
+
+## Soundcore
+
+> Soundcore Protocol
+>
+> * abdulazizumarovich — Protocol design, development, and testing

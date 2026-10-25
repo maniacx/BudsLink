@@ -1,72 +1,24 @@
 ---
 layout: default
 title: AirPods / Beats
-nav_order: 1
 parent: Devices
 permalink: /airpods
 ---
 
 # AirPods / Beats
 
-{: .note }
->
-> AirPods Bluetooth sockets can be accessed by only one application at a time.
-> Do not run other AirPods companion or monitoring apps while using BudsLink, such as:
->
-> * **MagicPods**
-> * **LibrePods**
-> * **Bluetooth Battery Meter** GNOME Extension  (disable the AirPods feature in the extension preferences)
+* Bluetooth socket for Airpods/Beats protocol can be accessed by only one application at a time. Close other AirPods companion or monitoring apps, such as MagicPods or LibrePods, before using BudsLink.
+* The case battery is displayed only when the AirPods report it, typically while the case is charging or at least one earbud is inside.
+* ANC controls are shown only when at least one earbud is worn.
+* Conversation Awareness controls are shown only when both earbuds are worn.
+* Feature availability varies by model.
+
 
 <br>
 <img src="{{ 'assets/images/airpods/airpods-main.png' | relative_url }}" width="45%">
-
-
-* Displays a circular battery widget, supporting either a single battery (headset) or three separate levels for Left, Right, and Case.
-* The case battery is shown only when the AirPods report it, usually when the case is charging or when at least one AirPod is inside.
-* Only certain AirPods models support ANC mode.
-* Some models also support Conversation Mode.
-
-## Button Visibility
-
-* The ANC option (if supported) is only shown when one or both earbuds are in the ears.
-* The Conversation Mode (if supported) option is only shown when both earbuds are in the ears.
-
-
-## Icons:
-
-Anti-Noise Cancellation (ANC)
-
-|:-:|:-:|
-| <img src="{{ 'assets/images/airpods/anc-off.png' | relative_url }}" width="15%"> | Anti-Noise Cancellation Off  |
-| <img src="{{ 'assets/images/airpods/anc-on.png' | relative_url }}" width="15%"> | Anti-Noise Cancellation On |
-| <img src="{{ 'assets/images/airpods/transperancy.png' | relative_url }}" width="15%"> | Transperancy |
-| <img src="{{ 'assets/images/airpods/adaptive.png' | relative_url }}" width="15%"> | Adaptive |
-
-
-Conversation Awareness
-
-|:-:|:-:|
-| <img src="{{ 'assets/images/airpods/ca-on.png' | relative_url }}" width="15%"> | Conversation Awareness On |
-| <img src="{{ 'assets/images/airpods/ca-off.png' | relative_url }}" width="15%"> | Conversation Awareness Off |
-
-
-## Features
-
-* App can detect AirPods and Beats devices among connected Bluetooth devices.
-* It communicates over L2CAP sockets to support features such as:
-* Battery level reporting
-* In-ear detection for automatic pause/play of media
-* Control of ANC (Active Noise Cancellation) mode (if supported)
-* Conversation Awareness mode (if supported)
-* Adaptive noise level customization (if supported)
-* Configure Stem/Touch  Equalizer, Notifications etc.
-
- 
-## Configuration by Device
-
-Configure per device settings if supported
-
 <img src="{{ 'assets/images/airpods/airpods-configure.png' | relative_url }}" width="85%">
+
+Most settings are self-explanatory and similar to those available on iPhone, iPad, and Mac. Settings specific to BudsLink are explained below.
 
 ## Icon selection
 
@@ -86,21 +38,27 @@ When enabled, media playback automatically pauses when the earbuds are removed a
 If supported by device, this setting limits media volume during active conversations to enhance awareness of your surroundings and reduce distractions.
 
 * When conversation mode is triggered (based on supported device capabilities), the system automatically reduces media volume to a user-defined percentage of the maximum volume.
-
 * This helps ensure you can still hear important external sounds while music or other media is playing.
-
-Adjustable Range
-
 * You can set the volume limit to any value between 0 and 50.
 * Values are interpreted as a percentage of the device's maximum volume.
 * Note: If the current playback volume is already below the specified limit, no adjustment will be made.
 
-## Other settings:
-Other settings are self explanatory similar to settings available in iPhone / iPads / Macs
-
 ## Compatibility
+<br>
 
-Currently tested and confirmed working:
+**Help update the compatibility list**
+
+If your device is missing from the list or you have additional compatibility information, please help improve the documentation by submitting a pull request to the [Documentation](https://github.com/maniacx/BudsLink/blob/Documentation/docs/Devices/AirPods.md) branch to update this page, or opening an issue with your device model and details of features you tested.
+
+<br>
+
+**New Device Configuration**
+
+If your device configuration is missing, you can request its addition by opening an issue with screenshots of the OEM app and the output of `bluetoothctl info <device-MAC>` Alternatively, submit a pull request to the main branch with the new device configuration after successful test.
+
+<br>
+
+**Currently tested and confirmed working:**
 
 * **AirPods 1st Gen** ✅ — Credits: Toxblh
 * **AirPods Pro 1st Gen** ✅ — Credits: Toxblh, hazzac181
@@ -109,6 +67,8 @@ Currently tested and confirmed working:
 * **AirPods Pro 2 USB-C** ✅ — Credits: maniacx
 * **AirPods Max  USB-C** ✅ — Credits: GovanifY
 * **Beats Powerbeats Fit** ✅ — Credits: schlagmichdoch
+
+<br>
 
 <style>
 table th:first-of-type {

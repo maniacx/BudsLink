@@ -2,77 +2,46 @@
 layout: default
 title: Google Pixel Buds
 parent: Devices
-nav_order: 5
 permalink: /pixel
 ---
 
 # Google Pixel Buds
 
-{: .note }
->
-> Google Pixel Buds
- Bluetooth sockets can be accessed by only one application at a time.
-> Do not run other Google Pixel Buds companion or monitoring apps while using BudsLink, such as:
->
-> * **Bluetooth Battery Meter** GNOME Extension  (disable the Google Pixel Buds feature in the extension preferences)
+* Bluetooth socket for Pixel Buds can be accessed by only one application at a time. Close other Pixel companion or monitoring apps, such as earctl or earweb, before using BudsLink.
+* Feature availability varies by model.
+* Credits to bhack@github.com for contributing the Pixel Maestro protocol.
 
 <br>
 <img src="{{ 'assets/images/pixel/pixel-main.png' | relative_url }}" width="45%">
-
-
-* Displays a circular battery widget, supporting either a single battery (headset) or three separate levels for Left, Right, and Case.
-* The case battery is shown only when the Google Pixel Buds report it, usually when the case is charging or when at least one Google Pixel Buds is inside.
-* Only certain Google Pixel Buds models support ANC mode.
-* Some models also support Conversation Mode.
-
-## Button Visibility
-
-* The ANC option (if supported) is only shown when one or both earbuds are in the ears.
-* The Conversation Mode (if supported) option is only shown when both earbuds are in the ears.
-
-
-## Icons:
-
-Anti-Noise Cancellation (ANC)
-
-|:-:|:-:|
-| <img src="{{ 'assets/images/airpods/anc-off.png' | relative_url }}" width="15%"> | Anti-Noise Cancellation Off  |
-| <img src="{{ 'assets/images/airpods/anc-on.png' | relative_url }}" width="15%"> | Anti-Noise Cancellation On |
-| <img src="{{ 'assets/images/airpods/transperancy.png' | relative_url }}" width="15%"> | Transperancy |
-| <img src="{{ 'assets/images/airpods/adaptive.png' | relative_url }}" width="15%"> | Adaptive |
-
-
-## Features
-
-* App can detect Google Pixel Buds devices among connected Bluetooth devices.
-* It communicates over RFCOMM sockets to support features such as:
-* Battery level reporting
-* Noise control
-* Equalizer
-
- 
-## Configuration by Device
-
-Configure per device settings if supported
-
 <img src="{{ 'assets/images/pixel/pixel-configure.png' | relative_url }}" width="85%">
+
+Most settings are self-explanatory and similar to those available on OEM app. Settings specific to BudsLink are explained below.
 
 ## Icon selection
 
 * Device icons: Select from the available options for your headset type (single-battery or dual-battery devices).
 * Case icon: For models that report a case battery, an additional case icon can be selected.
 
-## Other settings:
-Other settings are self explanatory similar to settings available in OEM Mobile App
-
 ## Compatibility
-Some devices have not yet been tested and may show incorrect features in the configuration. Others may be missing entirely. If you notice missing devices or incorrect feature mappings, please open an issue on GitHub so we can add or correct them.
+<br>
 
-Currently tested and confirmed working:
+**Help update the compatibility list**
 
+If your device is missing from the list or you have additional compatibility information, please help improve the documentation by submitting a pull request to the [Documentation](https://github.com/maniacx/BudsLink/blob/Documentation/docs/Devices/Pixel.md) branch to update this page, or opening an issue with your device model and details of features you tested.
+
+<br>
+
+**New Device Configuration**
+
+If your device configuration is missing, you can request its addition by opening an issue with screenshots of the OEM app and the output of `bluetoothctl info <device-MAC>` Alternatively, submit a pull request to the main branch with the new device configuration after successful test.
+
+<br>
+
+**Currently tested and confirmed working:**
 * **Google Pixel Buds Pro** ✅ — Credits: bhack@github.com
 * **Google Pixel Buds Pro 2** ✅ — Credits: IGS-GIT@github.com
 
+<br>
 
 <style>
 table th:first-of-type {
