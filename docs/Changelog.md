@@ -19,6 +19,7 @@ permalink: /changelogs
 > * Added support for Realme Buds Air 7 Pro credits: authorArnauS197@github.com 
 > * Added support for OnePlus Buds 4 credits: easdue@github.com 
 > * Added connection manager for Nothing Devices
+> * Added Fit test widget and used it in Nothing Devices
 > * Added support for Nothing Ear (3a) credits: rekordskratch@github.com 
 > * Added support for Redmi Buds 6 Pro credits: digoxi@github.com 
 > * Added support for Redmi Buds 8 Pro credits: sjauijn@github.com 
