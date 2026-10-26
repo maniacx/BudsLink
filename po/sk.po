@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Bluetooth Battery Meter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-22 02:51+0000\n"
+"PO-Revision-Date: 2026-10-27 02:44+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <preklady@mayday.sk>\n"
 "Language: sk\n"
@@ -302,7 +302,7 @@ msgstr "Hlasitosť tónov"
 
 #: src/preferences/devices/airpods/configureWindow.js:284
 msgid "Adjust the volume of audio cues"
-msgstr ""
+msgstr "Upravte hlasitosť zvukových signálov"
 
 #: src/preferences/devices/airpods/configureWindow.js:286
 msgid "15%"
@@ -444,11 +444,11 @@ msgstr "Manuálne"
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/soundcore/configureWindow.js:172
 msgid "Transportation"
-msgstr ""
+msgstr "Doprava"
 
 #: src/preferences/devices/soundcore/configureWindow.js:169
 msgid "Environment Detection"
-msgstr ""
+msgstr "Detekcia prostredia"
 
 #: src/preferences/devices/soundcore/configureWindow.js:171
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:121
@@ -461,31 +461,31 @@ msgstr "Úroveň potlačenia hluku"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Plane"
-msgstr ""
+msgstr "Lietadlo"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Train"
-msgstr ""
+msgstr "Vlak"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Bus"
-msgstr ""
+msgstr "Autobus"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Car"
-msgstr ""
+msgstr "Auto"
 
 #: src/preferences/devices/soundcore/configureWindow.js:177
 msgid "Transparency Type"
-msgstr ""
+msgstr "Typ priehľadnosti"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Fully Transparent"
-msgstr ""
+msgstr "Úplne priehľadné"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Vocal Mode"
-msgstr ""
+msgstr "Hlasový režim"
 
 #: src/preferences/devices/soundcore/configureWindow.js:181
 #: src/lib/devices/opoBuds/opoBudsDevice.js:631
