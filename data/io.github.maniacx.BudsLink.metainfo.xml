@@ -5,7 +5,7 @@
   <summary>Monitor and control Bluetooth earbuds</summary>
   <description>
     <p>BudsLink provides comprehensive battery monitoring and feature control for a wide range of Bluetooth audio wearables. The application communicates directly with supported devices to expose battery levels, noise control modes, and advanced interaction features when available, offering a consistent and configurable interface across different vendors.</p>
-    <p>This application is an independent project and is not affiliated with, endorsed by, or sponsored by Apple, Sony, Samsung, Google, Nothing, Bose, Redmi, Xiaomi or Sennheiser.</p>
+    <p>This application is an independent project and is not affiliated with, endorsed by, or sponsored by Apple, Sony, Samsung, Google, Nothing, Bose, Redmi, Xiaomi, Sennheiser, Edifier, Cambridge Audio, SoundCore, Realme, Oppo, or OnePlus</p>
     <ul>
       <li>Monitor earbud and charging case battery levels</li>
       <li>Control Active Noise Cancellation and ambient sound modes</li>
@@ -26,6 +26,10 @@
       <li>Bose</li>
       <li>Redmi / Xiaomi</li>
       <li>Sennheiser</li>
+      <li>Edifier</li>
+      <li>Realme / Oppo/ OnePlus</li>
+      <li>Cambridge Audio</li>
+      <li>Soundcore</li>
     </ul>
   </description>
   <keywords>
@@ -45,6 +49,12 @@
     <keyword>CMF</keyword>
     <keyword>Google</keyword>
     <keyword>Pixel</keyword>
+    <keyword>Edifier</keyword>
+    <keyword>Realme</keyword>
+    <keyword>Oppo</keyword>
+    <keyword>OnePlus</keyword>
+    <keyword>Cambridge</keyword>
+    <keyword>Soundcore</keyword>
   </keywords>
   <metadata_license>CC-BY-SA-4.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
@@ -93,6 +103,26 @@
     <value key="Purism::form_factor">mobile</value>
   </custom>
   <releases>
+    <release version="0.2.2" date="2026-10-27">
+      <description>
+        <ul>
+          <li>Added support for Soundcore Liberty 4 NC. credits: abdulazizumarovich@github.com</li>
+          <li>Added support for Cambridge Audio Melomania A100. credits: baarkerlounger@github.com</li>
+          <li>Added support for Realme Buds Air 7. credits: shitan198u@github.com</li>
+          <li>Added support for Realme Buds Wireless 5 ANC. credits: shitan198u@github.com</li>
+          <li>Added support for Realme Buds Air 7 Pro. credits: authorArnauS197@github.com</li>
+          <li>Added support for OnePlus Buds 4. credits: easdue@github.com</li>
+          <li>Added support for Nothing Ear (3a). credits: rekordskratch@github.com</li>
+          <li>Added support for Redmi Buds 6 Pro. credits: digoxi@github.com</li>
+          <li>Added support for Redmi Buds 8 Pro. credits: sjauijn@github.com</li>
+          <li>Added support for Redmi Buds 5 Pro. credits: LittleHaku@github.com</li>
+          <li>Added support for Redmi Buds 8 Lite. credits: myemirhan@github.com</li>
+          <li>Added connection manager for Nothing devices</li>
+          <li>Added Fit Test widget and integrated it into Nothing devices</li>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.2.1" date="2026-08-24">
       <description>
         <ul>
