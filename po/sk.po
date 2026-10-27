@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Bluetooth Battery Meter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-27 02:44+0000\n"
+"PO-Revision-Date: 2026-10-28 18:51+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <preklady@mayday.sk>\n"
 "Language: sk\n"
@@ -801,7 +801,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:516
 msgid "Piano"
-msgstr ""
+msgstr "Klavír"
 
 #: src/preferences/devices/soundcore/configureWindow.js:517
 #: src/preferences/devices/nothingBuds/configureWindow.js:257
@@ -846,7 +846,7 @@ msgstr "Redukcia výšok"
 
 #: src/preferences/devices/soundcore/configureWindow.js:554
 msgid "Name"
-msgstr ""
+msgstr "Meno"
 
 #: src/preferences/devices/soundcore/configureWindow.js:561
 #: src/preferences/devices/opoBuds/configureWindow.js:588
@@ -1464,7 +1464,7 @@ msgstr "Dvojité stlačenie a podržanie"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:597
 msgid "Press Both Buds"
-msgstr ""
+msgstr "Stlačte obidve slúchatka"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:603
 #: src/preferences/devices/boseBuds/configureWindow.js:709
@@ -1498,7 +1498,7 @@ msgstr ""
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:754
 msgid "Charging Case"
-msgstr ""
+msgstr "Nabíjacie puzdro"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:757
 msgid "Slider Controls"
@@ -1526,11 +1526,11 @@ msgstr "Essential Space"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:833
 msgid "Start / Stop Recording"
-msgstr ""
+msgstr "Začať / Zastaviť nahrávanie"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:836
 msgid "Mute / Unmute Mic"
-msgstr ""
+msgstr "Stlmiť / Odtlmiť mikrofón"
 
 #: src/preferences/devices/senhBuds/configureWindow.js:225
 msgid "Sound personalization"
@@ -2085,7 +2085,7 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:177
 msgid "Play the same audio in both earbuds"
-msgstr ""
+msgstr "Prehrať rovnaký zvuk v obidvoch slúchatkách"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:179
 msgid "High resolution codec. The earbuds reconnect when this changes"
@@ -2093,7 +2093,7 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:180
 msgid "Gaming Mode"
-msgstr ""
+msgstr "Herný mód"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:186
 msgid "Wear Detection"
@@ -2109,7 +2109,7 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:191
 msgid "Audible Feedback"
-msgstr ""
+msgstr "Počuteľná odozva"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:192
 #: src/preferences/devices/boseBuds/configureWindow.js:647
@@ -2118,31 +2118,31 @@ msgstr "Vyberte jazyk hlasových pokynov"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:194
 msgid "Tones"
-msgstr ""
+msgstr "Tóny"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:194
 msgid "English"
-msgstr ""
+msgstr "Angličtina"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:194
 msgid "German"
-msgstr ""
+msgstr "Nemčina"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:194
 msgid "French"
-msgstr ""
+msgstr "Francúzština"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:194
 msgid "Spanish"
-msgstr ""
+msgstr "Španielčina"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:195
 msgid "Italian"
-msgstr ""
+msgstr "Taliančina"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:195
 msgid "Mandarin"
-msgstr ""
+msgstr "Čínština"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:195
 msgid "Cantonese"
@@ -2150,7 +2150,7 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:195
 msgid "Korean"
-msgstr ""
+msgstr "Kórejčina"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:195
 msgid "Southwark"
@@ -2158,19 +2158,19 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:204
 msgid "Auto Power Off"
-msgstr ""
+msgstr "Automatické vypnutie"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:206
 msgid "30 minutes"
-msgstr ""
+msgstr "30 minút"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:206
 msgid "60 minutes"
-msgstr ""
+msgstr "60 minút"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:231
 msgid "Touch controls"
-msgstr ""
+msgstr "Dotykové ovládnie"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:56
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:380
@@ -2299,7 +2299,7 @@ msgstr "Pri vyňatí slúchadla sa prepne do režimu priehľadnosti"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:488
 msgid "Medium"
-msgstr ""
+msgstr "Stredný"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:568
 #: src/preferences/devices/sony/configureWindow.js:476
@@ -2376,7 +2376,7 @@ msgstr "Režim konverzácie"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:839
 msgid "Hear Notifications"
-msgstr ""
+msgstr "Počuť Upozornenia"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:842
 msgid "Wind Mode"
@@ -2648,11 +2648,11 @@ msgstr "(Toto zariadenie)"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:250
 msgid "Disconnect Device?"
-msgstr ""
+msgstr "Odpojiť Zariadenie?"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:251
 msgid "The device will be disconnected."
-msgstr ""
+msgstr "Zariadenie bude odpojené."
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:255
 #: src/preferences/widgets/deviceMgmtRowWidget.js:322
@@ -3033,7 +3033,7 @@ msgstr ""
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:700
 msgctxt "Redmi transparency mode"
 msgid "Voice"
-msgstr ""
+msgstr "Hlas"
 
 #: src/lib/devices/redmiBuds/redmiBudsDevice.js:701
 msgctxt "Redmi transparency mode"
