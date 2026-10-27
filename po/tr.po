@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-11 11:51+0000\n"
+"PO-Revision-Date: 2026-10-28 18:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: tr\n"
@@ -2051,9 +2051,8 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:87
 #: src/lib/devices/opoBuds/opoBudsDevice.js:566
-#, fuzzy
 msgid "Voice"
-msgstr "İnsan sesi"
+msgstr "Ses"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:119
 msgid "60"
