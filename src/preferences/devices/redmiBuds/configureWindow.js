@@ -411,7 +411,8 @@ export const ConfigureWindow = GObject.registerClass({
         if (this._modelData.dualConnection) {
             this._dualConnSwitch = new Adw.SwitchRow({
                 title: localizedLabel(pgettext('Redmi connection setting',
-                    'Allow Connections to Multiple Devices'), 'Allow Connections to Multiple Devices'),
+                    'Allow Connections to Multiple Devices'),
+                'Allow Connections to Multiple Devices'),
             });
 
             this._dualConnSwitch.active = this._settingsItems['dual-conn'];
@@ -486,8 +487,10 @@ export const ConfigureWindow = GObject.registerClass({
     _buildNoiseControlRow(title, initialValue) {
         const items = [
             {name: _('Off'), icon: 'bbm-anc-off-symbolic'},
-            {name: localizedLabel(pgettext('Redmi listening mode', 'Ambient'), 'Ambient'),
-                icon: 'bbm-transperancy-symbolic'},
+            {
+                name: localizedLabel(pgettext('Redmi listening mode', 'Ambient'), 'Ambient'),
+                icon: 'bbm-transperancy-symbolic',
+            },
             {name: _('Noise Cancellation'), icon: 'bbm-anc-on-symbolic'},
         ];
 
