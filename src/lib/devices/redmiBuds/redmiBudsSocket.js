@@ -575,62 +575,61 @@ export const RedmiBudsSocket = GObject.registerClass({
                 break;
 
             case ConfigType.AUTO_ANSWER:
-                if (this._modelData.autoAnswer)
+                if (this._modelData?.autoAnswer)
                     this._parseAutoAnswer(data);
                 break;
 
             case ConfigType.DOUBLE_CONNECTION:
-                if (this._modelData.dualConnection)
+                if (this._modelData?.dualConnection)
                     this._parseDualConnection(data);
                 break;
 
             case ConfigType.EQ_PRESET:
-                if (this._modelData.eqPreset)
+                if (this._modelData?.eqPreset)
                     this._parseEqPreset(data);
                 break;
 
             case ConfigType.LONG_GESTURES:
-                if (this._modelData.gestureOptions?.noiseControlModes)
+                if (this._modelData?.gestureOptions?.noiseControlModes)
                     this._parseLongPressMode(data);
                 break;
 
             case ConfigType.ANC:
-                if (this._modelData.noiseControl)
-                    this._parseNoiseControl(data);
+                this._parseNoiseControl(data);
                 break;
 
             case ConfigType.ADAPTIVE_ANC:
-                if (this._modelData.adaptiveNcSwitch)
+                if (this._modelData?.adaptiveNcSwitch)
                     this._parseAdaptiveNC(data);
                 break;
 
             case ConfigType.LOW_LATENCY:
-                if (this._modelData.lowLatencyMode)
+                if (this._modelData?.lowLatencyMode)
                     this._parseLowLatency(data);
                 break;
 
             case ConfigType.SPATIAL_AUDIO:
-                if (this._modelData.immersiveSound)
+                if (this._modelData?.immersiveSound)
                     this._parseImmersiveSound(data);
                 break;
 
             case ConfigType.SPATIAL_AUDIO_STATE:
-                if (this._modelData.headTracking)
+                if (this._modelData?.headTracking)
                     this._parseSpatialAudioState(data);
                 break;
 
             case ConfigType.SPATIAL_AUDIO_SCENE:
-                if (this._modelData.spatialAudioScenes)
+                if (this._modelData?.spatialAudioScenes)
                     this._parseSpatialAudioScene(data);
                 break;
 
             case ConfigType.ADAPTIVE_SOUND:
-                if (this._modelData.adaptiveSound)
+                if (this._modelData?.adaptiveSound)
                     this._parseAdaptiveSound(data);
                 break;
 
             case ConfigType.EQ_CURVE:
-                if (this._modelData.eqPreset?.custom)
+                if (this._modelData?.eqPreset?.custom)
                     this._parseCustomEq(data);
                 break;
 
@@ -658,6 +657,9 @@ export const RedmiBudsSocket = GObject.registerClass({
 
     _parseNoiseControl(data) {
         if (data.length < 2)
+            return;
+
+        if (!this._modelData?.noiseControl)
             return;
 
         this._log.info('Parse NoiseControl');
@@ -929,7 +931,7 @@ export const RedmiBudsSocket = GObject.registerClass({
     _parseGestures(data) {
         this._log.info('Parse Gestures');
 
-        const gestureTypes = this._modelData.gestureOptions?.gestureTypes;
+        const gestureTypes = this._modelData?.gestureOptions?.gestureTypes;
         if (!gestureTypes)
             return;
 
