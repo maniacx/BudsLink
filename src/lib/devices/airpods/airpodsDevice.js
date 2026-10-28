@@ -66,15 +66,6 @@ export const AirpodsDevice = GObject.registerClass({
         this._budInEar = false;
         this._bothBudsInEar = false;
         this._battInfoRecieved = false;
-        this._previousOnDestroyVolume = -1;
-        this._ignoreGsettingsChange = false;
-
-        const attStrings = this._settings.get_strv('attenuated-on-destroy-info');
-        if (attStrings.length > 0) {
-            const {path, timestamp, volume} = JSON.parse(attStrings[0]);
-            if (path === this._devicePath && now - timestamp <= 500)
-                this._previousOnDestroyVolume = volume;
-        }
 
         this._callbacks = {
             updateBatteryProps: this.updateBatteryProps.bind(this),
@@ -257,21 +248,21 @@ export const AirpodsDevice = GObject.registerClass({
             features.push({key: 'press-dur', default: 0, persist: true});
         }
 
-        this._info = new DeviceInfo({
+        this._devInfo = new DeviceInfo({
             settings: this._settings,
             settingsKey: 'airpods-list',
             devicePath: this._devicePath,
             features,
         });
 
-        this._commonIcon = this._info.getValue('icon');
-        this._caseIcon = this._info.getValue('case');
-        this._wearDetectionMode = this._info.getValue('wear-detection-mode');
-        this._caVolume = this._info.getValue('ca-volume');
-        this._caVolEnabled = this._info.getValue('ca-volume-enabled');
-        this._lisMode = this._info.getValue('listening-mode');
+        this._commonIcon = this._devInfo.getValue('icon');
+        this._caseIcon = this._devInfo.getValue('case');
+        this._wearDetectionMode = this._devInfo.getValue('wear-detection-mode');
+        this._caVolume = this._devInfo.getValue('ca-volume');
+        this._caVolEnabled = this._devInfo.getValue('ca-volume-enabled');
+        this._lisMode = this._devInfo.getValue('listening-mode');
 
-        this._infoSignalId = this._info.connect('update-device', (info, feature) => {
+        this._devInfoSignalId = this._devInfo.connect('update-device', (info, feature) => {
             const value = info.getValue(feature);
 
             switch (feature) {
@@ -486,11 +477,11 @@ export const AirpodsDevice = GObject.registerClass({
     }
 
     updateNotificationToneMode(level) {
-        this._info?.updateUI('noti-vol', level);
+        this._devInfo?.updateUI('noti-vol', level);
     }
 
     updateVolSwipeMode(state) {
-        this._info?.updateUI('swipe-mode', state);
+        this._devInfo?.updateUI('swipe-mode', state);
     }
 
     updateVolSwipeLength(duration) {
@@ -502,7 +493,7 @@ export const AirpodsDevice = GObject.registerClass({
         else
             index = 2;
 
-        this._info?.updateUI('swipe-len', index);
+        this._devInfo?.updateUI('swipe-len', index);
     }
 
     updatePressSpeed(speed) {
@@ -514,7 +505,7 @@ export const AirpodsDevice = GObject.registerClass({
         else
             index = 2;
 
-        this._info?.updateUI('press-speed', index);
+        this._devInfo?.updateUI('press-speed', index);
     }
 
     updatePressDuration(duration) {
@@ -526,7 +517,7 @@ export const AirpodsDevice = GObject.registerClass({
         else
             index = 2;
 
-        this._info?.updateUI('press-dur', index);
+        this._devInfo?.updateUI('press-dur', index);
     }
 
     _toggle1ButtonClicked(index) {
@@ -613,7 +604,7 @@ export const AirpodsDevice = GObject.registerClass({
         if (this._configureWindow) {
             this._configureWindow.present();
         } else {
-            this._configureWindow = new ConfigureWindow(this._info, this._modelData);
+            this._configureWindow = new ConfigureWindow(this._devInfo, this._modelData);
             this._configureWindow.connect('close-request', () => {
                 this._configureWindow = null;
             });
@@ -626,10 +617,10 @@ export const AirpodsDevice = GObject.registerClass({
         this._airpodsSocket = null;
         this._configureWindow?.close();
         this._configureWindow = null;
-        if (this._infoSignalId && this._info)
-            this._info.disconnect(this._infoSignalId);
-        this._infoSignalId = null;
-        this._info = null;
+        if (this._devInfoSignalId && this._devInfo)
+            this._devInfo.disconnect(this._devInfoSignalId);
+        this._devInfoSignalId = null;
+        this._devInfo = null;
         this._bluezDeviceProxy = null;
         if (this._dataHandlerId)
             this.dataHandler?.disconnect(this._dataHandlerId);

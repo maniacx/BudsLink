@@ -477,8 +477,7 @@ export const SenhBudsDevice = GObject.registerClass({
         const enableMediaController = this._wearDetectionMode !== 0 && this._inEarSetting;
 
         if (enableMediaController && !this._mediaController) {
-            this._mediaController = new MediaController(this._settings, this._devicePath,
-                this._previousOnDestroyVolume);
+            this._mediaController = new MediaController(this._settings, this._devicePath);
 
             this._mediaHandlerId = this._mediaController.connect(
                 'notify::output-is-a2dp', () => {
