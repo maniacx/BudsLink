@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-02 18:51+0000\n"
+"PO-Revision-Date: 2026-10-28 18:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -52,7 +52,7 @@ msgstr "Spel modus"
 #: src/preferences/devices/opoBuds/configureWindow.js:920
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:181
 msgid "Reduces latency and enhances in-game audio"
-msgstr ""
+msgstr "Vermindert vertraging en verbetert in-game audio"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:80
 #: src/preferences/devices/nothingBuds/configureWindow.js:409
@@ -60,14 +60,14 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:935
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "In-Ear Detection"
-msgstr ""
+msgstr "Oordetectie"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:81
 #: src/preferences/devices/nothingBuds/configureWindow.js:410
 #: src/preferences/devices/senhBuds/configureWindow.js:563
 #: src/preferences/devices/boseBuds/configureWindow.js:375
 msgid "Enable features based on wearing detection"
-msgstr ""
+msgstr "Schakel functies in op basis van draagdetectie"
 
 #: src/preferences/devices/airpods/configureWindow.js:103
 #: src/preferences/devices/redmiBuds/configureWindow.js:222
@@ -114,7 +114,7 @@ msgstr "Hervatten met elk oortje, pauzeren wanneer beide verwijdert"
 #: src/preferences/devices/senhBuds/configureWindow.js:643
 #: src/preferences/devices/boseBuds/configureWindow.js:442
 msgid "Choose Playback Behavior for In-Ear Detection"
-msgstr ""
+msgstr "Kies afspeelgedrag bij oordetectie"
 
 #: src/preferences/devices/airpods/configureWindow.js:117
 #: src/preferences/devices/redmiBuds/configureWindow.js:233
@@ -130,11 +130,11 @@ msgstr "Volumeniveau"
 
 #: src/preferences/devices/airpods/configureWindow.js:137
 msgid "Lower volume during conversation awareness"
-msgstr ""
+msgstr "Verlaag volume tijdens gespreksdetectie"
 
 #: src/preferences/devices/airpods/configureWindow.js:138
 msgid "Automatically lower the volume when conversation awareness is active"
-msgstr ""
+msgstr "Verlaag automatisch het volume wanneer gespreksdetectie actief is"
 
 #: src/preferences/devices/airpods/configureWindow.js:156
 msgid "Conversation awareness volume limit"
@@ -299,7 +299,7 @@ msgstr "Toonvolume"
 
 #: src/preferences/devices/airpods/configureWindow.js:284
 msgid "Adjust the volume of audio cues"
-msgstr ""
+msgstr "Pas het volume van geluidssignalen aan"
 
 #: src/preferences/devices/airpods/configureWindow.js:286
 msgid "15%"
@@ -3165,12 +3165,3 @@ msgstr "Instellen"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Batterijniveau"
-
-#~ msgid "Roller Gesture Control"
-#~ msgstr "Gebarenopties van roller"
-
-#~ msgid "Case Gesture Control"
-#~ msgstr "Gebarenopties van hoes"
-
-#~ msgid "Slider Gesture Control"
-#~ msgstr "Gebarenopties van schuifbalk"
