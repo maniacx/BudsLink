@@ -7,6 +7,7 @@
         <file>lib/confirueWindowlauncher.js</file>
         <file>lib/dataHandler.js</file>
         <file>lib/dbusService.js</file>
+        <file>lib/deviceInfo.js</file>
         <file>lib/devices/commonEmuns.js</file>
         <file>lib/devices/deviceUtils.js</file>
         <file>lib/devices/logger.js</file>

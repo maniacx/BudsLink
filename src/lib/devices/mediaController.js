@@ -16,7 +16,7 @@ export const MediaController = GObject.registerClass({
         ),
     },
 }, class MediaController extends GObject.Object {
-    _init(settings, devicePath, previousOnDestroyVolume) {
+    _init(settings, devicePath) {
         super._init();
         this._log = createLogger('MediaController');
         this._settings = settings;
@@ -25,7 +25,7 @@ export const MediaController = GObject.registerClass({
             .replace(/_/g, '').toUpperCase();
 
         this._controllerReady = false;
-        this._previousVolume = previousOnDestroyVolume;
+        this._previousVolume = -1;
         this._sink = null;
         this._defaultSinkChangedId = null;
         this._stateId = null;
@@ -408,23 +408,10 @@ export const MediaController = GObject.registerClass({
             this._iteratePlayers();
     }
 
-    _onDestroy() {
-        if (this._previousVolume > -1) {
-            const lastAttenuationInfo = {
-                path: this._devicePath,
-                timestamp: Date.now(),
-                volume: this._previousVolume,
-            };
-            this._settings.set_strv('attenuated-on-destroy-info',
-                [JSON.stringify(lastAttenuationInfo)]);
-        }
-    }
-
     destroy() {
         if (this._volumeRampTimeoutId)
             GLib.source_remove(this._volumeRampTimeoutId);
         this._volumeRampTimeoutId = null;
-        this._onDestroy();
         this._disconnectController();
         this._disconnectPlayerProxy();
         if (this._stateChangeId)

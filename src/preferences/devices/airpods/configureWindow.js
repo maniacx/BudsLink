@@ -7,7 +7,7 @@ import {gettext as _} from 'gettext';
 import {
     supportedAudioSingleIcons, supportedAudioDualIcons, supportedCaseIcons
 } from '../../../lib/widgets/iconGroups.js';
-import {AirpodsModelList, LongPressBits} from '../../../lib/devices/airpods/airpodsConfig.js';
+import {LongPressBits} from '../../../lib/devices/airpods/airpodsConfig.js';
 import {CheckBoxesRowWidget} from './../../widgets/checkBoxesRowWidget.js';
 import {RadioButtonRowWidget} from './../../widgets/radioButtonRowWidget.js';
 import {SliderRowWidget} from './../../widgets/sliderRowWidget.js';
@@ -17,14 +17,12 @@ import {IconSelectorWidget} from './../../widgets/iconSelectorWidget.js';
 export const  ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_AirpodsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(settings, mac, devicePath, parentWindow, modal = false) {
+    _init(devInfo, modelData) {
         super._init({
             default_width: 650,
             default_height: 650,
             width_request: 320,
             height_request: 100,
-            modal,
-            transient_for: parentWindow ?? null,
         });
 
         this._isCompactMode = false;
@@ -50,14 +48,7 @@ export const  ConfigureWindow = GObject.registerClass({
             this._updateCompactStatus();
         });
 
-        this._settings = settings;
-        this._devicePath = devicePath;
-
-        const pathsString = this._settings.get_strv('airpods-list').map(JSON.parse);
-        this._settingsItems = pathsString.find(info => info.path === devicePath);
-        this.title = this._settingsItems.alias;
-
-        const modelData = AirpodsModelList.find(m => m.key === this._settingsItems.model);
+        this.title = devInfo.getValue('alias');
 
         const toolViewBar = new Adw.ToolbarView();
 
@@ -76,24 +67,24 @@ export const  ConfigureWindow = GObject.registerClass({
         let initialCaseIcon = '';
         if (modelData.batteryType === 3) {
             caseIconList = supportedCaseIcons;
-            initialCaseIcon = this._settingsItems['case'];
+            initialCaseIcon = devInfo.getValue('case');
         }
 
         const iconSelector = new IconSelectorWidget({
             iconList,
-            initialIcon: this._settingsItems['icon'],
+            initialIcon: devInfo.getValue('icon'),
             caseIconList,
             initialCaseIcon,
-            mac,
+            mac: devInfo.mac,
         });
 
         iconSelector.connect('notify::selected-icon', () => {
-            this._updateGsettings('icon', iconSelector.selected_icon);
+            devInfo.updateDevice('icon', iconSelector.selected_icon);
         });
 
         if (modelData.batteryType === 3) {
             iconSelector.connect('notify::selected-case-icon', () => {
-                this._updateGsettings('case', iconSelector.selected_case_icon);
+                devInfo.updateDevice('case', iconSelector.selected_case_icon);
             });
         }
 
@@ -117,11 +108,11 @@ export const  ConfigureWindow = GObject.registerClass({
             subtitle: _('Automatically pause or resume playback ' +
                 'based on wearing detection.'),
             options: inEarOptions,
-            initialValue: this._settingsItems['wear-detection-mode'],
+            initialValue: devInfo.getValue('wear-detection-mode'),
         });
 
         this._inEarDropdown.connect('notify::toggled-value', () => {
-            this._updateGsettings('wear-detection-mode', this._inEarDropdown.toggled_value);
+            devInfo.updateDevice('wear-detection-mode', this._inEarDropdown.toggled_value);
         });
 
         inEarSettingsGroup.add(this._inEarDropdown);
@@ -138,9 +129,9 @@ export const  ConfigureWindow = GObject.registerClass({
                 subtitle: _('Automatically lower the volume when conversation awareness is active'),
             });
 
-            this._awarenessSwitchRow.active = this._settingsItems['ca-volume-enabled'];
+            this._awarenessSwitchRow.active = devInfo.getValue('ca-volume-enabled');
             this._awarenessSwitchRow.connect('notify::active', () => {
-                this._updateGsettings('ca-volume-enabled', this._awarenessSwitchRow.active);
+                devInfo.updateDevice('ca-volume-enabled', this._awarenessSwitchRow.active);
             });
             awarnessVolumeGroup.add(this._awarenessSwitchRow);
 
@@ -149,7 +140,7 @@ export const  ConfigureWindow = GObject.registerClass({
                 upper: 50,
                 step_increment: 1,
                 page_increment: 10,
-                value: this._settingsItems['ca-volume'],
+                value: devInfo.getValue('ca-volume'),
             });
 
             const awarnessVolumeRow = new Adw.SpinRow({
@@ -161,7 +152,7 @@ export const  ConfigureWindow = GObject.registerClass({
             });
 
             awarnessVolumeRow.connect('notify::value', () => {
-                this._updateGsettings('ca-volume', awarnessVolumeRow.value);
+                devInfo.updateDevice('ca-volume', awarnessVolumeRow.value);
             });
             awarnessVolumeGroup.add(awarnessVolumeRow);
 
@@ -188,11 +179,11 @@ export const  ConfigureWindow = GObject.registerClass({
                     'and reduces power usage.'),
             });
 
-            this._currentListeningMode = this._settingsItems['listening-mode'];
+            this._currentListeningMode = devInfo.getValue('listening-mode');
             this._listeningModeRow.active = this._currentListeningMode;
             this._listeningModeRow.connect('notify::active', () => {
                 const mode = this._listeningModeRow.active;
-                this._updateGsettings('listening-mode', mode);
+                devInfo.updateDevice('listening-mode', mode);
                 if (this._currentListeningMode !== mode) {
                     this._currentListeningMode = mode;
                     if (modelData.longPressCycleSupported) {
@@ -266,7 +257,7 @@ export const  ConfigureWindow = GObject.registerClass({
                         mask |= LongPressBits[item.mode];
                 });
 
-                this._updateGsettings('lp-value', mask);
+                devInfo.updateDevice('lp-value', mask);
             });
 
             longPressCycleGrp.add(this._longPressCycleWidget);
@@ -287,13 +278,13 @@ export const  ConfigureWindow = GObject.registerClass({
                     {mark: 77, label: _('100%')},
                     {mark: 100, label: _('125%')},
                 ],
-                initialValue: this._settingsItems['noti-vol'],
+                initialValue: devInfo.getValue('noti-vol'),
             });
 
             this._toneWidget.compact_mode = this._isCompactMode;
 
             this._toneWidget.connect('notify::value', () => {
-                this._updateGsettings('noti-vol', this._toneWidget.value);
+                devInfo.updateDevice('noti-vol', this._toneWidget.value);
             });
 
             toneGroup.add(this._toneWidget);
@@ -310,9 +301,9 @@ export const  ConfigureWindow = GObject.registerClass({
                 subtitle: _('Enable or disable volume adjustment by swiping on earbud stems'),
             });
 
-            this._volumeSwipeSwitchRow.active = this._settingsItems['swipe-mode'];
+            this._volumeSwipeSwitchRow.active = devInfo.getValue('swipe-mode');
             this._volumeSwipeSwitchRow.connect('notify::active', () => {
-                this._updateGsettings('swipe-mode', this._volumeSwipeSwitchRow.active);
+                devInfo.updateDevice('swipe-mode', this._volumeSwipeSwitchRow.active);
             });
             volumeControlGroup.add(this._volumeSwipeSwitchRow);
 
@@ -325,11 +316,11 @@ export const  ConfigureWindow = GObject.registerClass({
                     'select the preferred wait time between swipes'),
                 options: volumeSwipeDurOptions,
                 values: volumeSwipeDurValues,
-                initialValue: this._settingsItems['swipe-len'],
+                initialValue: devInfo.getValue('swipe-len'),
             });
 
             this._volumeSwipeDurDropdown.connect('notify::selected-item', () => {
-                this._updateGsettings('swipe-len', this._volumeSwipeDurDropdown.selected_item);
+                devInfo.updateDevice('swipe-len', this._volumeSwipeDurDropdown.selected_item);
             });
 
             this._volumeSwipeSwitchRow.bind_property(
@@ -358,11 +349,11 @@ export const  ConfigureWindow = GObject.registerClass({
                         'triple-press the stem or Digital Crown before an action occurs'),
                 options: speedOptions,
                 values: speedValues,
-                initialValue: this._settingsItems['press-speed'],
+                initialValue: devInfo.getValue('press-speed'),
             });
 
             this._pressSpeedDropdown.connect('notify::selected-item', () => {
-                this._updateGsettings('press-speed', this._pressSpeedDropdown.selected_item);
+                devInfo.updateDevice('press-speed', this._pressSpeedDropdown.selected_item);
             });
 
             pressHoldGroup.add(this._pressSpeedDropdown);
@@ -374,11 +365,11 @@ export const  ConfigureWindow = GObject.registerClass({
                 subtitle: _('Set how long you need to press and hold before an action occurs'),
                 options: durationOptions,
                 values: durationValues,
-                initialValue: this._settingsItems['press-dur'],
+                initialValue: devInfo.getValue('press-dur'),
             });
 
             this._pressDurationDropdown.connect('notify::selected-item', () => {
-                this._updateGsettings('press-dur', this._pressDurationDropdown.selected_item);
+                devInfo.updateDevice('press-dur', this._pressDurationDropdown.selected_item);
             });
 
             pressHoldGroup.add(this._pressDurationDropdown);
@@ -386,42 +377,53 @@ export const  ConfigureWindow = GObject.registerClass({
             page.add(pressHoldGroup);
         }
 
-        const settingSignalId = this._settings.connect('changed::airpods-list', () => {
-            const updatedList = this._settings.get_strv('airpods-list').map(JSON.parse);
-            this._settingsItems = updatedList.find(info => info.path === devicePath);
-            if (!this._settingsItems)
-                return;
+        let devInfoSignalId = devInfo.connect('update-ui', (info, feature) => {
+            const value = info.getValue(feature);
 
-            this.title = this._settingsItems.alias;
-            this._inEarDropdown.selected_item = this._settingsItems['wear-detection-mode'];
-
-            if (modelData.awarenessSupported) {
-                this._awarenessSwitchRow.active = this._settingsItems['ca-volume-enabled'];
-                this._adjustment.value = this._settingsItems['ca-volume'];
-            }
-
-            if (modelData.enableTurnOffListeningMode) {
-                const mode = this._settingsItems['listening-mode'];
-
-                if (modelData.longPressCycleSupported) {
-                    this._currentListeningMode = mode;
+            switch (feature) {
+                case 'alias':
+                    this.title = value;
+                    break;
+                case 'wear-detection-mode':
+                    if (this._inEarDropdown)
+                        this._inEarDropdown.selected_item = value;
+                    break;
+                case 'ca-volume-enabled':
+                    if (this._awarenessSwitchRow)
+                        this._awarenessSwitchRow.active = value;
+                    break;
+                case 'ca-volume':
+                    if (this._adjustment)
+                        this._adjustment.value = value;
+                    break;
+                case 'listening-mode':
+                    this._currentListeningMode = value;
                     this._buildLongPressItems();
                     this._longPressCycleWidget?.updateItems(this._longPressItems);
-                }
 
-                this._listeningModeRow.active = mode;
-            }
-
-            if (modelData.toneVolumeSupported)
-                this._toneWidget.value = this._settingsItems['noti-vol'];
-
-            if (modelData.volumeSwipeSupported) {
-                this._volumeSwipeSwitchRow.active = this._settingsItems['swipe-mode'];
-                this._volumeSwipeDurDropdown.selected_item = this._settingsItems['swipe-len'];
-            }
-            if (modelData.pressSpeedDurationSupported) {
-                this._pressSpeedDropdown.selected_item = this._settingsItems['press-speed'];
-                this._pressDurationDropdown.selected_item = this._settingsItems['press-dur'];
+                    if (this._listeningModeRow)
+                        this._listeningModeRow.active = value;
+                    break;
+                case 'noti-vol':
+                    if (this._toneWidget)
+                        this._toneWidget.value = value;
+                    break;
+                case 'swipe-mode':
+                    if (this._volumeSwipeSwitchRow)
+                        this._volumeSwipeSwitchRow.active = value;
+                    break;
+                case 'swipe-len':
+                    if (this._volumeSwipeDurDropdown)
+                        this._volumeSwipeDurDropdown.selected_item = value;
+                    break;
+                case 'press-speed':
+                    if (this._pressSpeedDropdown)
+                        this._pressSpeedDropdown.selected_item = value;
+                    break;
+                case 'press-dur':
+                    if (this._pressDurationDropdown)
+                        this._pressDurationDropdown.selected_item = value;
+                    break;
             }
         });
 
@@ -429,24 +431,14 @@ export const  ConfigureWindow = GObject.registerClass({
             this._toneWidget?.destroy();
             this._toneWidget = null;
 
-            if (settingSignalId && this._settings)
-                this._settings.disconnect(settingSignalId);
+            if (devInfoSignalId && devInfo)
+                devInfo.disconnect(devInfoSignalId);
 
-            this._settings = null;
+            devInfoSignalId = null;
+            devInfo = null;
+
             return false;
         });
-    }
-
-    _updateGsettings(key, value) {
-        const pairedDevice = this._settings.get_strv('airpods-list');
-        const existingPathIndex =
-                pairedDevice.findIndex(item => JSON.parse(item).path === this._devicePath);
-        if (existingPathIndex !== -1) {
-            const existingItem = JSON.parse(pairedDevice[existingPathIndex]);
-            existingItem[key] = value;
-            pairedDevice[existingPathIndex] = JSON.stringify(existingItem);
-            this._settings.set_strv('airpods-list', pairedDevice);
-        }
     }
 
     _updateCompactStatus() {
