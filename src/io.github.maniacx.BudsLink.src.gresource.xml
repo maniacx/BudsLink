@@ -253,6 +253,7 @@
         <file>lib/devices/soundcore/soundcoreDevice.js</file>
         <file>lib/devices/soundcore/soundcoreSocket.js</file>
         <file>lib/devices/soundcore/deviceConfigs/Liberty-4-NC.js</file>
+        <file>lib/devices/soundcore/deviceConfigs/Liberty-5-Pro.js</file>
         <file>preferences/devices/soundcore/configureWindow.js</file>
     </gresource>
 </gresources>
