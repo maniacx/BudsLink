@@ -56,7 +56,24 @@ export const DeviceInfo = GObject.registerClass({
     }
 
     getValue(feature) {
-        return this._features.get(feature)?.value;
+        const value = this._features.get(feature)?.value;
+        return this._deepCopy(value);
+    }
+
+    _deepCopy(value) {
+        if (Array.isArray(value))
+            return value.map(item => this._deepCopy(item));
+
+        if (this._isObject(value)) {
+            const copy = {};
+
+            for (const key of Object.keys(value))
+                copy[key] = this._deepCopy(value[key]);
+
+            return copy;
+        }
+
+        return value;
     }
 
     setValue(feature, value) {
