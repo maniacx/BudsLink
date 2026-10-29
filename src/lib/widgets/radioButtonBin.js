@@ -18,6 +18,7 @@ export const RadioButtonBin = GObject.registerClass({
 
         this._dataHandler = dataHandler;
         this._buttons = [];
+        this._updatingButtons = false;
 
         const config = this._dataHandler.getConfig();
         const labels = config[`box${id}RadioButton`];
@@ -75,17 +76,13 @@ export const RadioButtonBin = GObject.registerClass({
 
             const stateProp = `box${id}RadioButtonState`;
 
-            button.active =
-                this._dataHandler.getProps()[stateProp] === index;
+            button.active = this._dataHandler.getProps()[stateProp] === index;
 
             const sigId = button.connect('toggled', () => {
-                if (!button.active)
+                if (this._updatingButtons || !button.active)
                     return;
 
-                this._dataHandler.emitUIAction(
-                    stateProp,
-                    index
-                );
+                this._dataHandler.emitUIAction(stateProp, index);
             });
 
             row.append(vbox);
@@ -93,12 +90,16 @@ export const RadioButtonBin = GObject.registerClass({
         });
 
         this._dataHandlerId = this._dataHandler.connect('properties-changed', () => {
-            const state =
-                this._dataHandler.getProps()[`box${id}RadioButtonState`];
+            const state = this._dataHandler.getProps()[`box${id}RadioButtonState`];
+
+
+            this._updatingButtons = true;
 
             this._buttons.forEach(({button, index}) => {
                 button.active = state === index;
             });
+
+            this._updatingButtons = false;
         });
     }
 
