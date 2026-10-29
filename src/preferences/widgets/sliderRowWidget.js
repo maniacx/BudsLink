@@ -1,5 +1,6 @@
 'use strict';
 import Adw from 'gi://Adw';
+import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 import GObject from 'gi://GObject';
 import GLib from 'gi://GLib';
@@ -82,6 +83,14 @@ export const SliderRowWidget = GObject.registerClass({
 
         this._slider.set_size_request(250, -1);
         this._slider.can_focus = false;
+
+        const scrollController = new Gtk.EventControllerScroll({
+            flags: Gtk.EventControllerScrollFlags.VERTICAL,
+        });
+
+        scrollController.set_propagation_phase(Gtk.PropagationPhase.CAPTURE);
+        scrollController.connect('scroll', () => Gdk.EVENT_STOP);
+        this._slider.add_controller(scrollController);
 
         for (const {mark, label} of marks)
             this._slider.add_mark(mark, Gtk.PositionType.BOTTOM, label ?? null);
