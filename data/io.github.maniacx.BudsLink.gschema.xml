@@ -16,9 +16,6 @@
         <key name="run-in-background" type="b">
             <default>false</default>
         </key>
-        <key name="attenuated-on-destroy-info" type="as">
-            <default>[]</default>
-        </key>
         <key name="airpods-list" type="as">
             <default>[]</default>
         </key>
