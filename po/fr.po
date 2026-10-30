@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-23 04:51+0000\n"
+"PO-Revision-Date: 2026-10-30 20:01+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -60,14 +60,14 @@ msgstr "Réduit la latence et améliore l'audio en jeu"
 #: src/preferences/devices/opoBuds/configureWindow.js:935
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "In-Ear Detection"
-msgstr "In-Ear Detection"
+msgstr "Détection du port des écouteurs"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:81
 #: src/preferences/devices/nothingBuds/configureWindow.js:410
 #: src/preferences/devices/senhBuds/configureWindow.js:563
 #: src/preferences/devices/boseBuds/configureWindow.js:375
 msgid "Enable features based on wearing detection"
-msgstr ""
+msgstr "Activer les fonctionnalités liées à la détection du port des écouteurs"
 
 #: src/preferences/devices/airpods/configureWindow.js:103
 #: src/preferences/devices/redmiBuds/configureWindow.js:222
@@ -117,6 +117,7 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:442
 msgid "Choose Playback Behavior for In-Ear Detection"
 msgstr ""
+"Choisir le comportement de lecture en cas d'écouteurs intra-auriculaires"
 
 #: src/preferences/devices/airpods/configureWindow.js:117
 #: src/preferences/devices/redmiBuds/configureWindow.js:233
@@ -541,6 +542,8 @@ msgid ""
 "High resolution codec. Turns off connections to multiple devices and the "
 "earbuds reconnect when this changes"
 msgstr ""
+"Codec haute résolution. Désactive les connexions à plusieurs appareils ; les "
+"écouteurs se reconnectent lorsque ce paramètre est modifié"
 
 #: src/preferences/devices/soundcore/configureWindow.js:249
 msgid "Auto Play/Pause"
@@ -1246,7 +1249,7 @@ msgstr "Paramètres supplémentaires"
 #: src/preferences/devices/redmiBuds/configureWindow.js:414
 msgctxt "Redmi connection setting"
 msgid "Allow Connections to Multiple Devices"
-msgstr ""
+msgstr "Autoriser les connexions à plusieurs appareils"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:428
 #: src/preferences/devices/senhBuds/configureWindow.js:589
@@ -1945,7 +1948,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:670
 #, javascript-format
 msgid "\"%s\" will be removed from the device"
-msgstr ""
+msgstr "\"%s\" sera supprimé de l'appareil"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:718
 msgid "Dynamic Audio"
@@ -2004,7 +2007,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1174
 #: src/preferences/devices/boseBuds/configureWindow.js:797
 msgid "Switch Devices"
-msgstr ""
+msgstr "Changer d'appareil"
 
 #: src/preferences/devices/opoBuds/configureWindow.js:1176
 msgid "Switch Track"
@@ -2600,21 +2603,23 @@ msgstr ""
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:41
 msgid "Allow a new Bluetooth device to pair."
-msgstr ""
+msgstr "Autoriser l'appairage d'un nouvel appareil Bluetooth."
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:79
 msgid "Playback Device"
-msgstr ""
+msgstr "Appareil multimédia"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:80
 msgid "Lock Playback Device"
-msgstr ""
+msgstr "Verrouiller le périphérique de lecture"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:81
 msgid ""
 "Prevent playback from switching to another connected device while the set "
 "playback device is streaming."
 msgstr ""
+"Empêcher que la lecture ne bascule vers un autre appareil connecté pendant "
+"que l'appareil de lecture sélectionné diffuse du contenu."
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:97
 msgid "Connected"
@@ -2626,11 +2631,11 @@ msgstr ""
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:99
 msgid "No device connected"
-msgstr ""
+msgstr "Aucun appareil connecté"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:100
 msgid "No additional device paired"
-msgstr ""
+msgstr "Aucun appareil supplémentaire n'est appairé"
 
 #: src/preferences/widgets/deviceMgmtRowWidget.js:163
 #: src/preferences/widgets/deviceMgmtRowWidget.js:345
