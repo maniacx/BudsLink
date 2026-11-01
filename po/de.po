@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-15 19:26+0000\n"
+"PO-Revision-Date: 2026-11-01 03:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -2298,8 +2298,7 @@ msgstr "Automatischer Transparenzmodus"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:415
 msgid "Switch to Transparency mode when an earbud is removed"
-msgstr ""
-"In den Transparenzmodus wechseln, wenn ein Ohrhörer herausgenommen wird"
+msgstr "In den Transparenzmodus wechseln, wenn ein Ohrhörer herausgenommen wird"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:488
 msgid "Medium"
@@ -3197,12 +3196,3 @@ msgstr "Einrichten"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Akkustand"
-
-#~ msgid "Roller Gesture Control"
-#~ msgstr "Gestensteuerung Roller"
-
-#~ msgid "Case Gesture Control"
-#~ msgstr "Gestensteuerung Ladecase"
-
-#~ msgid "Slider Gesture Control"
-#~ msgstr "Gestensteuerung Slider"
