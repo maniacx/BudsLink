@@ -35,6 +35,14 @@ export default {
 
     inEarDetection: true,
     immersiveSound: true,
+    headTracking: true,
+    spatialAudioScenes: {
+        'Standard': 0x01,
+        'Music': 0x02,
+        'Video': 0x03,
+        'Game': 0x04,
+        'Audiobooks': 0x05,
+    },
     adaptiveSound: true,
     dualConnection: true,
     autoAnswer: true,

@@ -1,15 +1,15 @@
 'use strict';
-import Gio from 'gi://Gio';
 import GObject from 'gi://GObject';
 import {gettext as _, pgettext} from 'gettext';
 
 import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
-import {
-    buds2to1BatteryLevel, validateProperties, launchConfigureWindow, isArrayEqual
-} from '../deviceUtils.js';
+import {DeviceInfo} from '../../deviceInfo.js';
+import {buds2to1BatteryLevel} from '../deviceUtils.js';
 import {createConfig, createProperties, DataHandler} from '../../dataHandler.js';
 import {MediaController} from '../mediaController.js';
 import {RedmiBudsSocket} from './redmiBudsSocket.js';
+
+import {ConfigureWindow} from '../../../preferences/devices/redmiBuds/configureWindow.js';
 
 export const DeviceTypeRedmiBuds = 'redmiBuds';
 
@@ -85,472 +85,176 @@ export const RedmiBudsDevice = GObject.registerClass({
         );
     }
 
-    modelIntialized(modelData, vid, pid) {
+    modelIntialized(modelData) {
         this._modelData = modelData;
-
         this._log.info(`Configuration: ${JSON.stringify(this._modelData, null, 2)}`);
 
-        this._commonIcon = this._modelData.budsIcon;
         this._config.battery1ShowOnDisconnect = true;
         this._config.showSettingsButton = true;
 
-        if (this._modelData.batteryCase)
-            this._caseIcon = `${this._modelData.case}`;
-
-        this._createDefaultSettings(vid, pid);
-
-        const devicesList = this._settings.get_strv('redmi-buds-list').map(JSON.parse);
-
-        if (devicesList.length === 0 ||
-                !devicesList.some(device => device.path === this._devicePath)) {
-            this._addPropsToSettings(devicesList);
-        } else {
-            validateProperties(this._settings, 'redmi-buds-list', devicesList,
-                this._defaultsDeviceSettings, this._devicePath);
-        }
-
-        this._updateInitialValues();
-        this._monitorRedmiBudsListGsettings();
+        this._initializeDeviceInfo();
         this._updateIcons();
         this._setupAncConfig();
 
         if (this._modelData.ring) {
-            this._ringState = 'stopped';
-            this._settingsItems['ring-state'] = this._ringState;
-            this._ringStateLeft = 'stopped';
-            this._settingsItems['ring-state-left'] = this._ringStateLeft;
-            this._updateGsettings();
+            this._devInfo.updateUI('ring-state', 'stopped');
+            this._devInfo.updateUI('ring-state-left', 'stopped');
         }
     }
 
-    _createDefaultSettings(vid, pid) {
-        const getDefaultAction = gestureType => {
-            const actions = this._modelData.gestureOptions.gestures?.[gestureType].actions ?? {};
-            const values = Object.values(actions);
-            return values[0] ?? 0;
-        };
-
-        this._defaultsDeviceSettings = {
-            path: this._devicePath,
-            vid,
-            pid,
-            alias: this._alias,
-            icon: this._commonIcon,
-            'fw-version': this._fwVersion,
-            'serial': this._serialNo,
-
-            ...this._modelData.batteryCase && {
-                'case': this._caseIcon,
-            },
-
-            ...this._modelData.eqPreset && {
-                'eq-preset': Object.values(this._modelData.eqPreset)[0],
-            },
-
-            ...this._modelData.eqPreset?.custom !== undefined && {
-                'eq-custom': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            },
-
-            ...this._modelData.adaptiveSound && {
-                'adapt-sound': false,
-            },
-
-            ...this._modelData.dualConnection && {
-                'dual-conn': false,
-            },
-
-            ...this._modelData.inEarDetection && {
-                'ear-detection-mode': 1,
-            },
-
-            ...this._modelData.autoAnswer && {
-                'auto-answer': false,
-            },
-
-            ...this._modelData.lowLatencyMode && {
-                'low-latency': false,
-            },
-
-            ...this._modelData.immersiveSound && {
-                'immersive-sound': false,
-            },
-
-            ...this._modelData.headTracking && {
-                'head-tracking': false,
-            },
-
-            ...this._modelData.spatialAudioScenes && {
-                'spatial-audio-scene': 0x01,
-            },
-
-            ...this._modelData.gestureOptions?.gestureTypes?.single !== undefined && {
-                'single-left': getDefaultAction('single'),
-                'single-right': getDefaultAction('single'),
-            },
-
-            ...this._modelData.gestureOptions?.gestureTypes?.double !== undefined && {
-                'double-left': getDefaultAction('double'),
-                'double-right': getDefaultAction('double'),
-            },
-
-            ...this._modelData.gestureOptions?.gestureTypes?.triple !== undefined && {
-                'triple-left': getDefaultAction('triple'),
-                'triple-right': getDefaultAction('triple'),
-            },
-
-            ...this._modelData.gestureOptions?.gestureTypes?.['action-hold'] !== undefined && {
-                'action-hold-left': getDefaultAction('action-hold'),
-                'action-hold-right': getDefaultAction('action-hold'),
-            },
-
-            ...this._modelData.gestureOptions?.gestureTypes?.['swipe'] !== undefined && {
-                'swipe-left': getDefaultAction('swipe'),
-                'swipe-right': getDefaultAction('swipe'),
-            },
-
-            ...this._modelData.gestureOptions?.noiseControlModes && {
-                'left-longpress': 7,
-                'right-longpress': 7,
-            },
-
-            ...this._modelData.ring && {
-                'ring-state': 'stopped',
-                'ring-state-left': 'stopped',
-            },
-        };
-    }
-
-    _addPropsToSettings(devicesList) {
-        devicesList.push(this._defaultsDeviceSettings);
-        this._settings.set_strv('redmi-buds-list', devicesList.map(JSON.stringify));
-    }
-
-    _updateInitialValues() {
-        const devicesList = this._settings.get_strv('redmi-buds-list').map(JSON.parse);
-        const existingPathIndex = devicesList.findIndex(item => item.path === this._devicePath);
-        if (existingPathIndex === -1)
-            return;
-
-        this._settingsItems = devicesList[existingPathIndex];
-
-        this._commonIcon = this._settingsItems['icon'];
+    _initializeDeviceInfo() {
+        const features = [
+            {key: 'alias', default: '', persist: false},
+            {key: 'icon', default: this._modelData.budsIcon, persist: true},
+            {key: 'fw-version', default: '', persist: true},
+            {key: 'serial', default: '', persist: true},
+        ];
 
         if (this._modelData.batteryCase)
-            this._caseIcon = this._settingsItems['case'];
+            features.push({key: 'case', default: this._modelData.case, persist: true});
 
-        if (this._modelData.eqPreset)
-            this._eqPreset = this._settingsItems['eq-preset'];
+        if (this._modelData.eqPreset) {
+            const eqPresetDef = Object.values(this._modelData.eqPreset)[0];
+            features.push({key: 'eq-preset', default: eqPresetDef, persist: true});
+        }
 
-        if (this._modelData.eqPreset?.custom !== undefined)
-            this._customEq = this._settingsItems['eq-custom'];
+        if (this._modelData.eqPreset?.custom !== undefined) {
+            const custom = this._modelData.eqPreset.custom;
+            features.push({key: 'eq-custom', default: custom, persist: true});
+        }
 
         if (this._modelData.adaptiveSound)
-            this._adaptiveSound = this._settingsItems['adapt-sound'];
+            features.push({key: 'adapt-sound', default: false, persist: true});
 
         if (this._modelData.dualConnection)
-            this._dualConn = this._settingsItems['dual-conn'];
+            features.push({key: 'dual-conn', default: false, persist: true});
 
         if (this._modelData.inEarDetection)
-            this._earDetectionMode = this._settingsItems['ear-detection-mode'];
+            features.push({key: 'ear-detection-mode', default: 0, persist: true});
 
         if (this._modelData.autoAnswer)
-            this._autoAnswer = this._settingsItems['auto-answer'];
+            features.push({key: 'auto-answer', default: false, persist: true});
 
         if (this._modelData.lowLatencyMode)
-            this._lowLatency = this._settingsItems['low-latency'];
+            features.push({key: 'low-latency', default: false, persist: true});
 
         if (this._modelData.immersiveSound)
-            this._immersiveSound = this._settingsItems['immersive-sound'];
+            features.push({key: 'immersive-sound', default: false, persist: true});
 
         if (this._modelData.headTracking)
-            this._headTracking = this._settingsItems['head-tracking'];
+            features.push({key: 'head-tracking', default: false, persist: true});
 
-        if (this._modelData.spatialAudioScenes)
-            this._spatialAudioScene = this._settingsItems['spatial-audio-scene'];
+        if (this._modelData.spatialAudioScenes) {
+            const defaultScene = Object.values(this._modelData.spatialAudioScenes)[0];
+            features.push({key: 'spatial-audio-scene', default: defaultScene, persist: true});
+        }
 
         const gestureTypes = this._modelData.gestureOptions?.gestureTypes;
 
         if (gestureTypes?.single !== undefined) {
-            this._gestureSingleLeft = this._settingsItems['single-left'];
-            this._gestureSingleRight = this._settingsItems['single-right'];
+            const single = gestureTypes.single;
+            features.push({key: 'single-left', default: single.left, persist: true});
+            features.push({key: 'single-right', default: single.right, persist: true});
         }
 
         if (gestureTypes?.double !== undefined) {
-            this._gestureDoubleLeft = this._settingsItems['double-left'];
-            this._gestureDoubleRight = this._settingsItems['double-right'];
+            const double = gestureTypes.double;
+            features.push({key: 'double-left', default: double.left, persist: true});
+            features.push({key: 'double-right', default: double.right, persist: true});
         }
 
         if (gestureTypes?.triple !== undefined) {
-            this._gestureTripleLeft = this._settingsItems['triple-left'];
-            this._gestureTripleRight = this._settingsItems['triple-right'];
+            const triple = gestureTypes.triple;
+            features.push({key: 'triple-left', default: triple.left, persist: true});
+            features.push({key: 'triple-right', default: triple.right, persist: true});
         }
 
         if (gestureTypes?.['action-hold'] !== undefined) {
-            this._gestureLongLeft = this._settingsItems['action-hold-left'];
-            this._gestureLongRight = this._settingsItems['action-hold-right'];
+            const actionHold = gestureTypes['action-hold'];
+            features.push({key: 'action-hold-left', default: actionHold.left, persist: true});
+            features.push({key: 'action-hold-right', default: actionHold.right, persist: true});
         }
 
-        if (gestureTypes?.['swipe'] !== undefined) {
-            this._gestureSwipeLeft = this._settingsItems['swipe-left'];
-            this._gestureSwipeRight = this._settingsItems['swipe-right'];
+        if (gestureTypes?.swipe !== undefined) {
+            const swipe = gestureTypes.swipe;
+            features.push({key: 'swipe-left', default: swipe.left, persist: true});
+            features.push({key: 'swipe-right', default: swipe.right, persist: true});
         }
 
-        if (this._modelData.gestureOptions?.noiseControlModes) {
-            this._leftLongpressMode = this._settingsItems['left-longpress'];
-            this._rightLongpressMode = this._settingsItems['right-longpress'];
+        if (this._modelData.gestureOptions?.noiseControlModes !== undefined) {
+            const modes = this._modelData.gestureOptions.noiseControlModes;
+            features.push({key: 'left-longpress', default: modes.left, persist: true});
+            features.push({key: 'right-longpress', default: modes.right, persist: true});
         }
 
-        if (this._modelData.ring) {
-            this._ringState = 'stopped';
-            this._ringStateLeft = 'stopped';
-        }
-    }
-
-    _updateGsettingsProps() {
-        const devicesList = this._settings.get_strv('redmi-buds-list').map(JSON.parse);
-        const existingPathIndex = devicesList.findIndex(item => item.path === this._devicePath);
-        if (existingPathIndex === -1)
-            return;
-
-        this._settingsItems = devicesList[existingPathIndex];
-
-        const icon = this._settingsItems['icon'];
-        if (this._commonIcon !== icon) {
-            this._commonIcon = icon;
-            this._updateIcons();
+        if (this._modelData.ring !== undefined) {
+            features.push({key: 'ring-state', default: 'stopped', persist: true});
+            features.push({key: 'ring-state-left', default: 'stopped', persist: true});
         }
 
-        if (this._modelData.batteryCase) {
-            const caseIcon = this._settingsItems['case'];
-            if (this._caseIcon !== caseIcon) {
-                this._caseIcon = caseIcon;
-                this._updateIcons();
-            }
-        }
+        this._devInfo = new DeviceInfo({
+            settings: this._settings,
+            settingsKey: 'redmi-buds-list',
+            devicePath: this._devicePath,
+            features,
+        });
 
-        if (this._modelData.eqPreset) {
-            const eqPreset = this._settingsItems['eq-preset'];
-            if (this._eqPreset !== eqPreset) {
-                this._eqPreset = eqPreset;
-                this._setEqPreset(eqPreset);
-            }
-        }
+        if (this._alias)
+            this._devInfo.updateUI('alias', this._alias);
 
-        if (this._modelData.eqPreset?.custom !== undefined) {
-            const eqCustom = this._settingsItems['eq-custom'];
-            if (!this._customEq || !isArrayEqual(eqCustom, this._customEq)) {
-                this._customEq = eqCustom;
-                this._setCustomEq(eqCustom);
-            }
-        }
+        if (this._fwVersion)
+            this._devInfo.updateUI('fw-version', this._fwVersion);
 
-        if (this._modelData.adaptiveSound) {
-            const enable = this._settingsItems['adapt-sound'];
+        if (this._serialNo)
+            this._devInfo.updateUI('serial', this._serialNo);
 
-            if (this._adaptiveSound !== enable) {
-                this._adaptiveSound = enable;
-                this._setAdaptiveSound(enable);
-            }
-        }
+        const featureCallbacks = {
+            'icon': () => this._updateIcons(),
+            'case': () => this._updateIcons(),
+            'eq-preset': () => this._setEqPreset(),
+            'eq-custom': () => this._setCustomEq(),
+            'adapt-sound': () => this._setAdaptiveSound(),
+            'dual-conn': () => this._setDualConn(),
+            'ear-detection-mode': () => this._configureMediaController(),
+            'auto-answer': () => this._setAutoAnswer(),
+            'low-latency': () => this._setLowLatency(),
+            'immersive-sound': () => this._setImmersiveSound(),
+            'head-tracking': () => this._setImmersiveSound(),
+            'spatial-audio-scene': () => this._setSpatialAudioScene(),
+            'single-left': () => this._setSingleLeftGesture(),
+            'single-right': () => this._setSingleRightGesture(),
+            'double-left': () => this._setDoubleLeftGesture(),
+            'double-right': () => this._setDoubleRightGesture(),
+            'triple-left': () => this._setTripleLeftGesture(),
+            'triple-right': () => this._setTripleRightGesture(),
+            'action-hold-left': () => this._setActionHoldLeftGesture(),
+            'action-hold-right': () => this._setActionHoldRightGesture(),
+            'swipe-left': () => this._setSwipeLeftGesture(),
+            'swipe-right': () => this._setSwipeRightGesture(),
+            'left-longpress': () => this._setLeftLongPressMode(),
+            'right-longpress': () => this._setRightLongPressMode(),
+            'ring-state': () => this._setRingMyBuds(),
+            'ring-state-left': () => this._setRingMyBudsLeft(),
+        };
 
-        if (this._modelData.lowLatencyMode) {
-            const enable = this._settingsItems['low-latency'];
-
-            if (this._lowLatency !== enable) {
-                this._lowLatency = enable;
-                this._setLowLatency(enable);
-            }
-        }
-
-        if (this._modelData.immersiveSound) {
-            const enableImmersive = this._settingsItems['immersive-sound'];
-            const enableHeadTracking = this._modelData.headTracking
-                ? this._settingsItems['head-tracking'] : false;
-
-            if (this._immersiveSound !== enableImmersive ||
-                     this._headTracking !== enableHeadTracking) {
-                this._immersiveSound = enableImmersive;
-                this._headTracking = enableHeadTracking;
-                this._setImmersiveSound(enableImmersive, enableHeadTracking);
-            }
-        }
-
-        if (this._modelData.spatialAudioScenes) {
-            const scene = this._settingsItems['spatial-audio-scene'];
-            if (this._spatialAudioScene !== scene) {
-                this._spatialAudioScene = scene;
-                this._setSpatialAudioScene(scene);
-            }
-        }
-
-
-        if (this._modelData.dualConnection) {
-            const enable = this._settingsItems['dual-conn'];
-
-            if (this._dualConn !== enable) {
-                this._dualConn = enable;
-                this._setDualConn(enable);
-            }
-        }
-
-        if (this._modelData.inEarDetection) {
-            const earDetectionMode = this._settingsItems['ear-detection-mode'];
-            if (this._earDetectionMode !== earDetectionMode) {
-                this._earDetectionMode = earDetectionMode;
-                this._configureMediaController(earDetectionMode);
-            }
-        }
-
-        if (this._modelData.autoAnswer) {
-            const enable = this._settingsItems['auto-answer'];
-
-            if (this._autoAnswer !== enable) {
-                this._autoAnswer = enable;
-                this._setAutoAnswer(enable);
-            }
-        }
-
-        const gestureTypes = this._modelData.gestureOptions?.gestureTypes;
-
-        if (gestureTypes.single !== undefined) {
-            const left = this._settingsItems['single-left'];
-            const right = this._settingsItems['single-right'];
-
-            if (this._gestureSingleLeft !== left) {
-                this._gestureSingleLeft = left;
-                this._setGesture('single', 'left', left);
-            }
-
-            if (this._gestureSingleRight !== right) {
-                this._gestureSingleRight = right;
-                this._setGesture('single', 'right', right);
-            }
-        }
-
-        if (gestureTypes.double !== undefined) {
-            const left = this._settingsItems['double-left'];
-            const right = this._settingsItems['double-right'];
-
-            if (this._gestureDoubleLeft !== left) {
-                this._gestureDoubleLeft = left;
-                this._setGesture('double', 'left', left);
-            }
-
-            if (this._gestureDoubleRight !== right) {
-                this._gestureDoubleRight = right;
-                this._setGesture('double', 'right', right);
-            }
-        }
-
-        if (gestureTypes.triple !== undefined) {
-            const left = this._settingsItems['triple-left'];
-            const right = this._settingsItems['triple-right'];
-
-            if (this._gestureTripleLeft !== left) {
-                this._gestureTripleLeft = left;
-                this._setGesture('triple', 'left', left);
-            }
-
-            if (this._gestureTripleRight !== right) {
-                this._gestureTripleRight = right;
-                this._setGesture('triple', 'right', right);
-            }
-        }
-
-        if (gestureTypes['action-hold'] !== undefined) {
-            const left = this._settingsItems['action-hold-left'];
-            const right = this._settingsItems['action-hold-right'];
-
-            if (this._gestureLongLeft !== left) {
-                this._gestureLongLeft = left;
-                this._setGesture('action-hold', 'left', left);
-            }
-
-            if (this._gestureLongRight !== right) {
-                this._gestureLongRight = right;
-                this._setGesture('action-hold', 'right', right);
-            }
-        }
-
-        if (gestureTypes.swipe !== undefined) {
-            const left = this._settingsItems['swipe-left'];
-            const right = this._settingsItems['swipe-right'];
-
-            if (this._gestureSwipeLeft !== left) {
-                this._gestureSwipeLeft = left;
-                this._setGesture('swipe', 'left', left);
-            }
-
-            if (this._gestureSwipeRight !== right) {
-                this._gestureSwipeRight = right;
-                this._setGesture('swipe', 'right', right);
-            }
-        }
-
-        if (this._modelData.gestureOptions?.noiseControlModes) {
-            const leftLongPress = this._settingsItems['left-longpress'];
-            if (leftLongPress !== this._leftLongpressMode) {
-                this._leftLongpressMode = leftLongPress;
-                this._setLongPressMode(true, leftLongPress);
-            }
-
-            const rightLongPress = this._settingsItems['right-longpress'];
-            if (rightLongPress !== this._rightLongpressMode) {
-                this._rightLongpressMode = rightLongPress;
-                this._setLongPressMode(false, rightLongPress);
-            }
-        }
-
-        if (this._modelData.ring) {
-            const state = this._settingsItems['ring-state'];
-            if (this._ringState !== state) {
-                this._ringState = state;
-                this._setRingMyBuds(state);
-            }
-
-            const stateLeft = this._settingsItems['ring-state-left'];
-            if (this._ringStateLeft !== stateLeft) {
-                this._ringStateLeft = stateLeft;
-                this._setRingMyBuds(stateLeft, true);
-            }
-        }
-    }
-
-    _monitorRedmiBudsListGsettings() {
-        this._settingsHandlerId = this._settings?.connect('changed::redmi-buds-list', () => {
-            if (this._ignoreGsettingsChange)
-                return;
-
-            this._updateGsettingsProps();
+        this._devInfoSignalId = this._devInfo.connect('update-device', (info, feature) => {
+            featureCallbacks[feature]?.();
         });
     }
 
-    _updateGsettings() {
-        this._ignoreGsettingsChange = true;
-
-        const currentList = this._settings.get_strv('redmi-buds-list').map(JSON.parse);
-        const index = currentList.findIndex(d => d.path === this._devicePath);
-
-        if (index !== -1) {
-            currentList[index] = this._settingsItems;
-            this._settings.set_strv('redmi-buds-list', currentList.map(JSON.stringify));
-        }
-
-        this._ignoreGsettingsChange = false;
-    }
-
     _updateIcons() {
-        this._config.commonIcon = this._commonIcon;
-        this._config.albumArtIcon = this._commonIcon;
+        const commonIcon = this._devInfo.getValue('icon');
+        this._config.commonIcon = commonIcon;
+        this._config.albumArtIcon = commonIcon;
 
         this._config.battery1ShowOnDisconnect = true;
         if (this._modelData.batteryMutiple) {
-            this._config.battery1Icon = `${this._commonIcon}-left`;
-            this._config.battery2Icon = `${this._commonIcon}-right`;
+            this._config.battery1Icon = `${commonIcon}-left`;
+            this._config.battery2Icon = `${commonIcon}-right`;
             this._config.battery2ShowOnDisconnect = true;
-            this._config.battery3Icon = this._caseIcon;
+            this._config.battery3Icon = this._devInfo.getValue('case');
         } else {
-            this._config.battery1Icon = this._commonIcon;
+            this._config.battery1Icon = commonIcon;
         }
 
         this.dataHandler?.setConfig(this._config);
@@ -558,18 +262,12 @@ export const RedmiBudsDevice = GObject.registerClass({
 
     updateFirmware(fwVersion) {
         this._fwVersion = fwVersion;
-        if (this._settingsItems) {
-            this._settingsItems['fw-version'] = fwVersion;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('fw-version', fwVersion);
     }
 
     updateSerial(serial) {
         this._serialNo = serial;
-        if (this._settingsItems) {
-            this._settingsItems['serial'] = serial;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('serial', serial);
     }
 
     _setupAncConfig() {
@@ -776,19 +474,15 @@ export const RedmiBudsDevice = GObject.registerClass({
         if (!this._modelData.inEarDetection)
             return;
 
-        const enableMediaController = this._earDetectionMode !== 0;
+        const earDetectionMode = this._devInfo.getValue('ear-detection-mode');
+        const enableMediaController = earDetectionMode !== 0;
 
         if (enableMediaController && !this._mediaController) {
-            this._mediaController = new MediaController(this._settings, this._devicePath, -1);
+            this._mediaController = new MediaController(this._settings, this._devicePath);
         } else if (!enableMediaController) {
             this._mediaController?.destroy();
             this._mediaController = null;
         }
-    }
-
-    updateFirmwareInfo(fwVersion) {
-        this._settingsItems['fw-version'] = fwVersion ?? '';
-        this._updateGsettings();
     }
 
     updateBatteryProps(props) {
@@ -968,14 +662,15 @@ export const RedmiBudsDevice = GObject.registerClass({
 
     updateInEarState(left, right) {
         this._log.info(`Inear status left: ${left} Right: ${right}`);
-        if (!this._modelData?.inEarDetection || this._earDetectionMode === 0)
+        const earDetectionMode = this._devInfo.getValue('ear-detection-mode');
+        if (!this._modelData?.inEarDetection || earDetectionMode === 0)
             return;
 
         const bothInEars = left  && right;
         const budInEar = left || right;
 
         let playbackMode = null;
-        if (this._earDetectionMode === 1)
+        if (earDetectionMode === 1)
             playbackMode = bothInEars ? 'play' : 'pause';
         else if (this._earDetectionMode === 2)
             playbackMode = budInEar ? 'play' : 'pause';
@@ -986,165 +681,91 @@ export const RedmiBudsDevice = GObject.registerClass({
 
     updateEqPreset(mode) {
         this._log.info(`updateEqPreset : ${hexBytes(mode)}`);
-        if (this._eqPreset === mode)
-            return;
-
-        this._eqPreset = mode;
-
-        if (this._settingsItems) {
-            this._settingsItems['eq-preset'] = mode;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('eq-preset', mode);
     }
 
-    _setEqPreset(mode) {
+    _setEqPreset() {
+        const mode = this._devInfo.getValue('eq-preset');
         this._redmiBudsSocket?.setEqPreset(mode);
     }
 
     updateCustomEq(eqArray) {
         this._log.info(`updateCustomEq : ${hexBytes(eqArray)}`);
-
-        if (isArrayEqual(this._customEq, eqArray))
-            return;
-
-        this._customEq = eqArray;
-
-        if (this._settingsItems) {
-            this._settingsItems['eq-custom'] = eqArray;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('eq-custom', eqArray);
     }
 
-    _setCustomEq(eqArray) {
+    _setCustomEq() {
+        const eqArray = this._devInfo.getValue('eq-custom');
         this._redmiBudsSocket?.setCustomEq(eqArray);
     }
 
     updateAdaptiveSound(enable) {
         this._log.info(`updateAdaptiveSound : ${enable}`);
-
-        if (this._adaptiveSound === enable)
-            return;
-
-        this._adaptiveSound = enable;
-
-        if (this._settingsItems) {
-            this._settingsItems['adapt-sound'] = enable;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('adapt-sound', enable);
     }
 
-    _setAdaptiveSound(enable) {
+    _setAdaptiveSound() {
+        const enable = this._devInfo.getValue('adapt-sound');
         this._redmiBudsSocket?.setAdaptiveSound(enable);
     }
 
 
     updateDualConnection(enable) {
         this._log.info(`updateDualConnection : ${enable}`);
-
-        if (this._dualConn === enable)
-            return;
-
-        this._dualConn = enable;
-
-        if (this._settingsItems) {
-            this._settingsItems['dual-conn'] = enable;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('dual-conn', enable);
     }
 
-    _setDualConn(enable) {
+    _setDualConn() {
+        const enable = this._devInfo.getValue('dual-conn');
         this._redmiBudsSocket?.setDualConn(enable);
     }
 
     updateAutoAnswer(enable) {
         this._log.info(`updateAutoAnswer : ${enable}`);
-
-        if (this._autoAnswer === enable)
-            return;
-
-        this._autoAnswer = enable;
-
-        if (this._settingsItems) {
-            this._settingsItems['auto-answer'] = enable;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('auto-answer', enable);
     }
 
-    _setAutoAnswer(enable) {
+    _setAutoAnswer() {
+        const enable = this._devInfo.getValue('auto-answer');
         this._redmiBudsSocket?.setAutoAnswer(enable);
     }
 
     updateLowLatency(enable) {
         this._log.info(`updateLowLatency : ${enable}`);
-
-        if (this._lowLatency === enable)
-            return;
-
-        this._lowLatency = enable;
-
-        if (this._settingsItems) {
-            this._settingsItems['low-latency'] = enable;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('low-latency', enable);
     }
 
-    _setLowLatency(enable) {
+    _setLowLatency() {
+        const enable = this._devInfo.getValue('low-latency');
         this._redmiBudsSocket?.setLowLatency(enable);
     }
 
     updateImmersiveSound(enable) {
         this._log.info(`updateImmersiveSound : ${enable}`);
-        if (!this._modelData?.immersiveSound)
-            return;
-
-        if (this._immersiveSound === enable)
-            return;
-
-        this._immersiveSound = enable;
-
-        if (this._settingsItems) {
-            this._settingsItems['immersive-sound'] = enable;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('immersive-sound', enable);
     }
 
     updateHeadTracking(enable) {
         this._log.info(`updateHeadTracking : ${enable}`);
-        if (!this._modelData?.headTracking)
-            return;
-
-        if (this._headTracking === enable)
-            return;
-
-        this._headTracking = enable;
-
-        if (this._settingsItems) {
-            this._settingsItems['head-tracking'] = enable;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('head-tracking', enable);
     }
 
     updateSpatialAudioScene(scene) {
         this._log.info(`updateSpatialAudioScene : ${scene}`);
-        if (!this._modelData?.spatialAudioScenes)
-            return;
-
-        if (this._spatialAudioScene === scene)
-            return;
-
-        this._spatialAudioScene = scene;
-
-        if (this._settingsItems) {
-            this._settingsItems['spatial-audio-scene'] = scene;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('spatial-audio-scene', scene);
     }
 
-    _setImmersiveSound(enable, headTracking = false) {
+    _setImmersiveSound() {
+        const enable = this._devInfo.getValue('immersive-sound');
+        let headTracking = false;
+        if (this._modelData.headTracking)
+            headTracking = this._devInfo.getValue('head-tracking');
+
         this._redmiBudsSocket?.setImmersiveSound(enable, headTracking);
     }
 
-    _setSpatialAudioScene(scene) {
+    _setSpatialAudioScene() {
+        const scene = this._devInfo.getValue('spatial-audio-scene');
         this._redmiBudsSocket?.setSpatialAudioScene(scene);
     }
 
@@ -1155,21 +776,18 @@ export const RedmiBudsDevice = GObject.registerClass({
         if (gestureTypes?.single === undefined)
             return;
 
-        let update = false;
-        if (this._gestureSingleLeft !== left) {
-            update = true;
-            this._gestureSingleLeft = left;
-            this._settingsItems['single-left'] = left;
-        }
+        this._devInfo?.updateUI('single-left', left);
+        this._devInfo?.updateUI('single-right', right);
+    }
 
-        if (this._gestureSingleRight !== right) {
-            update = true;
+    _setSingleLeftGesture() {
+        const value = this._devInfo.getValue('single-left');
+        this._redmiBudsSocket?.setGesture('single', 'left', value);
+    }
 
-            this._gestureSingleRight = right;
-            this._settingsItems['single-right'] = right;
-        }
-        if (update)
-            this._updateGsettings();
+    _setSingleRightGesture() {
+        const value = this._devInfo.getValue('single-right');
+        this._redmiBudsSocket?.setGesture('single', 'right', value);
     }
 
     updateGestureDouble(left, right) {
@@ -1179,22 +797,18 @@ export const RedmiBudsDevice = GObject.registerClass({
         if (gestureTypes?.double === undefined)
             return;
 
-        let update = false;
+        this._devInfo?.updateUI('double-left', left);
+        this._devInfo?.updateUI('double-right', right);
+    }
 
-        if (this._gestureDoubleLeft !== left) {
-            update = true;
-            this._gestureDoubleLeft = left;
-            this._settingsItems['double-left'] = left;
-        }
+    _setDoubleLeftGesture() {
+        const value = this._devInfo.getValue('double-left');
+        this._redmiBudsSocket?.setGesture('double', 'left', value);
+    }
 
-        if (this._gestureDoubleRight !== right) {
-            update = true;
-            this._gestureDoubleRight = right;
-            this._settingsItems['double-right'] = right;
-        }
-
-        if (update)
-            this._updateGsettings();
+    _setDoubleRightGesture() {
+        const value = this._devInfo.getValue('double-right');
+        this._redmiBudsSocket?.setGesture('double', 'right', value);
     }
 
     updateGestureTriple(left, right) {
@@ -1204,22 +818,18 @@ export const RedmiBudsDevice = GObject.registerClass({
         if (gestureTypes?.triple === undefined)
             return;
 
-        let update = false;
+        this._devInfo?.updateUI('triple-left', left);
+        this._devInfo?.updateUI('triple-right', right);
+    }
 
-        if (this._gestureTripleLeft !== left) {
-            update = true;
-            this._gestureTripleLeft = left;
-            this._settingsItems['triple-left'] = left;
-        }
+    _setTripleLeftGesture() {
+        const value = this._devInfo.getValue('triple-left');
+        this._redmiBudsSocket?.setGesture('triple', 'left', value);
+    }
 
-        if (this._gestureTripleRight !== right) {
-            update = true;
-            this._gestureTripleRight = right;
-            this._settingsItems['triple-right'] = right;
-        }
-
-        if (update)
-            this._updateGsettings();
+    _setTripleRightGesture() {
+        const value = this._devInfo.getValue('triple-right');
+        this._redmiBudsSocket?.setGesture('triple', 'right', value);
     }
 
     updateGestureLong(left, right) {
@@ -1229,22 +839,18 @@ export const RedmiBudsDevice = GObject.registerClass({
         if (gestureTypes?.['action-hold'] === undefined)
             return;
 
-        let update = false;
+        this._devInfo?.updateUI('action-hold-left', left);
+        this._devInfo?.updateUI('action-hold-right', right);
+    }
 
-        if (this._gestureLongLeft !== left) {
-            update = true;
-            this._gestureLongLeft = left;
-            this._settingsItems['action-hold-left'] = left;
-        }
+    _setActionHoldLeftGesture() {
+        const value = this._devInfo.getValue('action-hold-left');
+        this._redmiBudsSocket?.setGesture('action-hold', 'left', value);
+    }
 
-        if (this._gestureLongRight !== right) {
-            update = true;
-            this._gestureLongRight = right;
-            this._settingsItems['action-hold-right'] = right;
-        }
-
-        if (update)
-            this._updateGsettings();
+    _setActionHoldRightGesture() {
+        const value = this._devInfo.getValue('action-hold-right');
+        this._redmiBudsSocket?.setGesture('action-hold', 'right', value);
     }
 
     updateGestureSwipe(left, right) {
@@ -1254,26 +860,18 @@ export const RedmiBudsDevice = GObject.registerClass({
         if (gestureTypes?.swipe === undefined)
             return;
 
-        let update = false;
-
-        if (this._gestureSwipeLeft !== left) {
-            update = true;
-            this._gestureSwipeLeft = left;
-            this._settingsItems['swipe-left'] = left;
-        }
-
-        if (this._gestureSwipeRight !== right) {
-            update = true;
-            this._gestureSwipeRight = right;
-            this._settingsItems['swipe-right'] = right;
-        }
-
-        if (update)
-            this._updateGsettings();
+        this._devInfo?.updateUI('swipe-left', left);
+        this._devInfo?.updateUI('swipe-right', right);
     }
 
-    _setGesture(type, position, value) {
-        this._redmiBudsSocket?.setGesture(type, position, value);
+    _setSwipeLeftGesture() {
+        const value = this._devInfo.getValue('swipe-left');
+        this._redmiBudsSocket?.setGesture('swipe', 'left', value);
+    }
+
+    _setSwipeRightGesture() {
+        const value = this._devInfo.getValue('swipe-right');
+        this._redmiBudsSocket?.setGesture('swipe', 'right', value);
     }
 
     updateLongGestures(leftPressMode, rightPressMode) {
@@ -1283,53 +881,59 @@ export const RedmiBudsDevice = GObject.registerClass({
         if (this._modelData?.gestureOptions?.noiseControlModes === undefined)
             return;
 
-        let update = false;
-
-        if (this._leftLongpressMode !== leftPressMode) {
-            update = true;
-            this._leftLongpressMode = leftPressMode;
-            this._settingsItems['left-longpress'] = leftPressMode;
-        }
-
-        if (this._rightLongpressMode !== rightPressMode) {
-            update = true;
-            this._rightLongpressMode = rightPressMode;
-            this._settingsItems['right-longpress'] = rightPressMode;
-        }
-
-        if (update)
-            this._updateGsettings();
+        this._devInfo?.updateUI('left-longpress', leftPressMode);
+        this._devInfo?.updateUI('right-longpress', rightPressMode);
     }
 
-    _setLongPressMode(isleft, mode) {
-        this._redmiBudsSocket?.setLongPressMode(isleft, mode);
+    _setLeftLongPressMode() {
+        const mode = this._devInfo.getValue('left-longpress');
+        this._redmiBudsSocket?.setLongPressMode(true, mode);
     }
 
-    _setRingMyBuds(state, isLeft = false) {
-        this._redmiBudsSocket?.setRingMyBuds(state, isLeft);
+    _setRightLongPressMode() {
+        const mode = this._devInfo.getValue('right-longpress');
+        this._redmiBudsSocket?.setLongPressMode(false, mode);
+    }
+
+    _setRingMyBuds() {
+        const state = this._devInfo.getValue('ring-state');
+        this._redmiBudsSocket?.setRingMyBuds(state, false);
+    }
+
+    _setRingMyBudsLeft()  {
+        const state = this._devInfo.getValue('ring-state-left');
+        this._redmiBudsSocket?.setRingMyBuds(state, true);
     }
 
     _settingsButtonClicked() {
-        this._configureWindowLauncherCancellable = new Gio.Cancellable();
-        launchConfigureWindow(this._devicePath, 'redmiBuds', this._extPath,
-            this._configureWindowLauncherCancellable);
-        this._configureWindowLauncherCancellable = null;
+        if (this._configureWindow) {
+            this._configureWindow.present();
+        } else {
+            this._configureWindow = new ConfigureWindow(this._devInfo, this._modelData);
+            this._configureWindow.connect('close-request', () => {
+                this._configureWindow = null;
+            });
+            this._configureWindow.present();
+        }
     }
 
     destroy() {
-        this._configureWindowLauncherCancellable?.cancel();
-        this._configureWindowLauncherCancellable = null;
+        this._configureWindow?.close();
+        this._configureWindow = null;
 
         this._redmiBudsSocket?.destroy();
         this._redmiBudsSocket = null;
+
+        if (this._devInfoSignalId)
+            this._devInfo?.disconnect(this._devInfoSignalId);
+        this._devInfoSignalId = null;
+        this._devInfo = null;
 
         if (this._dataHandlerId)
             this.dataHandler?.disconnect(this._dataHandlerId);
         this._dataHandlerId = null;
         this.dataHandler = null;
-        if (this._settingsHandlerId)
-            this._settings?.disconnect(this._settingsHandlerId);
-        this._settingsHandlerId = null;
+
         this._settings = null;
         this._mediaController?.destroy();
         this._mediaController = null;
