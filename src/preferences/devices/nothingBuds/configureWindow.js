@@ -464,6 +464,7 @@ export const ConfigureWindow = GObject.registerClass({
             const dual = !this._modelData.ringLegacy && !this._modelData.batterySingle;
 
             this._ringBudsRow = new RingMyBudsRow({dual});
+            this._ringBudsRow.compact_mode = this._isCompactMode;
 
             this._ringBudsRow.connect('notify::status', () => {
                 this._devInfo.updateDevice('ring-state', this._ringBudsRow.status);
@@ -835,5 +836,6 @@ export const ConfigureWindow = GObject.registerClass({
             widget.set_property('compact-mode', this._isCompactMode);
 
         this._baseLevel?.set_property('compact-mode', this._isCompactMode);
+        this._ringBudsRow?.set_property('compact-mode', this._isCompactMode);
     }
 });
