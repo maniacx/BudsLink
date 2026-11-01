@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-14 03:45+0000\n"
+"PO-Revision-Date: 2026-11-01 03:54+0000\n"
 "Last-Translator: Yudong An <ayd@immiq.top>\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
@@ -2788,8 +2788,8 @@ msgid ""
 "before you continue. A loud sound will be played which could be "
 "uncomfortable for anyone wearing them."
 msgstr ""
-"耳机可能正在使用中。继续之前，请务必将耳机从耳朵上取下。耳机将播放较大的声"
-"音，可能让佩戴者感到不适。"
+"耳机可能正在使用中。继续之前，请务必将耳机从耳朵上取下。耳机将播放较大的声音"
+"，可能让佩戴者感到不适。"
 
 #: src/preferences/widgets/earTipFitTestRow.js:19
 #: src/preferences/widgets/earTipFitTestRow.js:313
@@ -3159,12 +3159,3 @@ msgstr "配置"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "电量"
-
-#~ msgid "Roller Gesture Control"
-#~ msgstr "滚轮手势控制"
-
-#~ msgid "Case Gesture Control"
-#~ msgstr "充电盒手势控制"
-
-#~ msgid "Slider Gesture Control"
-#~ msgstr "滑块手势控制"
