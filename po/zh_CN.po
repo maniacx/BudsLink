@@ -144,8 +144,7 @@ msgstr "对话感知音量上限"
 msgid ""
 "Limits media volume to this percentage during conversation. Note: No change "
 "if current volume is below this level."
-msgstr ""
-"对话期间，将媒体音量限制为此百分比。注意：若当前音量低于此值，则保持不变。"
+msgstr "对话期间，将媒体音量限制为此百分比。注意：若当前音量低于此值，则保持不变。"
 
 #: src/preferences/devices/airpods/configureWindow.js:180
 msgid "Turn off listening modes"
