@@ -12,7 +12,6 @@ import {IconSelectorWidget} from './../../widgets/iconSelectorWidget.js';
 import {RadioButtonRowWidget} from './../../widgets/radioButtonRowWidget.js';
 import {RingMyBudsRow} from './../../widgets/ringMyBudsRow.js';
 import {EqualizerWidget} from './../../widgets/equalizerWidget.js';
-import {RedmiBudsModelList} from '../../../lib/devices/redmiBuds/redmiBudsConfig.js';
 
 // Keep existing translations when a locale has no Redmi-specific entry yet.
 const localizedLabel = (translation, original) =>
@@ -21,15 +20,16 @@ const localizedLabel = (translation, original) =>
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_RedmiBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(settings, mac, devicePath, parentWindow, modal = false) {
+    _init(devInfo, modelData) {
         super._init({
             default_width: 650,
             default_height: 650,
             width_request: 320,
             height_request: 100,
-            modal,
-            transient_for: parentWindow ?? null,
         });
+
+        this._devInfo = devInfo;
+        this._modelData = modelData;
 
         this._isCompactMode = false;
 
@@ -54,26 +54,9 @@ export const ConfigureWindow = GObject.registerClass({
             this._updateCompactStatus();
         });
 
-        this._settings = settings;
-        this._devicePath = devicePath;
         this.checkBoxWidgets = [];
 
-        const pathsString = settings.get_strv('redmi-buds-list').map(JSON.parse);
-        this._settingsItems = pathsString.find(info => info.path === devicePath);
-
-        if (!this._settingsItems)
-            return;
-
-        this.title = this._settingsItems.alias;
-
-        const vid = this._settingsItems.vid;
-        const pid = this._settingsItems.pid;
-
-        this._modelData = RedmiBudsModelList.find(model => model.id.vid.includes(vid) &&
-            model.id.pid.includes(pid));
-
-        if (!this._modelData)
-            return;
+        this.title = this._devInfo.getValue('alias');
 
         const toolViewBar = new Adw.ToolbarView();
         const headerBar = new Adw.HeaderBar();
@@ -90,26 +73,26 @@ export const ConfigureWindow = GObject.registerClass({
         let initialCaseIcon = '';
         if (this._modelData.batteryCase) {
             caseIconList = supportedCaseIcons;
-            initialCaseIcon = this._settingsItems['case'];
+            initialCaseIcon = this._devInfo.getValue('case');
         }
 
         const iconSelector = new IconSelectorWidget({
             iconList,
-            initialIcon: this._settingsItems['icon'],
+            initialIcon: this._devInfo.getValue('icon'),
             caseIconList,
             initialCaseIcon,
-            mac,
-            fw: this._settingsItems['fw-version'],
-            serial: this._settingsItems['serial'],
+            mac: this._devInfo.mac,
+            fw: this._devInfo.getValue('fw-version'),
+            serial: this._devInfo.getValue('serial'),
         });
 
         iconSelector.connect('notify::selected-icon', () => {
-            this._updateGsettings('icon', iconSelector.selected_icon);
+            this._devInfo.updateDevice('icon', iconSelector.selected_icon);
         });
 
         if (this._modelData.batteryCase) {
             iconSelector.connect('notify::selected-case-icon', () => {
-                this._updateGsettings('case', iconSelector.selected_case_icon);
+                this._devInfo.updateDevice('case', iconSelector.selected_case_icon);
             });
         }
 
@@ -121,97 +104,125 @@ export const ConfigureWindow = GObject.registerClass({
         this._addMiscSetting();
         this._addGestureControls();
 
-        const settingSignalId = this._settings.connect('changed::redmi-buds-list', () => {
-            const updatedList = this._settings.get_strv('redmi-buds-list').map(JSON.parse);
-            this._settingsItems = updatedList.find(info => info.path === devicePath);
-            if (!this._settingsItems)
-                return;
+        this._devInfoSignalId = this._devInfo.connect('update-ui', (info, feature) => {
+            const value = info.getValue(feature);
 
-            this.title = this._settingsItems.alias;
+            switch (feature) {
+                case 'alias':
+                    this.title = value;
+                    break;
 
-            if (this._modelData.eqPreset)
-                this._eqPresetDropdown.selected_item = this._settingsItems['eq-preset'];
+                case 'eq-preset':
+                    if (this._eqPresetDropdown)
+                        this._eqPresetDropdown.selected_item = value;
+                    break;
 
-            if (this._modelData.eqPreset?.custom !== undefined)
-                this._eq.setValues(this._settingsItems['eq-custom']);
+                case 'eq-custom':
+                    if (this._eq)
+                        this._eq.setValues(value);
+                    break;
 
-            if (this._modelData.dualConnection && this._dualConnSwitch)
-                this._dualConnSwitch.active = this._settingsItems['dual-conn'];
+                case 'dual-conn':
+                    if (this._dualConnSwitch)
+                        this._dualConnSwitch.active = value;
+                    break;
 
-            if (this._modelData.autoAnswer && this._autoAwnswerSwitch)
-                this._autoAwnswerSwitch.active = this._settingsItems['auto-answer'];
+                case 'auto-answer':
+                    if (this._autoAwnswerSwitch)
+                        this._autoAwnswerSwitch.active = value;
+                    break;
 
-            if (this._modelData.adaptiveSound && this._adaptiveSoundSwitch)
-                this._adaptiveSoundSwitch.active = this._settingsItems['adapt-sound'];
+                case 'adapt-sound':
+                    if (this._adaptiveSoundSwitch)
+                        this._adaptiveSoundSwitch.active = value;
+                    break;
 
-            if (this._modelData.lowLatencyMode && this._lowLatencySwitch)
-                this._lowLatencySwitch.active = this._settingsItems['low-latency'];
+                case 'low-latency':
+                    if (this._lowLatencySwitch)
+                        this._lowLatencySwitch.active = value;
+                    break;
 
-            if (this._modelData.immersiveSound && this._immersiveSoundSwitch)
-                this._immersiveSoundSwitch.active = this._settingsItems['immersive-sound'];
+                case 'immersive-sound':
+                    if (this._immersiveSoundSwitch)
+                        this._immersiveSoundSwitch.active = value;
+                    break;
 
-            if (this._modelData.headTracking && this._headTrackingSwitch)
-                this._headTrackingSwitch.active = this._settingsItems['head-tracking'];
+                case 'head-tracking':
+                    if (this._headTrackingSwitch)
+                        this._headTrackingSwitch.active = value;
+                    break;
 
-            if (this._modelData.spatialAudioScenes && this._spatialAudioSceneDropdown) {
-                this._spatialAudioSceneDropdown.selected_item =
-                         this._settingsItems['spatial-audio-scene'];
-            }
+                case 'spatial-audio-scene':
+                    if (this._spatialAudioSceneDropdown)
+                        this._spatialAudioSceneDropdown.selected_item = value;
+                    break;
 
-            if (this._modelData.ring && this._ringBudsRow) {
-                this._ringBudsRow.status = this._settingsItems['ring-state'];
-                this._ringBudsRow.statusLeft = this._settingsItems['ring-state-left'];
-            }
+                case 'ring-state':
+                    if (this._ringBudsRow)
+                        this._ringBudsRow.status = value;
+                    break;
 
-            for (const [settingKey, row] of Object.entries(this._gestureRows)) {
-                const value = this._settingsItems[settingKey];
-                row.selected_item = value;
-            }
+                case 'ring-state-left':
+                    if (this._ringBudsRow)
+                        this._ringBudsRow.statusLeft = value;
+                    break;
 
-            for (const {ncRow, dropdown, ncValue} of Object.values(this._noiseControlRows))
-                ncRow.visible = dropdown.selected_item === ncValue;
+                case 'single-left':
+                case 'single-right':
+                case 'double-left':
+                case 'double-right':
+                case 'triple-left':
+                case 'triple-right':
+                case 'action-hold-left':
+                case 'action-hold-right':
+                case 'swipe-left':
+                case 'swipe-right': {
+                    const gestureRow = this._gestureRows[feature];
 
+                    if (gestureRow)
+                        gestureRow.selected_item = value;
 
-            for (const [settingKey, item] of Object.entries(this._noiseControlRows)) {
-                const value = this._settingsItems[settingKey];
-                item.ncRow.toggled_value = value;
+                    const noiseControlRows = Object.values(this._noiseControlRows);
+                    for (const {ncRow, dropdown, ncValue} of noiseControlRows) {
+                        if (dropdown === gestureRow)
+                            ncRow.visible = value === ncValue;
+                    }
+                    break;
+                }
+                case 'left-longpress':
+                case 'right-longpress': {
+                    const ncRow = this._noiseControlRows[feature]?.ncRow;
+
+                    if (ncRow)
+                        ncRow.toggled_value = value;
+                    break;
+                }
             }
         });
 
         this.connect('close-request', () => {
-            if (this._modelData.ring) {
-                const ringState = this._settingsItems?.['ring-state'];
-                if (ringState === 'playing')
-                    this._updateGsettings('ring-state', 'stopped');
+            if (this._devInfoSignalId)
+                this._devInfo?.disconnect(this._devInfoSignalId);
+            this._devInfoSignalId = null;
 
-                const ringStateLeft = this._settingsItems?.['ring-state-left'];
-                if (ringStateLeft === 'playing')
-                    this._updateGsettings('ring-state-left', 'stopped');
+            if (this._modelData?.ring) {
+                const ringState = devInfo.getValue('ring-state');
+                if (ringState === 'playing')
+                    this._devInfo.updateDevice('ring-state', 'stopped');
+
+                if (!this._modelData.ringLegacy && !this._modelData.batterySingle) {
+                    const ringStateLeft = devInfo.getValue('ring-state-left');
+                    if (ringStateLeft === 'playing')
+                        this._devInfo.updateDevice('ring-state-left', 'stopped');
+                }
             }
 
             this._eq?.destroy();
             this._eq = null;
-
-
-            if (settingSignalId && this._settings)
-                this._settings.disconnect(settingSignalId);
-
-            this._settings = null;
+            this._devInfo = null;
 
             return false;
         });
-    }
-
-    _updateGsettings(key, value) {
-        const pairedDevice = this._settings.get_strv('redmi-buds-list');
-        const existingPathIndex =
-                pairedDevice.findIndex(item => JSON.parse(item).path === this._devicePath);
-        if (existingPathIndex !== -1) {
-            const existingItem = JSON.parse(pairedDevice[existingPathIndex]);
-            existingItem[key] = value;
-            pairedDevice[existingPathIndex] = JSON.stringify(existingItem);
-            this._settings.set_strv('redmi-buds-list', pairedDevice);
-        }
     }
 
     _addInEar() {
@@ -233,11 +244,11 @@ export const ConfigureWindow = GObject.registerClass({
             subtitle: _('Automatically pause or resume playback ' +
                 'based on wearing detection.'),
             options: inEarOptions,
-            initialValue: this._settingsItems['ear-detection-mode'],
+            initialValue: this._devInfo.getValue('ear-detection-mode'),
         });
 
         this._inEarDropdown.connect('notify::toggled-value', () => {
-            this._updateGsettings('ear-detection-mode', this._inEarDropdown.toggled_value);
+            this._devInfo.updateDevice('ear-detection-mode', this._inEarDropdown.toggled_value);
         });
 
         inEarSettingsGroup.add(this._inEarDropdown);
@@ -290,12 +301,12 @@ export const ConfigureWindow = GObject.registerClass({
             subtitle: _('Change the sound signature'),
             options,
             values: presetValues,
-            initialValue: this._settingsItems['eq-preset'],
+            initialValue: this._devInfo.getValue('eq-preset'),
             ...customEqButton,
         });
 
         this._eqPresetDropdown.connect('notify::selected-item', () => {
-            this._updateGsettings('eq-preset', this._eqPresetDropdown.selected_item);
+            this._devInfo.updateDevice('eq-preset', this._eqPresetDropdown.selected_item);
         });
 
         eqGroup.add(this._eqPresetDropdown);
@@ -307,7 +318,7 @@ export const ConfigureWindow = GObject.registerClass({
             _('8k'), _('12k'), _('16k')];
 
         const eqRange = 6;
-        const initialValues = this._settingsItems['eq-custom'];
+        const initialValues = this._devInfo.getValue('eq-custom');
 
         this._eq = new EqualizerWidget({
             freqs: eqFreqs,
@@ -318,7 +329,7 @@ export const ConfigureWindow = GObject.registerClass({
         });
 
         this._eq.connect('eq-changed', (_widget, values) => {
-            this._updateGsettings('eq-custom', values);
+            this._devInfo.updateDevice('eq-custom', values);
         });
 
         this._eqPresetDropdown.connect('button-clicked', () => this._eq.present(this));
@@ -337,10 +348,10 @@ export const ConfigureWindow = GObject.registerClass({
             subtitle: _('Add depth for a more immersive experience'),
         });
 
-        this._immersiveSoundSwitch.active = this._settingsItems['immersive-sound'];
+        this._immersiveSoundSwitch.active = this._devInfo.getValue('immersive-sound');
 
         this._immersiveSoundSwitch.connect('notify::active', () => {
-            this._updateGsettings('immersive-sound', this._immersiveSoundSwitch.active);
+            this._devInfo.updateDevice('immersive-sound', this._immersiveSoundSwitch.active);
         });
 
         spatialAudioGroup.add(this._immersiveSoundSwitch);
@@ -352,10 +363,10 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Audio moves with your head'),
             });
 
-            this._headTrackingSwitch.active = this._settingsItems['head-tracking'];
+            this._headTrackingSwitch.active = this._devInfo.getValue('head-tracking');
 
             this._headTrackingSwitch.connect('notify::active', () => {
-                this._updateGsettings('head-tracking', this._headTrackingSwitch.active);
+                this._devInfo.updateDevice('head-tracking', this._headTrackingSwitch.active);
             });
 
             spatialAudioGroup.add(this._headTrackingSwitch);
@@ -383,11 +394,11 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Select the sound environment'),
                 options: sceneNames,
                 values: sceneValues,
-                initialValue: this._settingsItems['spatial-audio-scene'],
+                initialValue: this._devInfo.getValue('spatial-audio-scene'),
             });
 
             this._spatialAudioSceneDropdown.connect('notify::selected-item', () => {
-                this._updateGsettings('spatial-audio-scene',
+                this._devInfo.updateDevice('spatial-audio-scene',
                     this._spatialAudioSceneDropdown.selected_item);
             });
 
@@ -415,10 +426,10 @@ export const ConfigureWindow = GObject.registerClass({
                 'Allow Connections to Multiple Devices'),
             });
 
-            this._dualConnSwitch.active = this._settingsItems['dual-conn'];
+            this._dualConnSwitch.active = this._devInfo.getValue('dual-conn');
 
             this._dualConnSwitch.connect('notify::active', () => {
-                this._updateGsettings('dual-conn', this._dualConnSwitch.active);
+                this._devInfo.updateDevice('dual-conn', this._dualConnSwitch.active);
             });
 
             miscGroup.add(this._dualConnSwitch);
@@ -430,10 +441,10 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Answer calls when the earbuds are worn'),
             });
 
-            this._autoAwnswerSwitch.active = this._settingsItems['auto-answer'];
+            this._autoAwnswerSwitch.active = this._devInfo.getValue('auto-answer');
 
             this._autoAwnswerSwitch.connect('notify::active', () => {
-                this._updateGsettings('auto-answer', this._autoAwnswerSwitch.active);
+                this._devInfo.updateDevice('auto-answer', this._autoAwnswerSwitch.active);
             });
 
             miscGroup.add(this._autoAwnswerSwitch);
@@ -445,10 +456,10 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Automatically adjust sound to your ear shape'),
             });
 
-            this._adaptiveSoundSwitch.active = this._settingsItems['adapt-sound'];
+            this._adaptiveSoundSwitch.active = this._devInfo.getValue('adapt-sound');
 
             this._adaptiveSoundSwitch.connect('notify::active', () => {
-                this._updateGsettings('adapt-sound', this._adaptiveSoundSwitch.active);
+                this._devInfo.updateDevice('adapt-sound', this._adaptiveSoundSwitch.active);
             });
 
             miscGroup.add(this._adaptiveSoundSwitch);
@@ -460,10 +471,10 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Reduces latency and enhances in-game audio'),
             });
 
-            this._lowLatencySwitch.active = this._settingsItems['low-latency'];
+            this._lowLatencySwitch.active = this._devInfo.getValue('low-latency');
 
             this._lowLatencySwitch.connect('notify::active', () => {
-                this._updateGsettings('low-latency', this._lowLatencySwitch.active);
+                this._devInfo.updateDevice('low-latency', this._lowLatencySwitch.active);
             });
 
             miscGroup.add(this._lowLatencySwitch);
@@ -471,13 +482,14 @@ export const ConfigureWindow = GObject.registerClass({
 
         if (this._modelData.ring) {
             this._ringBudsRow = new RingMyBudsRow({dual: true});
+            this._ringBudsRow.compact_mode = this._isCompactMode;
 
             this._ringBudsRow.connect('notify::status', () => {
-                this._updateGsettings('ring-state', this._ringBudsRow.status);
+                this._devInfo.updateDevice('ring-state', this._ringBudsRow.status);
             });
 
             this._ringBudsRow.connect('notify::status-left', () => {
-                this._updateGsettings('ring-state-left', this._ringBudsRow.statusLeft);
+                this._devInfo.updateDevice('ring-state-left', this._ringBudsRow.statusLeft);
             });
 
             miscGroup.add(this._ringBudsRow);
@@ -552,7 +564,7 @@ export const ConfigureWindow = GObject.registerClass({
             const options = Object.keys(actions).map(action => this._readableAction(_, action));
             const values = Object.values(actions);
             const settingKey = `${gestureKey}-${side}`;
-            const initialValue = this._settingsItems[settingKey] ?? values[0];
+            const initialValue = this._devInfo.getValue(settingKey) ?? values[0];
 
             const dropdown = new DropDownRowWidget({
                 title,
@@ -566,18 +578,18 @@ export const ConfigureWindow = GObject.registerClass({
 
             if (gc.noiseControlModes && Object.hasOwn(actions, 'noise-control')) {
                 const ncSettingKey = side === 'left' ? 'left-longpress' : 'right-longpress';
-                ncRow = this._buildNoiseControlRow(title, this._settingsItems[ncSettingKey]);
+                ncRow = this._buildNoiseControlRow(title, this._devInfo.getValue(ncSettingKey));
                 const ncValue = actions['noise-control'];
                 this._noiseControlRows[ncSettingKey] = {ncRow, dropdown, ncValue};
                 ncRow.visible = dropdown.selected_item === ncValue;
                 ncRow.connect('notify::toggled-value', () => {
-                    this._updateGsettings(ncSettingKey, ncRow.toggled_value);
+                    this._devInfo.updateDevice(ncSettingKey, ncRow.toggled_value);
                 });
             }
 
             dropdown.connect('notify::selected-item', () => {
                 const value = dropdown.selected_item;
-                this._updateGsettings(settingKey, value);
+                this._devInfo.updateDevice(settingKey, value);
                 if (ncRow)
                     ncRow.visible = value === actions['noise-control'];
             });
@@ -647,5 +659,7 @@ export const ConfigureWindow = GObject.registerClass({
     _updateCompactStatus() {
         for (const widget of this.checkBoxWidgets)
             widget.set_property('compact-mode', this._isCompactMode);
+
+        this._ringBudsRow?.set_property('compact-mode', this._isCompactMode);
     }
 });

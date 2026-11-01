@@ -53,7 +53,6 @@ export const AirpodsDevice = GObject.registerClass({
         const tag = `AirpodsDevice-${identifier}`;
         this._log = createLogger(tag);
         this._log.info('------------------- AirpodsDevice init -------------------');
-        const now = Date.now();
         this._settings = settings;
         this._devicePath = devicePath;
         this._alias = alias;
@@ -613,14 +612,17 @@ export const AirpodsDevice = GObject.registerClass({
     }
 
     destroy() {
-        this._airpodsSocket?.destroy();
-        this._airpodsSocket = null;
         this._configureWindow?.close();
         this._configureWindow = null;
+
+        this._airpodsSocket?.destroy();
+        this._airpodsSocket = null;
+
         if (this._devInfoSignalId && this._devInfo)
             this._devInfo.disconnect(this._devInfoSignalId);
         this._devInfoSignalId = null;
         this._devInfo = null;
+
         this._bluezDeviceProxy = null;
         if (this._dataHandlerId)
             this.dataHandler?.disconnect(this._dataHandlerId);

@@ -49,6 +49,10 @@ export const CheckBoxesRowWidget = GObject.registerClass({
             spacing: 12,
         });
 
+        const listbox = new Gtk.ListBox({
+            selection_mode: Gtk.SelectionMode.NONE,
+        });
+
         const headerRow = new Adw.ActionRow({
             title: rowTitle,
             subtitle: rowSubtitle,
@@ -82,7 +86,8 @@ export const CheckBoxesRowWidget = GObject.registerClass({
             visible: false,
         });
 
-        this._vBox.append(headerRow);
+        listbox.append(headerRow);
+        this._vBox.append(listbox);
         this._vBox.append(this._box);
         this.set_child(this._vBox);
         this.updateItems(items);
