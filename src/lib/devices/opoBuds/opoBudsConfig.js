@@ -2,6 +2,7 @@
 
 import RealmeBudsAir7 from './deviceConfigs/RealmeBudsAir7.js';
 import RealmeBudsWireless5ANC from './deviceConfigs/RealmeBudsWireless5ANC.js';
+import RealmeBudsWireless3 from './deviceConfigs/RealmeBudsWireless3.js';
 import RealmeBudsAir7Pro from './deviceConfigs/RealmeBudsAir7Pro.js';
 import RealmeBudsAir8 from './deviceConfigs/RealmeBudsAir8.js';
 import OnePlusBuds4 from './deviceConfigs/OnePlusBuds4.js';
@@ -9,6 +10,7 @@ import OnePlusBuds4 from './deviceConfigs/OnePlusBuds4.js';
 export const OpoBudsModelList = [
     RealmeBudsAir7,
     RealmeBudsWireless5ANC,
+    RealmeBudsWireless3,
     RealmeBudsAir7Pro,
     RealmeBudsAir8,
     OnePlusBuds4,
