@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-28 18:51+0000\n"
+"PO-Revision-Date: 2026-11-01 03:54+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: tr\n"
@@ -140,8 +140,7 @@ msgstr "Konuşma sırasında ses seviyesini düşürme farkındalığı"
 
 #: src/preferences/devices/airpods/configureWindow.js:138
 msgid "Automatically lower the volume when conversation awareness is active"
-msgstr ""
-"Konuşma algılama etkin olduğunda ses seviyesini otomatik olarak düşürün"
+msgstr "Konuşma algılama etkin olduğunda ses seviyesini otomatik olarak düşürün"
 
 #: src/preferences/devices/airpods/configureWindow.js:156
 msgid "Conversation awareness volume limit"
