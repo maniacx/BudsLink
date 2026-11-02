@@ -8,7 +8,7 @@ import {
     Cmd, CmdDual, Rsp, HEADER_LEN, DIRECTION_DEVICE_TO_HOST, buildPacket, checksum,
     encodeSoundModes, decodeDualDevices, macToBytes, ButtonId, ButtonSide, TouchActionId,
     touchActionFromId, ActionDisabled, EQ_BLOCK_LENGTH, decodeEqualizer,
-    equalizerInfo, encodeEqualizer, equalizerForMode, decodeSoundModes
+    equalizerInfo, encodeEqualizer, equalizerForMode, decodeSoundModes, AmbientMode
 } from './soundcoreConfig.js';
 
 const SOUND_MODES_LENGTH = 7;
@@ -70,6 +70,20 @@ export const SoundcoreSocket = GObject.registerClass({
     }
 
     setSoundModes(modes) {
+        if (this._modelData.isTlv) {
+            let ambientByte = 0x08;
+            if (modes.ambient === AmbientMode.NORMAL)
+                ambientByte = 0x01;
+            else if (modes.ambient === AmbientMode.TRANSPARENCY)
+                ambientByte = 0x02;
+            else
+                ambientByte = 0x08;
+
+            const body = this._soundModesRaw ? [...this._soundModesRaw] : [0x08, 0x09, 0x00, 0x20];
+            body[0] = ambientByte;
+            this._send(buildPacket(Cmd.SET_SOUND_MODES, body), 'sound-modes');
+            return;
+        }
         this._send(buildPacket(Cmd.SET_SOUND_MODES, encodeSoundModes(modes)), 'sound-modes');
     }
 
@@ -115,14 +129,54 @@ export const SoundcoreSocket = GObject.registerClass({
     _handleFrame(command, body) {
         if (command === Rsp.STATE) {
             this._handleState(body);
+        } else if (command === Rsp.BATTERY && body.length >= 3) {
+            this._handleBatteryUpdate(body);
         } else if (command === Rsp.LDAC && body.length >= 1) {
             this._callbacks.updateLdac(body[0] === 1);
             this._scheduleInitialDualRequest(100);
         } else if (command === Rsp.DUAL_DEVICES) {
             this._handleDualDevices(body);
-        } else if (command === Rsp.SOUND_MODES_CHANGED && body.length >= SOUND_MODES_LENGTH) {
-            this._callbacks.updateSoundModes(decodeSoundModes(body));
+        } else if (command === Rsp.SOUND_MODES_CHANGED) {
+            this._handleSoundModesChanged(body);
         }
+    }
+
+    _handleBatteryUpdate(body) {
+        this._callbacks.updateBatteryProps({
+            battery1Level: body[0],
+            battery1Status: (body.length > 3 && (body[3] & 1)) ? 'charging' : 'discharging',
+            battery2Level: body[1],
+            battery2Status: (body.length > 3 && (body[3] & 2)) ? 'charging' : 'discharging',
+            battery3Level: body[2],
+            battery3Status: (body.length > 3 && (body[3] & 4)) ? 'charging' : 'discharging',
+        });
+    }
+
+    _handleSoundModesChanged(body) {
+        if (this._modelData.isTlv) {
+            let ambient = AmbientMode.NOISE_CANCELING;
+            if (body[0] === 0x01)
+                ambient = AmbientMode.NORMAL;
+            else if (body[0] === 0x02)
+                ambient = AmbientMode.TRANSPARENCY;
+            else if (body[0] === 0x08 || body[0] === 0x00)
+                ambient = AmbientMode.NOISE_CANCELING;
+
+            this._soundModesRaw = [...body];
+            this._callbacks.updateSoundModes({
+                ambient,
+                manualNcLevel: body[1] ?? 5,
+                adaptiveNcLevel: 0,
+                transparencyMode: 0,
+                ncMode: 0,
+                windNoise: false,
+                environmentDetection: false,
+                transportMode: 0,
+            });
+            return;
+        }
+        if (body.length >= SOUND_MODES_LENGTH)
+            this._callbacks.updateSoundModes(decodeSoundModes(body));
     }
 
     _handleState(body) {
@@ -132,6 +186,10 @@ export const SoundcoreSocket = GObject.registerClass({
             return;
         }
 
+        if (m.isTlv) {
+            this._handleStateTlv(body);
+            return;
+        }
         this._emitBattery(body);
 
         if (m.firmware)
@@ -158,6 +216,82 @@ export const SoundcoreSocket = GObject.registerClass({
 
         const modes = body.slice(m.soundModesOffset, m.soundModesOffset + SOUND_MODES_LENGTH);
         this._callbacks.updateSoundModes(decodeSoundModes(modes));
+    }
+
+    _handleStateTlv(body) {
+        const m = this._modelData;
+        const tlv = new Map();
+        let idx = 0;
+        while (idx + 1 < body.length) {
+            const tag = body[idx];
+            const len = body[idx + 1];
+            if (idx + 2 + len > body.length)
+                break;
+            tlv.set(tag, body.slice(idx + 2, idx + 2 + len));
+            idx += 2 + len;
+        }
+
+        const b1 = tlv.get(0x03);
+        const b2 = tlv.get(0x04);
+        const b3 = tlv.get(0x08);
+        const status = charging => charging === 1 ? 'charging' : 'discharging';
+
+        this._callbacks.updateBatteryProps({
+            battery1Level: b1 ? b1[1] : 0,
+            battery1Status: b1 ? status(b1[0]) : 'discharging',
+            battery2Level: b2 ? b2[1] : 0,
+            battery2Status: b2 ? status(b2[0]) : 'discharging',
+            battery3Level: b3 ? b3[1] : 0,
+            battery3Status: b3 ? status(b3[0]) : 'discharging',
+        });
+
+        const fw1Bytes = tlv.get(0x05);
+        const fw2Bytes = tlv.get(0x06);
+        if (fw1Bytes && fw2Bytes) {
+            const fw1 = new TextDecoder('utf-8').decode(new Uint8Array(fw1Bytes)).replace(/\0+$/g, '').trim();
+            const fw2 = new TextDecoder('utf-8').decode(new Uint8Array(fw2Bytes)).replace(/\0+$/g, '').trim();
+            this._callbacks.updateFirmware(fw1, fw2);
+        }
+
+        const serialBytes = tlv.get(0x07);
+        if (serialBytes) {
+            const serial = new TextDecoder('utf-8').decode(new Uint8Array(serialBytes)).replace(/\0+$/g, '').trim();
+            this._callbacks.updateSerial(serial);
+        }
+
+        const dualBytes = tlv.get(0x1c);
+        if (dualBytes)
+            this._callbacks.updateDualEnabled(dualBytes[0] === 1);
+
+        if (m.ldac) {
+            this._send(buildPacket(Cmd.GET_LDAC));
+            this._scheduleInitialDualRequest(1500);
+        } else if (m.dualConnection) {
+            this.requestDualDevices();
+        }
+
+        const smBytes = tlv.get(0x1b);
+        if (smBytes) {
+            let ambient = AmbientMode.NOISE_CANCELING;
+            if (smBytes[0] === 0x01)
+                ambient = AmbientMode.NORMAL;
+            else if (smBytes[0] === 0x02)
+                ambient = AmbientMode.TRANSPARENCY;
+            else if (smBytes[0] === 0x08 || smBytes[0] === 0x00)
+                ambient = AmbientMode.NOISE_CANCELING;
+
+            this._soundModesRaw = [...smBytes];
+            this._callbacks.updateSoundModes({
+                ambient,
+                manualNcLevel: smBytes[1] ?? 5,
+                adaptiveNcLevel: 0,
+                transparencyMode: 0,
+                ncMode: 0,
+                windNoise: false,
+                environmentDetection: false,
+                transportMode: 0,
+            });
+        }
     }
 
     _handleDualDevices(body) {

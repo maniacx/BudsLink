@@ -241,6 +241,8 @@
         <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsWireless5ANC.js</file>
         <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsAir7Pro.js</file>
         <file>lib/devices/opoBuds/deviceConfigs/OnePlusBuds4.js</file>
+        <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsAir8.js</file>
+        <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsWireless3.js</file>
         <file>preferences/devices/opoBuds/configureWindow.js</file>
 
         <file>lib/devices/cambridgeBuds/cambridgeBudsConfig.js</file>

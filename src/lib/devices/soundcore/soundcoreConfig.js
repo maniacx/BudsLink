@@ -43,6 +43,7 @@ export const Rsp = {
     DUAL_DEVICES: 0x0B01,
     LDAC: 0x017F,
     STATE: 0x0101,
+    BATTERY: 0x0103,
     SOUND_MODES_CHANGED: 0x0601,
 };
 

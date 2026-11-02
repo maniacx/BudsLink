@@ -4,18 +4,14 @@ export default {
     name: 'Soundcore Liberty 5 Pro', // model code: A3956
     pattern: /.*Soundcore Liberty 5 Pro.*/i,
     modelCode: '3956',
+    isTlv: true,
+    stateBodyLength: 332,
     batteryDual: true,
     batteryCase: true,
-    batteryMaxLevel: 5,
-    caseBatteryMaxLevel: 5,
+    batteryMaxLevel: 100,
+    caseBatteryMaxLevel: 100,
     ambientSoundControl: true,
-    noiseCancellingSubModes: true,
-
-    // Offsets into the body of the 01 01 state update packet
-    stateBodyLength: 159,
-    batteryOffset: 2,
-    caseBatteryOffset: 139,
-    soundModesOffset: 126,
+    noiseCancellingSubModes: false,
 
     firmware: {
         version: {offset: 6, length: 5},
