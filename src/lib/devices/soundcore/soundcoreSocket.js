@@ -8,7 +8,8 @@ import {
     Cmd, CmdDual, Rsp, HEADER_LEN, DIRECTION_DEVICE_TO_HOST, buildPacket, checksum,
     encodeSoundModes, decodeDualDevices, macToBytes, ButtonId, ButtonSide, TouchActionId,
     touchActionFromId, ActionDisabled, EQ_BLOCK_LENGTH, decodeEqualizer,
-    equalizerInfo, encodeEqualizer, equalizerForMode, decodeSoundModes
+    equalizerInfo, encodeEqualizer, equalizerForMode, decodeSoundModes,
+    TlvTag, decodeTlvSoundModes, encodeTlvSoundModes
 } from './soundcoreConfig.js';
 
 const SOUND_MODES_LENGTH = 7;
@@ -70,6 +71,11 @@ export const SoundcoreSocket = GObject.registerClass({
     }
 
     setSoundModes(modes) {
+        if (this._modelData.isTlv) {
+            const body = encodeTlvSoundModes(modes, this._soundModesRaw);
+            this._send(buildPacket(Cmd.SET_SOUND_MODES, body), 'sound-modes');
+            return;
+        }
         this._send(buildPacket(Cmd.SET_SOUND_MODES, encodeSoundModes(modes)), 'sound-modes');
     }
 
@@ -115,14 +121,37 @@ export const SoundcoreSocket = GObject.registerClass({
     _handleFrame(command, body) {
         if (command === Rsp.STATE) {
             this._handleState(body);
+        } else if (command === Rsp.BATTERY && body.length >= 3) {
+            this._handleBatteryUpdate(body);
         } else if (command === Rsp.LDAC && body.length >= 1) {
             this._callbacks.updateLdac(body[0] === 1);
             this._scheduleInitialDualRequest(100);
         } else if (command === Rsp.DUAL_DEVICES) {
             this._handleDualDevices(body);
-        } else if (command === Rsp.SOUND_MODES_CHANGED && body.length >= SOUND_MODES_LENGTH) {
-            this._callbacks.updateSoundModes(decodeSoundModes(body));
+        } else if (command === Rsp.SOUND_MODES_CHANGED) {
+            this._handleSoundModesChanged(body);
         }
+    }
+
+    _handleBatteryUpdate(body) {
+        this._callbacks.updateBatteryProps({
+            battery1Level: body[0],
+            battery1Status: (body.length > 3 && (body[3] & 1)) ? 'charging' : 'discharging',
+            battery2Level: body[1],
+            battery2Status: (body.length > 3 && (body[3] & 2)) ? 'charging' : 'discharging',
+            battery3Level: body[2],
+            battery3Status: (body.length > 3 && (body[3] & 4)) ? 'charging' : 'discharging',
+        });
+    }
+
+    _handleSoundModesChanged(body) {
+        if (this._modelData.isTlv) {
+            this._soundModesRaw = [...body];
+            this._callbacks.updateSoundModes(decodeTlvSoundModes(body));
+            return;
+        }
+        if (body.length >= SOUND_MODES_LENGTH)
+            this._callbacks.updateSoundModes(decodeSoundModes(body));
     }
 
     _handleState(body) {
@@ -132,6 +161,10 @@ export const SoundcoreSocket = GObject.registerClass({
             return;
         }
 
+        if (m.isTlv) {
+            this._handleStateTlv(body);
+            return;
+        }
         this._emitBattery(body);
 
         if (m.firmware)
@@ -158,6 +191,66 @@ export const SoundcoreSocket = GObject.registerClass({
 
         const modes = body.slice(m.soundModesOffset, m.soundModesOffset + SOUND_MODES_LENGTH);
         this._callbacks.updateSoundModes(decodeSoundModes(modes));
+    }
+
+    _handleStateTlv(statePacketBody) {
+        const modelConfig = this._modelData;
+        const tlvTagMap = new Map();
+        let byteOffset = 0;
+        while (byteOffset + 1 < statePacketBody.length) {
+            const tagIdentifier = statePacketBody[byteOffset];
+            const tagLength = statePacketBody[byteOffset + 1];
+            if (byteOffset + 2 + tagLength > statePacketBody.length)
+                break;
+            tlvTagMap.set(tagIdentifier, statePacketBody.slice(byteOffset + 2, byteOffset + 2 + tagLength));
+            byteOffset += 2 + tagLength;
+        }
+
+        const leftBatteryBytes = tlvTagMap.get(TlvTag.BATTERY_LEFT);
+        const rightBatteryBytes = tlvTagMap.get(TlvTag.BATTERY_RIGHT);
+        const caseBatteryBytes = tlvTagMap.get(TlvTag.BATTERY_CASE);
+        const resolveChargingStatus = chargingFlag => chargingFlag === 1 ? 'charging' : 'discharging';
+
+        this._callbacks.updateBatteryProps({
+            battery1Level: leftBatteryBytes ? leftBatteryBytes[1] : 0,
+            battery1Status: leftBatteryBytes ? resolveChargingStatus(leftBatteryBytes[0]) : 'discharging',
+            battery2Level: rightBatteryBytes ? rightBatteryBytes[1] : 0,
+            battery2Status: rightBatteryBytes ? resolveChargingStatus(rightBatteryBytes[0]) : 'discharging',
+            battery3Level: caseBatteryBytes ? caseBatteryBytes[1] : 0,
+            battery3Status: caseBatteryBytes ? resolveChargingStatus(caseBatteryBytes[0]) : 'discharging',
+        });
+
+        const textDecoder = new TextDecoder('utf-8');
+        const leftFirmwareBytes = tlvTagMap.get(TlvTag.FIRMWARE_LEFT);
+        const rightFirmwareBytes = tlvTagMap.get(TlvTag.FIRMWARE_RIGHT);
+        if (leftFirmwareBytes && rightFirmwareBytes) {
+            const leftFirmwareVersion = textDecoder.decode(new Uint8Array(leftFirmwareBytes)).replace(/\0+$/g, '').trim();
+            const rightFirmwareVersion = textDecoder.decode(new Uint8Array(rightFirmwareBytes)).replace(/\0+$/g, '').trim();
+            this._callbacks.updateFirmware(leftFirmwareVersion, rightFirmwareVersion);
+        }
+
+        const serialNumberBytes = tlvTagMap.get(TlvTag.SERIAL_NUMBER);
+        if (serialNumberBytes) {
+            const serialNumber = textDecoder.decode(new Uint8Array(serialNumberBytes)).replace(/\0+$/g, '').trim();
+            this._callbacks.updateSerial(serialNumber);
+        }
+
+        const dualConnectionBytes = tlvTagMap.get(TlvTag.DUAL_ENABLED);
+        if (dualConnectionBytes)
+            this._callbacks.updateDualEnabled(dualConnectionBytes[0] === 1);
+
+        if (modelConfig.ldac) {
+            this._send(buildPacket(Cmd.GET_LDAC));
+            this._scheduleInitialDualRequest(1500);
+        } else if (modelConfig.dualConnection) {
+            this.requestDualDevices();
+        }
+
+        const soundModesBytes = tlvTagMap.get(TlvTag.SOUND_MODES);
+        if (soundModesBytes) {
+            this._soundModesRaw = [...soundModesBytes];
+            this._callbacks.updateSoundModes(decodeTlvSoundModes(soundModesBytes));
+        }
     }
 
     _handleDualDevices(body) {
