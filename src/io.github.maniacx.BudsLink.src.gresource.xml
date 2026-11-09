@@ -211,6 +211,7 @@
         <file>lib/devices/sony/sonySocketV1.js</file>
         <file>lib/devices/sony/sonySocketV2.js</file>
         <file>lib/devices/sony/deviceConfigs/LinkBuds.js</file>
+        <file>lib/devices/sony/deviceConfigs/LinkBudsFit.js</file>
         <file>lib/devices/sony/deviceConfigs/LinkBudsS.js</file>
         <file>lib/devices/sony/deviceConfigs/Sony-ULT.js</file>
         <file>lib/devices/sony/deviceConfigs/WH-1000XM2.js</file>
