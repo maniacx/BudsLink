@@ -46,6 +46,8 @@ export const SenhBudsDevice = GObject.registerClass({
         this._modelData = null;
         this._fwVersion = '';
         this._serialNo = '';
+        this._bothBudsInEar = null;
+        this._budInEar = null;
 
         this._callbacks = {
             modelIntialized: this.modelIntialized.bind(this),
@@ -492,6 +494,8 @@ export const SenhBudsDevice = GObject.registerClass({
             }
             this._mediaController?.destroy();
             this._mediaController = null;
+            this._bothBudsInEar = null;
+            this._budInEar = null;
         }
     }
 
@@ -656,15 +660,21 @@ export const SenhBudsDevice = GObject.registerClass({
     }
 
     updateInEarStatus(bud1Status, bud2Status) {
-        this._bothBudsInEar = bud1Status === 'ON_HEAD' && bud2Status === 'ON_HEAD';
-        this._budInEar = bud1Status === 'ON_HEAD' || bud2Status === 'ON_HEAD';
+        const bothBudsInEar = bud1Status === 'ON_HEAD' && bud2Status === 'ON_HEAD';
+        const budInEar = bud1Status === 'ON_HEAD' || bud2Status === 'ON_HEAD';
+
+        const bothBudsInEarChanged = this._bothBudsInEar !== bothBudsInEar;
+        const budInEarChanged = this._budInEar !== budInEar;
+
+        this._bothBudsInEar = bothBudsInEar;
+        this._budInEar = budInEar;
 
         if (this._wearDetectionMode !== 0) {
             let playbackMode = null;
 
-            if (this._wearDetectionMode === 1)
+            if (this._wearDetectionMode === 1 && bothBudsInEarChanged)
                 playbackMode = this._bothBudsInEar ? 'play' : 'pause';
-            else if (this._wearDetectionMode === 2)
+            else if (this._wearDetectionMode === 2 && budInEarChanged)
                 playbackMode = this._budInEar ? 'play' : 'pause';
 
             if (playbackMode)

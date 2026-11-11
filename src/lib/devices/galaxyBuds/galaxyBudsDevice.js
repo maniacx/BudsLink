@@ -61,8 +61,8 @@ export const GalaxyBudsDevice = GObject.registerClass({
         this._battInfoRecieved = false;
         this._toggle1Enabled = false;
         this._toggle2Enabled = false;
-        this._bothInEars = false;
-        this._budInEar = false;
+        this._bothInEars = null;
+        this._budInEar = null;
         this._ancMode = 0;
         this._ambientLevel = 0;
         this._ncLevel = 0;
@@ -749,6 +749,8 @@ export const GalaxyBudsDevice = GObject.registerClass({
         } else if (!enableMediaController) {
             this._mediaController?.destroy();
             this._mediaController = null;
+            this._bothInEars = null;
+            this._budInEar = null;
         }
     }
 
@@ -825,9 +827,9 @@ export const GalaxyBudsDevice = GObject.registerClass({
         if (this._wearDetectionMode !== 0) {
             let playbackMode = null;
 
-            if (this._wearDetectionMode === 1)
+            if (this._wearDetectionMode === 1 && bothInEarChanged)
                 playbackMode = bothInEars ? 'play' : 'pause';
-            else if (this._wearDetectionMode === 2)
+            else if (this._wearDetectionMode === 2 && budsInEarChanged)
                 playbackMode = budInEar ? 'play' : 'pause';
 
             if (playbackMode)
