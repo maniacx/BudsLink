@@ -67,6 +67,7 @@ If your device configuration is missing, you can request its addition by opening
 * **AirPods Pro 2 USB-C** ✅ — Credits: maniacx
 * **AirPods Max  USB-C** ✅ — Credits: GovanifY
 * **Beats Powerbeats Fit** ✅ — Credits: schlagmichdoch
+* **AirPods Max** ✅ — Credits: WDauria
 
 <br>
 
@@ -171,10 +172,10 @@ table th:nth-of-type(3) {
 
 | Feature                       | Supported      | Tested |
 |:-----------------------------:|:--------------:|:------:|
-| Modalias                      | 200A           | ❌     |
-| Battery Level                 | Single         | ❌     |
-| ANC                           | ✅             | ❌     |
-| In‑Ear Play/Pause             | ✅             | ❌     |
+| Modalias                      | 200A           | ✅     |
+| Battery Level                 | Single         | ✅     |
+| ANC                           | ✅             | ✅     |
+| In‑Ear Play/Pause             | ✅             | ✅     |
 
 <br>
 ### AirPods Max USB‑C
