@@ -1380,6 +1380,7 @@ export const ConfigureWindow = GObject.registerClass({
         this._lowFreq?.set_property('compact-mode', this._isCompactMode);
         this._midFreq?.set_property('compact-mode', this._isCompactMode);
         this._highFreq?.set_property('compact-mode', this._isCompactMode);
+        this._bassLevel?.set_property('compact-mode', this._isCompactMode);
         this._ncCycleWidget?.set_property('compact-mode', this._isCompactMode);
     }
 });
