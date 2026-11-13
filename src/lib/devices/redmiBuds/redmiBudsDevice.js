@@ -666,9 +666,10 @@ export const RedmiBudsDevice = GObject.registerClass({
 
     updateInEarState(left, right) {
         this._log.info(`Inear status left: ${left} Right: ${right}`);
-        const earDetectionMode = this._devInfo.getValue('ear-detection-mode');
-        if (!this._modelData?.inEarDetection || earDetectionMode === 0)
+        if (!this._modelData?.inEarDetection || !this._devInfo)
             return;
+
+        const earDetectionMode = this._devInfo.getValue('ear-detection-mode');
 
         const bothInEars = left  && right;
         const budInEar = left || right;
