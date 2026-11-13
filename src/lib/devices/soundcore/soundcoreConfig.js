@@ -43,6 +43,7 @@ export const Rsp = {
     DUAL_DEVICES: 0x0B01,
     LDAC: 0x017F,
     STATE: 0x0101,
+    BATTERY: 0x0103,
     SOUND_MODES_CHANGED: 0x0601,
 };
 
@@ -50,6 +51,26 @@ export const AmbientMode = {
     NOISE_CANCELING: 0,
     TRANSPARENCY: 1,
     NORMAL: 2,
+};
+
+export const TlvAmbientByte = {
+    NOISE_CANCELING: 0x08,
+    TRANSPARENCY: 0x01,
+    NORMAL: 0x02,
+};
+
+export const TlvTag = {
+    TWS_STATUS: 0x01,
+    HOST_DEVICE: 0x02,
+    BATTERY_LEFT: 0x03,
+    BATTERY_RIGHT: 0x04,
+    FIRMWARE_LEFT: 0x05,
+    FIRMWARE_RIGHT: 0x06,
+    SERIAL_NUMBER: 0x07,
+    BATTERY_CASE: 0x08,
+    FIRMWARE_CASE: 0x09,
+    SOUND_MODES: 0x1B,
+    DUAL_ENABLED: 0x1C,
 };
 
 export const NcMode = {
@@ -110,6 +131,39 @@ export function encodeSoundModes(modes) {
 
     bytes.push(modes.environmentDetection ? 1 : 0, modes.transportMode);
     return bytes;
+}
+
+export function decodeTlvSoundModes(bytes) {
+    let ambient = AmbientMode.NOISE_CANCELING;
+    if (bytes[0] === TlvAmbientByte.NORMAL)
+        ambient = AmbientMode.NORMAL;
+    else if (bytes[0] === TlvAmbientByte.TRANSPARENCY)
+        ambient = AmbientMode.TRANSPARENCY;
+    else if (bytes[0] === TlvAmbientByte.NOISE_CANCELING || bytes[0] === 0x00)
+        ambient = AmbientMode.NOISE_CANCELING;
+
+    return {
+        ambient,
+        manualNcLevel: bytes[1] ?? 5,
+        adaptiveNcLevel: 0,
+        transparencyMode: 0,
+        ncMode: 0,
+        windNoise: false,
+        environmentDetection: false,
+        transportMode: 0,
+    };
+}
+
+export function encodeTlvSoundModes(modes, raw = null) {
+    let ambientByte = TlvAmbientByte.NOISE_CANCELING;
+    if (modes.ambient === AmbientMode.NORMAL)
+        ambientByte = TlvAmbientByte.NORMAL;
+    else if (modes.ambient === AmbientMode.TRANSPARENCY)
+        ambientByte = TlvAmbientByte.TRANSPARENCY;
+
+    const body = raw ? [...raw] : [TlvAmbientByte.NOISE_CANCELING, 0x09, 0x00, 0x20];
+    body[0] = ambientByte;
+    return body;
 }
 
 /**
