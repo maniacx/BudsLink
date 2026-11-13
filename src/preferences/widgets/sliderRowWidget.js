@@ -62,10 +62,6 @@ export const SliderRowWidget = GObject.registerClass({
             spacing: 0,
         });
 
-        const listbox = new Gtk.ListBox({
-            selection_mode: Gtk.SelectionMode.NONE,
-        });
-
         this._header = new Adw.ActionRow({
             title: rowTitle,
             subtitle: rowSubtitle,
@@ -128,8 +124,7 @@ export const SliderRowWidget = GObject.registerClass({
             });
         }
 
-        listbox.append(this._header);
-        this._hbox.append(listbox);
+        this._hbox.append(this._header);
         this._mainBox.append(this._hbox);
         this.set_child(this._mainBox);
 

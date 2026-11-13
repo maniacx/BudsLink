@@ -45,6 +45,8 @@ export const RedmiBudsDevice = GObject.registerClass({
         this._modelData = null;
         this._fwVersion = '';
         this._serialNo = '';
+        this._bothInEars = null;
+        this._budInEar = null;
 
         this._callbacks = {
             modelIntialized: this.modelIntialized.bind(this),
@@ -482,6 +484,8 @@ export const RedmiBudsDevice = GObject.registerClass({
         } else if (!enableMediaController) {
             this._mediaController?.destroy();
             this._mediaController = null;
+            this._bothInEars = null;
+            this._budInEar = null;
         }
     }
 
@@ -662,17 +666,24 @@ export const RedmiBudsDevice = GObject.registerClass({
 
     updateInEarState(left, right) {
         this._log.info(`Inear status left: ${left} Right: ${right}`);
-        const earDetectionMode = this._devInfo.getValue('ear-detection-mode');
-        if (!this._modelData?.inEarDetection || earDetectionMode === 0)
+        if (!this._modelData?.inEarDetection || !this._devInfo)
             return;
+
+        const earDetectionMode = this._devInfo.getValue('ear-detection-mode');
 
         const bothInEars = left  && right;
         const budInEar = left || right;
 
+        const bothInEarsChanged = this._bothInEars !== bothInEars;
+        const budInEarChanged = this._budInEar !== budInEar;
+
+        this._bothInEars = bothInEars;
+        this._budInEar = budInEar;
+
         let playbackMode = null;
-        if (earDetectionMode === 1)
+        if (earDetectionMode === 1 && bothInEarsChanged)
             playbackMode = bothInEars ? 'play' : 'pause';
-        else if (this._earDetectionMode === 2)
+        else if (earDetectionMode === 2 && budInEarChanged)
             playbackMode = budInEar ? 'play' : 'pause';
 
         if (playbackMode)

@@ -62,8 +62,8 @@ export const AirpodsDevice = GObject.registerClass({
         this._config = createConfig();
         this._props = createProperties();
         this._model = null;
-        this._budInEar = false;
-        this._bothBudsInEar = false;
+        this._budInEar = null;
+        this._bothBudsInEar = null;
         this._battInfoRecieved = false;
 
         this._callbacks = {
@@ -382,6 +382,8 @@ export const AirpodsDevice = GObject.registerClass({
             }
             this._mediaController?.destroy();
             this._mediaController = null;
+            this._bothBudsInEar = null;
+            this._budInEar = null;
         }
     }
 
@@ -449,20 +451,25 @@ export const AirpodsDevice = GObject.registerClass({
     }
 
     updateInEarStatus(bud1Status, bud2Status) {
-        this._bothBudsInEar =
-            bud1Status === EarDetection.IN_EAR && bud2Status === EarDetection.IN_EAR;
+        const bothBudsInEar = bud1Status === EarDetection.IN_EAR &&
+                bud2Status === EarDetection.IN_EAR;
 
-        this._budInEar =
-            bud1Status === EarDetection.IN_EAR || bud2Status === EarDetection.IN_EAR;
+        const budInEar = bud1Status === EarDetection.IN_EAR || bud2Status === EarDetection.IN_EAR;
+
+        const bothBudsInEarChanged = this._bothBudsInEar !== bothBudsInEar;
+        const budInEarChanged = this._budInEar !== budInEar;
+
+        this._bothBudsInEar = bothBudsInEar;
+        this._budInEar = budInEar;
 
         this._updatetoggleVisibility();
 
         if (this._wearDetectionMode !== 0) {
             let playbackMode = null;
 
-            if (this._wearDetectionMode === 1)
+            if (this._wearDetectionMode === 1 && bothBudsInEarChanged)
                 playbackMode = this._bothBudsInEar ? 'play' : 'pause';
-            else if (this._wearDetectionMode === 2)
+            else if (this._wearDetectionMode === 2 && budInEarChanged)
                 playbackMode = this._budInEar ? 'play' : 'pause';
 
             if (playbackMode)
