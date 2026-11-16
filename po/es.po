@@ -1717,7 +1717,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:252
 #: src/preferences/devices/sony/configureWindow.js:130
 msgid "Duration"
-msgstr ""
+msgstr "Duración"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:273
 msgid "Soft"
@@ -2322,7 +2322,7 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:601
 #: src/preferences/devices/sony/configureWindow.js:390
 msgid "Voice Prompt Settings"
-msgstr ""
+msgstr "Ajustes de notificación y guía de voz"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:617
 msgid "Voice Prompts"
@@ -2331,7 +2331,7 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:618
 #: src/preferences/devices/sony/configureWindow.js:395
 msgid "Enable voice prompts for guidance and status updates"
-msgstr ""
+msgstr "Activa los avisos de voz para recibir indicaciones y actualizaciones de estado."
 
 #: src/preferences/devices/boseBuds/configureWindow.js:646
 msgid "Prompt Language"
@@ -2402,7 +2402,7 @@ msgstr ""
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:689
 #: src/lib/devices/sony/sonyDevice.js:211
 msgid "Conversation Awareness"
-msgstr ""
+msgstr "Hablar por chat"
 
 #: src/preferences/devices/sony/configureWindow.js:111
 #: src/preferences/devices/sony/configureWindow.js:290
@@ -2413,15 +2413,15 @@ msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:114
 msgid "Voice Detection Sensitivity"
-msgstr ""
+msgstr "Sensibilidad detección voz"
 
 #: src/preferences/devices/sony/configureWindow.js:127
 msgid "Short"
-msgstr ""
+msgstr "Corto"
 
 #: src/preferences/devices/sony/configureWindow.js:127
 msgid "Long"
-msgstr ""
+msgstr "Largo"
 
 #: src/preferences/devices/sony/configureWindow.js:147
 #: src/preferences/devices/sony/configureWindow.js:163
@@ -2430,7 +2430,7 @@ msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:152
 msgid "Background Music"
-msgstr ""
+msgstr "Música de fondo"
 
 #: src/preferences/devices/sony/configureWindow.js:153
 msgid "Cinema"
@@ -2438,11 +2438,11 @@ msgstr "Cine"
 
 #: src/preferences/devices/sony/configureWindow.js:178
 msgid "My Room"
-msgstr ""
+msgstr "Mi habitación"
 
 #: src/preferences/devices/sony/configureWindow.js:179
 msgid "Living Room"
-msgstr ""
+msgstr "Sala de estar"
 
 #: src/preferences/devices/sony/configureWindow.js:180
 msgid "Cafe"
@@ -2490,7 +2490,7 @@ msgstr "DSEE"
 
 #: src/preferences/devices/sony/configureWindow.js:289
 msgid "Enable DSEE enhancement"
-msgstr ""
+msgstr "Activar DSEE enhancement"
 
 #: src/preferences/devices/sony/configureWindow.js:303
 msgid "Button/Touch Settings"
@@ -2515,11 +2515,11 @@ msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:329
 msgid "Left Bud"
-msgstr ""
+msgstr "Auricular Izquierdo"
 
 #: src/preferences/devices/sony/configureWindow.js:343
 msgid "Right Bud"
-msgstr ""
+msgstr "Auricular Derecho"
 
 #: src/preferences/devices/sony/configureWindow.js:360
 msgid "ANC Button Configuration"
@@ -2535,15 +2535,15 @@ msgstr "Selecciona los modos a alternar cuando el botón es pulsado"
 
 #: src/preferences/devices/sony/configureWindow.js:394
 msgid "Voice Prompt"
-msgstr ""
+msgstr "Notification y guía de voz"
 
 #: src/preferences/devices/sony/configureWindow.js:413
 msgid "Voice Prompt Volume"
-msgstr ""
+msgstr "Ajuste de volumen"
 
 #: src/preferences/devices/sony/configureWindow.js:414
 msgid "Adjust the volume of voice prompts"
-msgstr ""
+msgstr "Ajusta el volumen de las notificaciones de voz"
 
 #: src/preferences/devices/sony/configureWindow.js:416
 msgid "-2"

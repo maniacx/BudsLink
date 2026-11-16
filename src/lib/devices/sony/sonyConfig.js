@@ -1,6 +1,7 @@
 'use strict';
 
 import LinkBuds from './deviceConfigs/LinkBuds.js';
+import LinkBudsFit from './deviceConfigs/LinkBudsFit.js';
 import LinkBudsS from './deviceConfigs/LinkBudsS.js';
 import SonyULT from './deviceConfigs/Sony-ULT.js';
 import WF1000XM3 from './deviceConfigs/WF-1000XM3.js';
@@ -27,6 +28,7 @@ import WISP600N from './deviceConfigs/WI-SP600N.js';
 
 export const SonyConfiguration = [
     LinkBuds,
+    LinkBudsFit,
     LinkBudsS,
     SonyULT,
     WF1000XM3,
