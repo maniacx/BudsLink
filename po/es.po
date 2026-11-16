@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-23 04:51+0000\n"
+"PO-Revision-Date: 2026-11-16 16:13+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -2331,7 +2331,9 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:618
 #: src/preferences/devices/sony/configureWindow.js:395
 msgid "Enable voice prompts for guidance and status updates"
-msgstr "Activa los avisos de voz para recibir indicaciones y actualizaciones de estado."
+msgstr ""
+"Activa los avisos de voz para recibir indicaciones y actualizaciones de "
+"estado."
 
 #: src/preferences/devices/boseBuds/configureWindow.js:646
 msgid "Prompt Language"
