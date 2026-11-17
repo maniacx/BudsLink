@@ -53,8 +53,8 @@ export const GattHandler = GObject.registerClass({
      *     begins with the classic address, giving an exact peer match
      * @param {string} [gattProfile.peerNamePrefix] fallback name match
      */
-    _init(devicePath, gattProfile) {
-        super._init();
+    constructor(devicePath, gattProfile) {
+        super();
         const subclassName = this.constructor.name;
         const identifier = getDeviceIdentifier(devicePath);
         this._socketLog = createLogger(`GattHandler-${subclassName}-${identifier}`);

@@ -27,8 +27,8 @@ export function isRedmiBuds(bluezDeviceProxy, uuids) {
 export const RedmiBudsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_RedmiBudsDevice',
 }, class RedmiBudsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `RedmiBudsDevice-${identifier}`;
         this._log = createLogger(tag);

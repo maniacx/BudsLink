@@ -24,8 +24,8 @@ export function isGfps(bluezDeviceProxy, uuids) {
 export const GfpsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_GfpsDevice',
 }, class GfpsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `GfpsDevice-${identifier}`;
         this._log = createLogger(tag);

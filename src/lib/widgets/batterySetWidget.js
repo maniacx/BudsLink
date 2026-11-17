@@ -9,8 +9,8 @@ import {CircleBatteryIcon} from './circleBatteryIconWidget.js';
 export const BatterySetWidget = GObject.registerClass({
     GTypeName: 'BudsLink_BatterySetWidget',
 }, class BatterySetWidget extends Gtk.Box {
-    _init(dataDir, dataHandler) {
-        super._init({
+    constructor(dataDir, dataHandler) {
+        super({
             spacing: 32,
             halign: Gtk.Align.CENTER,
             margin_bottom: 8,

@@ -26,8 +26,8 @@ export function isSenhBuds(bluezDeviceProxy, uuids) {
 export const SenhBudsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_SenhBudsDevice',
 }, class SenhBudsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `SenhBudsDevice-${identifier}`;
         this._log = createLogger(tag);

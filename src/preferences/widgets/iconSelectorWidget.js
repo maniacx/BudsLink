@@ -23,7 +23,7 @@ export const IconSelectorWidget = GObject.registerClass({
         ),
     },
 }, class IconSelectorWidget extends Adw.PreferencesGroup {
-    _init(params = {}) {
+    constructor(params = {}) {
         const {
             grpTitle = _('Icon'),
             rowTitle = _('Select Icon'),
@@ -43,7 +43,7 @@ export const IconSelectorWidget = GObject.registerClass({
             caseSn = '',
         } = params;
 
-        super._init({title: grpTitle});
+        super({title: grpTitle});
 
         const infoButton = new Gtk.MenuButton({
             icon_name: 'bbm-help-about-symbolic',

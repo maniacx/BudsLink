@@ -8,7 +8,7 @@ export const EqualizerWidget = GObject.registerClass({
     GTypeName: 'BudsLink_EqualizerWidget',
     Signals: {'eq-changed': {param_types: [GObject.TYPE_JSOBJECT]}},
 }, class EqualizerWidget extends Adw.Dialog {
-    _init(params = {}) {
+    constructor(params = {}) {
         const {
             freqs = [],
             initialValues = [],
@@ -19,7 +19,7 @@ export const EqualizerWidget = GObject.registerClass({
             bottomBarTitle = '',
         } = params;
 
-        super._init({
+        super({
             content_width: 650,
             content_height: 320,
         });

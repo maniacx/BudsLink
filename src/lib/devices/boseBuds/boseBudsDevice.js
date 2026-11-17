@@ -46,8 +46,8 @@ export function isBoseBuds(bluezDeviceProxy, uuids) {
 export const BoseBudsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_BoseBudsDevice',
 }, class BoseBudsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
 
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `BoseBudsDevice-${identifier}`;

@@ -18,8 +18,8 @@ const SettingsKey = 'cambridge-buds-list';
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_CambridgeBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(settings, mac, devicePath, parentWindow, modal = false) {
-        super._init({
+    constructor(settings, mac, devicePath, parentWindow, modal = false) {
+        super({
             default_width: 650,
             default_height: 700,
             width_request: 320,

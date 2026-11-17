@@ -10,8 +10,8 @@ import {AudioModes} from '../../../lib/devices/boseBuds/boseBudsConfig.js';
 const ModeEditDialog = GObject.registerClass({
     GTypeName: 'BudsLink_ModeEditDialog',
 }, class ModeEditDialog extends Adw.Dialog {
-    _init(modeRow, modelData, mode, alias) {
-        super._init({
+    constructor(modeRow, modelData, mode, alias) {
+        super({
             title: alias,
             content_width: 360,
             content_height: 600,
@@ -348,8 +348,8 @@ const ModeRow = GObject.registerClass({
         'mode-changed': {},
     },
 }, class ModeRow extends Adw.ActionRow {
-    _init(window, modelData, mode, modes, alias) {
-        super._init();
+    constructor(window, modelData, mode, modes, alias) {
+        super();
         this.activatable = true;
         this._window = window;
         this._modelData = modelData;
@@ -597,8 +597,8 @@ const ModeAddButton = GObject.registerClass({
         },
     },
 }, class ModeAddButton extends Gtk.MenuButton {
-    _init(modelData, modes) {
-        super._init();
+    constructor(modelData, modes) {
+        super();
         this._modelData = modelData;
         this._modes = modes;
 
@@ -712,8 +712,8 @@ export const ModesGroupWidget = GObject.registerClass({
         },
     },
 }, class ModesGroupWidget extends Adw.PreferencesGroup {
-    _init(window, modelData, modes, currentMode, alias) {
-        super._init();
+    constructor(window, modelData, modes, currentMode, alias) {
+        super();
         this._window = window;
         this._modelData = modelData;
         this._modes = modes.map(mode => ({...mode}));

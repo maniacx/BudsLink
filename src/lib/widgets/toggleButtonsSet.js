@@ -9,8 +9,8 @@ const NO_ACTIVE_TOGGLE_WORKAROUND_INDEX = 16;
 export const ToggleButtonsSet = GObject.registerClass({
     GTypeName: 'BudsLink_ToggleButtonsSet',
 }, class ToggleButtonsSet extends Gtk.Box {
-    _init(isSecondSet, dataHandler) {
-        super._init({
+    constructor(isSecondSet, dataHandler) {
+        super({
             orientation: Gtk.Orientation.VERTICAL,
             spacing: 6,
             margin_top: 8,

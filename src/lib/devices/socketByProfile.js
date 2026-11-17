@@ -10,8 +10,8 @@ const LOG_BYTES = true;
 export const SocketHandler = GObject.registerClass({
     GTypeName: 'BudsLink_SocketHandler',
 }, class SocketHandler extends GObject.Object {
-    _init(devicePath, profileManager, profile) {
-        super._init();
+    constructor(devicePath, profileManager, profile) {
+        super();
         const subclassName = this.constructor.name;
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `SocketHandler-${subclassName}-${identifier}`;

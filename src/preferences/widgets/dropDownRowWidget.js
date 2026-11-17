@@ -18,7 +18,7 @@ export const DropDownRowWidget = GObject.registerClass({
         'button-clicked': {},
     },
 }, class DropDownRowWidget extends Adw.ActionRow {
-    _init(params = {}) {
+    constructor(params = {}) {
         const {
             title = '',
             subtitle = '',
@@ -32,7 +32,7 @@ export const DropDownRowWidget = GObject.registerClass({
             buttonVisibleFor = [],
         } = params;
 
-        super._init({title, subtitle});
+        super({title, subtitle});
 
         this._buttonVisibleFor = buttonVisibleFor;
 

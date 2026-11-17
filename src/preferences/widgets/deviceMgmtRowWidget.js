@@ -10,8 +10,8 @@ import {BtDeviceState, DeviceManagementAction} from '../../lib/devices/commonEmu
 const DeviceManagementDialog = GObject.registerClass({
     GTypeName: 'BudsLink_DeviceManagementDialog',
 }, class DeviceManagementDialog extends Adw.Dialog {
-    _init(mgmtRow, ownDevice, routeDevice) {
-        super._init({
+    constructor(mgmtRow, ownDevice, routeDevice) {
+        super({
             title: '',
             content_width: 360,
             content_height: 700,
@@ -566,8 +566,8 @@ export const DeviceManagementRow = GObject.registerClass({
             GObject.ParamFlags.READWRITE, false),
     },
 }, class DeviceManagementRow extends Adw.ActionRow {
-    _init(window, deviceArr, ownDevice, routeDevice, config = {}) {
-        super._init();
+    constructor(window, deviceArr, ownDevice, routeDevice, config = {}) {
+        super();
         this.config = {
             hasMultipointSwitch: true,
             maxConnected: 2,

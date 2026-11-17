@@ -24,8 +24,8 @@ export const RingMyBudsRow = GObject.registerClass({
         ),
     },
 }, class RingMyBudsRow extends Adw.ActionRow {
-    _init(config = {}) {
-        super._init();
+    constructor(config = {}) {
+        super();
 
         const {
             dual = false,

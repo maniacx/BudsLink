@@ -23,8 +23,8 @@ export function isNothingBuds(bluezDeviceProxy, uuids) {
 export const NothingBudsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_NothingBudsDevice',
 }, class NothingBudsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `NothingBudsDevice-${identifier}`;
         this._log = createLogger(tag);

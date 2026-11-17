@@ -16,8 +16,8 @@ const MIN_FRAME_LEN = 9;
 export const OpoBudsSocket = GObject.registerClass({
     GTypeName: 'BudsLink_OpoBudsSocket',
 }, class OpoBudsSocket extends SocketHandler {
-    _init(devicePath, profileManager, profile, callbacks) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, callbacks) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `OpoBudsSocket-${identifier}`;
         this._log = createLogger(tag);

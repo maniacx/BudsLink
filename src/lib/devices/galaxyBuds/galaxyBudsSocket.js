@@ -22,8 +22,8 @@ const ClientSamsungDevice = 1;
 export const GalaxyBudsSocket = GObject.registerClass({
     GTypeName: 'BudsLink_GalaxyBudsSocket',
 }, class GalaxyBudsSocket extends SocketHandler {
-    _init(devicePath, profileManager, profile, modelData, callbacks) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, modelData, callbacks) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `GalaxyBudsSocket-${identifier}`;
         this._log = createLogger(tag);

@@ -28,8 +28,8 @@ export function isGoogleBuds(bluezDeviceProxy, uuids) {
 export const GoogleBudsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_GoogleBudsDevice',
 }, class GoogleBudsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `GoogleBudsDevice-${identifier}`;
         this._log = createLogger(tag);

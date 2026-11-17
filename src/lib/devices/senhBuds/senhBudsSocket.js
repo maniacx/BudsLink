@@ -21,8 +21,8 @@ const HEADER = [0xFF, 0x03];
 export const SenhBudsSocket = GObject.registerClass({
     GTypeName: 'BudsLink_SenhSocket',
 }, class SenhBudsSocket extends SocketHandler {
-    _init(devicePath, profileManager, profile, callbacks) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, callbacks) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `SenhSocket-${identifier}`;
         this._log = createLogger(tag);

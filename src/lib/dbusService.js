@@ -26,8 +26,8 @@ const MANAGER_INTROSPECTION_XML =
 
 const Device = GObject.registerClass(
 class Device extends GObject.Object {
-    _init(connection, devicePath, objectPath, dataHandler) {
-        super._init();
+    constructor(connection, devicePath, objectPath, dataHandler) {
+        super();
 
         this._objectPath = objectPath;
         this._dataHandler = dataHandler;
@@ -180,8 +180,8 @@ class Device extends GObject.Object {
 
 export const DbusService = GObject.registerClass(
 class DbusService extends GObject.Object {
-    _init(connection, objectPath, holdServiceCb, releaseServiceCb) {
-        super._init();
+    constructor(connection, objectPath, holdServiceCb, releaseServiceCb) {
+        super();
         this._log = createLogger('DbusService');
         this._connection = connection;
         this._deviceMap = new Map();

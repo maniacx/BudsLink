@@ -59,8 +59,8 @@ export function isSonyV2(bluezDeviceProxy, uuids) {
 export const SonyDevice = GObject.registerClass({
     GTypeName: 'BudsLink_SonyDevice',
 }, class SonyDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `SonyDevice-${identifier}`;
         this._log = createLogger(tag);

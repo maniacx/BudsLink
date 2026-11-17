@@ -30,8 +30,8 @@ DaanHessen
 export const NothingBudsSocket = GObject.registerClass({
     GTypeName: 'BudsLink_NothingBudsSocket',
 }, class NothingBudsSocket extends SocketHandler {
-    _init(devicePath, profileManager, profile, callbacks) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, callbacks) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `NothingEarSocket-${identifier}`;
         this._log = createLogger(tag);

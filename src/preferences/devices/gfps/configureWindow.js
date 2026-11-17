@@ -11,8 +11,8 @@ import {IconSelectorWidget} from './../../widgets/iconSelectorWidget.js';
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_GfpsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(settings, mac, devicePath, parentWindow, modal = false) {
-        super._init({
+    constructor(settings, mac, devicePath, parentWindow, modal = false) {
+        super({
             default_width: 650,
             default_height: 650,
             width_request: 320,

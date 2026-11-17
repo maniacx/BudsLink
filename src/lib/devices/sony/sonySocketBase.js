@@ -11,8 +11,8 @@ export const SonySocketBase = GObject.registerClass({
     GTypeName: 'BudsLink_SonySocketBase',
     Signals: {'ack-received': {param_types: [GObject.TYPE_STRING]}},
 }, class SonySocketBase extends SocketHandler {
-    _init(devicePath, profileManager, profile) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `SonySocketBase-${identifier}`;
         this._log = createLogger(tag);

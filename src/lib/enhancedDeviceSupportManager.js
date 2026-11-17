@@ -44,8 +44,8 @@ import {GfpsDevice, isGfps, DeviceTypeGfps} from './devices/gfps/gfpsDevice.js';
 export const EnhancedDeviceSupportManager = GObject.registerClass({
     GTypeName: 'BudsLink_EnhancedDeviceSupportManager',
 }, class EnhancedDeviceSupportManager extends GObject.Object {
-    _init(toggle) {
-        super._init();
+    constructor(toggle) {
+        super();
         this._toggle = toggle;
         this._settings = toggle.settings;
         this._extPath = toggle.extPath;

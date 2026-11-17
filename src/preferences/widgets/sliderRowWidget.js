@@ -26,7 +26,7 @@ export const SliderRowWidget = GObject.registerClass({
         ),
     },
 }, class SliderRowWidget extends Adw.PreferencesRow {
-    _init(params = {}) {
+    constructor(params = {}) {
         const {
             rowTitle = '',
             rowSubtitle = '',
@@ -36,7 +36,7 @@ export const SliderRowWidget = GObject.registerClass({
             initialValue = 0,
         } = params;
 
-        super._init();
+        super();
 
         const [min, max, step] = range;
         this._step = step;

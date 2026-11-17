@@ -11,8 +11,8 @@ import {
 export const EdifierBudsSocket = GObject.registerClass({
     GTypeName: 'BudsLink_EdifierSocket',
 }, class EdifierBudsSocket extends GattHandler {
-    _init(devicePath, gattProfile, callbacks) {
-        super._init(devicePath, gattProfile);
+    constructor(devicePath, gattProfile, callbacks) {
+        super(devicePath, gattProfile);
         const identifier = getDeviceIdentifier(devicePath);
         this._log = createLogger(`EdifierSocket-${identifier}`);
         this._log.info('EdifierSocket init');

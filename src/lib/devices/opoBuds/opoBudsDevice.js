@@ -42,8 +42,8 @@ export function isOpoBuds(bluezDeviceProxy, uuids) {
 export const OpoBudsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_OpoBudsDevice',
 }, class OpoBudsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `OpoBudsDevice-${identifier}`;
         this._log = createLogger(tag);

@@ -6,8 +6,8 @@ import Gtk from 'gi://Gtk';
 export const CheckButtonBin = GObject.registerClass({
     GTypeName: 'BudsLink_CheckButtonBin',
 }, class CheckButtonBin extends Gtk.Box {
-    _init(dataHandler, id) {
-        super._init({
+    constructor(dataHandler, id) {
+        super({
             orientation: Gtk.Orientation.VERTICAL,
             spacing: 6,
             hexpand: true,

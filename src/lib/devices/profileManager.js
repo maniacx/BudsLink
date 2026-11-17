@@ -15,8 +15,8 @@ export const ProfileManager = GObject.registerClass({
         },
     },
 }, class ProfileManager extends GObject.Object {
-    _init(notifyCb) {
-        super._init();
+    constructor(notifyCb) {
+        super();
         this._log = createLogger('ProfileManager');
         this._systemBus = Gio.bus_get_sync(Gio.BusType.SYSTEM, null);
         this._interface = this._buildInterfaceInfo();

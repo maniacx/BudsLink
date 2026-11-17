@@ -9,9 +9,9 @@ import {VectorImages} from './circularBatteryVectorImages.js';
 
 export const CircleBatteryIcon = GObject.registerClass({
 }, class CircleBatteryIcon extends Gtk.DrawingArea {
-    _init(deviceIcon, dataDir, params = {}) {
+    constructor(deviceIcon, dataDir, params = {}) {
         const iconSize = 34;
-        super._init({
+        super({
             content_width: iconSize,
             content_height: iconSize,
             ...params,
