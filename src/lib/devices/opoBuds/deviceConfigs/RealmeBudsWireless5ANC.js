@@ -1,0 +1,139 @@
+'use strict';
+
+export default {
+    modelId: '051412',
+    name: 'Realme Buds Wireless 5 ANC',
+
+    batteryLR: false,
+    batteryCase: false,
+
+    eqPreset: {
+        originalSound: 0x00,
+        deepBass: 0x01,
+        serenade: 0x02,
+        clearBass: 0x03,
+    },
+
+    noiseControl: {
+        modes: {
+            off: {
+                set: [0x01],
+                event: [0x01],
+            },
+            transparency: {
+                set: [0x02],
+                event: [0x02],
+            },
+            noiseCancellation: {
+                levels: {
+                    auto: {
+                        set: [0x20],
+                        event: [0x20],
+                    },
+                    low: {
+                        set: [0x04],
+                        event: [0x04],
+                    },
+                    mid: {
+                        set: [0x10],
+                        event: [0x10],
+                    },
+                    high: {
+                        set: [0x08],
+                        event: [0x08],
+                    },
+                },
+            },
+        },
+    },
+
+    lowLatencyMode: true,
+    dualConnection: true,
+    windNoiseReduction: true,
+    volumeEnhancer: true,
+    dynamicBass: true,
+    spatialAudio: true,
+    autoAnswer: true,
+    findMyPhone: true,
+    fitTest: true,
+    ring: true,
+
+    gestureOptions: {
+        slots: [
+            {group: 'mfb', device: 0x01, buttonId: 0x01, type: 'single'},
+            {group: 'mfb', device: 0x01, buttonId: 0x01, type: 'double'},
+            {group: 'mfb', device: 0x01, buttonId: 0x01, type: 'triple'},
+            {group: 'mfb', device: 0x01, buttonId: 0x01, type: 'action-hold'},
+        ],
+        mapping: {
+            gestureTypes: {
+                'single': 0x01,
+                'double': 0x02,
+                'triple': 0x03,
+                'action-hold': 0x04,
+            },
+            actions: {
+                'none': [0x00],
+                'play-pause': [0x01],
+                'voice-assistant': [0x04],
+                'skip-back': [0x05],
+                'skip-forward': [0x06],
+                'noise-control': [0x08],
+                'device-switch': [0x0A],
+                'game-mode': [0x11],
+            },
+        },
+        gestures: {
+            'single': {
+                type: 'press',
+                actions: [
+                    'play-pause',
+                    'skip-forward',
+                    'skip-back',
+                    'game-mode',
+                    'voice-assistant',
+                    'none',
+                ],
+            },
+            'double': {
+                type: 'press',
+                actions: [
+                    'play-pause',
+                    'skip-forward',
+                    'skip-back',
+                    'game-mode',
+                    'voice-assistant',
+                    'none',
+                ],
+            },
+            'triple': {
+                type: 'press',
+                actions: [
+                    'play-pause',
+                    'skip-forward',
+                    'skip-back',
+                    'game-mode',
+                    'voice-assistant',
+                    'none',
+                ],
+            },
+            'action-hold': {
+                type: 'press',
+                actions: [
+                    'voice-assistant',
+                    'game-mode',
+                    'none',
+                ],
+            },
+        },
+        noiseControlModes: {
+            'off': 0x01,
+            'transparency': 0x02,
+            'noise-cancellation': 0x08,
+        },
+        ancCycleType: 1,
+    },
+
+    albumArtIcon: 'earbuds-neckband',
+    budsIcon: 'earbuds-neckband',
+};

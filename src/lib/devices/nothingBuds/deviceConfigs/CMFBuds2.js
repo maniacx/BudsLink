@@ -36,7 +36,7 @@ export default {
 
     inEarDetection: false,
     lowLatencyMode: true,
-    earTipTest: true,
+    fitTest: true,
     ring: true,
     dualConnection: true,
     dualConnectionReboot: false,

@@ -198,8 +198,7 @@ export const AirpodsSocket = GObject.registerClass({
             start += 5;
         }
 
-        if (this._callbacks?.updateBatteryProps)
-            this._callbacks.updateBatteryProps(props);
+        this._callbacks?.updateBatteryProps(props);
     }
 
     _parseAncStatus(data) {
@@ -211,8 +210,7 @@ export const AirpodsSocket = GObject.registerClass({
         if (this._ancMode !== ancModeByte) {
             this._ancMode = ancModeByte;
 
-            if (this._callbacks?.updateAncMode)
-                this._callbacks.updateAncMode(ancModeByte);
+            this._callbacks?.updateAncMode(ancModeByte);
         }
     }
 
@@ -225,8 +223,7 @@ export const AirpodsSocket = GObject.registerClass({
         if (this._adaptiveLevelByte !== adaptiveLevelByte) {
             this._adaptiveLevelByte = adaptiveLevelByte;
 
-            if (this._callbacks?.updateAdaptiveLevel)
-                this._callbacks.updateAdaptiveLevel(adaptiveLevelByte);
+            this._callbacks?.updateAdaptiveLevel(adaptiveLevelByte);
         }
     }
 
@@ -239,8 +236,7 @@ export const AirpodsSocket = GObject.registerClass({
         if (this._awarenessMode !== awarenessModeByte) {
             this._awarenessMode = awarenessModeByte;
 
-            if (this._callbacks?.updateAwarenessMode)
-                this._callbacks.updateAwarenessMode(awarenessModeByte);
+            this._callbacks?.updateAwarenessMode(awarenessModeByte);
         }
     }
 
@@ -268,8 +264,7 @@ export const AirpodsSocket = GObject.registerClass({
             this._bud1State = bud1Raw;
             this._bud2State = bud2Raw;
 
-            if (this._callbacks?.updateInEarStatus)
-                this._callbacks.updateInEarStatus(bud1Raw, bud2Raw);
+            this._callbacks?.updateInEarStatus(bud1Raw, bud2Raw);
         }
     }
 
@@ -278,8 +273,7 @@ export const AirpodsSocket = GObject.registerClass({
         if (level >= 1 && level <= 9) {
             const attenuated = level <= 2;
 
-            if (this._callbacks?.updateAwarenessData)
-                this._callbacks.updateAwarenessData(attenuated);
+            this._callbacks?.updateAwarenessData(attenuated);
         }
     }
 
@@ -289,41 +283,33 @@ export const AirpodsSocket = GObject.registerClass({
             return;
 
         const level = Math.round((value - 15) / (100 - 15) * 100);
-        if (this._callbacks?.updateNotificationToneMode)
-            this._callbacks.updateNotificationToneMode(level);
+        this._callbacks.updateNotificationToneMode(level);
     }
 
     _parseVolSwipeMode(data) {
         const mode = data[9];
         if (isValidByte(mode, VolSwipeMode)) {
             const state = mode === VolSwipeMode.ON;
-            if (this._callbacks?.updateVolSwipeMode)
-                this._callbacks.updateVolSwipeMode(state);
+            this._callbacks?.updateVolSwipeMode(state);
         }
     }
 
     _parseVolSwipeLength(data) {
         const duration = data[9];
-        if (isValidByte(duration, VolSwipeLength)) {
-            if (this._callbacks?.updateVolSwipeLength)
-                this._callbacks.updateVolSwipeLength(duration);
-        }
+        if (isValidByte(duration, VolSwipeLength))
+            this._callbacks?.updateVolSwipeLength(duration);
     }
 
     _parsePressSpeed(data) {
         const speed = data[9];
-        if (isValidByte(speed, PressSpeedMode)) {
-            if (this._callbacks?.updatePressSpeed)
-                this._callbacks.updatePressSpeed(speed);
-        }
+        if (isValidByte(speed, PressSpeedMode))
+            this._callbacks?.updatePressSpeed(speed);
     }
 
     _parsePressDuration(data) {
         const duration = data[9];
-        if (isValidByte(duration, PressDurationMode)) {
-            if (this._callbacks?.updatePressDuration)
-                this._callbacks.updatePressDuration(duration);
-        }
+        if (isValidByte(duration, PressDurationMode))
+            this._callbacks?.updatePressDuration(duration);
     }
 
     setAncMode(mode) {
@@ -352,8 +338,7 @@ export const AirpodsSocket = GObject.registerClass({
         else if (mode === AwarenessMode.OFF)
             this.sendMessage(PacketConstants.CONVERSATION_AWARENESS_OFF);
 
-        if (this._callbacks?.updateAwarenessMode)
-            this._callbacks.updateAwarenessMode(mode);
+        this._callbacks?.updateAwarenessMode(mode);
     }
 
     setListMode(lisMode) {

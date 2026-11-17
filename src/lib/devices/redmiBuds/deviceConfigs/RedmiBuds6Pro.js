@@ -9,7 +9,7 @@ export default {
 
     batteryMutiple: true,
     batteryCase: true,
-    /*
+
     eqPreset: {
         standard: 0x00,
         treble: 0x06,
@@ -27,10 +27,7 @@ export default {
     adaptiveNcSwitch: true,
     personalizeAnc: true,
 
-    noiseCancellationStrength: {
-        low: 0x01,
-        high: 0x02,
-    },
+    ancLevel: 20,
 
     transparencyStrength: {
         regular: 0x00,
@@ -39,6 +36,15 @@ export default {
     },
 
     immersiveSound: true,
+    headTracking: true,
+    spatialAudioScenes: {
+        'Standard': 0x01,
+        'Music': 0x02,
+        'Video': 0x03,
+        'Game': 0x04,
+        'Audiobooks': 0x05,
+    },
+    inEarDetection: true,
     lowLatencyMode: true,
     adaptiveSound: true,
     dualConnection: true,
@@ -107,7 +113,6 @@ export default {
         },
         noiseControlModes: ['off', 'transparency', 'noise-cancellation'],
     },
-*/
     albumArtIcon: 'earbuds-stem',
     budsIcon: 'earbuds-stem',
     case: 'case-normal',

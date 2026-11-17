@@ -1,6 +1,7 @@
 'use strict';
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
+import {gettext as _} from 'gettext';
 
 import {
     supportedAudioSingleIcons, supportedAudioDualIcons, supportedCaseIcons
@@ -19,7 +20,7 @@ import {
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_SonyConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(settings, mac, devicePath, parentWindow, _, modal = false) {
+    _init(settings, mac, devicePath, parentWindow, modal = false) {
         super._init({
             default_width: 650,
             default_height: 650,
@@ -84,10 +85,6 @@ export const ConfigureWindow = GObject.registerClass({
         }
 
         const iconSelector = new IconSelectorWidget({
-            gtxt: _,
-            grpTitle: _('Icon'),
-            rowTitle: _('Select Icon'),
-            rowSubtitle: _('Select the icon used for the indicator and quick menu'),
             iconList,
             initialIcon: this._settingsItems['icon'],
             caseIconList,
@@ -505,7 +502,7 @@ export const ConfigureWindow = GObject.registerClass({
             }
         }
 
-        this._addDevMgmtSetting(_, page);
+        this._addDevMgmtSetting(page);
 
         const settingSignalId = this._settings.connect('changed::sony-list', () => {
             const updatedList = this._settings.get_strv('sony-list').map(JSON.parse);
@@ -608,7 +605,7 @@ export const ConfigureWindow = GObject.registerClass({
             this._eqPresetDropdown.sensitive = isStdMode;
     }
 
-    _addDevMgmtSetting(_, page) {
+    _addDevMgmtSetting(page) {
         if (!this._modelData.dualConnection)
             return;
 
@@ -634,7 +631,7 @@ export const ConfigureWindow = GObject.registerClass({
             showMac: true,
         };
 
-        this._dualConnSwitch = new DeviceManagementRow(this, _, deviceInfo,
+        this._dualConnSwitch = new DeviceManagementRow(this, deviceInfo,
             '', currentActiveRoute, deviceManagementConfig);
 
         this._dualConnSwitch.pair_mode = this._settingsItems['pairing-mode'];

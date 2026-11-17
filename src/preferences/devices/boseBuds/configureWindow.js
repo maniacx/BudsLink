@@ -1,6 +1,7 @@
 'use strict';
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
+import {gettext as _} from 'gettext';
 
 import {
     supportedAudioSingleIcons, supportedAudioDualIcons, supportedCaseIcons
@@ -16,7 +17,7 @@ import {BoseBudsModelList, VoicePrompt} from '../../../lib/devices/boseBuds/bose
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_BoseBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(settings, mac, devicePath, parentWindow, _, modal = false) {
+    _init(settings, mac, devicePath, parentWindow, modal = false) {
         super._init({
             default_width: 650,
             default_height: 650,
@@ -51,7 +52,6 @@ export const ConfigureWindow = GObject.registerClass({
 
         this._settings = settings;
         this._devicePath = devicePath;
-        this._gettext = _;
 
         const pathsString = settings.get_strv('bose-buds-list').map(JSON.parse);
         this._settingsItems = pathsString.find(info => info.path === devicePath);
@@ -86,10 +86,6 @@ export const ConfigureWindow = GObject.registerClass({
         }
 
         const iconSelector = new IconSelectorWidget({
-            gtxt: _,
-            grpTitle: _('Icon'),
-            rowTitle: _('Select Icon'),
-            rowSubtitle: _('Select the icon used for the indicator and quick menu'),
             iconList,
             initialIcon: this._settingsItems['icon'],
             caseIconList,
@@ -237,13 +233,11 @@ export const ConfigureWindow = GObject.registerClass({
         if (!this._modelData.audioModes)
             return;
 
-        const _ = this._gettext;
-
         const curretMode = this._settingsItems['current-mode'];
         const modes = this._settingsItems['modes'];
         const alias = this._settingsItems.alias;
-        this._audioModesGrp = new ModesGroupWidget(this, this._gettext,
-            this._modelData, modes, curretMode, alias);
+        this._audioModesGrp = new ModesGroupWidget(this, this._modelData,
+            modes, curretMode, alias);
 
         this._audioModesGrp.connect('current-mode-changed', (_w, mode) => {
             this._updateGsettings('current-mode', mode);
@@ -269,8 +263,6 @@ export const ConfigureWindow = GObject.registerClass({
     _addSoundSettings() {
         if (!this._modelData.audioMode && !this._modelData.eq)
             return;
-
-        const _ = this._gettext;
 
         const eqGroup = new Adw.PreferencesGroup({title: _('Sound Settings')});
         this._page.add(eqGroup);
@@ -371,7 +363,6 @@ export const ConfigureWindow = GObject.registerClass({
                 !this._modelData.autoPause)
             return;
 
-        const _ = this._gettext;
         const groupTitle = this._modelData.type === 'earbuds' ? _('In Ear Settings')
             : _('On Head Settings');
 
@@ -488,7 +479,6 @@ export const ConfigureWindow = GObject.registerClass({
         if (!st)
             return;
 
-        const _ = this._gettext;
         const callGroup = new Adw.PreferencesGroup({title: _('Calls Settings')});
         this._page.add(callGroup);
 
@@ -521,8 +511,6 @@ export const ConfigureWindow = GObject.registerClass({
         if (!this._modelData.dualConnection)
             return;
 
-        const _ = this._gettext;
-
         const devMgmtGroup = new Adw.PreferencesGroup({title: _('Connection Management')});
         this._page.add(devMgmtGroup);
 
@@ -541,7 +529,7 @@ export const ConfigureWindow = GObject.registerClass({
             const currentActiveRoute = this._settingsItems['active-dev'];
             const ownDevice = this._settingsItems['own-dev'];
 
-            this._dualConnSwitch = new DeviceManagementRow(this, this._gettext, deviceInfo,
+            this._dualConnSwitch = new DeviceManagementRow(this, deviceInfo,
                 ownDevice, currentActiveRoute, deviceManagementConfig);
 
             this._dualConnSwitch.active = this._settingsItems['multipoint'];
@@ -570,8 +558,6 @@ export const ConfigureWindow = GObject.registerClass({
     _addMiscSetting() {
         if (!this._modelData.automaticPowerOffTimer)
             return;
-
-        const _ = this._gettext;
 
         const miscGroup = new Adw.PreferencesGroup({title: _('Additional Settings')});
         this._page.add(miscGroup);
@@ -609,8 +595,6 @@ export const ConfigureWindow = GObject.registerClass({
     _addVoicePrompt() {
         if (!this._modelData.voicePrompt)
             return;
-
-        const _ = this._gettext;
 
         if (!this._promptGroup) {
             this._promptGroup = new Adw.PreferencesGroup({
@@ -704,7 +688,6 @@ export const ConfigureWindow = GObject.registerClass({
         if (!gc)
             return;
 
-        const _ = this._gettext;
         this._gestureRows = [];
         const GESTURE_DISPLAY = {
             'single-tap': _('Single Tap'),
@@ -784,7 +767,6 @@ export const ConfigureWindow = GObject.registerClass({
     }
 
     _getGroupTitle(group) {
-        const _ = this._gettext;
         switch (group) {
             case 'single':
                 return _('Gesture Controls');
@@ -801,8 +783,6 @@ export const ConfigureWindow = GObject.registerClass({
     }
 
     _readableAction(action) {
-        const _ = this._gettext;
-
         switch (action) {
             case 'no-action':
                 return _('No Action');

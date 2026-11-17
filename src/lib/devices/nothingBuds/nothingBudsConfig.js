@@ -14,6 +14,7 @@ import NothingHeadphone1 from './deviceConfigs/NothingHeadphone1.js';
 import NothingEarA from './deviceConfigs/NothingEarA.js';
 import NothingEara from './deviceConfigs/NothingEara.js';
 import NothingEarOpen from './deviceConfigs/NothingEarOpen.js';
+import NothingEar3a from './deviceConfigs/NothingEar3a.js';
 import NothingEar3 from './deviceConfigs/NothingEar3.js';
 import Ear2 from './deviceConfigs/Ear2.js';
 import NothingEar1 from './deviceConfigs/NothingEar1.js';
@@ -37,6 +38,7 @@ export const NothingBudsModelList = [
     NothingEarA,
     NothingEara,
     NothingEarOpen,
+    NothingEar3a,
     NothingEar3,
     Ear2,
     NothingEar1,
@@ -118,8 +120,18 @@ export const PayloadType = {
     LATENCY_NTFY: 0x7040,
 
     RING_SET: 0xF002,
-    EAR_FIT_TEST_START: 0xF014,
+    EAR_FIT_TEST_SET: 0xF014,
     EAR_FIT_TEST_NTFY: 0xE00D,
+
+    DUAL_CONNECTION_GET: 0xC027,
+    DUAL_CONNECTION_SET: 0xF01A,
+    DUAL_CONNECTION_RET: 0x4027,
+    DUAL_CONNECTION_NTFY: 0xE006,
+
+    DUAL_CONNECTION_DEVICES_GET: 0xC028,
+    DUAL_CONNECTION_DEVICES_SET: 0xF01B,
+    DUAL_CONNECTION_DEVICES_RET: 0x4028,
+    DUAL_CONNECTION_DEVICES_NTFY: 0xE00E,
 };
 
 const crc16AnsiTab = Uint16Array.from([

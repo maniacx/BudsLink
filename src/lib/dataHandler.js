@@ -167,8 +167,8 @@ export const DataHandler = GObject.registerClass({
         'ui-action': {param_types: [GObject.TYPE_STRING, GObject.TYPE_INT]},
     },
 }, class DataHandler extends GObject.Object {
-    constructor(config, props) {
-        super();
+    _init(config, props) {
+        super._init();
         this.config = config;
         this.props = props;
     }

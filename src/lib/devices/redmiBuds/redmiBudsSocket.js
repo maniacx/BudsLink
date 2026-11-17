@@ -132,7 +132,7 @@ export const RedmiBudsSocket = GObject.registerClass({
     }
 
     _encode(type, opcode, seq, payload) {
-        const isRequest = (type & 0x40) !== 0;
+        const isRequest = (type & 0x80) !== 0;
         const payloadLength = payload.length + (isRequest ? 1 : 2);
         const out = [...HEADER, type, opcode, payloadLength >> 8 & 0xFF, payloadLength & 0xFF];
 
@@ -179,7 +179,7 @@ export const RedmiBudsSocket = GObject.registerClass({
     _parseMessage(raw) {
         const type = raw[3];
         const opcode = raw[4];
-        const isRequest = (type & 0x40) !== 0;
+        const isRequest = (type & 0x80) !== 0;
         const seqIndex = isRequest ? 7 : 8;
         const seq = raw[seqIndex];
         const payloadStart = seqIndex + 1;
@@ -353,6 +353,9 @@ export const RedmiBudsSocket = GObject.registerClass({
 
         if (this._modelData.lowLatencyMode)
             this._getLowLatency();
+
+        if (this._modelData.immersiveSound)
+            this._getImmersiveSound();
 
         if (this._modelData.eqPreset?.custom)
             this._getCustomEq();
@@ -572,47 +575,61 @@ export const RedmiBudsSocket = GObject.registerClass({
                 break;
 
             case ConfigType.AUTO_ANSWER:
-                if (this._modelData.autoAnswer)
+                if (this._modelData?.autoAnswer)
                     this._parseAutoAnswer(data);
                 break;
 
             case ConfigType.DOUBLE_CONNECTION:
-                if (this._modelData.dualConnection)
+                if (this._modelData?.dualConnection)
                     this._parseDualConnection(data);
                 break;
 
             case ConfigType.EQ_PRESET:
-                if (this._modelData.eqPreset)
+                if (this._modelData?.eqPreset)
                     this._parseEqPreset(data);
                 break;
 
             case ConfigType.LONG_GESTURES:
-                if (this._modelData.gestureOptions?.noiseControlModes)
+                if (this._modelData?.gestureOptions?.noiseControlModes)
                     this._parseLongPressMode(data);
                 break;
 
             case ConfigType.ANC:
-                if (this._modelData.noiseControl)
-                    this._parseNoiseControl(data);
+                this._parseNoiseControl(data);
                 break;
 
             case ConfigType.ADAPTIVE_ANC:
-                if (this._modelData.adaptiveNcSwitch)
+                if (this._modelData?.adaptiveNcSwitch)
                     this._parseAdaptiveNC(data);
                 break;
 
             case ConfigType.LOW_LATENCY:
-                if (this._modelData.lowLatencyMode)
+                if (this._modelData?.lowLatencyMode)
                     this._parseLowLatency(data);
                 break;
 
+            case ConfigType.SPATIAL_AUDIO:
+                if (this._modelData?.immersiveSound)
+                    this._parseImmersiveSound(data);
+                break;
+
+            case ConfigType.SPATIAL_AUDIO_STATE:
+                if (this._modelData?.headTracking)
+                    this._parseSpatialAudioState(data);
+                break;
+
+            case ConfigType.SPATIAL_AUDIO_SCENE:
+                if (this._modelData?.spatialAudioScenes)
+                    this._parseSpatialAudioScene(data);
+                break;
+
             case ConfigType.ADAPTIVE_SOUND:
-                if (this._modelData.adaptiveSound)
+                if (this._modelData?.adaptiveSound)
                     this._parseAdaptiveSound(data);
                 break;
 
             case ConfigType.EQ_CURVE:
-                if (this._modelData.eqPreset?.custom)
+                if (this._modelData?.eqPreset?.custom)
                     this._parseCustomEq(data);
                 break;
 
@@ -640,6 +657,9 @@ export const RedmiBudsSocket = GObject.registerClass({
 
     _parseNoiseControl(data) {
         if (data.length < 2)
+            return;
+
+        if (!this._modelData?.noiseControl)
             return;
 
         this._log.info('Parse NoiseControl');
@@ -848,6 +868,62 @@ export const RedmiBudsSocket = GObject.registerClass({
         this._setConfig(ConfigType.LOW_LATENCY, [enabled ? 0x01 : 0x00], loginfo);
     }
 
+    _getImmersiveSound() {
+        if (this._modelData.headTracking) {
+            this._getConfig(ConfigType.SPATIAL_AUDIO_STATE, 'Get Spatial Audio State');
+            if (this._modelData.spatialAudioScenes)
+                this._getConfig(ConfigType.SPATIAL_AUDIO_SCENE, 'Get Spatial Audio Scene');
+        } else {
+            this._getConfig(ConfigType.SPATIAL_AUDIO, 'Get Immersive Sound');
+        }
+    }
+
+    _parseImmersiveSound(data) {
+        this._log.info('Parse Immersive Sound');
+        const enable = booleanFromByte(data[0]);
+        if (enable === null)
+            return;
+
+        this._callbacks?.updateImmersiveSound?.(enable);
+    }
+
+    _parseSpatialAudioState(data) {
+        this._log.info('Parse Spatial Audio State');
+        const val = data[0];
+        const immersive = val === 0x03 || val === 0x0B;
+        const headTracking = val === 0x0B;
+        this._callbacks?.updateImmersiveSound?.(immersive);
+        this._callbacks?.updateHeadTracking?.(headTracking);
+    }
+
+    _parseSpatialAudioScene(data) {
+        this._log.info('Parse Spatial Audio Scene');
+        if (data.length < 2)
+            return;
+        const scene = data[1];
+        this._callbacks?.updateSpatialAudioScene?.(scene);
+    }
+
+    setImmersiveSound(enabled, headTracking = false) {
+        const loginfo = `Set Immersive Sound: ${enabled}, HeadTracking: ${headTracking}`;
+        if (this._modelData.headTracking) {
+            let val = 0x02;
+
+            if (enabled)
+                val = headTracking ? 0x0B : 0x03;
+
+            this._setConfig(ConfigType.SPATIAL_AUDIO_STATE, [val], loginfo);
+        } else {
+            this._setConfig(ConfigType.SPATIAL_AUDIO, [enabled ? 0x01 : 0x00], loginfo);
+        }
+    }
+
+    setSpatialAudioScene(scene) {
+        const loginfo = `Set Spatial Audio Scene: ${scene}`;
+        this._setConfig(ConfigType.SPATIAL_AUDIO_SCENE, [0x01, scene], loginfo);
+    }
+
+
     _getGestures() {
         this._getConfig(ConfigType.GESTURES, 'Get Gestures');
     }
@@ -855,7 +931,7 @@ export const RedmiBudsSocket = GObject.registerClass({
     _parseGestures(data) {
         this._log.info('Parse Gestures');
 
-        const gestureTypes = this._modelData.gestureOptions?.gestureTypes;
+        const gestureTypes = this._modelData?.gestureOptions?.gestureTypes;
         if (!gestureTypes)
             return;
 

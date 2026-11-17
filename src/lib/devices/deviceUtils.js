@@ -1,7 +1,7 @@
 'use strict';
 import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
-import {createConfigureWindow} from '../../appLibs/confirueWindowlauncher.js';
+import {createConfigureWindow} from '../confirueWindowlauncher.js';
 
 export const SppUUidType = 'serial';
 export const SppUUid = '00001101-0000-1000-8000-00805f9b34fb';

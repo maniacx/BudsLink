@@ -13,3 +13,11 @@ export const DeviceManagementAction = {
     Routing: 3,
     Refresh: 4,
 };
+
+export const EarTipStatus = {
+    NotInitialized: 0,
+    GoodSeal: 1,
+    BadSeal: 2,
+    Error: 3,
+};
+

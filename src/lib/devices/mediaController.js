@@ -4,7 +4,7 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
 import {createLogger} from './logger.js';
-import {Gvc, Volume} from '../../appLibs/gvcProvider.js';
+import {Gvc, Volume} from '../gvcProvider.js';
 
 const MEDIA_PLAYER_PREFIX = 'org.mpris.MediaPlayer2.';
 
@@ -16,7 +16,7 @@ export const MediaController = GObject.registerClass({
         ),
     },
 }, class MediaController extends GObject.Object {
-    _init(settings, devicePath, previousOnDestroyVolume) {
+    _init(settings, devicePath) {
         super._init();
         this._log = createLogger('MediaController');
         this._settings = settings;
@@ -25,7 +25,7 @@ export const MediaController = GObject.registerClass({
             .replace(/_/g, '').toUpperCase();
 
         this._controllerReady = false;
-        this._previousVolume = previousOnDestroyVolume;
+        this._previousVolume = -1;
         this._sink = null;
         this._defaultSinkChangedId = null;
         this._stateId = null;
@@ -400,23 +400,13 @@ export const MediaController = GObject.registerClass({
         }
 
         this._mprisNames = names.filter(name => name.startsWith(MEDIA_PLAYER_PREFIX));
-        if (this._requestedState === 'play') {
-            if (this._lastPausedPlayer && this._mprisNames.includes(this._lastPausedPlayer))
-                this._initPlayerProxy(this._lastPausedPlayer);
-        } else {
-            this._iteratePlayers();
-        }
-    }
 
-    _onDestroy() {
-        if (this._previousVolume > -1) {
-            const lastAttenuationInfo = {
-                path: this._devicePath,
-                timestamp: Date.now(),
-                volume: this._previousVolume,
-            };
-            this._settings.set_strv('attenuated-on-destroy-info',
-                [JSON.stringify(lastAttenuationInfo)]);
+        if (this._requestedState === 'play' && this._lastPausedPlayer &&
+                 this._mprisNames.includes(this._lastPausedPlayer)) {
+            this._mprisNames = [];
+            this._initPlayerProxy(this._lastPausedPlayer);
+        } else if (this._requestedState === 'pause') {
+            this._iteratePlayers();
         }
     }
 
@@ -424,7 +414,6 @@ export const MediaController = GObject.registerClass({
         if (this._volumeRampTimeoutId)
             GLib.source_remove(this._volumeRampTimeoutId);
         this._volumeRampTimeoutId = null;
-        this._onDestroy();
         this._disconnectController();
         this._disconnectPlayerProxy();
         if (this._stateChangeId)

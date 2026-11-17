@@ -9,13 +9,6 @@ export default {
 
     batteryMutiple: true,
     batteryCase: true,
-    /*
-    eqPreset: {
-        standard: 0x00,
-        treble: 0x06,
-        base: 0x05,
-        voice: 0x01,
-    },
 
     noiseControl: {
         off: 0x00,
@@ -35,9 +28,8 @@ export default {
         voice: 0x01,
     },
 
-    lowLatencyMode: true,
-    adaptiveSound: true,
     dualConnection: true,
+    inEarDetection: true,
     autoAnswer: true,
     ring: true,
 
@@ -79,7 +71,7 @@ export default {
         },
         noiseControlModes: ['off', 'transparency', 'noise-cancellation'],
     },
-*/
+
     albumArtIcon: 'earbuds',
     budsIcon: 'earbuds',
     case: 'case-narrow',

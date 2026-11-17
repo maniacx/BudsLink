@@ -1,6 +1,7 @@
 'use strict';
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
+import {gettext as _} from 'gettext';
 
 import {
     supportedAudioSingleIcons, supportedAudioDualIcons, supportedCaseIcons
@@ -17,7 +18,7 @@ import {SenhBudsModelList} from '../../../lib/devices/senhBuds/senhBudsConfig.js
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_SenhBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(settings, mac, devicePath, parentWindow, _, modal = false) {
+    _init(settings, mac, devicePath, parentWindow, modal = false) {
         super._init({
             default_width: 650,
             default_height: 650,
@@ -52,7 +53,6 @@ export const ConfigureWindow = GObject.registerClass({
 
         this._settings = settings;
         this._devicePath = devicePath;
-        this._gettext = _;
 
         const pathsString = settings.get_strv('senh-buds-list').map(JSON.parse);
         this._settingsItems = pathsString.find(info => info.path === devicePath);
@@ -88,10 +88,6 @@ export const ConfigureWindow = GObject.registerClass({
         }
 
         const iconSelector = new IconSelectorWidget({
-            gtxt: _,
-            grpTitle: _('Icon'),
-            rowTitle: _('Select Icon'),
-            rowSubtitle: _('Select the icon used for the indicator and quick menu'),
             iconList,
             initialIcon: this._settingsItems['icon'],
             caseIconList,
@@ -215,8 +211,6 @@ export const ConfigureWindow = GObject.registerClass({
     _addSoundSettings() {
         if (!this._modelData.audioMode && !this._modelData.eq)
             return;
-
-        const _ = this._gettext;
 
         const eqGroup = new Adw.PreferencesGroup({title: _('Sound Settings')});
         this._page.add(eqGroup);
@@ -380,7 +374,7 @@ export const ConfigureWindow = GObject.registerClass({
 
         if (this._modelData.peq) {
             const peqCfg = this._modelData.peq;
-            this._peqRow = new ParametricEqRowWidget(this, this._gettext, peqCfg);
+            this._peqRow = new ParametricEqRowWidget(this, peqCfg);
 
             this._updatePeqParams(true);
 
@@ -554,8 +548,6 @@ export const ConfigureWindow = GObject.registerClass({
     }
 
     _addInEarSettings() {
-        const _ = this._gettext;
-
         if (!this._modelData.inEarDetection && !this._modelData.transPause &&
                 !this._modelData.smartPause && !this._modelData.autoAnswer &&
                 !this._modelData.autoPowerOff)
@@ -681,8 +673,6 @@ export const ConfigureWindow = GObject.registerClass({
     }
 
     _addCallsSetting() {
-        const _ = this._gettext;
-
         if (!this._modelData.sideTone && !this._modelData.comfortCalls)
             return;
 
@@ -730,7 +720,6 @@ export const ConfigureWindow = GObject.registerClass({
 
     _addMiscSetting() {
         let miscGroup;
-        const _ = this._gettext;
 
         if (this._modelData.transPause) {
             miscGroup = new Adw.PreferencesGroup({title: _('Additional Settings')});
@@ -755,8 +744,6 @@ export const ConfigureWindow = GObject.registerClass({
         if (!this._modelData.dualConnection)
             return;
 
-        const _ = this._gettext;
-
         const devMgmtGroup = new Adw.PreferencesGroup({title: _('Connection Management')});
         this._page.add(devMgmtGroup);
 
@@ -774,7 +761,7 @@ export const ConfigureWindow = GObject.registerClass({
             showMac: false,
         };
 
-        this._dualConnSwitch = new DeviceManagementRow(this, this._gettext, deviceInfo,
+        this._dualConnSwitch = new DeviceManagementRow(this, deviceInfo,
             ownDevice, '', deviceManagementConfig);
 
         const actionData = this._settingsItems['dev-mgmt-action'];

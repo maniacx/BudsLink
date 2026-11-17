@@ -1,0 +1,172 @@
+'use strict';
+
+export default {
+    modelId: '065414',
+    name: 'OnePlus Buds 4',
+
+    batteryLR: true,
+    batteryCase: true,
+
+    eqPreset: {
+        originalSound: 0x00,
+        serenade: 0x01,
+        bass: 0x02,
+    },
+
+    customEqSupport: true,
+    eqBands: {
+        frequencies: [62, 250, 1000, 4000, 8000, 16000],
+        range: 6,
+    },
+
+    noiseControl: {
+        modes: {
+            off: {
+                set: [0x01],
+                event: [0x08, 0x00],
+            },
+            transparency: {
+                set: [0x04],
+                event: [0x00, 0x01],
+            },
+            noiseCancellation: {
+                levels: {
+                    auto: {
+                        set: [0x80],
+                        event: [0x80, 0x00],
+                    },
+                    low: {
+                        set: [0x40],
+                        event: [0x40, 0x00],
+                    },
+                    mid: {
+                        set: [0x20],
+                        event: [0x20, 0x00],
+                    },
+                    high: {
+                        set: [0x10],
+                        event: [0x10, 0x00],
+                    },
+                },
+            },
+            adaptive: {
+                set: [0x00, 0x08],
+                event: [0x00, 0x08],
+            },
+        },
+    },
+
+    inEarDetection: true,
+    lowLatencyMode: true,
+    dualConnection: true,
+    spatialAudio: true,
+    highResAudio: true,
+    dynamicBass: true,
+    dynamicBassOpo: true,
+    fitTest: true,
+    ring: true,
+
+    gestureOptions: {
+        slots: [
+            {group: 'left',  device: 0x01, buttonId: 0x01, type: 'single'},
+            {group: 'left',  device: 0x01, buttonId: 0x01, type: 'double'},
+            {group: 'left',  device: 0x01, buttonId: 0x01, type: 'triple'},
+            {group: 'left',  device: 0x01, buttonId: 0x01, type: 'swipe'},
+            {group: 'right',  device: 0x02, buttonId: 0x01, type: 'single'},
+            {group: 'right', device: 0x02, buttonId: 0x01, type: 'double'},
+            {group: 'right', device: 0x02, buttonId: 0x01, type: 'triple'},
+            {group: 'right',  device: 0x02, buttonId: 0x01, type: 'swipe'},
+            {group: 'left-call',  device: 0x01, buttonId: 0x06, type: 'double-call'},
+            {group: 'left-call',  device: 0x01, buttonId: 0x06, type: 'long-action-hold-call'},
+            {group: 'right-call',  device: 0x02, buttonId: 0x06, type: 'double-call'},
+            {group: 'right-call',  device: 0x02, buttonId: 0x06, type: 'long-action-hold-call'},
+        ],
+        mapping: {
+            gestureTypes: {
+                'single': 0x01,
+                'double': 0x02,
+                'triple': 0x03,
+                'swipe': 0x05,
+                'double-call': 0x02,
+                'long-action-hold-call': 0x06,
+            },
+            actions: {
+                'none': [0x00],
+                'play-pause': [0x01],
+                'voice-assistant': [0x04],
+                'skip-back': [0x05],
+                'skip-forward': [0x06],
+                'device-switch': [0x0A],
+                'game-mode': [0x11],
+                'change-volume': [0x07],
+                'switch-track': [0x0A],
+                'answer-end-call': [0x1D],
+                'decline-call': [0x1C],
+            },
+        },
+        gestures: {
+            'single': {
+                type: 'tap',
+                actions: [
+                    'play-pause',
+                    'none',
+                ],
+            },
+            'double': {
+                type: 'tap',
+                actions: [
+                    'play-pause',
+                    'skip-forward',
+                    'skip-back',
+                    'voice-assistant',
+                    'game-mode',
+                    'none',
+                ],
+            },
+            'triple': {
+                type: 'tap',
+                actions: [
+                    'skip-forward',
+                    'skip-back',
+                    'voice-assistant',
+                    'game-mode',
+                    'none',
+                ],
+            },
+            'swipe': {
+                type: 'swipe',
+                actions: [
+                    'none',
+                    'change-volume',
+                    'switch-track',
+                ],
+            },
+            'double-call': {
+                type: 'tap',
+                actions: [
+                    'answer-end-call',
+                    'none',
+                ],
+            },
+            'long-action-hold-call': {
+                type: 'tap',
+                actions: [
+                    'decline-call',
+                    'none',
+                ],
+            },
+        },
+        noiseControlModes: {
+            'off': 0x01,
+            'transparency': 0x04,
+            'noise-cancellation': 0x02,
+            'adaptive': 0x0800,
+        },
+        ancCycleType: 1,
+        minimumNoiseControlModes: 1,
+    },
+
+    albumArtIcon: 'earbuds-stem',
+    budsIcon: 'earbuds-stem',
+    case: 'case-oval',
+};

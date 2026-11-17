@@ -106,6 +106,8 @@ export const ConfigType = {
     PERSONALIZE_ANC: 0x3B,
     ADAPTIVE_VOLUME: 0x48,
     SPATIAL_AUDIO: 0x4F,
+    SPATIAL_AUDIO_STATE: 0x1D,
+    SPATIAL_AUDIO_SCENE: 0x36,
     UNKNOWN: 0xFF,
 };
 

@@ -20,21 +20,6 @@ app_resource = gnome.compile_resources(
 	install_dir : get_option('datadir') / APP_ID
 )
 
-install_subdir(
-  '../src/icons/hicolor/scalable/actions',
-  install_dir: get_option('datadir') / 'icons' / 'hicolor' / 'scalable'
-)
-
-install_data(
-  'icons/hicolor/scalable/apps/io.github.maniacx.BudsLink.svg',
-  install_dir: get_option('datadir') / 'icons' / 'hicolor' / 'scalable' / 'apps'
-)
-
-install_data(
-  'icons/hicolor/symbolic/apps/io.github.maniacx.BudsLink-symbolic.svg',
-  install_dir: get_option('datadir') / 'icons' / 'hicolor' / 'symbolic' / 'apps'
-)
-
 gnome.post_install(
 	gtk_update_icon_cache: true,
   update_desktop_database: true,

@@ -3,6 +3,7 @@ import Adw from 'gi://Adw';
 import Gio from 'gi://Gio';
 import Gtk from 'gi://Gtk';
 import GObject from 'gi://GObject';
+import {gettext as _} from 'gettext';
 
 import {BtDeviceState, DeviceManagementAction} from '../../lib/devices/commonEmuns.js';
 
@@ -16,13 +17,13 @@ const DeviceManagementDialog = GObject.registerClass({
             content_height: 700,
         });
 
-        const _ = mgmtRow.gtxt;
         this._mgmtRow = mgmtRow;
         this._ownDevice = ownDevice;
         this._routeDevice = routeDevice;
         this._rows = new Map();
         this._connectedRows = [];
         this._pairedRows = [];
+        this._connMaxedFlag = false;
 
         const toolbarView = new Adw.ToolbarView();
         const headerBar = new Adw.HeaderBar({
@@ -73,7 +74,8 @@ const DeviceManagementDialog = GObject.registerClass({
             page.add(pairModeGroup);
         }
 
-        if (this._mgmtRow.config.hasActiveFix) {
+        if (!this._mgmtRow.config.hasConnectDisconnectOnly &&
+                this._mgmtRow.config.hasActiveFix) {
             const activeFixedGroup = new Adw.PreferencesGroup({title: _('Playback Device')});
             const title = _('Lock Playback Device');
             const subtitle = _('Prevent playback from switching to another connected device ' +
@@ -109,7 +111,6 @@ const DeviceManagementDialog = GObject.registerClass({
     }
 
     updateDevices() {
-        const _ = this._mgmtRow.gtxt;
         const devices = this._mgmtRow.deviceArr.map(device => ({...device}));
 
         devices.sort((a, b) => {
@@ -172,7 +173,8 @@ const DeviceManagementDialog = GObject.registerClass({
 
             info.row.spinner.visible = isProcessing || isInitializing;
 
-            if (this._mgmtRow.config.hasRoutingIndicator) {
+            if (!this._mgmtRow.config.hasConnectDisconnectOnly &&
+                        this._mgmtRow.config.hasRoutingIndicator) {
                 const isRouteDevice = this._routeDevice === device.id;
                 info.row.routeIcon.visible = !isInitializing && !isProcessing &&
                         device.connected && isRouteDevice;
@@ -194,7 +196,11 @@ const DeviceManagementDialog = GObject.registerClass({
                 targetGroup.add(info.row);
                 info.group = targetGroup;
             }
-            this._updateDeviceMenu(info.row, device);
+
+            if (this._mgmtRow.config.hasConnectDisconnectOnly)
+                this._updateConnectButton(info.row, device);
+            else
+                this._updateDeviceMenu(info.row, device);
         }
 
         const connectedIds = devices.filter(device => device.connected).map(device => device.id);
@@ -239,8 +245,162 @@ const DeviceManagementDialog = GObject.registerClass({
         rows.splice(0, rows.length, ...orderedRows);
     }
 
+    _confirmDisconnect(deviceId) {
+        const dialog = new Adw.AlertDialog({
+            heading: _('Disconnect Device?'),
+            body: _('The device will be disconnected.'),
+        });
+
+        dialog.add_response('cancel', _('Cancel'));
+        dialog.add_response('disconnect', _('Disconnect'));
+        dialog.set_response_appearance('disconnect', Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.set_default_response('cancel');
+        dialog.set_close_response('cancel');
+
+        dialog.connect('response', (_dialog, response) => {
+            if (response === 'disconnect')
+                this._mgmtRow?.emit('device-action', DeviceManagementAction.Disconnect, deviceId);
+        });
+
+        dialog.present(this);
+    }
+
+    _confirmRemove(deviceId) {
+        const dialog = new Adw.AlertDialog({
+            heading: _('Remove Device?'),
+            body: _('The device will be removed from the paired devices list.'),
+        });
+
+        dialog.add_response('cancel', _('Cancel'));
+        dialog.add_response('remove', _('Remove'));
+        dialog.set_response_appearance('remove', Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.set_default_response('cancel');
+        dialog.set_close_response('cancel');
+
+        dialog.connect('response', (_dialog, response) => {
+            if (response === 'remove')
+                this._mgmtRow?.emit('device-action', DeviceManagementAction.Remove, deviceId);
+        });
+
+        dialog.present(this);
+    }
+
+    _connectDevice(deviceId) {
+        const maxReached = this._mgmtRow.config.maxConnected > 0 &&
+        this._connectedRows.length >= this._mgmtRow.config.maxConnected;
+
+        if (maxReached) {
+            const dialog = new Adw.AlertDialog({
+                heading: _('Connection Limit Reached'),
+                body: _('Disconnect another device before connecting this device.'),
+            });
+
+            dialog.add_response('ok', _('OK'));
+            dialog.set_default_response('ok');
+            dialog.set_close_response('ok');
+            dialog.present(this);
+            return false;
+        }
+
+        this._mgmtRow?.emit('device-action', DeviceManagementAction.Connect, deviceId);
+        return true;
+    }
+
     _createDeviceRow(device) {
-        const _ = this._mgmtRow.gtxt;
+        if (this._mgmtRow.config.hasConnectDisconnectOnly)
+            return this._createDeviceButtonRow(device);
+
+        return this._createDevicePopupMenuRow(device);
+    }
+
+    _updateConnectButton(row, device) {
+        row.device = device;
+
+        const isInitializing = device.state === BtDeviceState.NotInitialized;
+        const isProcessing = device.state === BtDeviceState.Processing;
+
+        row.buttonContent.set_label(device.connected ? _('Disconnect') : _('Connect'));
+
+        row.buttonContent.set_icon_name(device.connected ? 'bbm-disconnecting-symbolic'
+            : 'bbm-connect-symbolic');
+
+        if (device.connected) {
+            row.connButton.remove_css_class('suggested-action');
+            row.connButton.add_css_class('destructive-action');
+        } else {
+            row.connButton.remove_css_class('destructive-action');
+            row.connButton.add_css_class('suggested-action');
+        }
+
+        row.spinner.visible = isInitializing || isProcessing;
+    }
+
+    _createDeviceButtonRow(device) {
+        const isOwnDevice = device.id === this._ownDevice;
+        const isInitializing = device.state === BtDeviceState.NotInitialized;
+        const isProcessing = device.state === BtDeviceState.Processing;
+
+        let title;
+        if (isInitializing)
+            title = _('Loading Device Information...');
+        else if (isOwnDevice)
+            title = `${device.name} <span alpha="60%"><i>${_('(This Device)')}</i></span>`;
+        else
+            title = device.name;
+
+        const subtitle = this._mgmtRow.config.showMac ? this._formatMac(device.id) : '';
+        const row = new Adw.ActionRow({title, subtitle});
+
+        const spinner = new Adw.Spinner({
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.CENTER,
+            width_request: 16,
+            height_request: 16,
+            margin_start: 8,
+            margin_end: 8,
+        });
+
+        const buttonContent = new Adw.ButtonContent({
+            label: device.connected ? _('Disconnect') : _('Connect'),
+            icon_name: device.connected ? 'bbm-disconnecting-symbolic' : 'bbm-connect-symbolic',
+        });
+
+        const button = new Gtk.Button({
+            valign: Gtk.Align.CENTER,
+            sensitive: !isInitializing && !isProcessing,
+            child: buttonContent,
+        });
+
+        spinner.bind_property(
+            'visible',
+            button,
+            'visible',
+            GObject.BindingFlags.INVERT_BOOLEAN | GObject.BindingFlags.SYNC_CREATE
+        );
+
+        row.add_suffix(spinner);
+        row.add_suffix(button);
+
+        row.spinner = spinner;
+        row.connButton = button;
+        row.buttonContent = buttonContent;
+        row.device = device;
+
+        this._updateConnectButton(row, device);
+
+        button.connect('clicked', () => {
+            const currentDevice = row.device;
+
+            if (currentDevice.connected)
+                this._confirmDisconnect(currentDevice.id);
+            else
+                this._connectDevice(currentDevice.id);
+        });
+
+        return row;
+    }
+
+    _createDevicePopupMenuRow(device) {
         const isOwnDevice = device.id === this._ownDevice;
         const isInitializing = device.state === BtDeviceState.NotInitialized;
         const isProcessing = device.state === BtDeviceState.Processing;
@@ -292,56 +452,15 @@ const DeviceManagementDialog = GObject.registerClass({
         }
 
         const connectAction = new Gio.SimpleAction({name: 'connect'});
-        connectAction.connect('activate', () => {
-            const maxReached = this._mgmtRow.config.maxConnected > 0 &&
-                this._connectedRows.length >= this._mgmtRow.config.maxConnected;
-
-            if (maxReached) {
-                const dialog = new Adw.AlertDialog({
-                    heading: _('Connection Limit Reached'),
-                    body: _('Disconnect another device before connecting this device.'),
-                });
-
-                dialog.add_response('ok', _('OK'));
-                dialog.set_default_response('ok');
-                dialog.set_close_response('ok');
-                dialog.present(this);
-
-                return;
-            }
-
-            this._mgmtRow?.emit('device-action', DeviceManagementAction.Connect, device.id);
-        });
+        connectAction.connect('activate', () => this._connectDevice(device.id));
         actionGroup.add_action(connectAction);
 
         const disconnectAction = new Gio.SimpleAction({name: 'disconnect'});
-        disconnectAction.connect('activate', () => {
-            this._mgmtRow?.emit('device-action', DeviceManagementAction.Disconnect, device.id);
-        });
+        disconnectAction.connect('activate', () => this._confirmDisconnect(device.id));
         actionGroup.add_action(disconnectAction);
 
         const removeAction = new Gio.SimpleAction({name: 'remove'});
-        removeAction.connect('activate', () => {
-            const _ = this._mgmtRow.gtxt;
-
-            const dialog = new Adw.AlertDialog({
-                heading: _('Remove Device?'),
-                body: _('The device will be removed from the paired devices list.'),
-            });
-
-            dialog.add_response('cancel', _('Cancel'));
-            dialog.add_response('remove', _('Remove'));
-            dialog.set_response_appearance('remove', Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.set_default_response('cancel');
-            dialog.set_close_response('cancel');
-
-            dialog.connect('response', (_dialog, response) => {
-                if (response === 'remove')
-                    this._mgmtRow?.emit('device-action', DeviceManagementAction.Remove, device.id);
-            });
-
-            dialog.present(this);
-        });
+        removeAction.connect('activate', () => this._confirmRemove(device.id));
         actionGroup.add_action(removeAction);
 
         row.insert_action_group('device', actionGroup);
@@ -400,6 +519,9 @@ const DeviceManagementDialog = GObject.registerClass({
     }
 
     updateRouteDevice(id) {
+        if (this._mgmtRow.config.hasConnectDisconnectOnly)
+            return;
+
         if (!this._mgmtRow.config.hasRoutingIndicator && !this._mgmtRow.config.hasRoutingControl)
             return;
 
@@ -444,7 +566,7 @@ export const DeviceManagementRow = GObject.registerClass({
             GObject.ParamFlags.READWRITE, false),
     },
 }, class DeviceManagementRow extends Adw.ActionRow {
-    _init(window, gtxt, deviceArr, ownDevice, routeDevice, config = {}) {
+    _init(window, deviceArr, ownDevice, routeDevice, config = {}) {
         super._init();
         this.config = {
             hasMultipointSwitch: true,
@@ -455,11 +577,10 @@ export const DeviceManagementRow = GObject.registerClass({
             hasActiveFix: false,
             showMac: true,
             refreshOnWindowOpen: false,
+            hasConnectDisconnectOnly: false,
             ...config,
         };
 
-        const _ = gtxt;
-        this.gtxt = gtxt;
         this.deviceArr = deviceArr.map(device => ({...device}));
         this._active = false;
 

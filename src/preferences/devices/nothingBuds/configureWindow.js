@@ -1,6 +1,8 @@
 'use strict';
 import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
+import {gettext as _} from 'gettext';
 
 import {
     supportedAudioSingleIcons, supportedAudioDualIcons, supportedCaseIcons
@@ -11,9 +13,9 @@ import {CheckBoxesRowWidget} from './../../widgets/checkBoxesRowWidget.js';
 import {IconSelectorWidget} from './../../widgets/iconSelectorWidget.js';
 import {RingMyBudsRow} from './../../widgets/ringMyBudsRow.js';
 import {EqualizerWidget} from './../../widgets/equalizerWidget.js';
-import {
-    NothingBudsModelList
-} from '../../../lib/devices/nothingBuds/nothingBudsConfig.js';
+import {DeviceManagementRow} from './../../widgets/deviceMgmtRowWidget.js';
+import {BtDeviceState} from '../../../lib/devices/commonEmuns.js';
+import {EarTipStatus, EarTipFitTestRow} from '../../widgets/earTipFitTestRow.js';
 
 const NC_BITMASK_TO_BYTE = {
     0b101: 0x14,
@@ -32,15 +34,16 @@ const NC_BYTE_TO_BITMASK = {
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_NothingBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(settings, mac, devicePath, parentWindow, _, modal = false) {
+    _init(devInfo, modelData) {
         super._init({
             default_width: 650,
             default_height: 650,
             width_request: 320,
             height_request: 100,
-            modal,
-            transient_for: parentWindow ?? null,
         });
+
+        this._devInfo = devInfo;
+        this._modelData = modelData;
 
         this._isCompactMode = false;
 
@@ -65,24 +68,9 @@ export const ConfigureWindow = GObject.registerClass({
             this._updateCompactStatus();
         });
 
-        this._settings = settings;
-        this._devicePath = devicePath;
-        this._gettext = _;
         this.checkBoxWidgets = [];
 
-        const pathsString = settings.get_strv('nothing-buds-list').map(JSON.parse);
-        this._settingsItems = pathsString.find(info => info.path === devicePath);
-
-        if (!this._settingsItems)
-            return;
-
-        this.title = this._settingsItems.alias;
-
-        this._modelData =
-                NothingBudsModelList.find(m => m.modelId === this._settingsItems.modelid);
-
-        if (!this._modelData)
-            return;
+        this.title = this._devInfo.getValue('alias');
 
         const toolViewBar = new Adw.ToolbarView();
         const headerBar = new Adw.HeaderBar();
@@ -99,30 +87,30 @@ export const ConfigureWindow = GObject.registerClass({
         let initialCaseIcon = '';
         if (this._modelData.batteryCase) {
             caseIconList = supportedCaseIcons;
-            initialCaseIcon = this._settingsItems['case'];
+            initialCaseIcon = this._devInfo.getValue('case');
         }
 
         const iconSelector = new IconSelectorWidget({
-            gtxt: _,
-            grpTitle: _('Icon'),
-            rowTitle: _('Select Icon'),
-            rowSubtitle: _('Select the icon used for the indicator and quick menu'),
             iconList,
-            initialIcon: this._settingsItems['icon'],
+            initialIcon: this._devInfo.getValue('icon'),
             caseIconList,
             initialCaseIcon,
-            mac,
-            fw: this._settingsItems['fw-version'],
-            serial: this._settingsItems['serial'],
+            mac: this._devInfo.mac,
+            fw: this._devInfo.getValue('fw-version'),
+            serial: this._devInfo.getValue('serial'),
         });
 
         iconSelector.connect('notify::selected-icon', () => {
-            this._updateGsettings('icon', iconSelector.selected_icon);
+            const deviceIcon = iconSelector.selected_icon;
+            this._fitTestRow?.updateIcon(deviceIcon);
+            this._devInfo.updateDevice('icon', deviceIcon);
         });
+
+        this._fitTestRow?.updateIcon(this._devInfo.getValue('icon'));
 
         if (this._modelData.batteryCase) {
             iconSelector.connect('notify::selected-case-icon', () => {
-                this._updateGsettings('case', iconSelector.selected_case_icon);
+                this._devInfo.updateDevice('case', iconSelector.selected_case_icon);
             });
         }
 
@@ -131,81 +119,117 @@ export const ConfigureWindow = GObject.registerClass({
         this._addEq();
         this._addSpatialAudio();
         this._addMiscSetting();
+        this._addConnectionManagement();
         this._addGestureControls();
 
-        const settingSignalId = this._settings.connect('changed::nothing-buds-list', () => {
-            const updatedList = this._settings.get_strv('nothing-buds-list').map(JSON.parse);
-            this._settingsItems = updatedList.find(info => info.path === devicePath);
-            if (!this._settingsItems)
-                return;
+        this._devInfoSignalId = this._devInfo.connect('update-ui', (info, feature) => {
+            const value = info.getValue(feature);
 
-            this.title = this._settingsItems.alias;
+            switch (feature) {
+                case 'alias':
+                    this.title = value;
+                    break;
 
-            if (this._modelData.eqPreset)
-                this._eqPresetDropdown.selected_item = this._settingsItems['eq-preset'];
+                case 'eq-preset':
+                    if (this._eqPresetDropdown)
+                        this._eqPresetDropdown.selected_item = value;
+                    break;
 
-            if (this._modelData.eqPreset?.custom !== undefined)
-                this._eq.setValues(this._settingsItems['eq-custom']);
+                case 'eq-custom':
+                    if (this._eq)
+                        this._eq.setValues(value);
+                    break;
 
-            if (this._modelData?.bassEnhanceLevel) {
-                this._bassEnhanceSwitch.active = this._settingsItems['bass-enable'];
-                this._baseLevel.value = this._settingsItems['bass-level'];
+                case 'bass-enable':
+                    if (this._bassEnhanceSwitch)
+                        this._bassEnhanceSwitch.active = value;
+                    break;
+
+                case 'bass-level':
+                    if (this._baseLevel)
+                        this._baseLevel.value = value;
+                    break;
+
+                case 'lowlatency':
+                    if (this._lowLatencySwitch)
+                        this._lowLatencySwitch.active = value;
+                    break;
+
+                case 'inear-enable':
+                    if (this._inEarSwitch)
+                        this._inEarSwitch.active = value;
+                    break;
+
+                case 'spatial':
+                    if (this._spatialAudioSwitch)
+                        this._spatialAudioSwitch.active = value;
+                    break;
+
+                case 'fit-test-result':
+                    if (this._fitTestRow?.isTestInProgress())
+                        this._onFitTestCompleted?.(value);
+                    break;
+
+                case 'multipoint':
+                    if (this._dualConnSwitch)
+                        this._dualConnSwitch.active = value;
+                    break;
+
+                case 'dev-mgmt':
+                    if (this._dualConnSwitch)
+                        this._dualConnSwitch?.updateDevices(value ?? []);
+                    break;
             }
-
-            if (this._modelData?.lowLatencyMode)
-                this._lowLatencySwitch.active = this._settingsItems['lowlatency'];
-
-            if (this._modelData?.inEarDetection)
-                this._inEarSwitch.active = this._settingsItems['inear-enable'];
-
-            if (this._modelData?.spatialAudioSwitch)
-                this._spatialAudioSwitch.active = this._settingsItems['spatial'];
         });
 
         this.connect('close-request', () => {
+            if (this._devInfoSignalId)
+                this._devInfo?.disconnect(this._devInfoSignalId);
+            this._devInfoSignalId = null;
+
             if (this._modelData?.ring) {
-                const ringState = this._settingsItems?.['ring-state'];
+                const ringState = devInfo.getValue('ring-state');
                 if (ringState === 'playing')
-                    this._updateGsettings('ring-state', 'stopped');
+                    this._devInfo.updateDevice('ring-state', 'stopped');
 
                 if (!this._modelData.ringLegacy && !this._modelData.batterySingle) {
-                    const ringStateLeft = this._settingsItems?.['ring-state-left'];
+                    const ringStateLeft = devInfo.getValue('ring-state-left');
                     if (ringStateLeft === 'playing')
-                        this._updateGsettings('ring-state-left', 'stopped');
+                        this._devInfo.updateDevice('ring-state-left', 'stopped');
                 }
+            }
+
+            if (this._fitTestTimeoutId) {
+                GLib.source_remove(this._fitTestTimeoutId);
+                this._fitTestTimeoutId = null;
+            }
+
+            if (this._modelData?.fitTest && this._fitTestRow) {
+                if (this._fitTestRow.isTestInProgress())
+                    this._devInfo.updateDevice('fit-test-op', 'stop');
+
+                if (this._fitTestRowCancelId)
+                    this._fitTestRow.disconnect(this._fitTestRowCancelId);
+                this._fitTestRowCancelId = null;
+
+                if (this._fitTestRowStartId)
+                    this._fitTestRow.disconnect(this._fitTestRowStartId);
+                this._fitTestRowStartId = null;
             }
 
             this._eq?.destroy();
             this._eq = null;
             this._baseLevel?.destroy();
             this._baseLevel = null;
-
-            if (settingSignalId && this._settings)
-                this._settings.disconnect(settingSignalId);
-
-            this._settings = null;
+            this._devInfo = null;
 
             return false;
         });
     }
 
-    _updateGsettings(key, value) {
-        const pairedDevice = this._settings.get_strv('nothing-buds-list');
-        const existingPathIndex =
-                pairedDevice.findIndex(item => JSON.parse(item).path === this._devicePath);
-        if (existingPathIndex !== -1) {
-            const existingItem = JSON.parse(pairedDevice[existingPathIndex]);
-            existingItem[key] = value;
-            pairedDevice[existingPathIndex] = JSON.stringify(existingItem);
-            this._settings.set_strv('nothing-buds-list', pairedDevice);
-        }
-    }
-
     _addEq() {
         if (!this._modelData?.eqPreset)
             return;
-
-        const _ = this._gettext;
 
         const eqGroup = new Adw.PreferencesGroup({title: _('Sound Settings')});
         this._page.add(eqGroup);
@@ -244,12 +268,12 @@ export const ConfigureWindow = GObject.registerClass({
             subtitle: _('Change the sound signature'),
             options,
             values: presetValues,
-            initialValue: this._settingsItems['eq-preset'],
+            initialValue: this._devInfo.getValue('eq-preset'),
             ...customEqButton,
         });
 
         this._eqPresetDropdown.connect('notify::selected-item', () => {
-            this._updateGsettings('eq-preset', this._eqPresetDropdown.selected_item);
+            this._devInfo.updateDevice('eq-preset', this._eqPresetDropdown.selected_item);
         });
 
         eqGroup.add(this._eqPresetDropdown);
@@ -259,7 +283,7 @@ export const ConfigureWindow = GObject.registerClass({
 
         const eqFreqs = [_('Bass'), _('Mid'), _('Treble')];
         const eqRange = 6;
-        const initialValues = this._settingsItems['eq-custom'];
+        const initialValues = this._devInfo.getValue('eq-custom');
 
         this._eq = new EqualizerWidget({
             freqs: eqFreqs,
@@ -270,7 +294,7 @@ export const ConfigureWindow = GObject.registerClass({
         });
 
         this._eq.connect('eq-changed', (_widget, values) => {
-            this._updateGsettings('eq-custom', values);
+            this._devInfo.updateDevice('eq-custom', values);
         });
 
         this._eqPresetDropdown.connect('button-clicked', () => this._eq.present(this));
@@ -282,17 +306,15 @@ export const ConfigureWindow = GObject.registerClass({
         if (!this._modelData?.bassEnhanceLevel)
             return;
 
-        const _ = this._gettext;
-
         this._bassEnhanceSwitch = new Adw.SwitchRow({
             title: _('Bass Enhancement'),
             subtitle: _('Enhances bass in real time'),
         });
 
-        this._bassEnhanceSwitch.active = this._settingsItems['bass-enable'];
+        this._bassEnhanceSwitch.active = this._devInfo.getValue('bass-enable');
 
         this._bassEnhanceSwitch.connect('notify::active', () => {
-            this._updateGsettings('bass-enable', this._bassEnhanceSwitch.active);
+            this._devInfo.updateDevice('bass-enable', this._bassEnhanceSwitch.active);
         });
 
         eqGroup.add(this._bassEnhanceSwitch);
@@ -307,14 +329,14 @@ export const ConfigureWindow = GObject.registerClass({
                 {mark: 4},
                 {mark: 5, label: _('+')},
             ],
-            initialValue: this._settingsItems['bass-level'],
+            initialValue: this._devInfo.getValue('bass-level'),
             snapOnStep: true,
         });
 
         this._baseLevel.compact_mode = this._isCompactMode;
 
         this._baseLevel.connect('notify::value', () => {
-            this._updateGsettings('bass-level', this._baseLevel.value);
+            this._devInfo.updateDevice('bass-level', this._baseLevel.value);
         });
 
         eqGroup.add(this._baseLevel);
@@ -331,8 +353,6 @@ export const ConfigureWindow = GObject.registerClass({
         if (!this._modelData?.spatialAudioSwitch)
             return;
 
-        const _ = this._gettext;
-
         const spatialAudioGroup = new Adw.PreferencesGroup({title: _('Immersive Audio')});
         this._page.add(spatialAudioGroup);
 
@@ -341,10 +361,10 @@ export const ConfigureWindow = GObject.registerClass({
             subtitle: _('Add depth for a more immersive experience'),
         });
 
-        this._spatialAudioSwitch.active = this._settingsItems['spatial'];
+        this._spatialAudioSwitch.active = this._devInfo.getValue('spatial');
 
         this._spatialAudioSwitch.connect('notify::active', () => {
-            this._updateGsettings('spatial', this._spatialAudioSwitch.active);
+            this._devInfo.updateDevice('spatial', this._spatialAudioSwitch.active);
         });
 
         spatialAudioGroup.add(this._spatialAudioSwitch);
@@ -352,10 +372,9 @@ export const ConfigureWindow = GObject.registerClass({
 
     _addMiscSetting() {
         let miscGroup;
-        const _ = this._gettext;
 
         if (this._modelData?.lowLatencyMode || this._modelData?.inEarDetection ||
-                this._modelData?.ring) {
+                this._modelData.fitTest || this._modelData?.ring) {
             miscGroup = new Adw.PreferencesGroup({title: _('Additional Settings')});
             this._page.add(miscGroup);
         }
@@ -366,10 +385,10 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Reduces latency and enhances in-game audio'),
             });
 
-            this._lowLatencySwitch.active = this._settingsItems['lowlatency'];
+            this._lowLatencySwitch.active = this._devInfo.getValue('lowlatency');
 
             this._lowLatencySwitch.connect('notify::active', () => {
-                this._updateGsettings('lowlatency', this._lowLatencySwitch.active);
+                this._devInfo.updateDevice('lowlatency', this._lowLatencySwitch.active);
             });
 
             miscGroup.add(this._lowLatencySwitch);
@@ -381,27 +400,79 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Enable features based on wearing detection'),
             });
 
-            this._inEarSwitch.active = this._settingsItems['inear-enable'];
+            this._inEarSwitch.active = this._devInfo.getValue('inear-enable');
 
             this._inEarSwitch.connect('notify::active', () => {
-                this._updateGsettings('inear-enable', this._inEarSwitch.active);
+                this._devInfo.updateDevice('inear-enable', this._inEarSwitch.active);
             });
 
             miscGroup.add(this._inEarSwitch);
         }
 
+        if (this._modelData.fitTest) {
+            const deviceIcon = this._devInfo.getValue('icon');
+
+            this._fitTestRow = new EarTipFitTestRow(this, deviceIcon);
+
+            this._fitTestRowStartId = this._fitTestRow.connect('start-test', () => {
+                this._devInfo.updateDevice('fit-test-result', null);
+                this._devInfo.updateDevice('fit-test-op', 'start');
+
+                if (this._fitTestTimeoutId) {
+                    GLib.source_remove(this._fitTestTimeoutId);
+                    this._fitTestTimeoutId = null;
+                }
+
+                this._fitTestTimeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 10, () => {
+                    this._fitTestTimeoutId = null;
+                    this._fitTestRow.updateStatus(EarTipStatus.Error, EarTipStatus.Error);
+
+                    return GLib.SOURCE_REMOVE;
+                });
+            });
+
+            this._fitTestRowCancelId = this._fitTestRow.connect('cancel-test', () => {
+                if (this._fitTestTimeoutId) {
+                    GLib.source_remove(this._fitTestTimeoutId);
+                    this._fitTestTimeoutId = null;
+                }
+
+                this._devInfo.updateDevice('fit-test-result', null);
+                this._devInfo.updateDevice('fit-test-op', 'stop');
+            });
+
+            miscGroup.add(this._fitTestRow);
+
+            this._onFitTestCompleted = res => {
+                if (!res)
+                    return;
+
+                if (!this._fitTestRow)
+                    return;
+
+                if (this._fitTestTimeoutId) {
+                    GLib.source_remove(this._fitTestTimeoutId);
+                    this._fitTestTimeoutId = null;
+                }
+
+                this._fitTestRow.updateStatus(res.left, res.right);
+            };
+        }
+
+
         if (this._modelData?.ring) {
             const dual = !this._modelData.ringLegacy && !this._modelData.batterySingle;
 
-            this._ringBudsRow = new RingMyBudsRow(_, {dual});
+            this._ringBudsRow = new RingMyBudsRow({dual});
+            this._ringBudsRow.compact_mode = this._isCompactMode;
 
             this._ringBudsRow.connect('notify::status', () => {
-                this._updateGsettings('ring-state', this._ringBudsRow.status);
+                this._devInfo.updateDevice('ring-state', this._ringBudsRow.status);
             });
 
             if (dual) {
                 this._ringBudsRow.connect('notify::status-left', () => {
-                    this._updateGsettings('ring-state-left', this._ringBudsRow.statusLeft);
+                    this._devInfo.updateDevice('ring-state-left', this._ringBudsRow.statusLeft);
                 });
             }
 
@@ -409,9 +480,61 @@ export const ConfigureWindow = GObject.registerClass({
         }
     }
 
-    _buildNoiseControlRow(title, savedSlot)  {
-        const _ = this._gettext;
+    _addConnectionManagement() {
+        if (!this._modelData.dualConnection)
+            return;
 
+        const devMgmtGroup = new Adw.PreferencesGroup({
+            title: _('Connection Management'),
+        });
+        this._page.add(devMgmtGroup);
+
+        const deviceManagementConfig = {
+            maxConnected: this._modelData.maxConnected ?? 2,
+            hasMultipointSwitch: true,
+            hasPairMode: false,
+            hasRoutingIndicator: false,
+            hasRoutingControl: false,
+            hasActiveFix: false,
+            hasConnectDisconnectOnly: true,
+            showMac: true,
+            refreshOnWindowOpen: false,
+        };
+
+        const ownDevice = this._devInfo.getValue('own-dev');
+
+        this._dualConnSwitch = new DeviceManagementRow(
+            this,
+            this._devInfo.getValue('dev-mgmt') ?? [],
+            ownDevice,
+            '',
+            deviceManagementConfig
+        );
+
+        this._dualConnSwitch.active = this._devInfo.getValue('multipoint');
+
+        this._dualConnSwitch.connect('notify::active', () => {
+            this._devInfo.updateDevice('multipoint', this._dualConnSwitch.active);
+        });
+
+        this._dualConnSwitch.connect('device-action', (_row, action, id) => {
+            const devices = this._devInfo.getValue('dev-mgmt');
+            const device = devices.find(device => device.id === id);
+
+            if (device) {
+                device.state = BtDeviceState.Processing;
+                this._devInfo.updateDevice('dev-mgmt', devices);
+                this._dualConnSwitch.updateDevices(devices);
+            }
+
+            const data = {action, id};
+            this._devInfo.updateDevice('dev-mgmt-action', data);
+        });
+
+        devMgmtGroup.add(this._dualConnSwitch);
+    }
+
+    _buildNoiseControlRow(title, savedSlot)  {
         const items = [
             {name: _('Off'), icon: 'bbm-anc-off-symbolic'},
             {name: _('Ambient'), icon: 'bbm-transperancy-symbolic'},
@@ -442,8 +565,12 @@ export const ConfigureWindow = GObject.registerClass({
         if (!gc)
             return;
 
-        const _ = this._gettext;
-        const allSlots = this._settingsItems.gestures ?? [];
+        const allSlots = this._devInfo.getValue('gestures');
+
+        const gestureGroup = new Adw.PreferencesGroup({
+            title: _('Gesture Controls'),
+            description: _('Customize actions for buttons and touch gestures'),
+        });
 
         const GESTURE_DISPLAY = {
             'single-tap': _('Single Tap'),
@@ -451,18 +578,21 @@ export const ConfigureWindow = GObject.registerClass({
             'triple-tap': _('Triple Tap'),
             'action-hold-tap': _('Tap and Hold'),
             'double-action-hold-tap': _('Double Tap and Hold'),
+            'both-buds-action-tap': _('Tap Both Buds'),
 
             'single-press': _('Single Press'),
             'double-press': _('Double Press'),
             'triple-press': _('Triple Press'),
             'action-hold-press': _('Press and Hold'),
             'double-action-hold-press': _('Double Press and Hold'),
+            'both-buds-action-press': _('Press Both Buds'),
 
             'single-pinch': _('Single Pinch'),
             'double-pinch': _('Double Pinch'),
             'triple-pinch': _('Triple Pinch'),
             'action-hold-pinch': _('Pinch and Hold'),
             'double-action-hold-pinch': _('Double Pinch and Hold'),
+            'both-buds-action-pinch': _('Pinch Both Buds'),
 
             'roller-action-hold-press': _('Press and Hold'),
             'slider-single-slide': _('Slide to Adjust'),
@@ -480,8 +610,7 @@ export const ConfigureWindow = GObject.registerClass({
                 return null;
 
             const actions = gestureConfig.actions;
-            const onlyNoiseControl =
-            actions.length === 1 && actions[0] === 'noise-control';
+            const onlyNoiseControl = actions.length === 1 && actions[0] === 'noise-control';
 
             const typeByte = gc.mapping.gestureTypes?.[gestureKey];
             if (typeByte === undefined)
@@ -489,10 +618,7 @@ export const ConfigureWindow = GObject.registerClass({
 
             const deviceByte = slot.device;
 
-            let savedSlot = allSlots.find(s =>
-                s.device === deviceByte &&
-            s.type === typeByte
-            );
+            let savedSlot = allSlots.find(s => s.device === deviceByte && s.type === typeByte);
 
             const displayKey = `${slot.type}-${gestureConfig.type}`;
             const title = GESTURE_DISPLAY[displayKey] ?? _('Unknown Gesture');
@@ -536,7 +662,7 @@ export const ConfigureWindow = GObject.registerClass({
                     }
 
                     savedSlot.action = byte;
-                    this._updateGsettings('gestures', allSlots);
+                    this._devInfo.updateDevice('gestures', allSlots);
                 });
             }
 
@@ -556,7 +682,7 @@ export const ConfigureWindow = GObject.registerClass({
                         ncRow.visible = isNC;
                     }
 
-                    this._updateGsettings('gestures', allSlots);
+                    this._devInfo.updateDevice('gestures', allSlots);
                 });
             }
 
@@ -567,12 +693,13 @@ export const ConfigureWindow = GObject.registerClass({
 
         for (const slot of gc.slots) {
             if (!groups.has(slot.group)) {
-                const groupWidget = new Adw.PreferencesGroup({
+                const expander = new Adw.ExpanderRow({
                     title: this._getGroupTitle(slot.group),
+                    subtitle: _('Configure controls'),
                 });
 
-                groups.set(slot.group, groupWidget);
-                this._page.add(groupWidget);
+                groups.set(slot.group, expander);
+                gestureGroup.add(expander);
             }
         }
 
@@ -582,8 +709,8 @@ export const ConfigureWindow = GObject.registerClass({
             if (!gestureConfig)
                 continue;
 
-            const groupWidget = groups.get(slot.group);
-            if (!groupWidget)
+            const expander = groups.get(slot.group);
+            if (!expander)
                 continue;
 
             const widgets = makeDropdown(gestureKey, gestureConfig, slot);
@@ -591,33 +718,34 @@ export const ConfigureWindow = GObject.registerClass({
                 continue;
 
             if (widgets.dropdown)
-                groupWidget.add(widgets.dropdown);
+                expander.add_row(widgets.dropdown);
 
             if (widgets.checkBoxWidget)
-                groupWidget.add(widgets.checkBoxWidget);
+                expander.add_row(widgets.checkBoxWidget);
         }
+
+        this._page.add(gestureGroup);
     }
 
     _getGroupTitle(group) {
-        const _ = this._gettext;
         switch (group) {
             case 'single':
                 return _('Gesture Controls');
 
             case 'left':
-                return _('Left Buds Gesture Control');
+                return _('Left Earbud');
 
             case 'right':
-                return _('Right Buds Gesture Control');
+                return _('Right Earbud');
 
             case 'roller':
-                return _('Roller Gesture Control');
+                return _('Roller Controls');
 
             case 'case-knob':
-                return _('Case Gesture Control');
+                return _('Charging Case');
 
             case 'slider':
-                return _('Slider Gesture Control');
+                return _('Slider Controls');
 
             default:
                 return _('Gesture Controls');
@@ -692,6 +820,12 @@ export const ConfigureWindow = GObject.registerClass({
             case 'take-photo':
                 return _('Take Photo');
 
+            case 'recording':
+                return _('Start / Stop Recording');
+
+            case 'mic-mute':
+                return _('Mute / Unmute Mic');
+
             default:
                 return action;
         }
@@ -702,5 +836,6 @@ export const ConfigureWindow = GObject.registerClass({
             widget.set_property('compact-mode', this._isCompactMode);
 
         this._baseLevel?.set_property('compact-mode', this._isCompactMode);
+        this._ringBudsRow?.set_property('compact-mode', this._isCompactMode);
     }
 });

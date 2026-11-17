@@ -320,10 +320,15 @@ export const ProfileManager = GObject.registerClass({
 
                     attempt++;
 
-                    if (attempt === 1 || attempt === 2 || attempt === 4 || attempt === 8)
+                    // Retry with backoff (0.5, 1, 2, 4, 8 s) and wait up to 12 s.
+                    // While a second device's audio link is still being set up,
+                    // BlueZ answers br-connection-busy for several seconds; the
+                    // connection then often arrives just after a 4.5 s cut-off.
+                    if (attempt === 1 || attempt === 2 || attempt === 4 || attempt === 8 ||
+                            attempt === 16)
                         this.connectProfile(deviceType, devicePath);
 
-                    if (attempt > 8) {
+                    if (attempt > 24) {
                         if (entry.signalId) {
                             this.disconnect(entry.signalId);
                             entry.signalId = null;

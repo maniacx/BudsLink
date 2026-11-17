@@ -33,6 +33,14 @@ import {
 import {
     OneMoreBudsDevice, isOneMoreBuds, DeviceTypeOneMoreBuds
 } from './devices/oneMoreBuds/oneMoreBudsDevice.js';
+    OpoBudsDevice, isOpoBuds, DeviceTypeOpoBuds
+} from './devices/opoBuds/opoBudsDevice.js';
+import {
+    CambridgeBudsDevice, isCambridgeBuds, DeviceTypeCambridgeBuds
+} from './devices/cambridgeBuds/cambridgeBudsDevice.js';
+import {
+    SoundcoreDevice, isSoundcore, DeviceTypeSoundcore
+} from './devices/soundcore/soundcoreDevice.js';
 import {GfpsDevice, isGfps, DeviceTypeGfps} from './devices/gfps/gfpsDevice.js';
 
 export const EnhancedDeviceSupportManager = GObject.registerClass({
@@ -154,6 +162,19 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                     enabled: this._toggle.oneMoreBudsEnabled,
                     check: isOneMoreBuds,
                     type: DeviceTypeOneMoreBuds,
+                    enabled: this._toggle.opoBudsEnabled,
+                    check: isOpoBuds,
+                    type: DeviceTypeOpoBuds,
+                },
+                {
+                    enabled: this._toggle.cambridgeBudsEnabled,
+                    check: isCambridgeBuds,
+                    type: DeviceTypeCambridgeBuds,
+                },
+                {
+                    enabled: this._toggle.soundcoreEnabled,
+                    check: isSoundcore,
+                    type: DeviceTypeSoundcore,
                 },
                 {
                     enabled: this._toggle.gfpsEnabled,
@@ -290,6 +311,19 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                 } else if (deviceProps.type === DeviceTypeOneMoreBuds) {
                     deviceProps.enhancedDevice =
                         new OneMoreBudsDevice(this._settings, path, deviceProps.alias,
+                } else if (deviceProps.type === DeviceTypeOpoBuds) {
+                    deviceProps.enhancedDevice =
+                        new OpoBudsDevice(this._settings, path, deviceProps.alias,
+                            this._extPath, this._profileManager,
+                            this.updateDeviceMapCb.bind(this));
+                } else if (deviceProps.type === DeviceTypeCambridgeBuds) {
+                    deviceProps.enhancedDevice =
+                        new CambridgeBudsDevice(this._settings, path, deviceProps.alias,
+                            this._extPath, this._profileManager,
+                            this.updateDeviceMapCb.bind(this));
+                } else if (deviceProps.type === DeviceTypeSoundcore) {
+                    deviceProps.enhancedDevice =
+                        new SoundcoreDevice(this._settings, path, deviceProps.alias,
                             this._extPath, this._profileManager,
                             this.updateDeviceMapCb.bind(this));
                 } else if (deviceProps.type === DeviceTypeGfps) {

@@ -1,6 +1,7 @@
 'use strict';
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
+import {gettext as _} from 'gettext';
 
 import {supportedAudioDualIcons, supportedCaseIcons} from '../../../lib/widgets/iconGroups.js';
 import {DropDownRowWidget} from './../../widgets/dropDownRowWidget.js';
@@ -17,7 +18,7 @@ import {
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_GalaxyBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(settings, mac, devicePath, parentWindow, _, modal = false) {
+    _init(settings, mac, devicePath, parentWindow, modal = false) {
         super._init({
             default_width: 650,
             default_height: 650,
@@ -84,10 +85,6 @@ export const ConfigureWindow = GObject.registerClass({
         }
 
         const iconSelector = new IconSelectorWidget({
-            gtxt: _,
-            grpTitle: _('Icon'),
-            rowTitle: _('Select Icon'),
-            rowSubtitle: _('Select the icon used for the indicator and quick menu'),
             iconList,
             initialIcon: this._settingsItems['icon'],
             caseIconList,
@@ -137,16 +134,16 @@ export const ConfigureWindow = GObject.registerClass({
 
         this._page.add(inEarSettingsGroup);
 
-        this._addDetectConversations(_);
-        this._addEqPreset(_);
-        this._addTouchLock(_);
-        this._addTouchAdvanceControl(_);
-        this._addAdvancedTouchLockForCalls(_);
-        this._addLightingControl(_);
-        this._addAmbientCustomization(_);
-        this._addAdditionalSetting(_);
-        this._addNCCycleCheckBox(_);
-        this._addTouchAndHoldFnChange(_);
+        this._addDetectConversations();
+        this._addEqPreset();
+        this._addTouchLock();
+        this._addTouchAdvanceControl();
+        this._addAdvancedTouchLockForCalls();
+        this._addLightingControl();
+        this._addAmbientCustomization();
+        this._addAdditionalSetting();
+        this._addNCCycleCheckBox();
+        this._addTouchAndHoldFnChange();
 
         const settingSignalId = this._settings.connect('changed::galaxy-buds-list', () => {
             const updatedList = this._settings.get_strv('galaxy-buds-list').map(JSON.parse);
@@ -242,7 +239,7 @@ export const ConfigureWindow = GObject.registerClass({
         }
     }
 
-    _addDetectConversations(_) {
+    _addDetectConversations() {
         if (!this._features.detectConversations)
             return;
 
@@ -266,7 +263,7 @@ export const ConfigureWindow = GObject.registerClass({
         voiceDetectionGrp.add(this._durationDropdown);
     }
 
-    _addEqPreset(_) {
+    _addEqPreset() {
         const eqGroup = new Adw.PreferencesGroup({title: _('Equalizer')});
         this._page.add(eqGroup);
 
@@ -329,7 +326,7 @@ export const ConfigureWindow = GObject.registerClass({
         eqGroup.add(this._stereoBal);
     }
 
-    _addTouchLock(_) {
+    _addTouchLock() {
         this._touchControlGroup = new Adw.PreferencesGroup({
             title: _('Earbuds Controls'),
         });
@@ -349,7 +346,7 @@ export const ConfigureWindow = GObject.registerClass({
         });
     }
 
-    _addTouchAdvanceControl(_) {
+    _addTouchAdvanceControl() {
         if (!this._features.advancedTouchLock)
             return;
 
@@ -406,7 +403,7 @@ export const ConfigureWindow = GObject.registerClass({
         this._touchControlGroup.add(this._touchControlTouchHoldSwitch);
     }
 
-    _addAdvancedTouchLockForCalls(_) {
+    _addAdvancedTouchLockForCalls() {
         if (!this._features.advancedTouchLockForCalls)
             return;
 
@@ -441,7 +438,7 @@ export const ConfigureWindow = GObject.registerClass({
         this._touchControlGroup.add(this._touchControlHoldCall);
     }
 
-    _addLightingControl(_) {
+    _addLightingControl() {
         if (!this._features.lightingControl)
             return;
 
@@ -461,7 +458,7 @@ export const ConfigureWindow = GObject.registerClass({
         this._touchControlGroup.add(this._lightingModeDD);
     }
 
-    _addTouchAndHoldFnChange(_) {
+    _addTouchAndHoldFnChange() {
         const readableNames = {
             voiceAssistant: _('Voice Assistant'),
             quickAmbientSound: _('Quick Ambient Sound'),
@@ -519,7 +516,7 @@ export const ConfigureWindow = GObject.registerClass({
         this._touchControlGroup.add(this._touchAndHoldRightDD);
     }
 
-    _addNCCycleCheckBox(_) {
+    _addNCCycleCheckBox() {
         if (!this._features.noiseControl)
             return;
 
@@ -603,7 +600,7 @@ export const ConfigureWindow = GObject.registerClass({
         this._page.add(ncCycleRightGrp);
     }
 
-    _addAdditionalSetting(_) {
+    _addAdditionalSetting() {
         const moreSettings = new Adw.PreferencesGroup({
             title: _('Additional Settings'),
         });
@@ -651,7 +648,7 @@ export const ConfigureWindow = GObject.registerClass({
             moreSettings.add(this._outsideDoubleTapSwitch);
         }
 
-        this._ringBudsRow = new RingMyBudsRow(_);
+        this._ringBudsRow = new RingMyBudsRow();
 
         this._ringBudsRow.connect('notify::status', () => {
             this._updateGsettings('ring-state', this._ringBudsRow.status);
@@ -660,7 +657,7 @@ export const ConfigureWindow = GObject.registerClass({
         moreSettings.add(this._ringBudsRow);
     }
 
-    _addAmbientCustomization(_) {
+    _addAmbientCustomization() {
         if (!this._features.ambientCustomize)
             return;
 

@@ -2,6 +2,7 @@
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 import Adw from 'gi://Adw';
+import {gettext as _} from 'gettext';
 
 export const RingMyBudsRow = GObject.registerClass({
     GTypeName: 'BudsLink_RingMyBudsRow',
@@ -16,12 +17,15 @@ export const RingMyBudsRow = GObject.registerClass({
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.EXPLICIT_NOTIFY,
             'stopped'
         ),
+        'compact-mode': GObject.ParamSpec.boolean(
+            'compact-mode', '', '',
+            GObject.ParamFlags.READWRITE,
+            false
+        ),
     },
 }, class RingMyBudsRow extends Adw.ActionRow {
-    _init(_, config = {}) {
+    _init(config = {}) {
         super._init();
-
-        this._gettext = _;
 
         const {
             dual = false,
@@ -67,17 +71,17 @@ export const RingMyBudsRow = GObject.registerClass({
             });
 
             const leftLabel = new Gtk.Label({label: 'L', xalign: 0, css_classes: ['heading']});
-            const leftBox = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, spacing: 6});
-            leftBox.append(leftLabel);
-            leftBox.append(this._buttonLeft);
+            this._leftBox = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, spacing: 6});
+            this._leftBox.append(leftLabel);
+            this._leftBox.append(this._buttonLeft);
 
             const rightLabel = new Gtk.Label({label: 'R', xalign: 0, css_classes: ['heading']});
-            const rightBox = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, spacing: 6});
-            rightBox.append(rightLabel);
-            rightBox.append(this._button);
+            this._rightBox = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, spacing: 6});
+            this._rightBox.append(rightLabel);
+            this._rightBox.append(this._button);
 
-            this._container.append(leftBox);
-            this._container.append(rightBox);
+            this._container.append(this._leftBox);
+            this._container.append(this._rightBox);
 
             this.add_suffix(this._container);
 
@@ -87,6 +91,10 @@ export const RingMyBudsRow = GObject.registerClass({
                 else
                     this._confirmAndPlay(true);
             });
+
+            this.connect('notify::compact-mode', () => {
+                this._updateLayout(this.compact_mode);
+            });
         } else {
             this.add_suffix(this._button);
             this.activatable_widget = this._button;
@@ -94,7 +102,6 @@ export const RingMyBudsRow = GObject.registerClass({
     }
 
     _updateStatus(state, isLeft = false) {
-        const _ = this._gettext;
         const buttonContent = isLeft ? this._buttonContentLeft : this._buttonContent;
 
         if (state === 'playing') {
@@ -136,7 +143,6 @@ export const RingMyBudsRow = GObject.registerClass({
     }
 
     _confirmAndPlay(isLeft = false) {
-        const _ = this._gettext;
         const dialog = new Adw.AlertDialog({
             heading: _('Continue?'),
             body: _(
@@ -169,5 +175,25 @@ export const RingMyBudsRow = GObject.registerClass({
     _stop(isLeft) {
         this._updateStatus('stopped', isLeft);
         this.notify(isLeft ? 'status-left' : 'status');
+    }
+
+    _updateLayout(compact) {
+        if (compact) {
+            this._container.orientation = Gtk.Orientation.VERTICAL;
+            this._container.spacing = 6;
+            this._container.margin_top = 6;
+            this._container.margin_bottom = 6;
+
+            this._leftBox.halign = Gtk.Align.END;
+            this._rightBox.halign = Gtk.Align.END;
+        } else {
+            this._container.orientation = Gtk.Orientation.HORIZONTAL;
+            this._container.spacing = 18;
+            this._container.margin_top = 0;
+            this._container.margin_bottom = 0;
+
+            this._leftBox.halign = Gtk.Align.CENTER;
+            this._rightBox.halign = Gtk.Align.CENTER;
+        }
     }
 });

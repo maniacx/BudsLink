@@ -2,6 +2,7 @@
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
+import {gettext as _} from 'gettext';
 import {DropDownRowWidget} from './../../widgets/dropDownRowWidget.js';
 import {SliderRowWidget} from './../../widgets/sliderRowWidget.js';
 import {AudioModes} from '../../../lib/devices/boseBuds/boseBudsConfig.js';
@@ -9,7 +10,7 @@ import {AudioModes} from '../../../lib/devices/boseBuds/boseBudsConfig.js';
 const ModeEditDialog = GObject.registerClass({
     GTypeName: 'BudsLink_ModeEditDialog',
 }, class ModeEditDialog extends Adw.Dialog {
-    _init(modeRow, gtxt, modelData, mode, alias) {
+    _init(modeRow, modelData, mode, alias) {
         super._init({
             title: alias,
             content_width: 360,
@@ -20,8 +21,6 @@ const ModeEditDialog = GObject.registerClass({
 
         this._modeRow = modeRow;
         this._mode = mode;
-        this._gtxt = gtxt;
-        const _ = gtxt;
         this._modelData = modelData;
 
         const presetKeys = Object.keys(modelData.audioModes.presets);
@@ -232,8 +231,6 @@ const ModeEditDialog = GObject.registerClass({
     }
 
     _confirmRemoveMode() {
-        const _ = this._gtxt;
-
         const dialog = new Adw.AlertDialog({
             heading: _('Remove Mode?'),
             body: _('This mode will be removed.'),
@@ -266,8 +263,6 @@ const ModeEditDialog = GObject.registerClass({
     }
 
     _confirmRename() {
-        const _ = this._gtxt;
-
         const newName = this._nameRow.text.trim();
         if (newName === this._mode.name) {
             this._nameRow.text = this._mode.name;
@@ -353,12 +348,10 @@ const ModeRow = GObject.registerClass({
         'mode-changed': {},
     },
 }, class ModeRow extends Adw.ActionRow {
-    _init(window, gtxt, modelData, mode, modes, alias) {
+    _init(window, modelData, mode, modes, alias) {
         super._init();
         this.activatable = true;
         this._window = window;
-        this._gtxt = gtxt;
-        const _ = this._gtxt;
         this._modelData = modelData;
         this._mode = mode;
         this._modes = modes;
@@ -413,7 +406,7 @@ const ModeRow = GObject.registerClass({
         else
             modeIcon.remove_css_class('accent');
 
-        this.dialog = new ModeEditDialog(this, this._gtxt, modelData, this._mode, alias);
+        this.dialog = new ModeEditDialog(this, modelData, this._mode, alias);
 
         this.addToggleButton.bind_property(
             'active',
@@ -483,7 +476,6 @@ const ModeRow = GObject.registerClass({
 
     _updateAddToggleButton(init = false) {
         if (!init) {
-            const _ = this._gtxt;
             const enabling = this.addToggleButton.active;
             const uiCount = this._modes.filter(mode => mode.ui).length;
 
@@ -535,7 +527,6 @@ const ModeRow = GObject.registerClass({
 
     _updateFavoriteButton(init = false) {
         if (!init) {
-            const _ = this._gtxt;
             const enabling = this.favoriteButton.active;
             const favCount = this._modes.filter(m => m.fav).length;
 
@@ -606,9 +597,8 @@ const ModeAddButton = GObject.registerClass({
         },
     },
 }, class ModeAddButton extends Gtk.MenuButton {
-    _init(gtxt, modelData, modes) {
+    _init(modelData, modes) {
         super._init();
-        const _ = gtxt;
         this._modelData = modelData;
         this._modes = modes;
 
@@ -722,11 +712,9 @@ export const ModesGroupWidget = GObject.registerClass({
         },
     },
 }, class ModesGroupWidget extends Adw.PreferencesGroup {
-    _init(window, gtxt, modelData, modes, currentMode, alias) {
+    _init(window, modelData, modes, currentMode, alias) {
         super._init();
         this._window = window;
-        this._gtxt = gtxt;
-        const _ = gtxt;
         this._modelData = modelData;
         this._modes = modes.map(mode => ({...mode}));
         this._alias = alias;
@@ -743,7 +731,7 @@ export const ModesGroupWidget = GObject.registerClass({
 
         this._setCurrentMode(currentMode);
 
-        this._addButton = new ModeAddButton(gtxt, modelData, this._modes);
+        this._addButton = new ModeAddButton(modelData, this._modes);
 
         this._addButtonSignalId = this._addButton.connect('mode-added', (button, mode) => {
             const row = this._addModeRow(mode);
@@ -758,7 +746,7 @@ export const ModesGroupWidget = GObject.registerClass({
     }
 
     _addModeRow(mode) {
-        const row = new ModeRow(this._window, this._gtxt, this._modelData, mode, this._modes,
+        const row = new ModeRow(this._window, this._modelData, mode, this._modes,
             this._alias);
 
         const activatedId = row.connect('activated', () => {

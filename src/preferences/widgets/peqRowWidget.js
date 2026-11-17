@@ -5,6 +5,7 @@ import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
 import GLib from 'gi://GLib';
 import Cairo from 'gi://cairo';
+import {gettext as _} from 'gettext';
 
 const LayoutMode = {
     DESKTOP: 0,
@@ -263,9 +264,8 @@ const EqGraph = GObject.registerClass({
         },
     },
 }, class EqGraph extends Gtk.DrawingArea {
-    _init(gtxt, config) {
+    _init(config) {
         super._init({});
-        this._gtxt = gtxt;
         this._config = config;
 
         this._styleManager = Adw.StyleManager.get_default();
@@ -603,7 +603,7 @@ const ParamButton = GObject.registerClass({
 const BandPage = GObject.registerClass({
     GTypeName: 'BudsLink_BandPage',
 }, class BandPage extends Gtk.Box {
-    _init(gtxt, bandNumber, eqBand, config) {
+    _init(bandNumber, eqBand, config) {
         super._init({
             orientation: Gtk.Orientation.VERTICAL,
             spacing: 6,
@@ -621,7 +621,6 @@ const BandPage = GObject.registerClass({
 
         this._signalIds = [];
 
-        const _ = gtxt;
         this._eqBand = eqBand;
         this._config = config;
         const css = `bbm-peq-band${bandNumber}`;
@@ -839,7 +838,7 @@ const ParametricEqDialog = GObject.registerClass({
         },
     },
 }, class ParametricEqDialog extends Adw.Dialog {
-    _init(gtxt, config) {
+    _init(config) {
         super._init({
             content_width: 650,
             content_height: 520,
@@ -847,8 +846,6 @@ const ParametricEqDialog = GObject.registerClass({
             height_request: 300,
         });
 
-        this._gtxt = gtxt;
-        const _ = this._gtxt;
         this._config = config;
         this._layoutMode = LayoutMode.DESKTOP;
         this.bands = [];
@@ -924,7 +921,7 @@ const ParametricEqDialog = GObject.registerClass({
             vexpand: false,
         });
 
-        this._graph = new EqGraph(this._gtxt, this._config);
+        this._graph = new EqGraph(this._config);
         this._parentBox.append(this._graph);
         this._parentBox.append(panelBox);
 
@@ -1029,7 +1026,7 @@ const ParametricEqDialog = GObject.registerClass({
 
 
         const eqBand = new EqBand(index, params);
-        const page = new BandPage(this._gtxt, bandNumber, eqBand, this._config);
+        const page = new BandPage(bandNumber, eqBand, this._config);
         eqBand.color = page.color;
 
         this._graph.addBand(eqBand);
@@ -1094,7 +1091,6 @@ const ParametricEqDialog = GObject.registerClass({
     }
 
     _selectBand(index) {
-        const _ = this._gtxt;
         for (const band of this.bands)
             band.button.set_active(false);
 
@@ -1111,7 +1107,6 @@ const ParametricEqDialog = GObject.registerClass({
         if (this.bands.length === 0)
             return;
 
-        const _ = this._gtxt;
         const bandNumber = this.bands.length;
 
         const dialog = new Adw.AlertDialog({
@@ -1134,7 +1129,6 @@ const ParametricEqDialog = GObject.registerClass({
     }
 
     _removeBand() {
-        const _ = this._gtxt;
         if (this.bands.length === 0)
             return;
 
@@ -1303,7 +1297,7 @@ const ParametricEqDialog = GObject.registerClass({
 export const ParametricEqRowWidget = GObject.registerClass({
     GTypeName: 'BudsLink_ParametricEqRowWidget',
 }, class ParametricEqRowWidget extends Adw.ActionRow {
-    _init(window, _, config = {}) {
+    _init(window, config = {}) {
         super._init({
             title: _('Parametric Equalizer'),
         });
@@ -1329,7 +1323,7 @@ export const ParametricEqRowWidget = GObject.registerClass({
             ...config,
         };
 
-        this.dialog = new ParametricEqDialog(_, cfg);
+        this.dialog = new ParametricEqDialog(cfg);
 
         const button = new Gtk.Button({
             valign: Gtk.Align.CENTER,

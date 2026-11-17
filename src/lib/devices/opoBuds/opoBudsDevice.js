@@ -1,0 +1,1071 @@
+'use strict';
+import GObject from 'gi://GObject';
+import {gettext as _} from 'gettext';
+
+import {createLogger, getDeviceIdentifier} from '../logger.js';
+import {
+    buds2to1BatteryLevel, validateProperties, launchConfigureWindow
+} from '../deviceUtils.js';
+import {createConfig, createProperties, DataHandler} from '../../dataHandler.js';
+import {OpoBudsSocket} from './opoBudsSocket.js';
+import {
+    safeJsonParse, findChangedGestureSlots, updateGestureSlotInHex
+} from './opoBudsConfig.js';
+
+export const DeviceTypeOpoBuds = 'opoBuds';
+
+const OpoBudsUUID = '0000079a-d102-11e1-9b23-00025b00a5a5';
+
+/* eslint-disable max-len */
+const SIMPLE_FEATURE_MAP = [
+    {key: 'eq-preset', flags: ['eqPreset'], prop: '_eqPreset', fn: (s, v) => s.setEqPreset(v)},
+    {key: 'inear-enable', flags: ['inEarDetection'], prop: '_inEar', fn: (s, v) => s.setInEar(v)},
+    {key: 'lowlatency', flags: ['lowLatencyMode'], prop: '_lowlatency', fn: (s, v) => s.setLatency(v)},
+    {key: 'dual-connection', flags: ['dualConnection'], prop: '_dualConnection', fn: (s, v) => s.setDualConnection(v)},
+    {key: 'wind-noise', flags: ['windNoiseReduction'], prop: '_windNoise', fn: (s, v) => s.setWindNoise(v)},
+    {key: 'volume-enhancer', flags: ['volumeEnhancer'], prop: '_volumeEnhancer', fn: (s, v) => s.setVolumeEnhancer(v)},
+    {key: 'spatial', flags: ['spatialAudio'], prop: '_spatial', fn: (s, v) => s.setSpatialAudio(v)},
+    {key: 'high-res', flags: ['highResAudio'], prop: '_highRes', fn: (s, v) => s.setHighRes(v)},
+    {key: 'dynamic-bass', flags: ['dynamicBass'], prop: '_dynamicBass', fn: (s, v) => s.setDynamicBass(v)},
+    {key: 'auto-answer', flags: ['autoAnswer'], prop: '_autoAnswer', fn: (s, v) => s.setAutoAnswer(v)},
+    {key: 'find-phone', flags: ['findMyPhone'], prop: '_findPhone', fn: (s, v) => s.setFindPhone(v)},
+    {key: 'ring-state', flags: ['ring'], prop: '_ringState', fn: (s, v) => s.setFindBuds(v)},
+];
+/* eslint-enable max-len */
+
+export function isOpoBuds(bluezDeviceProxy, uuids) {
+    const bluezProps = [];
+    const supported = uuids.some(uuid => uuid.toLowerCase() === OpoBudsUUID) ? 'yes' : 'no';
+    return {supported, bluezProps};
+}
+
+export const OpoBudsDevice = GObject.registerClass({
+    GTypeName: 'BudsLink_OpoBudsDevice',
+}, class OpoBudsDevice extends GObject.Object {
+    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super._init();
+        const identifier = getDeviceIdentifier(devicePath);
+        const tag = `OpoBudsDevice-${identifier}`;
+        this._log = createLogger(tag);
+        this._log.info('------------------- OpoBudsDevice init -------------------');
+        this._settings = settings;
+        this._devicePath = devicePath;
+        this._alias = alias;
+        this._extPath = extPath;
+        this.updateDeviceMapCb = updateDeviceMapCb;
+        this._ignoreGsettingsChange = false;
+        this._fwVersion = '';
+        this._commonIcon = 'earbuds-stem';
+        this._config = createConfig();
+        this._props = createProperties();
+        this._modelData = null;
+        this._lastMultiDeviceOpTs = 0;
+        this._lastFitTestOpTs = 0;
+
+        this._callbacks = {
+            modelInitialized: this.modelInitialized.bind(this),
+            updateFirmwareInfo: this.updateFirmwareInfo.bind(this),
+            updateBatteryProps: this.updateBatteryProps.bind(this),
+            updateNoiseControl: this.updateNoiseControl.bind(this),
+            updateInEar: this.updateInEar.bind(this),
+            updateLatency: this.updateLatency.bind(this),
+            updateDualConnection: this.updateDualConnection.bind(this),
+            updateWindNoise: this.updateWindNoise.bind(this),
+            updateVolumeEnhancer: this.updateVolumeEnhancer.bind(this),
+            updateSpatialAudio: this.updateSpatialAudio.bind(this),
+            updateHighRes: this.updateHighRes.bind(this),
+            updateDynamicBass: this.updateDynamicBass.bind(this),
+            updateAutoAnswer: this.updateAutoAnswer.bind(this),
+            updateFindPhone: this.updateFindPhone.bind(this),
+            updateEqPreset: this.updateEqPreset.bind(this),
+            updateGestures: this.updateGestures.bind(this),
+            updateSingleGesture: this.updateSingleGesture.bind(this),
+            updateMultiConnectDevices: this.updateMultiConnectDevices.bind(this),
+            updateNoiseControlCycle: this.updateNoiseControlCycle.bind(this),
+            updateFitTestResult: this.updateFitTestResult.bind(this),
+            updateCustomEqs: this.updateCustomEqs.bind(this),
+            updateBassLevel: this.updateBassLevel.bind(this),
+        };
+
+        const profile = {type: DeviceTypeOpoBuds, uuid: OpoBudsUUID};
+
+        this._opoBudsSocket = new OpoBudsSocket(
+            devicePath,
+            profileManager,
+            profile,
+            this._callbacks
+        );
+
+        this._battInfoReceived = false;
+        this._pendingAncMode = null;
+        this._pendingWindNoise = null;
+        this._pendingVolumeEnhancer = null;
+        this._isReady = false;
+        this._customEqList = [];
+        this._lastCustomEqOpTs = 0;
+    }
+
+    modelInitialized(modelData) {
+        this._modelData = modelData;
+
+        this._log.info(`Configuration: ${JSON.stringify(this._modelData, null, 2)}`);
+
+        this._commonIcon = this._modelData.budsIcon ?? 'earbuds-stem';
+        if (this._modelData.batteryCase)
+            this._caseIcon = `${this._modelData.case ?? 'case-round'}`;
+
+        this._createDefaultSettings();
+
+        const devicesList = this._settings.get_strv('opo-buds-list')
+                .map(safeJsonParse).filter(Boolean);
+
+        if (devicesList.length === 0 ||
+                !devicesList.some(device => device.path === this._devicePath)) {
+            this._addPropsToSettings(devicesList);
+        } else {
+            validateProperties(this._settings, 'opo-buds-list', devicesList,
+                this._defaultsDeviceSettings, this._devicePath);
+        }
+
+        this._updateInitialValues();
+        this._monitorOpoBudsListGsettings();
+
+        this._updateIcons();
+        this._updateAncConfig();
+
+        if (this._pendingAncMode != null) {
+            this.updateNoiseControl(this._pendingAncMode);
+            this._pendingAncMode = null;
+        }
+
+        if (this._pendingWindNoise !== null) {
+            this.updateWindNoise(this._pendingWindNoise);
+            this._pendingWindNoise = null;
+        }
+
+        if (this._pendingVolumeEnhancer !== null) {
+            this.updateVolumeEnhancer(this._pendingVolumeEnhancer);
+            this._pendingVolumeEnhancer = null;
+        }
+
+        this._isReady = true;
+        this._log.info('OpoBudsDevice is ready.');
+    }
+
+    /* eslint-disable max-len */
+    _createDefaultSettings() {
+        this._defaultsDeviceSettings = {
+            'path': this._devicePath,
+            'modelid': this._modelData.modelId,
+            'alias': this._alias,
+            'icon': this._commonIcon,
+            'fw-version': this._fwVersion,
+
+            ...this._modelData.batteryCase ? {'case': this._caseIcon} : {},
+            ...this._modelData.eqPreset ? {'eq-preset': Object.values(this._modelData.eqPreset)[0] ?? 0} : {},
+            ...this._modelData.eqPreset ? {'custom-eq-list': [], 'custom-eq-op': null} : {},
+            ...this._modelData.inEarDetection ? {'inear-enable': false} : {},
+            ...this._modelData.lowLatencyMode ? {'lowlatency': false} : {},
+            ...this._modelData.dualConnection ? {
+                'dual-connection': false,
+                'audio-priority-mac': '',
+                'multi-device-op': null,
+            } : {},
+            ...this._modelData.windNoiseReduction ? {'wind-noise': false} : {},
+            ...this._modelData.volumeEnhancer ? {'volume-enhancer': false} : {},
+            ...this._modelData.fitTest ? {'fit-test-op': null} : {},
+            ...this._modelData.spatialAudio ? {'spatial': false} : {},
+            ...this._modelData.highResAudio ? {'high-res': false} : {},
+            ...this._modelData.dynamicBass ? {
+                'dynamic-bass': false,
+                'dynamic-audio-low': 0,
+                'dynamic-audio-med': 0,
+                'dynamic-audio-high': 0,
+            } : {},
+            ...this._modelData.gestureOptions ? {'gestures': ''} : {},
+            ...this._modelData.ring ? {'ring-state': 'stopped'} : {},
+            ...this._modelData.autoAnswer ? {'auto-answer': false} : {},
+            ...this._modelData.findMyPhone ? {'find-phone': false} : {},
+            ...this._modelData.noiseControl ? {'nc-cycle-mask': 0x0B} : {},
+        };
+    }
+    /* eslint-enable max-len */
+
+    _updateInitialValues() {
+        const devicesList = this._settings.get_strv('opo-buds-list')
+                .map(safeJsonParse).filter(Boolean);
+
+        const index = devicesList.findIndex(item => item.path === this._devicePath);
+        if (index === -1)
+            return;
+
+        this._settingsItems = devicesList[index];
+
+        this._commonIcon = this._settingsItems['icon'];
+
+        if (this._modelData.batteryCase)
+            this._caseIcon = this._settingsItems['case'];
+
+        if (this._modelData.eqPreset)
+            this._eqPreset = this._settingsItems['eq-preset'];
+
+        if (this._modelData.customEqSupport) {
+            this._customEqList = this._settingsItems['custom-eq-list'] ?? [];
+            this._lastCustomEqOpTs = this._settingsItems['custom-eq-op']?.ts ?? 0;
+        }
+
+        if (this._modelData.inEarDetection)
+            this._inEar = this._settingsItems['inear-enable'];
+
+        if (this._modelData.lowLatencyMode)
+            this._lowlatency = this._settingsItems['lowlatency'];
+
+        if (this._modelData.dualConnection) {
+            this._dualConnection = this._settingsItems['dual-connection'];
+            this._audioPriorityMac = this._settingsItems['audio-priority-mac'];
+            this._lastMultiDeviceOpTs = this._settingsItems['multi-device-op']?.ts ?? 0;
+        }
+
+        if (this._modelData.fitTest)
+            this._lastFitTestOpTs = this._settingsItems['fit-test-op']?.ts ?? 0;
+
+        if (this._modelData.windNoiseReduction)
+            this._windNoise = this._settingsItems['wind-noise'];
+
+        if (this._modelData.volumeEnhancer)
+            this._volumeEnhancer = this._settingsItems['volume-enhancer'];
+
+        if (this._modelData.spatialAudio)
+            this._spatial = this._settingsItems['spatial'];
+
+        if (this._modelData.highResAudio)
+            this._highRes = this._settingsItems['high-res'];
+
+        if (this._modelData.dynamicBass) {
+            this._dynamicBass = this._settingsItems['dynamic-bass'] ?? false;
+
+            if (this._modelData.dynamicBassOpo) {
+                this._bassLevel = this._settingsItems['bass-level'] ?? 0;
+            } else {
+                this._dynamicAudioLow = this._settingsItems['dynamic-audio-low'] ?? 0;
+                this._dynamicAudioMed = this._settingsItems['dynamic-audio-med'] ?? 0;
+                this._dynamicAudioHigh = this._settingsItems['dynamic-audio-high'] ?? 0;
+            }
+        }
+
+        if (this._modelData.autoAnswer)
+            this._autoAnswer = this._settingsItems['auto-answer'];
+
+        if (this._modelData.findMyPhone)
+            this._findPhone = this._settingsItems['find-phone'];
+
+        if (this._modelData.gestureOptions)
+            this._gestures = this._settingsItems['gestures'];
+
+        if (this._modelData.ring)
+            this._ringState = this._settingsItems['ring-state'];
+
+        if (this._modelData.noiseControl)
+            this._ncCycleMask = this._settingsItems['nc-cycle-mask'] ?? 0x00;
+    }
+
+    _addPropsToSettings(devicesList) {
+        devicesList.push(this._defaultsDeviceSettings);
+        this._settings.set_strv('opo-buds-list', devicesList.map(JSON.stringify));
+    }
+
+    _monitorOpoBudsListGsettings() {
+        this._settingsHandlerId = this._settings?.connect('changed::opo-buds-list', () => {
+            if (this._ignoreGsettingsChange)
+                return;
+
+            try {
+                const devicesList = this._settings.get_strv('opo-buds-list')
+                        .map(safeJsonParse).filter(Boolean);
+
+                const index = devicesList.findIndex(item => item.path === this._devicePath);
+                if (index === -1)
+                    return;
+
+                this._settingsItems = devicesList[index];
+
+                const icon = this._settingsItems['icon'];
+                if (this._commonIcon !== icon) {
+                    this._commonIcon = icon;
+                    this._updateIcons();
+                }
+
+                if (this._modelData.batteryCase) {
+                    const caseIcon = this._settingsItems['case'];
+                    if (this._caseIcon !== caseIcon) {
+                        this._caseIcon = caseIcon;
+                        this._updateIcons();
+                    }
+                }
+
+                for (const item of SIMPLE_FEATURE_MAP) {
+                    const isConfigured = item.flags.some(flag => this._modelData[flag]);
+                    if (isConfigured) {
+                        const val = this._settingsItems[item.key];
+                        if (this[item.prop] !== val) {
+                            this[item.prop] = val;
+                            if (this._opoBudsSocket) {
+                                if (item.key === 'eq-preset') {
+                                    const custom = this._customEqList.find(e => e.eqId === val);
+                                    if (custom) {
+                                        this._opoBudsSocket.modifyCustomEq(custom.eqId, {
+                                            name: custom.name,
+                                            min: custom.min,
+                                            max: custom.max,
+                                            freqs: custom.freqs,
+                                            dbs: custom.dbs,
+                                        });
+                                    } else {
+                                        item.fn(this._opoBudsSocket, val);
+                                    }
+                                } else {
+                                    item.fn(this._opoBudsSocket, val);
+                                }
+                            }
+
+                            if (item.key === 'dynamic-bass' && val === true) {
+                                if (this._modelData.dynamicBassOpo) {
+                                    this._opoBudsSocket?.setBassLevel(this._bassLevel ?? 0);
+                                } else {
+                                    this._opoBudsSocket?.setDynamicAudioEq(
+                                        this._dynamicAudioLow ?? 0,
+                                        this._dynamicAudioMed ?? 0,
+                                        this._dynamicAudioHigh ?? 0
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (this._modelData.dualConnection) {
+                    const multiDeviceOp = this._settingsItems['multi-device-op'];
+                    if (multiDeviceOp && multiDeviceOp.ts !== this._lastMultiDeviceOpTs) {
+                        this._lastMultiDeviceOpTs = multiDeviceOp.ts;
+                        if (multiDeviceOp.op === 'refresh' || multiDeviceOp.op === 0xFF) {
+                            this._opoBudsSocket?.getMultiConnectInfo();
+                        } else {
+                            this._opoBudsSocket?.operateMultiConnect(multiDeviceOp.op,
+                                multiDeviceOp.mac);
+                        }
+                    }
+                }
+
+                if (this._modelData.fitTest) {
+                    const fitTestOp = this._settingsItems['fit-test-op'];
+                    if (fitTestOp && fitTestOp.ts !== this._lastFitTestOpTs) {
+                        this._lastFitTestOpTs = fitTestOp.ts;
+                        if (fitTestOp.action === 'start')
+                            this._opoBudsSocket?.startFitTest();
+                        else if (fitTestOp.action === 'stop')
+                            this._opoBudsSocket?.stopFitTest();
+                    }
+                }
+
+                if (this._modelData.dynamicBass) {
+                    if (this._modelData.dynamicBassOpo) {
+                        const level = this._settingsItems['bass-level'] ?? 0;
+
+                        if (this._bassLevel !== level) {
+                            this._bassLevel = level;
+
+                            if (this._dynamicBass)
+                                this._opoBudsSocket?.setBassLevel(level);
+                        }
+                    } else {
+                        const low = this._settingsItems['dynamic-audio-low'] ?? 0;
+                        const med = this._settingsItems['dynamic-audio-med'] ?? 0;
+                        const high = this._settingsItems['dynamic-audio-high'] ?? 0;
+
+                        const changed = this._dynamicAudioLow !== low ||
+                                this._dynamicAudioMed !== med ||
+                                this._dynamicAudioHigh !== high;
+
+                        if (changed) {
+                            this._dynamicAudioLow = low;
+                            this._dynamicAudioMed = med;
+                            this._dynamicAudioHigh = high;
+
+                            if (this._dynamicBass)
+                                this._opoBudsSocket?.setDynamicAudioEq(low, med, high);
+                        }
+                    }
+                }
+
+                if (this._modelData.gestureOptions) {
+                    const gestures = this._settingsItems['gestures'];
+                    if (gestures && this._gestures !== gestures) {
+                        const changedSlots = findChangedGestureSlots(
+                            this._gestures, gestures, this._modelData.gestureOptions);
+
+                        this._gestures = gestures;
+                        if (changedSlots.length > 0)
+                            this._opoBudsSocket?.setGestureSlots(changedSlots);
+                    }
+                }
+
+                if (this._modelData.noiseControl) {
+                    const ncCycleMask = this._settingsItems['nc-cycle-mask'] ?? 0x0B;
+                    if (this._ncCycleMask !== ncCycleMask) {
+                        this._ncCycleMask = ncCycleMask;
+                        this._opoBudsSocket?.setNoiseControlCycle(ncCycleMask);
+                    }
+                }
+
+                if (this._modelData.customEqSupport) {
+                    const customEqOp = this._settingsItems['custom-eq-op'];
+                    if (customEqOp && customEqOp.ts !== this._lastCustomEqOpTs) {
+                        this._lastCustomEqOpTs = customEqOp.ts;
+                        const eqId = customEqOp.eqId;
+                        const eqData = {
+                            name: customEqOp.name ?? '',
+                            min: customEqOp.min ?? -6,
+                            max: customEqOp.max ?? 6,
+                            freqs: customEqOp.freqs ?? [],
+                            dbs: customEqOp.dbs ?? [],
+                        };
+                        switch (customEqOp.action) {
+                            case 'add':
+                                this._opoBudsSocket?.addCustomEq(eqId, eqData);
+                                break;
+                            case 'modify':
+                                this._opoBudsSocket?.modifyCustomEq(eqId, eqData);
+                                break;
+                            case 'delete':
+                                this._opoBudsSocket?.deleteCustomEq(eqId, eqData);
+                                break;
+                            case 'select':
+                                if (eqData.dbs.length > 0)
+                                    this._opoBudsSocket?.modifyCustomEq(eqId, eqData);
+                                break;
+                            case 'list':
+                                this._opoBudsSocket?.getCustomEqInfo();
+                                break;
+                            default:
+                                this._log.warn(`Unknown custom EQ op action: ${customEqOp.action}`);
+                                break;
+                        }
+                    }
+                }
+            } catch (e) {
+                this._log.error(`OpoBudsDevice: GSettings monitor error: ${e.message}`);
+            }
+        });
+    }
+
+    _updateSettingKey(key, value) {
+        if (!this._settings || !this._devicePath)
+            return;
+
+        if (this._settingsItems && this._settingsItems[key] === value)
+            return;
+
+        if (this._settingsItems)
+            this._settingsItems[key] = value;
+
+        this._ignoreGsettingsChange = true;
+        try {
+            const list = this._settings.get_strv('opo-buds-list')
+                    .map(safeJsonParse).filter(Boolean);
+
+            const index = list.findIndex(d => d.path === this._devicePath);
+            if (index !== -1) {
+                list[index][key] = value;
+                this._settings.set_strv('opo-buds-list', list.map(JSON.stringify));
+            }
+        } catch (e) {
+            this._log.error(`_updateSettingKey error (${key}): ${e.message}`);
+        }
+        this._ignoreGsettingsChange = false;
+    }
+
+    _updateGsettings() {
+        this._ignoreGsettingsChange = true;
+
+        const currentList = this._settings.get_strv('opo-buds-list')
+            .map(safeJsonParse).filter(Boolean);
+
+        const index = currentList.findIndex(d => d.path === this._devicePath);
+
+        if (index !== -1) {
+            currentList[index] = this._settingsItems;
+            this._settings.set_strv('opo-buds-list', currentList.map(JSON.stringify));
+        }
+
+        this._ignoreGsettingsChange = false;
+    }
+
+    _updateSimpleSetting(prop, key, value) {
+        if (this[prop] === value)
+            return;
+
+        this[prop] = value;
+        this._updateSettingKey(key, value);
+    }
+
+    _updateIcons() {
+        this._config.commonIcon = this._commonIcon;
+        this._config.albumArtIcon = this._commonIcon;
+        this._config.showSettingsButton = true;
+        this._config.labelIndicatorEnabled = 1;
+
+        this._config.battery1ShowOnDisconnect = true;
+        if (this._modelData?.batteryLR) {
+            this._config.battery1Icon = `${this._commonIcon}-left`;
+            this._config.battery2Icon = `${this._commonIcon}-right`;
+            this._config.battery2ShowOnDisconnect = true;
+            this._config.battery3Icon = this._caseIcon;
+        } else {
+            this._config.battery1Icon = this._commonIcon;
+        }
+
+        this.dataHandler?.setConfig(this._config);
+    }
+
+    _updateAncConfig() {
+        const nc = this._modelData?.noiseControl;
+        if (!nc?.modes)
+            return;
+
+        const modes = nc.modes;
+
+        let buttonIndex = 1;
+        this._ancToggleMap = {};
+        this._config.toggle1Title = _('Noise Control');
+
+        const addToggle = (type, mode, icon, name, matchModes = [mode]) => {
+            this._config[`toggle1Button${buttonIndex}Icon`] = icon;
+            this._config[`toggle1Button${buttonIndex}Name`] = name;
+            this._ancToggleMap[buttonIndex] = {type, mode, matchModes};
+            buttonIndex++;
+        };
+
+        const addMode = (type, icon, name) => {
+            const config = modes[type];
+            if (!config)
+                return;
+
+            if (!config.levels) {
+                addToggle(type, type, icon, name);
+                return;
+            }
+
+            const levels = Object.keys(config.levels);
+            const modeIds = levels.map(level => `${type}.${level}`);
+            const isTransparency = type === 'transparency';
+            const radioNames = [];
+
+            const levelNames = isTransparency
+                ? {
+                    regular: _('Regular'),
+                    voice: _('Voice'),
+                }
+                : {
+                    auto: _('Auto'),
+                    low: _('Low'),
+                    mid: _('Mid'),
+                    high: _('High'),
+                };
+
+            const radioMap = isTransparency
+                ? this._ancTransparencyMap = {}
+                : this._ancRadioMap = {};
+
+            const radioReverse = isTransparency
+                ? this._ancTransparencyReverse = {}
+                : this._ancRadioReverse = {};
+
+            levels.forEach((key, idx) => {
+                const num = idx + 1;
+                const displayName = levelNames[key] ??
+                key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
+
+                radioNames.push(displayName);
+                radioMap[num] = modeIds[idx];
+                radioReverse[modeIds[idx]] = num;
+            });
+
+            if (isTransparency) {
+                this._config.optionsBox2.push('radio-button');
+                this._config.box2RadioButton = radioNames;
+                this._config.box2RadioTitle = _('Transparency Level');
+            } else {
+                this._config.optionsBox1.push('radio-button');
+                this._config.box1RadioButton = radioNames;
+                this._config.box1RadioTitle = _('Noise Cancellation Level');
+            }
+
+            addToggle(type, modeIds[0], icon, name, modeIds);
+        };
+
+        this._ancRadioMap = {};
+        this._ancRadioReverse = {};
+        this._ancTransparencyMap = {};
+        this._ancTransparencyReverse = {};
+
+        if (modes.off)
+            addToggle('off', 'off', 'bbm-anc-off-symbolic', _('Off'));
+
+        addMode(
+            'transparency',
+            'bbm-transperancy-symbolic',
+            _('Transparency')
+        );
+
+        addMode(
+            'noiseCancellation',
+            'bbm-anc-on-symbolic',
+            _('Noise Cancellation')
+        );
+
+        if (modes.adaptive)
+            addToggle('adaptive', 'adaptive', 'bbm-adaptive-symbolic', _('Adaptive'));
+
+        if (this._modelData.windNoiseReduction) {
+            this._config.optionsBox1.push('check-button');
+            this._config.box1CheckButton = [_('Wind Noise Reduction')];
+        }
+
+        this._box2Map = [];
+        const box2Labels = [];
+        if (this._modelData.volumeEnhancer) {
+            box2Labels.push(_('Focus on Voice'));
+            this._box2Map.push('volumeEnhancer');
+        }
+        if (this._modelData.windNoiseReduction) {
+            box2Labels.push(_('Wind Noise Reduction'));
+            this._box2Map.push('windNoise');
+        }
+
+        if (box2Labels.length > 0) {
+            this._config.optionsBox2.push('check-button');
+            this._config.box2CheckButton = box2Labels;
+        }
+
+        if (this._config.box1RadioButton?.length && !this._props.box1RadioButtonState)
+            this._props.box1RadioButtonState = 1;
+
+        if (this._box2Map?.length) {
+            this._box2Map.forEach((feat, idx) => {
+                let val;
+                if (feat === 'volumeEnhancer')
+                    val = this._volumeEnhancer ? 1 : 0;
+                else
+                    val = this._windNoise ? 1 : 0;
+
+
+                if (idx === 0)
+                    this._props.box2CheckButton1State = val;
+                else if (idx === 1)
+                    this._props.box2CheckButton2State = val;
+            });
+        }
+
+        if (this._modelData.windNoiseReduction)
+            this._props.box1CheckButton1State = this._windNoise ? 1 : 0;
+
+        this.dataHandler?.setConfig(this._config);
+    }
+
+    _startConfiguration(battProps) {
+        if (!this._modelData)
+            return;
+
+        const bat1level = battProps.battery1Level ?? 0;
+        const bat2level = battProps.battery2Level ?? 0;
+        const bat3level = battProps.battery3Level ?? 0;
+
+        if (bat1level <= 0 && bat2level <= 0 && bat3level <= 0)
+            return;
+
+        this._battInfoReceived = true;
+
+        if (this._modelData.noiseControl)
+            this._props.toggle1Visible = true;
+
+        if (this.dataHandler) {
+            this.dataHandler.setProps(this._props);
+            return;
+        }
+
+        this.dataHandler = new DataHandler(this._config, this._props);
+        this.updateDeviceMapCb(this._devicePath, this.dataHandler);
+
+        this._dataHandlerId = this.dataHandler.connect('ui-action', (o, command, value) => {
+            try {
+                this._log.info(`ui-action received: command=${command}, value=${value}`);
+                if (command === 'toggle1State')
+                    this._toggle1ButtonClicked(value);
+                else if (command === 'box1RadioButtonState')
+                    this._box1RadioButtonStateChanged(value);
+                else if (command === 'box2RadioButtonState')
+                    this._box2RadioButtonStateChanged(value);
+                else if (command === 'box1CheckButton1State')
+                    this._box1CheckButton1Changed(value);
+                else if (command === 'box2CheckButton1State')
+                    this._box2CheckButton1Changed(value);
+                else if (command === 'box2CheckButton2State')
+                    this._box2CheckButton2Changed(value);
+                else if (command === 'settingsButtonClicked')
+                    this._settingsButtonClicked();
+            } catch (e) {
+                this._log.error(`Error in ui-action (${command}): ${e.message}\n${e.stack}`);
+            }
+        });
+
+        this._isReady = true;
+    }
+
+    _toggle1ButtonClicked(index) {
+        if (!this._ancToggleMap || !this._modelData)
+            return;
+
+        const toggle = this._ancToggleMap[index];
+        if (!toggle)
+            return;
+
+        const isSameState = this._props.toggle1State === index;
+        this._props.toggle1State = index;
+
+        let ancMode = null;
+
+        if (toggle.type === 'noiseCancellation') {
+            this._props.optionsBoxVisible = this._config.optionsBox1?.length ? 1 : 0;
+
+            if (toggle.matchModes.length > 1) {
+                const radioIndex = this._props.box1RadioButtonState;
+                this._props.box1RadioButtonState = radioIndex;
+                ancMode = this._ancRadioMap?.[radioIndex] ?? toggle.mode;
+            } else {
+                ancMode = toggle.mode;
+            }
+        } else if (toggle.type === 'transparency') {
+            this._props.optionsBoxVisible = this._config.optionsBox2?.length ? 2 : 0;
+
+            if (toggle.matchModes.length > 1) {
+                const radioIndex = this._props.box2RadioButtonState;
+                this._props.box2RadioButtonState = radioIndex;
+                ancMode = this._ancTransparencyMap?.[radioIndex] ?? toggle.mode;
+            } else {
+                ancMode = toggle.mode;
+            }
+        } else {
+            this._props.optionsBoxVisible = 0;
+            ancMode = toggle.mode;
+        }
+
+        this.dataHandler?.setProps(this._props);
+
+        if (this._isReady && !isSameState && ancMode !== null)
+            this._opoBudsSocket?.setNoiseControl(ancMode);
+    }
+
+    _box1RadioButtonStateChanged(index) {
+        if (!this._ancRadioMap)
+            return;
+
+        this._props.box1RadioButtonState = index;
+        this.dataHandler?.setProps(this._props);
+
+        const mode = this._ancRadioMap[index];
+        if (mode)
+            this._opoBudsSocket?.setNoiseControl(mode);
+    }
+
+    _box2RadioButtonStateChanged(index) {
+        if (!this._ancTransparencyMap)
+            return;
+
+        this._props.box2RadioButtonState = index;
+        this.dataHandler?.setProps(this._props);
+
+        const mode = this._ancTransparencyMap[index];
+        if (mode)
+            this._opoBudsSocket?.setNoiseControl(mode);
+    }
+
+    _box1CheckButton1Changed(value) {
+        const enabled = value > 0;
+        this._windNoise = enabled;
+        this._updateSettingKey('wind-noise', enabled);
+        this._props.box1CheckButton1State = value;
+        if (this._box2Map) {
+            const idx = this._box2Map.indexOf('windNoise');
+            if (idx === 0)
+                this._props.box2CheckButton1State = value;
+            else if (idx === 1)
+                this._props.box2CheckButton2State = value;
+        }
+        this.dataHandler?.setProps(this._props);
+        this._opoBudsSocket?.setWindNoise(enabled);
+    }
+
+    _handleBox2Checkbox(index, value) {
+        const feature = this._box2Map?.[index];
+        if (!feature)
+            return;
+
+        const enabled = value > 0;
+        if (feature === 'volumeEnhancer') {
+            this._volumeEnhancer = enabled;
+            this._updateSettingKey('volume-enhancer', enabled);
+            if (index === 0)
+                this._props.box2CheckButton1State = value;
+            else if (index === 1)
+                this._props.box2CheckButton2State = value;
+            this.dataHandler?.setProps(this._props);
+            this._opoBudsSocket?.setVolumeEnhancer(enabled);
+        } else if (feature === 'windNoise') {
+            this._windNoise = enabled;
+            this._updateSettingKey('wind-noise', enabled);
+            this._props.box1CheckButton1State = value;
+            if (index === 0)
+                this._props.box2CheckButton1State = value;
+            else if (index === 1)
+                this._props.box2CheckButton2State = value;
+            this.dataHandler?.setProps(this._props);
+            this._opoBudsSocket?.setWindNoise(enabled);
+        }
+    }
+
+    _box2CheckButton1Changed(value) {
+        this._handleBox2Checkbox(0, value);
+    }
+
+    _box2CheckButton2Changed(value) {
+        this._handleBox2Checkbox(1, value);
+    }
+
+    _settingsButtonClicked() {
+        launchConfigureWindow(this._devicePath, 'opoBuds');
+    }
+
+    updateFirmwareInfo(version) {
+        this._updateSimpleSetting('_fwVersion', 'fw-version', version);
+    }
+
+    updateMultiConnectDevices(devices) {
+        this._updateSimpleSetting('_multiDevices', 'multi-devices', devices);
+    }
+
+    updateBatteryProps({left, right, case: cse}) {
+        if (left) {
+            this._props.battery1Level = left.level;
+            this._props.battery1Status = left.isCharging ? 'charging' : 'discharging';
+        }
+        if (right) {
+            this._props.battery2Level = right.level;
+            this._props.battery2Status = right.isCharging ? 'charging' : 'discharging';
+        }
+        if (cse) {
+            this._props.battery3Level = cse.level;
+            this._props.battery3Status = cse.isCharging ? 'charging' : 'discharging';
+        }
+
+        if (!this._modelData?.batteryLR) {
+            const primary = left ?? right ?? cse;
+            if (primary) {
+                this._props.battery1Level = primary.level;
+                this._props.battery1Status = primary.isCharging ? 'charging' : 'discharging';
+            }
+            this._props.computedBatteryLevel = this._props.battery1Level ?? 0;
+        } else {
+            this._props.computedBatteryLevel = buds2to1BatteryLevel(this._props);
+        }
+
+        if (!this._battInfoReceived)
+            this._startConfiguration(this._props);
+        else
+            this.dataHandler?.setProps(this._props);
+    }
+
+    updateNoiseControl(mode) {
+        if (!this._ancToggleMap) {
+            this._pendingAncMode = mode;
+            return;
+        }
+
+        const modes = this._modelData?.noiseControl?.modes;
+        if (!modes)
+            return;
+
+        let toggleIndex = 0;
+        let activeType = 'off';
+
+        for (const [index, toggle] of Object.entries(this._ancToggleMap)) {
+            if (toggle.matchModes.includes(mode)) {
+                toggleIndex = Number(index);
+                activeType = toggle.type;
+                break;
+            }
+        }
+
+        this._props.toggle1State = toggleIndex;
+
+        if (activeType === 'noiseCancellation') {
+            if (modes.noiseCancellation?.levels) {
+                const radioIndex = this._ancRadioReverse?.[mode];
+                if (radioIndex !== undefined)
+                    this._props.box1RadioButtonState = radioIndex;
+                else if (!this._props.box1RadioButtonState)
+                    this._props.box1RadioButtonState = 1;
+            }
+
+            this._props.optionsBoxVisible = this._config.optionsBox1?.length ? 1 : 0;
+        } else if (activeType === 'transparency') {
+            if (modes.transparency?.levels) {
+                const radioIndex = this._ancTransparencyReverse?.[mode];
+                if (radioIndex !== undefined)
+                    this._props.box2RadioButtonState = radioIndex;
+                else if (!this._props.box2RadioButtonState)
+                    this._props.box2RadioButtonState = 1;
+            }
+
+            this._props.optionsBoxVisible = this._config.optionsBox2?.length ? 2 : 0;
+        } else {
+            this._props.optionsBoxVisible = 0;
+        }
+
+        this.dataHandler?.setProps(this._props);
+    }
+
+    updateNoiseControlCycle(maskByte) {
+        this._updateSimpleSetting('_ncCycleMask', 'nc-cycle-mask', maskByte);
+    }
+
+    updateInEar(inEar) {
+        this._updateSimpleSetting('_inEar', 'inear-enable', inEar);
+    }
+
+    updateLatency(latency) {
+        this._updateSimpleSetting('_lowlatency', 'lowlatency', latency);
+    }
+
+    updateDualConnection(dual) {
+        this._updateSimpleSetting('_dualConnection', 'dual-connection', dual);
+    }
+
+    updateWindNoise(windNoise) {
+        if (!this._modelData) {
+            this._pendingWindNoise = windNoise;
+            return;
+        }
+        this._windNoise = windNoise;
+        this._updateSettingKey('wind-noise', this._windNoise);
+        this._props.box1CheckButton1State = windNoise ? 1 : 0;
+        if (this._box2Map) {
+            const idx = this._box2Map.indexOf('windNoise');
+            if (idx === 0)
+                this._props.box2CheckButton1State = windNoise ? 1 : 0;
+            else if (idx === 1)
+                this._props.box2CheckButton2State = windNoise ? 1 : 0;
+        }
+        this.dataHandler?.setProps(this._props);
+    }
+
+    updateVolumeEnhancer(volumeEnhancer) {
+        if (!this._modelData) {
+            this._pendingVolumeEnhancer = volumeEnhancer;
+            return;
+        }
+        this._volumeEnhancer = volumeEnhancer;
+        this._updateSettingKey('volume-enhancer', this._volumeEnhancer);
+        if (this._box2Map) {
+            const idx = this._box2Map.indexOf('volumeEnhancer');
+            if (idx === 0)
+                this._props.box2CheckButton1State = volumeEnhancer ? 1 : 0;
+            else if (idx === 1)
+                this._props.box2CheckButton2State = volumeEnhancer ? 1 : 0;
+        }
+        this.dataHandler?.setProps(this._props);
+    }
+
+    updateSpatialAudio(spatial) {
+        this._updateSimpleSetting('_spatial', 'spatial', spatial);
+    }
+
+    updateHighRes(highRes) {
+        this._updateSimpleSetting('_highRes', 'high-res', highRes);
+    }
+
+    updateDynamicBass(dynamicBass) {
+        this._updateSimpleSetting('_dynamicBass', 'dynamic-bass', dynamicBass);
+    }
+
+    updateBassLevel(level) {
+        this._updateSettingKey('bass-level', level);
+    }
+
+    updateAutoAnswer(autoAnswer) {
+        this._updateSimpleSetting('_autoAnswer', 'auto-answer', autoAnswer);
+    }
+
+    updateFindPhone(findPhone) {
+        this._updateSimpleSetting('_findPhone', 'find-phone', findPhone);
+    }
+
+    updateEqPreset(preset) {
+        this._updateSettingKey('eq-preset', preset);
+        this._updateSettingKey('eq-preset-refresh-ts', Date.now());
+    }
+
+    updateCustomEqs(entries) {
+        if (!this._modelData?.customEqSupport)
+            return;
+
+        this._customEqList = Array.isArray(entries) ? entries : [];
+        this._updateSettingKey('custom-eq-list', this._customEqList);
+
+        if (this._customEqList.length > 0)
+            this._log.info(`Custom EQ list updated (${this._customEqList.length} entries)`);
+
+        const selected = this._customEqList.find(e => e.selected);
+        if (selected)
+            this._updateSettingKey('eq-preset', selected.eqId);
+    }
+
+    updateGestures(gesturesHex) {
+        this._updateSimpleSetting('_gestures', 'gestures', gesturesHex);
+    }
+
+    updateSingleGesture(dev, btn, act, func) {
+        if (!this._settingsItems || !this._settingsItems['gestures'])
+            return;
+
+        const hex = this._settingsItems['gestures'];
+        const newHex = updateGestureSlotInHex(hex, dev, btn, act, func);
+
+        if (newHex !== hex) {
+            this._gestures = newHex;
+            this._updateSettingKey('gestures', newHex);
+        }
+    }
+
+    updateFitTestResult(result) {
+        this._log.info(`Update Fit Test Result: left=${result?.left}, right=${result?.right}`);
+        this._fitTestResult = result;
+        if (this._modelData?.fitTest && this._settingsItems)
+            this._updateSettingKey('fit-test-result', result);
+    }
+
+    destroy() {
+        if (this._settingsHandlerId) {
+            this._settings?.disconnect(this._settingsHandlerId);
+            this._settingsHandlerId = null;
+        }
+
+        if (this._dataHandlerId) {
+            this.dataHandler?.disconnect(this._dataHandlerId);
+            this._dataHandlerId = null;
+        }
+
+        this.dataHandler = null;
+        this._opoBudsSocket?.destroy();
+        this._opoBudsSocket = null;
+    }
+});

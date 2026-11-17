@@ -2,6 +2,7 @@
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 import Adw from 'gi://Adw';
+import {gettext as _} from 'gettext';
 
 export const IconSelectorWidget = GObject.registerClass({
     GTypeName: 'BudsLink_IconSelectorWidget',
@@ -24,16 +25,18 @@ export const IconSelectorWidget = GObject.registerClass({
 }, class IconSelectorWidget extends Adw.PreferencesGroup {
     _init(params = {}) {
         const {
-            gtxt,
-            grpTitle = '',
-            rowTitle = '',
-            rowSubtitle = '',
+            grpTitle = _('Icon'),
+            rowTitle = _('Select Icon'),
+            rowSubtitle = _('Choose the icon used to represent this device'),
             iconList = [],
             initialIcon = '',
             caseIconList = [],
             initialCaseIcon = '',
             mac = '',
             fw = '',
+            lFw = '',
+            rFw = '',
+            caseFw = '',
             serial = '',
             lSn = '',
             rSn = '',
@@ -41,8 +44,6 @@ export const IconSelectorWidget = GObject.registerClass({
         } = params;
 
         super._init({title: grpTitle});
-
-        const _ = gtxt;
 
         const infoButton = new Gtk.MenuButton({
             icon_name: 'bbm-help-about-symbolic',
@@ -102,8 +103,49 @@ export const IconSelectorWidget = GObject.registerClass({
 
         addInfo(_('MAC Address'), mac);
 
-        if (fw)
+        if (lFw || rFw || caseFw) {
+            const firmwareBox = new Gtk.Box({
+                orientation: Gtk.Orientation.VERTICAL,
+                spacing: 2,
+                halign: Gtk.Align.CENTER,
+            });
+
+            const firmwareTitle = new Gtk.Label({
+                label: _('Firmware Version'),
+                halign: Gtk.Align.CENTER,
+                css_classes: ['caption-heading'],
+            });
+
+            firmwareBox.append(firmwareTitle);
+
+            if (lFw) {
+                firmwareBox.append(new Gtk.Label({
+                    label: `L: ${lFw}`,
+                    halign: Gtk.Align.CENTER,
+                    css_classes: ['caption', 'dimmed'],
+                }));
+            }
+
+            if (rFw) {
+                firmwareBox.append(new Gtk.Label({
+                    label: `R: ${rFw}`,
+                    halign: Gtk.Align.CENTER,
+                    css_classes: ['caption', 'dimmed'],
+                }));
+            }
+
+            if (caseFw) {
+                firmwareBox.append(new Gtk.Label({
+                    label: `Case: ${caseFw}`,
+                    halign: Gtk.Align.CENTER,
+                    css_classes: ['caption', 'dimmed'],
+                }));
+            }
+
+            infoBox.append(firmwareBox);
+        } else if (fw) {
             addInfo(_('Firmware Version'), fw);
+        }
 
         if (lSn || rSn || caseSn) {
             const serialBox = new Gtk.Box({

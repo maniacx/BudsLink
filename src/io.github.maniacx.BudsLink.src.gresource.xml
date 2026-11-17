@@ -2,38 +2,40 @@
 <gresources>
     <gresource prefix="/io/github/maniacx/BudsLink/js">
         <file>app.js</file>
-        <file>appLibs/bluetoothClient.js</file>
-        <file>appLibs/confirueWindowlauncher.js</file>
-        <file>appLibs/dbusService.js</file>
-        <file>appLibs/gvcProvider.js</file>
-        <file>appLibs/themeManager.js</file>
-        <file>appLibs/widgets/batterySetWidget.js</file>
-        <file>appLibs/widgets/checkButtonBin.js</file>
-        <file>appLibs/widgets/circleBatteryIconWidget.js</file>
-        <file>appLibs/widgets/circularBatteryVectorImages.js</file>
-        <file>appLibs/widgets/colorHelpers.js</file>
-        <file>appLibs/widgets/deviceRow.js</file>
-        <file>appLibs/widgets/optionsBox.js</file>
-        <file>appLibs/widgets/radioButtonBin.js</file>
-        <file>appLibs/widgets/settingsButton.js</file>
-        <file>appLibs/widgets/sliderBin.js</file>
-        <file>appLibs/widgets/toggleButtonsSet.js</file>
         <file>lib/bluezDeviceProxy.js</file>
+        <file>lib/bluetoothClient.js</file>
+        <file>lib/confirueWindowlauncher.js</file>
         <file>lib/dataHandler.js</file>
-        <file>lib/enhancedDeviceSupportManager.js</file>
+        <file>lib/dbusService.js</file>
+        <file>lib/deviceInfo.js</file>
         <file>lib/devices/commonEmuns.js</file>
         <file>lib/devices/deviceUtils.js</file>
         <file>lib/devices/logger.js</file>
         <file>lib/devices/mediaController.js</file>
         <file>lib/devices/notifier.js</file>
         <file>lib/devices/profileManager.js</file>
-        <file>lib/devices/socketByProfile.js</file>
         <file>lib/devices/socketByGatt.js</file>
+        <file>lib/devices/socketByProfile.js</file>
+        <file>lib/enhancedDeviceSupportManager.js</file>
+        <file>lib/gvcProvider.js</file>
+        <file>lib/themeManager.js</file>
+        <file>lib/widgets/batterySetWidget.js</file>
+        <file>lib/widgets/checkButtonBin.js</file>
+        <file>lib/widgets/circleBatteryIconWidget.js</file>
+        <file>lib/widgets/circularBatteryVectorImages.js</file>
+        <file>lib/widgets/colorHelpers.js</file>
+        <file>lib/widgets/deviceRow.js</file>
         <file>lib/widgets/iconGroups.js</file>
+        <file>lib/widgets/optionsBox.js</file>
+        <file>lib/widgets/radioButtonBin.js</file>
+        <file>lib/widgets/settingsButton.js</file>
+        <file>lib/widgets/sliderBin.js</file>
+        <file>lib/widgets/toggleButtonsSet.js</file>
         <file>main.js</file>
         <file>preferences/widgets/checkBoxesRowWidget.js</file>
         <file>preferences/widgets/deviceMgmtRowWidget.js</file>
         <file>preferences/widgets/dropDownRowWidget.js</file>
+        <file>preferences/widgets/earTipFitTestRow.js</file>
         <file>preferences/widgets/equalizerWidget.js</file>
         <file>preferences/widgets/iconSelectorWidget.js</file>
         <file>preferences/widgets/peqRowWidget.js</file>
@@ -49,6 +51,8 @@
         <file>lib/devices/airpods/deviceConfigs/AirPods3rdGen.js</file>
         <file>lib/devices/airpods/deviceConfigs/AirPods4thGen.js</file>
         <file>lib/devices/airpods/deviceConfigs/AirPods4thGenANC.js</file>
+        <file>lib/devices/airpods/deviceConfigs/AirPods5thGen.js</file>
+        <file>lib/devices/airpods/deviceConfigs/AirPods5thGenWirelessCase.js</file>
         <file>lib/devices/airpods/deviceConfigs/AirPodsMax.js</file>
         <file>lib/devices/airpods/deviceConfigs/AirPodsMax2.js</file>
         <file>lib/devices/airpods/deviceConfigs/AirPodsMaxUsbC.js</file>
@@ -135,6 +139,7 @@
         <file>lib/devices/nothingBuds/deviceConfigs/NothingEar.js</file>
         <file>lib/devices/nothingBuds/deviceConfigs/NothingEar1.js</file>
         <file>lib/devices/nothingBuds/deviceConfigs/NothingEar3.js</file>
+        <file>lib/devices/nothingBuds/deviceConfigs/NothingEar3a.js</file>
         <file>lib/devices/nothingBuds/deviceConfigs/NothingEarA.js</file>
         <file>lib/devices/nothingBuds/deviceConfigs/NothingEarOpen.js</file>
         <file>lib/devices/nothingBuds/deviceConfigs/NothingEara.js</file>
@@ -168,7 +173,6 @@
         <file>lib/devices/redmiBuds/deviceConfigs/RedmiBuds8Lite.js</file>
         <file>lib/devices/redmiBuds/deviceConfigs/RedmiBuds8Pro.js</file>
         <file>lib/devices/redmiBuds/deviceConfigs/RedmiBudsSE.js</file>
-        <file>lib/devices/redmiBuds/deviceConfigs/RedmiTemplate.js</file>
         <file>lib/devices/redmiBuds/deviceConfigs/XiaomiAirSE.js</file>
         <file>lib/devices/redmiBuds/deviceConfigs/XiaomiBuds3.js</file>
         <file>lib/devices/redmiBuds/deviceConfigs/XiaomiBuds3Pro.js</file>
@@ -194,6 +198,7 @@
         <file>lib/devices/senhBuds/deviceConfigs/MomentumWireless4.js</file>
         <file>lib/devices/senhBuds/deviceConfigs/MomentumWireless5.js</file>
         <file>preferences/devices/senhBuds/configureWindow.js</file>
+
         <file>lib/devices/edifierBuds/edifierBudsConfig.js</file>
         <file>lib/devices/edifierBuds/edifierBudsDevice.js</file>
         <file>lib/devices/edifierBuds/edifierBudsSocket.js</file>
@@ -212,6 +217,7 @@
         <file>lib/devices/sony/sonySocketV1.js</file>
         <file>lib/devices/sony/sonySocketV2.js</file>
         <file>lib/devices/sony/deviceConfigs/LinkBuds.js</file>
+        <file>lib/devices/sony/deviceConfigs/LinkBudsFit.js</file>
         <file>lib/devices/sony/deviceConfigs/LinkBudsS.js</file>
         <file>lib/devices/sony/deviceConfigs/Sony-ULT.js</file>
         <file>lib/devices/sony/deviceConfigs/WH-1000XM2.js</file>
@@ -234,5 +240,29 @@
         <file>lib/devices/sony/deviceConfigs/WI-C100.js</file>
         <file>lib/devices/sony/deviceConfigs/WI-SP600N.js</file>
         <file>preferences/devices/sony/configureWindow.js</file>
+
+        <file>lib/devices/opoBuds/opoBudsConfig.js</file>
+        <file>lib/devices/opoBuds/opoBudsDevice.js</file>
+        <file>lib/devices/opoBuds/opoBudsSocket.js</file>
+        <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsAir7.js</file>
+        <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsWireless5ANC.js</file>
+        <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsAir7Pro.js</file>
+        <file>lib/devices/opoBuds/deviceConfigs/OnePlusBuds4.js</file>
+        <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsAir8.js</file>
+        <file>lib/devices/opoBuds/deviceConfigs/RealmeBudsWireless3.js</file>
+        <file>preferences/devices/opoBuds/configureWindow.js</file>
+
+        <file>lib/devices/cambridgeBuds/cambridgeBudsConfig.js</file>
+        <file>lib/devices/cambridgeBuds/cambridgeBudsDevice.js</file>
+        <file>lib/devices/cambridgeBuds/cambridgeBudsSocket.js</file>
+        <file>lib/devices/cambridgeBuds/deviceConfigs/MelomaniaA100.js</file>
+        <file>preferences/devices/cambridgeBuds/configureWindow.js</file>
+
+        <file>lib/devices/soundcore/soundcoreConfig.js</file>
+        <file>lib/devices/soundcore/soundcoreDevice.js</file>
+        <file>lib/devices/soundcore/soundcoreSocket.js</file>
+        <file>lib/devices/soundcore/deviceConfigs/Liberty-4-NC.js</file>
+        <file>lib/devices/soundcore/deviceConfigs/Liberty-5-Pro.js</file>
+        <file>preferences/devices/soundcore/configureWindow.js</file>
     </gresource>
 </gresources>

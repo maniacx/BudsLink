@@ -9,14 +9,15 @@ import * as SenhBuds from '../preferences/devices/senhBuds/configureWindow.js';
 import * as BoseBuds from '../preferences/devices/boseBuds/configureWindow.js';
 import * as EdifierBuds from '../preferences/devices/edifierBuds/configureWindow.js';
 import * as OneMoreBuds from '../preferences/devices/oneMoreBuds/configureWindow.js';
+import * as OpoBuds from '../preferences/devices/opoBuds/configureWindow.js';
+import * as CambridgeBuds from '../preferences/devices/cambridgeBuds/configureWindow.js';
+import * as Soundcore from '../preferences/devices/soundcore/configureWindow.js';
 import * as Gfps from '../preferences/devices/gfps/configureWindow.js';
 
 let _settings = null;
-let _gettext = null;
 
-export function initConfigureWindowLauncher(settings, gettext) {
+export function initConfigureWindowLauncher(settings) {
     _settings = settings;
-    _gettext = gettext;
 }
 
 function pathToMac(path) {
@@ -76,6 +77,17 @@ export function createConfigureWindow({
         case 'oneMoreBuds':
             Prefs = OneMoreBuds;
             schemaKey = 'one-more-buds-list';
+        case 'opoBuds':
+            Prefs = OpoBuds;
+            schemaKey = 'opo-buds-list';
+            break;
+        case 'cambridgeBuds':
+            Prefs = CambridgeBuds;
+            schemaKey = 'cambridge-buds-list';
+            break;
+        case 'soundcore':
+            Prefs = Soundcore;
+            schemaKey = 'soundcore-list';
             break;
         case 'gfps':
             Prefs = Gfps;
@@ -100,7 +112,6 @@ export function createConfigureWindow({
         mac,
         devicePath,
         null,
-        _gettext,
         false
     );
 }

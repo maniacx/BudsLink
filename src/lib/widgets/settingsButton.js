@@ -9,12 +9,14 @@ import {gettext as _} from 'gettext';
 
 const MODE_KEY = 'dark-mode';
 const ACCENT_KEY = 'accent-color';
+const LANG_KEY = 'language';
 
 const MODE_SYSTEM = 'system';
 const MODE_LIGHT = 'light';
 const MODE_DARK = 'dark';
 
 const ACCENT_SYSTEM = 'system';
+const LANG_SYSTEM = 'system';
 
 export const SettingsButton = GObject.registerClass(
 class SettingsButton extends Gtk.MenuButton {
@@ -73,10 +75,24 @@ class SettingsButton extends Gtk.MenuButton {
         ));
 
         box.append(this._createRow(
+            'bbm-locale-symbolic',
+            _('Language'),
+            true,
+            btn => this._openSubPopover(() => this._createLanguagePopover(), btn)
+        ));
+
+        box.append(this._createRow(
             'bbm-logs-symbolic',
             _('Packet Logging'),
             true,
             btn => this._openSubPopover(() => this._createLoggingPopover(), btn)
+        ));
+
+        box.append(this._createRow(
+            'bbm-mode-run-symbolic',
+            _('Run in Background'),
+            true,
+            btn => this._openSubPopover(() => this._createRunInBackgroundPopover(), btn)
         ));
 
         box.append(this._createRow(
@@ -223,6 +239,89 @@ class SettingsButton extends Gtk.MenuButton {
         return popover;
     }
 
+    _getLanguage() {
+        const v = this._settings.get_string(LANG_KEY);
+        return v || LANG_SYSTEM;
+    }
+
+    _createLanguagePopover() {
+        const current = this._getLanguage();
+
+        const popover = new Gtk.Popover({
+            has_arrow: true,
+            position: this._popPosition,
+            cascade_popdown: true,
+        });
+
+        const scrolled = new Gtk.ScrolledWindow({
+            hscrollbar_policy: Gtk.PolicyType.NEVER,
+            vscrollbar_policy: Gtk.PolicyType.AUTOMATIC,
+            max_content_height: 360,
+            propagate_natural_height: true,
+        });
+
+        const box = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 4,
+            margin_top: 6,
+            margin_bottom: 6,
+            margin_start: 6,
+            margin_end: 6,
+        });
+
+        const languages = [
+            {code: LANG_SYSTEM, name: _('System Default')},
+            {code: 'en', name: 'English'},
+            {code: 'en_GB', name: 'English (UK)'},
+            {code: 'ru', name: 'Русский'},
+            {code: 'cs', name: 'Čeština'},
+            {code: 'de', name: 'Deutsch'},
+            {code: 'de_CH', name: 'Deutsch (Schweiz)'},
+            {code: 'fr', name: 'Français'},
+            {code: 'id', name: 'Bahasa Indonesia'},
+            {code: 'it', name: 'Italiano'},
+            {code: 'ko', name: '한국어'},
+            {code: 'nl', name: 'Nederlands'},
+            {code: 'oc', name: 'Occitan'},
+            {code: 'pt_BR', name: 'Português (Brasil)'},
+        ];
+
+        for (const lang of languages) {
+            const isSelected = current === lang.code;
+            const row = this._createCheckRow(lang.name, isSelected);
+            row.connect('clicked', () => {
+                popover.popdown();
+                this._mainPopover.popdown();
+
+                if (current === lang.code)
+                    return;
+
+                const dialog = new Adw.AlertDialog({
+                    heading: _('Language'),
+                    body: _('Restart required to apply language change'),
+                    close_response: 'cancel',
+                });
+                dialog.add_response('cancel', _('Cancel'));
+                dialog.add_response('ok', _('OK'));
+                dialog.set_default_response('ok');
+                dialog.set_response_appearance('ok', Adw.ResponseAppearance.SUGGESTED);
+                dialog.choose(this.get_root(), null, (dialog, res) => {
+                    try {
+                        if (dialog.choose_finish(res) === 'ok')
+                            this._settings.set_string(LANG_KEY, lang.code);
+                    } catch {
+                        // ignore dialog close errors
+                    }
+                });
+            });
+            box.append(row);
+        }
+
+        scrolled.set_child(box);
+        popover.set_child(scrolled);
+        return popover;
+    }
+
     _createCheckRow(labelText, checked) {
         const button = new Gtk.Button({css_classes: ['flat']});
         const row = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, spacing: 12});
@@ -305,6 +404,43 @@ class SettingsButton extends Gtk.MenuButton {
         return popover;
     }
 
+    _createRunInBackgroundPopover() {
+        const enabled = this._settings.get_boolean('run-in-background');
+
+        const popover = new Gtk.Popover({
+            has_arrow: true,
+            position: this._popPosition,
+            cascade_popdown: true,
+        });
+
+        const box = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 6,
+            margin_top: 6,
+            margin_bottom: 6,
+            margin_start: 6,
+            margin_end: 6,
+        });
+
+        const add = (label, value) => {
+            const row = this._createCheckRow(label, enabled === value);
+
+            row.connect('clicked', () => {
+                this._settings.set_boolean('run-in-background', value);
+                popover.popdown();
+                this._mainPopover.popdown();
+            });
+
+            box.append(row);
+        };
+
+        add(_('On'), true);
+        add(_('Off'), false);
+
+        popover.set_child(box);
+        return popover;
+    }
+
     _createCompanionLinksPopover() {
         const popover = new Gtk.Popover({
             has_arrow: true,
@@ -362,7 +498,7 @@ class SettingsButton extends Gtk.MenuButton {
 
         addLink(
             _('GNOME Extension'),
-            'https://github.com/maniacx/BudsLink-Companion/tree/Gnome-Extension',
+            'https://github.com/maniacx/Bluetooth-Battery-Meter',
             'bbm-gnome-extension-symbolic'
         );
 

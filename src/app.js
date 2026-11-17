@@ -9,12 +9,12 @@ import GLibUnix from 'gi://GLibUnix';
 import {gettext as _} from 'gettext';
 
 import {initLogger, createLogger} from './lib/devices/logger.js';
-import {DeviceRowNavPage} from './appLibs/widgets/deviceRow.js';
-import {SettingsButton} from './appLibs/widgets/settingsButton.js';
-import {ThemeManager} from './appLibs/themeManager.js';
-import {DbusService} from './appLibs/dbusService.js';
-import {BluetoothClient} from './appLibs/bluetoothClient.js';
-import {initConfigureWindowLauncher} from './appLibs/confirueWindowlauncher.js';
+import {DeviceRowNavPage} from './lib/widgets/deviceRow.js';
+import {SettingsButton} from './lib/widgets/settingsButton.js';
+import {ThemeManager} from './lib/themeManager.js';
+import {DbusService} from './lib/dbusService.js';
+import {BluetoothClient} from './lib/bluetoothClient.js';
+import {initConfigureWindowLauncher} from './lib/confirueWindowlauncher.js';
 import {EnhancedDeviceSupportManager} from './lib/enhancedDeviceSupportManager.js';
 
 Gio._promisify(Gio, 'bus_get');
@@ -30,7 +30,24 @@ const SIGINT = 2;
 const SIGTERM = 15;
 
 const AppId = pkg.name; // eslint-disable-line no-undef
-const dataDir = pkg.datadir; // eslint-disable-line no-undef
+
+function resolveDataDir() {
+    const installed = pkg.datadir; // eslint-disable-line no-undef
+    const installedIcons = GLib.build_filenamev([installed, 'icons']);
+    if (GLib.file_test(installedIcons, GLib.FileTest.IS_DIR))
+        return installed;
+
+    const srcRoot = GLib.getenv('MESON_SOURCE_ROOT');
+    if (srcRoot) {
+        const srcPath = GLib.build_filenamev([srcRoot, 'src']);
+        if (GLib.file_test(GLib.build_filenamev([srcPath, 'icons']), GLib.FileTest.IS_DIR))
+            return srcPath;
+    }
+
+    return installed;
+}
+
+const dataDir = resolveDataDir();
 
 export const BudsLinkApplication = GObject.registerClass({
     GTypeName: 'BudsLinkApplication',
@@ -42,6 +59,7 @@ export const BudsLinkApplication = GObject.registerClass({
         });
 
         this._isServiceHeld = false;
+        this._isBackgroundHeld = false;
 
         this._log = createLogger('Main');
 
@@ -128,7 +146,7 @@ export const BudsLinkApplication = GObject.registerClass({
         this.settings = new Gio.Settings({schema_id: AppId});
         initLogger(this.settings);
         this._themeManager = new ThemeManager(this, this.settings);
-        initConfigureWindowLauncher(this.settings, _);
+        initConfigureWindowLauncher(this.settings);
 
         const provider = new Gtk.CssProvider();
         provider.load_from_resource('/io/github/maniacx/BudsLink/stylesheet.css');
@@ -152,11 +170,32 @@ export const BudsLinkApplication = GObject.registerClass({
         this.boseBudsEnabled = true;
         this.edifierBudsEnabled = true;
         this.oneMoreBudsEnabled = true;
+        this.opoBudsEnabled = true;
+        this.cambridgeBudsEnabled = true;
+        this.soundcoreEnabled = true;
         this.gfpsEnabled = true;
 
         this._client = new BluetoothClient();
         this._deviceManager = new EnhancedDeviceSupportManager(this);
         this._initialize();
+
+        this._applyRunInBackground();
+        this._bgSettingsId = this.settings.connect('changed::run-in-background',
+            () => this._applyRunInBackground());
+    }
+
+    _applyRunInBackground() {
+        const enabled = this.settings.get_boolean('run-in-background');
+
+        if (enabled && !this._isBackgroundHeld) {
+            this._isBackgroundHeld = true;
+            this.hold();
+            this._log.info('run-in-background enabled');
+        } else if (!enabled && this._isBackgroundHeld) {
+            this._isBackgroundHeld = false;
+            this.release();
+            this._log.info('run-in-background disabled');
+        }
     }
 
     _onActivate() {
@@ -314,6 +353,16 @@ export const BudsLinkApplication = GObject.registerClass({
         if (this._sigtermId) {
             GLib.Source.remove(this._sigtermId);
             this._sigtermId = 0;
+        }
+
+        if (this._bgSettingsId && this.settings) {
+            this.settings.disconnect(this._bgSettingsId);
+            this._bgSettingsId = 0;
+        }
+
+        if (this._isBackgroundHeld) {
+            this.release();
+            this._isBackgroundHeld = false;
         }
 
         this._themeManager?.destroy();

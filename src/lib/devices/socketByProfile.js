@@ -89,6 +89,9 @@ export const SocketHandler = GObject.registerClass({
 
             this._receiveLoop();
         } catch (e) {
+            if (e && e.code === Gio.IOErrorEnum.CANCELLED)
+                return;
+
             this._socketLog.error(e, 'SocketHandler Disconnected');
             this.destroy();
         }
@@ -141,12 +144,6 @@ export const SocketHandler = GObject.registerClass({
         this._cancellable.cancel();
         this._output_queue =  [];
         this._socketLog.info('Destroying socket');
-
-        try {
-            this._socket.shutdown(true, true);
-        } catch (e) {
-            this._socketLog.error(e, 'Error shutting down Bluetooth socket');
-        }
 
         try {
             this._connection?.close(null);

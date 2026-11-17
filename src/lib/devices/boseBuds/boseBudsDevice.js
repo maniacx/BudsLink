@@ -69,6 +69,8 @@ export const BoseBudsDevice = GObject.registerClass({
         this._deviceInfo = [];
         this._pendingBTOperations = new Map();
         this._modeCount = 10;
+        this._bothBudsInEar = null;
+        this._budInEar = null;
 
         this._callbacks = {
             updateFirmware: this.updateFirmware.bind(this),
@@ -322,7 +324,7 @@ export const BoseBudsDevice = GObject.registerClass({
             this._pairingMode = this._settingsItems['pairing-mode'];
             this._devMgmtAction = this._settingsItems['dev-mgmt-action'];
             this._activeDevice = this._settingsItems['active-dev'];
-            this._deviceInfo = this._settingsItems['dev-mgmt']
+            this._deviceInfo = this._settingsItems['dev-mgmt'];
         }
 
         if (this._modelData.sideTone)
@@ -611,8 +613,7 @@ export const BoseBudsDevice = GObject.registerClass({
         const enableMediaController = this._wearDetectionMode !== 0 && this._inEarSettings;
 
         if (enableMediaController && !this._mediaController) {
-            this._mediaController = new MediaController(this._settings, this._devicePath,
-                this._previousOnDestroyVolume);
+            this._mediaController = new MediaController(this._settings, this._devicePath);
 
             this._mediaHandlerId = this._mediaController.connect(
                 'notify::output-is-a2dp', () => {
@@ -627,6 +628,8 @@ export const BoseBudsDevice = GObject.registerClass({
             }
             this._mediaController?.destroy();
             this._mediaController = null;
+            this._bothBudsInEar = null;
+            this._budInEar = null;
         }
     }
 
@@ -832,15 +835,21 @@ export const BoseBudsDevice = GObject.registerClass({
     }
 
     updateInEarState(bud1Status, bud2Status) {
-        this._bothBudsInEar = bud1Status && bud2Status;
-        this._budInEar = bud1Status || bud2Status;
+        const bothBudsInEar = bud1Status && bud2Status;
+        const budInEar = bud1Status || bud2Status;
+
+        const bothBudsInEarChanged = this._bothBudsInEar !== bothBudsInEar;
+        const budInEarChanged = this._budInEar !== budInEar;
+
+        this._bothBudsInEar = bothBudsInEar;
+        this._budInEar = budInEar;
 
         if (this._wearDetectionMode !== 0) {
             let playbackMode = null;
 
-            if (this._wearDetectionMode === 1)
+            if (this._wearDetectionMode === 1 && bothBudsInEarChanged)
                 playbackMode = this._bothBudsInEar ? 'play' : 'pause';
-            else if (this._wearDetectionMode === 2)
+            else if (this._wearDetectionMode === 2 && budInEarChanged)
                 playbackMode = this._budInEar ? 'play' : 'pause';
 
             if (playbackMode)

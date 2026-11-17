@@ -1,0 +1,143 @@
+'use strict';
+
+export default {
+    modelId: '066812',
+    name: 'Realme Buds Air 8',
+
+    batteryLR: true,
+    batteryCase: true,
+
+    eqPreset: {
+        originalSound: 0x00,
+        deepBass: 0x01,
+        serenade: 0x02,
+        clearBass: 0x03,
+    },
+
+    customEqSupport: true,
+    eqBands: {
+        frequencies: [62, 250, 1000, 4000, 8000, 16000],
+        range: 6,
+    },
+
+    noiseControl: {
+        modes: {
+            off: {
+                set: [0x01],
+                event: [0x01],
+            },
+            transparency: {
+                set: [0x02],
+                event: [0x02],
+            },
+            noiseCancellation: {
+                levels: {
+                    auto: {
+                        set: [0x20],
+                        event: [0x20],
+                    },
+                    low: {
+                        set: [0x04],
+                        event: [0x04],
+                    },
+                    mid: {
+                        set: [0x10],
+                        event: [0x10],
+                    },
+                    high: {
+                        set: [0x08],
+                        event: [0x08],
+                    },
+                },
+            },
+        },
+    },
+
+    inEarDetection: true,
+    lowLatencyMode: true,
+    dualConnection: true,
+    windNoiseReduction: true,
+    volumeEnhancer: false,
+    spatialAudio: true,
+    highResAudio: true,
+    autoAnswer: true,
+    findMyPhone: true,
+    fitTest: true,
+    ring: true,
+
+    gestureOptions: {
+        slots: [
+            {group: 'left',  device: 0x01, buttonId: 0x01, type: 'double'},
+            {group: 'left',  device: 0x01, buttonId: 0x01, type: 'triple'},
+            {group: 'left',  device: 0x01, buttonId: 0x01, type: 'action-hold'},
+            {group: 'right', device: 0x02, buttonId: 0x01, type: 'double'},
+            {group: 'right', device: 0x02, buttonId: 0x01, type: 'triple'},
+            {group: 'right', device: 0x02, buttonId: 0x01, type: 'action-hold'},
+        ],
+        mapping: {
+            gestureTypes: {
+                'single': 0x01,
+                'double': 0x02,
+                'triple': 0x03,
+                'action-hold': 0x04,
+                'double-action-hold': 0x06,
+            },
+            actions: {
+                'none': [0x00],
+                'play-pause': [0x01],
+                'voice-assistant': [0x04],
+                'skip-back': [0x05],
+                'skip-forward': [0x06],
+                'noise-control': [0x08],
+                'device-switch': [0x0A],
+                'game-mode': [0x11],
+                'volume-up': [0x0B],
+                'volume-down': [0x0C],
+            },
+        },
+        gestures: {
+            'double': {
+                type: 'tap',
+                actions: [
+                    'play-pause',
+                    'skip-forward',
+                    'voice-assistant',
+                    'none',
+                ],
+            },
+            'triple': {
+                type: 'tap',
+                actions: [
+                    'skip-back',
+                    'skip-forward',
+                    'volume-up',
+                    'volume-down',
+                    'voice-assistant',
+                    'game-mode',
+                    'none',
+                ],
+            },
+            'action-hold': {
+                type: 'tap',
+                actions: [
+                    'noise-control',
+                    'volume-up',
+                    'volume-down',
+                    'voice-assistant',
+                    'game-mode',
+                    'none',
+                ],
+            },
+        },
+        noiseControlModes: {
+            'off': 0x01,
+            'transparency': 0x02,
+            'noise-cancellation': 0x08,
+        },
+        ancCycleType: 2,
+    },
+
+    albumArtIcon: 'earbuds-stem',
+    budsIcon: 'earbuds-stem',
+    case: 'case-normal',
+};
