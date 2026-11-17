@@ -83,7 +83,7 @@ export const BudsLinkApplication = GObject.registerClass({
             this.destroy();
         });
 
-        this._sigtermId = GLibUnix.signal_add(
+        this._sigtermId = GLibUnix.signal_add_full(
             GLib.PRIORITY_DEFAULT,
             SIGTERM,
             () => {
@@ -92,7 +92,7 @@ export const BudsLinkApplication = GObject.registerClass({
             }
         );
 
-        this._sigintId = GLibUnix.signal_add(
+        this._sigintId = GLibUnix.signal_add_full(
             GLib.PRIORITY_DEFAULT,
             SIGINT,
             () => {
