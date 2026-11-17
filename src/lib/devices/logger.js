@@ -111,8 +111,11 @@ export function hexBytes(value) {
         return `0x${hex}`;
     }
 
-    if (Array.isArray(value) || ArrayBuffer.isView(value))
-        return Array.from(value, b => b.toString(16).padStart(2, '0')).join(' ');
+    if (Array.isArray(value) || ArrayBuffer.isView(value)) {
+        return Array.from(value, b =>
+            b === null || b === undefined ? '' : b.toString(16).padStart(2, '0')
+        ).join(' ');
+    }
 
     return '';
 }
