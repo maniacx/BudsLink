@@ -216,6 +216,7 @@
         <file>lib/devices/sony/deviceConfigs/Sony-ULT.js</file>
         <file>lib/devices/sony/deviceConfigs/WH-1000XM2.js</file>
         <file>lib/devices/sony/deviceConfigs/WH-1000XM3.js</file>
+        <file>lib/devices/sony/deviceConfigs/WH-1000XM4C.js</file>
         <file>lib/devices/sony/deviceConfigs/WH-1000XM4.js</file>
         <file>lib/devices/sony/deviceConfigs/WH-1000XM5.js</file>
         <file>lib/devices/sony/deviceConfigs/WH-1000XM6.js</file>

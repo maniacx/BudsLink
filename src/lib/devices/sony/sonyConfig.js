@@ -5,6 +5,7 @@ import LinkBudsFit from './deviceConfigs/LinkBudsFit.js';
 import LinkBudsS from './deviceConfigs/LinkBudsS.js';
 import SonyULT from './deviceConfigs/Sony-ULT.js';
 import WF1000XM3 from './deviceConfigs/WF-1000XM3.js';
+import WH1000XM4C from './deviceConfigs/WH-1000XM4C.js';
 import WF1000XM4 from './deviceConfigs/WF-1000XM4.js';
 import WF1000XM5 from './deviceConfigs/WF-1000XM5.js';
 import WF1000XM6 from './deviceConfigs/WF-1000XM6.js';
@@ -32,6 +33,7 @@ export const SonyConfiguration = [
     LinkBudsS,
     SonyULT,
     WF1000XM3,
+    WH1000XM4C,
     WF1000XM4,
     WF1000XM5,
     WF1000XM6,
