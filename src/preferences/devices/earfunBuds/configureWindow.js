@@ -10,9 +10,10 @@ import {IconSelectorWidget} from './../../widgets/iconSelectorWidget.js';
 import {DropDownRowWidget} from './../../widgets/dropDownRowWidget.js';
 import {EqualizerWidget} from './../../widgets/equalizerWidget.js';
 import {SliderRowWidget} from './../../widgets/sliderRowWidget.js';
+import {RingMyBudsRow} from './../../widgets/ringMyBudsRow.js';
 import {
     EarfunModels, AmbientMode, TransparencyMode, Codec, MicMode, TouchMode, GestureActions,
-    CallActions, EqPresets, EqFrequencies, EqRange
+    CallActions, EqPresets, EqFrequencies, EqRange, AdvancedAudio, FindDevice, DeviceNameMaxBytes
 } from '../../../lib/devices/earfunBuds/earfunBudsConfig.js';
 
 const SettingsKey = 'earfun-buds-list';
@@ -89,10 +90,15 @@ export const ConfigureWindow = GObject.registerClass({
                 row.value = this._settingsItems[key];
 
             this._eq?.setValues(this._settingsItems['eq-custom']);
+            this._syncRingRow();
             this._updateVisibility();
         });
 
         this.connect('close-request', () => {
+            // Never leave the tone playing
+            if (this._settingsItems?.['find-device'])
+                this._updateGsettings('find-device', FindDevice.OFF);
+
             for (const row of Object.values(this._sliders))
                 row.destroy();
 
@@ -281,9 +287,14 @@ export const ConfigureWindow = GObject.registerClass({
         });
         page.add(iconSelector);
 
+        const findGroup = new Adw.PreferencesGroup({title: _('Find My Earbuds')});
+        page.add(findGroup);
+        this._addFindRow(findGroup);
+
         const settingsGroup = new Adw.PreferencesGroup({title: _('Settings')});
         page.add(settingsGroup);
 
+        this._addNameRow(settingsGroup);
         this._addDropdown(settingsGroup, 'mic-mode', _('Microphone'),
             _('Use one earbud for calls or let the earbuds choose'),
             [_('Automatic'), _('Left earbud only'), _('Right earbud only')],
@@ -296,6 +307,76 @@ export const ConfigureWindow = GObject.registerClass({
             [_('Stable connection'), 'aptX', 'aptX Adaptive', 'aptX Adaptive Lossless',
                 'LDAC'],
             [Codec.STABLE, Codec.APTX, Codec.APTX_ADAPTIVE, Codec.APTX_LOSSLESS, Codec.LDAC]);
+        this._addDropdown(settingsGroup, 'advanced-audio', _('Connection Mode'),
+            _('LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with ' +
+              'LE Audio. The earbuds restart when this changes'),
+            ['Google Fast Pair', 'LE Audio'],
+            [AdvancedAudio.FAST_PAIR, AdvancedAudio.LE_AUDIO]);
+    }
+
+    // Both earbuds can play the tone on their own: the left button is the left earbud
+    _addFindRow(group) {
+        if (!('find-device' in this._settingsItems))
+            return;
+
+        this._ringRow = new RingMyBudsRow({dual: true});
+        const apply = () => {
+            const mode = (this._ringRow.statusLeft === 'playing' ? FindDevice.LEFT : 0) |
+                (this._ringRow.status === 'playing' ? FindDevice.RIGHT : 0);
+            this._updateGsettings('find-device', mode);
+        };
+        this._ringRow.connect('notify::status', apply);
+        this._ringRow.connect('notify::status-left', apply);
+        group.add(this._ringRow);
+        this._syncRingRow();
+    }
+
+    _syncRingRow() {
+        if (!this._ringRow)
+            return;
+
+        const mode = this._settingsItems['find-device'] ?? FindDevice.OFF;
+        this._ringRow.statusLeft = mode & FindDevice.LEFT ? 'playing' : 'stopped';
+        this._ringRow.status = mode & FindDevice.RIGHT ? 'playing' : 'stopped';
+    }
+
+    // The name is used by the earbuds only after they are paired again
+    _addNameRow(group) {
+        if (!('name-request' in this._settingsItems))
+            return;
+
+        const row = new Adw.EntryRow({
+            title: _('Name of the earbuds'),
+            text: this._settingsItems['alias'] ?? '',
+            show_apply_button: true,
+        });
+        row.connect('apply', () => {
+            const name = row.text.trim();
+            if (name === '' || new TextEncoder().encode(name).length > DeviceNameMaxBytes)
+                return;
+
+            const dialog = new Adw.AlertDialog({
+                heading: _('Change name?'),
+                body: _('After changing the name, put the earbuds in the charging case and ' +
+                        'close the lid for about 10 seconds. Remove the earbuds from the ' +
+                        'Bluetooth devices of this computer and pair them again to use the ' +
+                        'new name.'),
+            });
+            dialog.add_response('cancel', _('Cancel'));
+            dialog.add_response('change', _('Change'));
+            dialog.set_response_appearance('change', Adw.ResponseAppearance.SUGGESTED);
+            dialog.set_default_response('cancel');
+            dialog.set_close_response('cancel');
+            dialog.connect('response', (_dialog, response) => {
+                if (response !== 'change')
+                    return;
+
+                const seq = (this._settingsItems['name-request']?.seq ?? 0) + 1;
+                this._updateGsettings('name-request', {seq, name});
+            });
+            dialog.present(this);
+        });
+        group.add(row);
     }
 
     // Shows only the rows that apply to the current modes

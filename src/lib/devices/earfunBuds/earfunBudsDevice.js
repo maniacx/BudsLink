@@ -12,7 +12,7 @@ import {getBluezDeviceProxy} from '../../bluezDeviceProxy.js';
 import {EarfunBudsSocket} from './earfunBudsSocket.js';
 import {
     DeviceTypeEarfunBuds, EarfunVendorUuid, EarfunModels, AmbientMode, TransparencyMode,
-    Codec, MicMode, TouchMode, InEarMask, GestureType, GestureActions, CallActions, EqPresets,
+    Codec, MicMode, TouchMode, AdvancedAudio, FindDevice, DeviceNameMaxBytes, InEarMask, GestureType, GestureActions, CallActions, EqPresets,
     ancValueToSettings, ancSettingsToValue
 } from './earfunBudsConfig.js';
 
@@ -135,6 +135,8 @@ export const EarfunBudsDevice = GObject.registerClass({
             updateVoicePromptVolume: this.updateVoicePromptVolume.bind(this),
             updateVolumeLimit: this.updateVolumeLimit.bind(this),
             updateBalance: this.updateBalance.bind(this),
+            updateFindDevice: this.updateFindDevice.bind(this),
+            updateAdvancedAudio: this.updateAdvancedAudio.bind(this),
         };
 
         const profile = {type: DeviceTypeEarfunBuds, uuid: SppUUid};
@@ -167,6 +169,9 @@ export const EarfunBudsDevice = GObject.registerClass({
             balance: 50,
             multipoint: true,
             codec: Codec.APTX,
+            'advanced-audio': AdvancedAudio.FAST_PAIR,
+            'find-device': FindDevice.OFF,
+            'name-request': {seq: 0, name: ''},
             'eq-mode': 'preset',
             'eq-preset': 0,
             'eq-custom': new Array(10).fill(0),
@@ -188,6 +193,7 @@ export const EarfunBudsDevice = GObject.registerClass({
         this._commonIcon = this._settingsItems['icon'];
         this._caseIcon = this._settingsItems['case'];
         this._lastEqGains = this._eqGains(this._settingsItems);
+        this._nameRequestSeq = this._settingsItems['name-request']?.seq ?? 0;
 
         this._settingsHandlerId = this._settings.connect(`changed::${SettingsKey}`, () => {
             if (!this._ignoreGsettingsChange)
@@ -267,6 +273,8 @@ export const EarfunBudsDevice = GObject.registerClass({
             ['balance', value => socket?.setBalance(value)],
             ['multipoint', value => socket?.setMultipoint(value)],
             ['codec', value => socket?.setCodec(value)],
+            ['advanced-audio', value => socket?.setAdvancedAudio(value)],
+            ['find-device', value => socket?.setFindDevice(value)],
         ];
         for (const [key, setter] of simple) {
             if (differs(key)) {
@@ -274,6 +282,8 @@ export const EarfunBudsDevice = GObject.registerClass({
                 setter(items[key]);
             }
         }
+
+        this._handleNameRequest(items['name-request']);
 
         const mask = inEarMaskFromSettings(items, state['in-ear-mask']);
         if (state['in-ear-mask'] !== undefined && mask !== state['in-ear-mask']) {
@@ -294,6 +304,21 @@ export const EarfunBudsDevice = GObject.registerClass({
 
         this._syncEqualizer(items);
         this._syncPanelOptions();
+    }
+
+    // The configure window asks for a new name with a counter, so that the same name can be
+    // requested again
+    _handleNameRequest(request) {
+        if (!request || request.seq === this._nameRequestSeq)
+            return;
+
+        this._nameRequestSeq = request.seq;
+        const name = (request.name ?? '').trim();
+        if (name === '' || new TextEncoder().encode(name).length > DeviceNameMaxBytes)
+            return;
+
+        this._log.info('Sending new device name');
+        this._socket?.setDeviceName(name);
     }
 
     _eqGains(items) {
@@ -512,6 +537,16 @@ export const EarfunBudsDevice = GObject.registerClass({
 
     updateVolumeLimit(step) {
         this._reported({'volume-limit': Math.min(step, 5)});
+    }
+
+    updateFindDevice(mode) {
+        if (Object.values(FindDevice).includes(mode))
+            this._reported({'find-device': mode});
+    }
+
+    updateAdvancedAudio(mode) {
+        if (Object.values(AdvancedAudio).includes(mode))
+            this._reported({'advanced-audio': mode});
     }
 
     updateBalance(value) {

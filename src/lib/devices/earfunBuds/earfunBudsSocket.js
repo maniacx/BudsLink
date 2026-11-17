@@ -25,7 +25,7 @@ export const EarfunBudsSocket = GObject.registerClass({
         this._rxBuffer = [];
         this._txQueue = [];
         this._txTimeoutId = null;
-        this._refreshTimeoutId = null;
+        this._readBackTimeouts = new Map();
         this._battery = {left: 0, right: 0, case: 0};
 
         this.startSocket();
@@ -94,6 +94,19 @@ export const EarfunBudsSocket = GObject.registerClass({
         this._send(buildPacket(SetCmd.TOUCH_ACTION, payload), `touch-${type}-${side}`);
     }
 
+    // Asks for a state a moment after it was set, for settings the earbuds do not announce
+    _readBack(command) {
+        const previous = this._readBackTimeouts.get(command);
+        if (previous)
+            GLib.source_remove(previous);
+
+        this._readBackTimeouts.set(command, GLib.timeout_add(GLib.PRIORITY_DEFAULT, 800, () => {
+            this._readBackTimeouts.delete(command);
+            this._send(buildPacket(command), `get-${command}`);
+            return GLib.SOURCE_REMOVE;
+        }));
+    }
+
     setMicMode(mode) {
         this._set(SetCmd.MIC, mode);
     }
@@ -113,20 +126,28 @@ export const EarfunBudsSocket = GObject.registerClass({
     // The earbuds do not announce this change on their own, so the state is read back
     setMultipoint(enabled) {
         this._set(SetCmd.MULTIPOINT, enabled ? 1 : 0);
-
-        if (this._refreshTimeoutId)
-            GLib.source_remove(this._refreshTimeoutId);
-
-        this._refreshTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 800, () => {
-            this._refreshTimeoutId = null;
-            this._send(buildPacket(Cmd.MULTIPOINT), 'get-multipoint');
-            return GLib.SOURCE_REMOVE;
-        });
+        this._readBack(Cmd.MULTIPOINT);
     }
 
     // The earbuds restart after a codec change
     setCodec(value) {
         this._set(SetCmd.CODEC, value);
+    }
+
+    setFindDevice(mode) {
+        this._set(SetCmd.FIND_DEVICE, mode);
+    }
+
+    // The earbuds restart, or at least disconnect, when the mode changes
+    setAdvancedAudio(mode) {
+        this._set(SetCmd.ADVANCED_AUDIO, mode);
+        this._readBack(Cmd.ADVANCED_AUDIO);
+    }
+
+    // The new name is used by the earbuds after they are paired again
+    setDeviceName(name) {
+        const bytes = Array.from(new TextEncoder().encode(name));
+        this._send(buildPacket(SetCmd.DEVICE_NAME, bytes), 'device-name');
     }
 
     // gains: ten values in dB. The earbuds expect all bands each time
@@ -228,6 +249,12 @@ export const EarfunBudsSocket = GObject.registerClass({
             case Cmd.BALANCE:
                 cb.updateBalance(value);
                 break;
+            case Cmd.FIND_DEVICE:
+                cb.updateFindDevice(value);
+                break;
+            case Cmd.ADVANCED_AUDIO:
+                cb.updateAdvancedAudio(value);
+                break;
             default:
                 break;
         }
@@ -278,9 +305,9 @@ export const EarfunBudsSocket = GObject.registerClass({
         this._txTimeoutId = null;
         this._txQueue = [];
 
-        if (this._refreshTimeoutId)
-            GLib.source_remove(this._refreshTimeoutId);
-        this._refreshTimeoutId = null;
+        for (const id of this._readBackTimeouts.values())
+            GLib.source_remove(id);
+        this._readBackTimeouts.clear();
 
         super.destroy();
     }

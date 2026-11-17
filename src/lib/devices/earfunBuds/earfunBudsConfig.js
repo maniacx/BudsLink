@@ -52,9 +52,11 @@ export const Cmd = {
     MIC: 0x0331,
     TOUCH_MODE: 0x0335,
     VOICE_PROMPT: 0x0339,
+    FIND_DEVICE: 0x0333,
     ANC: 0x033B,
     TRANSPARENCY: 0x033D,
     IN_EAR: 0x034A,
+    ADVANCED_AUDIO: 0x034C,
     VOICE_PROTECT: 0x0354,
     BALANCE: 0x0356,
 };
@@ -63,15 +65,18 @@ export const Cmd = {
 export const SetCmd = {
     TOUCH_ACTION: 0x030A,
     GAME_MODE: 0x0312,
+    DEVICE_NAME: 0x0316,
     AMBIENT: 0x0314,
     MULTIPOINT: 0x0327,
     CODEC: 0x032E,
     MIC: 0x0330,
+    FIND_DEVICE: 0x0332,
     TOUCH_MODE: 0x0334,
     VOICE_PROMPT: 0x0338,
     ANC: 0x033A,
     TRANSPARENCY: 0x033C,
     IN_EAR: 0x0349,
+    ADVANCED_AUDIO: 0x034B,
     VOICE_PROTECT: 0x0353,
     BALANCE: 0x0355,
     EQ_BAND: 0x0E01,
@@ -82,6 +87,7 @@ export const InitialRequests = [
     Cmd.FIRMWARE, Cmd.BATTERY_LEFT, Cmd.BATTERY_RIGHT, Cmd.BATTERY_CASE, Cmd.AMBIENT,
     Cmd.ANC, Cmd.TRANSPARENCY, Cmd.GAME_MODE, Cmd.IN_EAR, Cmd.TOUCH_MODE, Cmd.TOUCH_ACTION,
     Cmd.MULTIPOINT, Cmd.CODEC, Cmd.MIC, Cmd.VOICE_PROMPT, Cmd.VOICE_PROTECT, Cmd.BALANCE,
+    Cmd.FIND_DEVICE, Cmd.ADVANCED_AUDIO,
 ];
 
 export const AmbientMode = {
@@ -112,6 +118,23 @@ export const Codec = {
     APTX_LOSSLESS: 0x13,
     LDAC: 0x08,
 };
+
+// Connection mode of the earbuds. LE Audio also turns on Auracast and may take features such
+// as game mode and the aptX / LDAC codecs away
+export const AdvancedAudio = {
+    FAST_PAIR: 0,
+    LE_AUDIO: 1,
+};
+
+// Find my earbuds: a loud tone, as a mask of the earbuds that play it
+export const FindDevice = {
+    OFF: 0,
+    LEFT: 1,
+    RIGHT: 2,
+    BOTH: 3,
+};
+
+export const DeviceNameMaxBytes = 25;
 
 export const MicMode = {
     AUTO: 0,
