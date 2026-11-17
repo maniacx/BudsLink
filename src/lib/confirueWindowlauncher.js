@@ -77,6 +77,7 @@ export function createConfigureWindow({
         case 'oneMoreBuds':
             Prefs = OneMoreBuds;
             schemaKey = 'one-more-buds-list';
+            break;
         case 'opoBuds':
             Prefs = OpoBuds;
             schemaKey = 'opo-buds-list';

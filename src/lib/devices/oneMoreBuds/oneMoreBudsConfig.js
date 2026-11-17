@@ -38,6 +38,13 @@ export const CommandType = {
     /* Sound-style preset selector (over-ear models like SonoFlow). */
     PRESET_SOUND_SET: 0x69,
     PRESET_SOUND_GET: 0x6A,
+    /* LDAC codec mode (over-ear models like SonoFlow). */
+    GET_LDAC: 0x6C,
+    SET_LDAC: 0x6B,
+
+    /* Dual device mode. */
+    GET_DUAL_DEVICE: 0x77,
+    SET_DUAL_DEVICE: 0x76,
 
     FIND_DEVICE: 0x5A,
 

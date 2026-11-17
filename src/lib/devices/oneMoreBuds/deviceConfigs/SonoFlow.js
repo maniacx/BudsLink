@@ -29,6 +29,12 @@ export default {
     noiseControl: {
         modes: ['off', 'nc', 'ambient'],
     },
+    /* LDAC codec mode is supported on this over-ear model. */
+    ldac: true,
+
+    /* Dual device (multipoint) mode is supported. */
+    dualDevice: true,
+
 
     /* Sound-style preset selector (0x69/0x6A PRESET_SOUND). The 0x3B/0x3C
        EQ-mode commands the earbuds use are not answered on this model. */

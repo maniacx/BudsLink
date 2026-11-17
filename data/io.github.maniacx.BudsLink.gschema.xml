@@ -44,6 +44,8 @@
             <default>[]</default>
         </key>
         <key name="one-more-buds-list" type="as">
+            <default>[]</default>
+        </key>
         <key name="opo-buds-list" type="as">
             <default>[]</default>
         </key>

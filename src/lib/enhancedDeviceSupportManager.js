@@ -33,6 +33,7 @@ import {
 import {
     OneMoreBudsDevice, isOneMoreBuds, DeviceTypeOneMoreBuds
 } from './devices/oneMoreBuds/oneMoreBudsDevice.js';
+import {
     OpoBudsDevice, isOpoBuds, DeviceTypeOpoBuds
 } from './devices/opoBuds/opoBudsDevice.js';
 import {
@@ -162,6 +163,8 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                     enabled: this._toggle.oneMoreBudsEnabled,
                     check: isOneMoreBuds,
                     type: DeviceTypeOneMoreBuds,
+                },
+                {
                     enabled: this._toggle.opoBudsEnabled,
                     check: isOpoBuds,
                     type: DeviceTypeOpoBuds,
@@ -311,9 +314,6 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                 } else if (deviceProps.type === DeviceTypeOneMoreBuds) {
                     deviceProps.enhancedDevice =
                         new OneMoreBudsDevice(this._settings, path, deviceProps.alias,
-                } else if (deviceProps.type === DeviceTypeOpoBuds) {
-                    deviceProps.enhancedDevice =
-                        new OpoBudsDevice(this._settings, path, deviceProps.alias,
                             this._extPath, this._profileManager,
                             this.updateDeviceMapCb.bind(this));
                 } else if (deviceProps.type === DeviceTypeCambridgeBuds) {

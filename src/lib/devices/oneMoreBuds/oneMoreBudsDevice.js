@@ -72,7 +72,7 @@ export const OneMoreBudsDevice = GObject.registerClass({
 
         this._config = createConfig();
         this._props = createProperties();
-        this._modelData = null;
+        this._modelData = OneMoreBudsModelList[0];
         this._fwVersion = '';
 
         this._callbacks = {
@@ -80,14 +80,11 @@ export const OneMoreBudsDevice = GObject.registerClass({
             updateBinauralInfo: this.updateBinauralInfo.bind(this),
             updateNoiseControl: this.updateNoiseControl.bind(this),
             updateEq: this.updateEq.bind(this),
+            updateLdacMode: this.updateLdacMode.bind(this),
+            updateDualDeviceMode: this.updateDualDeviceMode.bind(this),
             updateDoubleClick: this.updateDoubleClick.bind(this),
             updateTripleClick: this.updateTripleClick.bind(this),
         };
-
-        this._modelData = OneMoreBudsModelList[0];
-
-        this._log.info(`Configuration: ${JSON.stringify(this._modelData, null, 2)}`);
-
         this._commonIcon = this._modelData.budsIcon;
         this._config.battery1ShowOnDisconnect = true;
         this._config.showSettingsButton = true;
@@ -146,6 +143,15 @@ export const OneMoreBudsDevice = GObject.registerClass({
                 'eq-preset': EqPreset.MUSIC,
             },
 
+            ...this._modelData.ldac && {
+                'ldac-mode': false,
+            },
+
+            ...this._modelData.dualDevice && {
+                'dual-device-mode': false,
+            },
+
+
             ...this._modelData.gestures && {
                 'double-click': ClickAction.OFF,
                 'triple-click': ClickAction.OFF,
@@ -181,6 +187,12 @@ export const OneMoreBudsDevice = GObject.registerClass({
 
         if (this._modelData.equalizer)
             this._eqPreset = this._settingsItems['eq-preset'];
+        if (this._modelData.ldac)
+            this._ldacMode = this._settingsItems['ldac-mode'];
+
+        if (this._modelData.dualDevice)
+            this._dualDeviceMode = this._settingsItems['dual-device-mode'];
+
 
         if (this._modelData.gestures) {
             this._doubleClick = this._settingsItems['double-click'];
@@ -231,6 +243,22 @@ export const OneMoreBudsDevice = GObject.registerClass({
                 this._oneMoreBudsSocket?.setEqPreset(eqPreset);
             }
         }
+        if (this._modelData.ldac) {
+            const ldacMode = this._settingsItems['ldac-mode'];
+            if (this._ldacMode !== ldacMode) {
+                this._ldacMode = ldacMode;
+                this._oneMoreBudsSocket?.setLdacMode(ldacMode);
+            }
+        }
+
+        if (this._modelData.dualDevice) {
+            const dualDeviceMode = this._settingsItems['dual-device-mode'];
+            if (this._dualDeviceMode !== dualDeviceMode) {
+                this._dualDeviceMode = dualDeviceMode;
+                this._oneMoreBudsSocket?.setDualDeviceMode(dualDeviceMode);
+            }
+        }
+
 
         if (this._modelData.gestures) {
             const doubleClick = this._settingsItems['double-click'];
@@ -461,6 +489,31 @@ export const OneMoreBudsDevice = GObject.registerClass({
             this._eqPreset = preset;
             if (this._settingsItems) {
                 this._settingsItems['eq-preset'] = preset;
+                this._updateGsettings();
+            }
+        }
+    }
+
+
+    updateLdacMode(value) {
+        this._log.info(`updateLdacMode value: ${hexBytes(value)}`);
+        const enabled = value === 0x02;
+        if (this._ldacMode !== enabled) {
+            this._ldacMode = enabled;
+            if (this._settingsItems) {
+                this._settingsItems['ldac-mode'] = enabled;
+                this._updateGsettings();
+            }
+        }
+    }
+
+    updateDualDeviceMode(value) {
+        this._log.info(`updateDualDeviceMode value: ${hexBytes(value)}`);
+        const enabled = value === 0x01;
+        if (this._dualDeviceMode !== enabled) {
+            this._dualDeviceMode = enabled;
+            if (this._settingsItems) {
+                this._settingsItems['dual-device-mode'] = enabled;
                 this._updateGsettings();
             }
         }

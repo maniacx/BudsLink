@@ -1,6 +1,8 @@
 'use strict';
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
+import {gettext as _} from 'gettext';
+
 
 import {
     supportedAudioSingleIcons
@@ -15,7 +17,7 @@ import {
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_OneMoreBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(settings, mac, devicePath, parentWindow, _, modal = false) {
+    _init(settings, mac, devicePath, parentWindow, unused, modal = false) {
         super._init({
             default_width: 650,
             default_height: 650,
@@ -104,6 +106,36 @@ export const ConfigureWindow = GObject.registerClass({
 
             settingsGroup.add(this._eqDropdown);
         }
+
+        if (modelData.ldac) {
+            this._ldacSwitch = new Adw.SwitchRow({
+                title: _('LDAC Codec'),
+                subtitle: _('Enable high-quality LDAC audio codec'),
+                active: this._settingsItems['ldac-mode'],
+            });
+
+            this._ldacSwitch.connect('notify::active', () => {
+                this._updateGsettings('ldac-mode', this._ldacSwitch.active);
+            });
+
+            settingsGroup.add(this._ldacSwitch);
+        }
+
+        if (modelData.dualDevice) {
+            this._dualDeviceSwitch = new Adw.SwitchRow({
+                title: _('Dual Device'),
+                subtitle: _('Connect to two devices simultaneously'),
+                active: this._settingsItems['dual-device-mode'],
+            });
+
+            this._dualDeviceSwitch.connect('notify::active', () => {
+                this._updateGsettings('dual-device-mode', this._dualDeviceSwitch.active);
+            });
+
+            settingsGroup.add(this._dualDeviceSwitch);
+        }
+
+
 
         if (modelData.gestures) {
             this._doubleClickDropdown = new DropDownRowWidget({

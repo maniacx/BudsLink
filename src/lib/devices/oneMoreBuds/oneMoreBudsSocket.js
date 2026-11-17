@@ -49,6 +49,12 @@ export const OneMoreBudsSocket = GObject.registerClass({
             await this._sendCommandAndWait(
                 this._getEqCommand(CommandType.EQ_MODE_GET));
 
+        if (this._modelData?.ldac)
+            await this._sendCommandAndWait(CommandType.GET_LDAC);
+
+        if (this._modelData?.dualDevice)
+            await this._sendCommandAndWait(CommandType.GET_DUAL_DEVICE);
+
         if (this._modelData?.gestures) {
             await this._sendCommandAndWait(CommandType.DOUBLE_CLICK_GET);
             await this._sendCommandAndWait(CommandType.TRIPLE_CLICK_GET);
@@ -206,6 +212,8 @@ export const OneMoreBudsSocket = GObject.registerClass({
             case CommandType.LISTEN_MODE_GET:
             case CommandType.EQ_MODE_GET:
             case CommandType.PRESET_SOUND_GET:
+            case CommandType.GET_LDAC:
+            case CommandType.GET_DUAL_DEVICE:
             case CommandType.DOUBLE_CLICK_GET:
             case CommandType.TRIPLE_CLICK_GET: {
                 if (payload.length < 1)
@@ -217,6 +225,10 @@ export const OneMoreBudsSocket = GObject.registerClass({
                 else if (command === CommandType.EQ_MODE_GET ||
                         command === CommandType.PRESET_SOUND_GET)
                     this._callbacks.updateEq(value);
+                else if (command === CommandType.GET_LDAC)
+                    this._callbacks.updateLdacMode(value);
+                else if (command === CommandType.GET_DUAL_DEVICE)
+                    this._callbacks.updateDualDeviceMode(value);
                 else if (command === CommandType.DOUBLE_CLICK_GET)
                     this._callbacks.updateDoubleClick(value);
                 else
@@ -224,11 +236,12 @@ export const OneMoreBudsSocket = GObject.registerClass({
                 break;
             }
 
-            /* SET replies carry only a result byte (0 failure, 1 success,
-               2 binaural pairing) — log it and move on. */
+
             case CommandType.LISTEN_MODE_SET:
             case CommandType.EQ_MODE_SET:
             case CommandType.PRESET_SOUND_SET:
+            case CommandType.SET_LDAC:
+            case CommandType.SET_DUAL_DEVICE:
             case CommandType.DOUBLE_CLICK_SET:
             case CommandType.TRIPLE_CLICK_SET:
                 break;
@@ -259,6 +272,16 @@ export const OneMoreBudsSocket = GObject.registerClass({
         this._sendCommand(CommandType.TRIPLE_CLICK_SET, [action],
             `Set triple click: ${hexBytes(action)}`);
     }
+    setLdacMode(enabled) {
+        this._sendCommand(CommandType.SET_LDAC, [enabled ? 0x02 : 0x00],
+            `Set LDAC mode: ${hexBytes(enabled ? 0x02 : 0x00)}`);
+    }
+
+    setDualDeviceMode(enabled) {
+        this._sendCommand(CommandType.SET_DUAL_DEVICE, [enabled ? 0x01 : 0x00],
+            `Set dual device mode: ${hexBytes(enabled ? 0x01 : 0x00)}`);
+    }
+
 
     /* The find-my-device command is exempt from the XOR checksum the rest of
        the protocol uses: the SonoFlow firmware only honours the literal
