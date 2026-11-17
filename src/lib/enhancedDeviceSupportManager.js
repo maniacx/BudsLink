@@ -39,6 +39,9 @@ import {
 import {
     SoundcoreDevice, isSoundcore, DeviceTypeSoundcore
 } from './devices/soundcore/soundcoreDevice.js';
+import {
+    EarfunBudsDevice, isEarfunBuds, DeviceTypeEarfunBuds
+} from './devices/earfunBuds/earfunBudsDevice.js';
 import {GfpsDevice, isGfps, DeviceTypeGfps} from './devices/gfps/gfpsDevice.js';
 
 export const EnhancedDeviceSupportManager = GObject.registerClass({
@@ -170,6 +173,11 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                     enabled: this._toggle.soundcoreEnabled,
                     check: isSoundcore,
                     type: DeviceTypeSoundcore,
+                },
+                {
+                    enabled: this._toggle.earfunBudsEnabled,
+                    check: isEarfunBuds,
+                    type: DeviceTypeEarfunBuds,
                 },
                 {
                     enabled: this._toggle.gfpsEnabled,
@@ -316,6 +324,11 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                 } else if (deviceProps.type === DeviceTypeSoundcore) {
                     deviceProps.enhancedDevice =
                         new SoundcoreDevice(this._settings, path, deviceProps.alias,
+                            this._extPath, this._profileManager,
+                            this.updateDeviceMapCb.bind(this));
+                } else if (deviceProps.type === DeviceTypeEarfunBuds) {
+                    deviceProps.enhancedDevice =
+                        new EarfunBudsDevice(this._settings, path, deviceProps.alias,
                             this._extPath, this._profileManager,
                             this.updateDeviceMapCb.bind(this));
                 } else if (deviceProps.type === DeviceTypeGfps) {

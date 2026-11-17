@@ -172,6 +172,7 @@ export const BudsLinkApplication = GObject.registerClass({
         this.opoBudsEnabled = true;
         this.cambridgeBudsEnabled = true;
         this.soundcoreEnabled = true;
+        this.earfunBudsEnabled = true;
         this.gfpsEnabled = true;
 
         this._client = new BluetoothClient();
