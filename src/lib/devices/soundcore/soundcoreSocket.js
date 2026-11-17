@@ -38,7 +38,12 @@ export const SoundcoreSocket = GObject.registerClass({
     }
 
     postConnectInitialization() {
-        this.requestState();
+        // Firmware 08.61 can drop a state request sent immediately after RFCOMM connect.
+        this._initialRequestTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
+            this._initialRequestTimeoutId = null;
+            this.requestState();
+            return GLib.SOURCE_REMOVE;
+        });
     }
 
     // A packet with a tag replaces a still queued one with the same tag, so only the last
@@ -376,6 +381,9 @@ export const SoundcoreSocket = GObject.registerClass({
     }
 
     destroy() {
+        if (this._initialRequestTimeoutId)
+            GLib.source_remove(this._initialRequestTimeoutId);
+        this._initialRequestTimeoutId = null;
         if (this._txTimeoutId)
             GLib.source_remove(this._txTimeoutId);
         this._txTimeoutId = null;
