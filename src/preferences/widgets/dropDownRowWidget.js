@@ -106,6 +106,7 @@ export const DropDownRowWidget = GObject.registerClass({
 
     updateList(options = [], values = [], initialValue = null,
         buttonVisibleFor = this._buttonVisibleFor) {
+        this._updatingProgrammatically = true;
         const currentValue = this.selected_item;
         this._stringList.splice(0, this._stringList.get_n_items(), []);
 
@@ -118,7 +119,6 @@ export const DropDownRowWidget = GObject.registerClass({
         if (currentIndex === -1)
             currentIndex = 0;
 
-        this._updatingProgrammatically = true;
         this._dropdown.selected = currentIndex;
         this._updatingProgrammatically = false;
         this._buttonVisibleFor = buttonVisibleFor;
