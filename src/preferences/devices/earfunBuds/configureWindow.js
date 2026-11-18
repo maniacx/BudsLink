@@ -1,6 +1,7 @@
 'use strict';
 import Adw from 'gi://Adw';
 import Gtk from 'gi://Gtk';
+import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import {gettext as _} from 'gettext';
 
@@ -312,10 +313,27 @@ export const ConfigureWindow = GObject.registerClass({
         this._addDropdown(ambientGroup, 'ambient-mode', _('Mode'), '',
             [_('Off'), _('Noise Cancellation'), _('Transparency')],
             [AmbientMode.OFF, AmbientMode.ANC, AmbientMode.TRANSPARENCY]);
-        this._addDropdown(ambientGroup, 'anc-type', _('Noise Cancellation Type'), '',
+        this._addDescription(this._addDropdown(ambientGroup, 'anc-type',
+            _('Noise Cancellation Type'), '',
             [_('Adaptive (Ear Canal)'), _('Adaptive (Environment)'), _('Manual'),
                 _('Wind Noise Reduction')],
-            ['ear', 'env', 'manual', 'wind']);
+            ['ear', 'env', 'manual', 'wind']), ['ear', 'env', 'manual', 'wind'], [
+            [_('Listens to the sound inside the ear canal and to whether the earbuds are ' +
+               'worn, and adjusts the noise cancellation continuously.'),
+                _('Technical: command 0x033A with value 0. The earbuds analyse the sound ' +
+                  'measured in the ear canal and adjust the filter by themselves.')],
+            [_('Listens to the noise around you and to whether the earbuds are worn, and ' +
+               'adjusts the noise cancellation continuously.'),
+                _('Technical: command 0x033A with value 4. The earbuds analyse the noise ' +
+                  'measured outside and adjust the filter by themselves.')],
+            [_('You choose the strength of the noise cancellation yourself, in four steps.'),
+                _('Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. ' +
+                  'Level 4 (value 2) is the strongest.')],
+            [_('For strong wind. It reduces wind noise, but the noise cancellation ' +
+               'becomes less effective.'),
+                _('Technical: command 0x033A with value 1. It replaces the other types, they ' +
+                  'cannot be combined.')],
+        ]);
         this._addSlider(ambientGroup, 'anc-level', _('Noise Cancellation Level'), '', [1, 4, 1]);
         this._addDropdown(ambientGroup, 'transparency-mode', _('Transparency Type'), '',
             [_('Standard'), _('Natural')],
@@ -446,11 +464,31 @@ export const ConfigureWindow = GObject.registerClass({
         this._addNameRow(settingsGroup);
         this._addSwitch(settingsGroup, 'multipoint', _('Multipoint Connection'),
             _('Connect to two devices at the same time. Turn it off to use LDAC'));
-        this._addDropdown(settingsGroup, 'codec', _('Audio Quality'),
-            _('Bluetooth codec. The earbuds restart and reconnect when this changes'),
+        const codecValues = [Codec.STABLE, Codec.APTX, Codec.APTX_ADAPTIVE, Codec.APTX_LOSSLESS,
+            Codec.LDAC];
+        this._addDescription(this._addDropdown(settingsGroup, 'codec', _('Audio Quality'), '',
             [_('Stable connection'), 'aptX', 'aptX Adaptive', 'aptX Adaptive Lossless',
-                'LDAC'],
-            [Codec.STABLE, Codec.APTX, Codec.APTX_ADAPTIVE, Codec.APTX_LOSSLESS, Codec.LDAC]);
+                'LDAC'], codecValues), codecValues, [
+            [_('Favours a steady connection over sound quality. Choose it if the sound ' +
+               'stutters or drops out.'),
+                _('Technical: command 0x032E with value 0. The same value is sent when aptX ' +
+                  'or LDAC is turned off, so none of the aptX or LDAC variants is selected.')],
+            [_('A Qualcomm codec with a higher data rate than common Bluetooth codecs. It ' +
+               'works best with devices that have a Qualcomm chip.'),
+                _('Technical: command 0x032E with value 1. About 352 kbit/s.')],
+            [_('Adjusts the bit rate and the delay by itself to what you are doing and to ' +
+               'the radio conditions.'),
+                _('Technical: command 0x032E with value 3. The bit rate is not fixed.')],
+            [_('Transmits CD quality at a high data rate. It needs a recent Qualcomm ' +
+               'Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi ' +
+               'off.'),
+                _('Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s.')],
+            [_('High quality audio. It can shorten the battery life and cause stutter, so ' +
+               'stay close. It cannot be used together with multipoint.'),
+                _('Technical: command 0x032E with value 8. Up to about 990 kbit/s. The ' +
+                  'vendor app asks for multipoint to be turned off first.')],
+        ], _('The earbuds restart when this changes. They only offer the codec: your ' +
+             'computer chooses the one in use together with the earbuds and must support it.'));
         this._addDropdown(settingsGroup, 'advanced-audio', _('Connection Mode'),
             _('LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with ' +
               'LE Audio. The earbuds restart when this changes'),
@@ -633,6 +671,26 @@ export const ConfigureWindow = GObject.registerClass({
         });
         group.add(row);
         this._dropdowns[key] = row;
+        return row;
+    }
+
+    // The subtitle of a dropdown row explains the selected option in a few words, followed by a
+    // line of technical details. entries[i] = [text, technical details] belongs to values[i]
+    _addDescription(row, values, entries, note = '') {
+        if (!row)
+            return;
+
+        const escape = text => GLib.markup_escape_text(text, -1);
+        const update = () => {
+            const entry = entries[values.indexOf(row.selected_item)] ?? entries[0];
+            row.subtitle = [
+                ...note ? [escape(note)] : [],
+                escape(entry[0]),
+                `<small>${escape(entry[1])}</small>`,
+            ].join('\n');
+        };
+        row.connect('notify::selected-item', update);
+        update();
     }
 
     _addSlider(group, key, rowTitle, rowSubtitle, range, customMarks = null) {

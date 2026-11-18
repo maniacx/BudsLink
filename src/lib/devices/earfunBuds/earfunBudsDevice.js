@@ -378,8 +378,10 @@ export const EarfunBudsDevice = GObject.registerClass({
 
         this._config.optionsBox1 = ['radio-button'];
         this._config.box1RadioTitle = _('Noise Cancellation Type');
+        // The radio buttons of the panel are narrow, so the bracket starts a second line
+        const wrap = label => label.replace(/\s*([(（])/, '\n$1');
         this._config.box1RadioButton = [
-            _('Adaptive (Ear Canal)'), _('Adaptive (Environment)'), _('Manual'),
+            wrap(_('Adaptive (Ear Canal)')), wrap(_('Adaptive (Environment)')), _('Manual'),
             _('Wind Noise Reduction'),
         ];
 
