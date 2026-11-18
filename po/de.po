@@ -435,7 +435,7 @@ msgstr "Umgebungston"
 #: src/preferences/devices/soundcore/configureWindow.js:375
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:85
 msgid "Mode"
-msgstr ""
+msgstr "Modus"
 
 #: src/preferences/devices/soundcore/configureWindow.js:166
 #: src/preferences/devices/nothingBuds/configureWindow.js:791
@@ -483,7 +483,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:177
 msgid "Transparency Type"
-msgstr ""
+msgstr "Art der Transparenz"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Fully Transparent"
@@ -515,7 +515,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:196
 msgid "Volume Limit"
-msgstr ""
+msgstr "Lautstärkebegrenzung"
 
 #: src/preferences/devices/soundcore/configureWindow.js:199
 msgid "Decibel Reading Refresh Rate"
@@ -547,7 +547,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:249
 msgid "Auto Play/Pause"
-msgstr ""
+msgstr "Automatische Wiedergabe/Pause"
 
 #: src/preferences/devices/soundcore/configureWindow.js:250
 #: src/preferences/devices/sony/configureWindow.js:446
@@ -799,7 +799,7 @@ msgstr "Jazz"
 
 #: src/preferences/devices/soundcore/configureWindow.js:514
 msgid "Latin"
-msgstr ""
+msgstr "Latin"
 
 #: src/preferences/devices/soundcore/configureWindow.js:515
 msgid "Lounge"
@@ -818,7 +818,7 @@ msgstr "Pop"
 
 #: src/preferences/devices/soundcore/configureWindow.js:518
 msgid "R&B"
-msgstr ""
+msgstr "R&B"
 
 #: src/preferences/devices/soundcore/configureWindow.js:519
 #: src/preferences/devices/nothingBuds/configureWindow.js:255
@@ -1041,7 +1041,7 @@ msgstr "Rechter Ohrhörer"
 #: src/preferences/devices/soundcore/configureWindow.js:625
 #: src/preferences/devices/opoBuds/configureWindow.js:1369
 msgid "Button Controls"
-msgstr ""
+msgstr "Tastensteuerung"
 
 #: src/preferences/devices/soundcore/configureWindow.js:636
 #: src/preferences/devices/opoBuds/configureWindow.js:1279
@@ -2051,11 +2051,11 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:83
 msgid "Blues"
-msgstr ""
+msgstr "Blues"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:85
 msgid "Natural"
-msgstr ""
+msgstr "Natürlich"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:87
 #: src/lib/devices/opoBuds/opoBudsDevice.js:566
@@ -2257,7 +2257,7 @@ msgstr "Fokus"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:615
 msgid "Home"
-msgstr ""
+msgstr "Start"
 
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:618
 msgid "Relax"
@@ -2302,7 +2302,7 @@ msgstr "In den Transparenzmodus wechseln, wenn ein Ohrhörer herausgenommen wird
 
 #: src/preferences/devices/boseBuds/configureWindow.js:488
 msgid "Medium"
-msgstr ""
+msgstr "Mittel"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:568
 #: src/preferences/devices/sony/configureWindow.js:476
@@ -3196,3 +3196,298 @@ msgstr "Einrichten"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Akkustand"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:123
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "Find My Earbuds"
+msgstr "Meine Ohrhörer finden"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:124
+msgid "Gestures"
+msgstr "Gesten"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:126
+msgid "Advanced Settings"
+msgstr "Erweiterte Einstellungen"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:128
+msgid "System"
+msgstr "System"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:240
+msgid "Case"
+msgstr "Ladecase"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:270
+msgid "Firmware"
+msgstr "Firmware"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:271
+msgid "Serial Number (Left)"
+msgstr "Seriennummer (links)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:272
+msgid "Serial Number (Right)"
+msgstr "Seriennummer (rechts)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:315
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:380
+msgid "Noise Cancellation Type"
+msgstr "Art der Geräuschunterdrückung"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:316
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
+msgid "Adaptive (Ear Canal)"
+msgstr "Adaptiv (Gehörgang)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:316
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
+msgid "Adaptive (Environment)"
+msgstr "Adaptiv (Umgebung)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:338
+#: src/preferences/devices/earfunBuds/configureWindow.js:340
+msgid "Touch Control"
+msgstr "Touch-Steuerung"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:341
+msgid "Turns off touch control of one or both earbuds"
+msgstr "Schaltet die Touch-Steuerung eines oder beider Ohrhörer ab"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+msgid "Both earbuds"
+msgstr "Beide Ohrhörer"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Right earbud only"
+msgstr "Nur rechter Ohrhörer"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Left earbud only"
+msgstr "Nur linker Ohrhörer"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:355
+msgid "Redial"
+msgstr "Wahlwiederholung"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:375
+msgid "Press and Hold (Call)"
+msgstr "Drücken und Halten (Anruf)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:376
+msgid "Reject Call"
+msgstr "Anruf ablehnen"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:376
+msgid "Mute Microphone"
+msgstr "Mikrofon stummschalten"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:385
+msgid "Detects whether the earbuds are worn"
+msgstr "Erkennt, ob die Ohrhörer getragen werden"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:387
+msgid "Pause when taken off, resume when put in"
+msgstr "Pausiert beim Abnehmen und setzt beim Einsetzen fort"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:388
+msgid "Automatic Call Answering"
+msgstr "Automatische Anrufannahme"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:389
+msgid "Answer incoming calls when the earbuds are worn"
+msgstr "Nimmt eingehende Anrufe an, wenn die Ohrhörer getragen werden"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:390
+msgid "Higher Sensitivity"
+msgstr "Höhere Empfindlichkeit"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:391
+msgid "Improves detection with different ear shapes, but may trigger by mistake"
+msgstr "Verbessert die Erkennung bei unterschiedlichen Ohrformen, kann aber versehentlich auslösen"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Reduces audio latency, but may affect the connection stability"
+msgstr "Verringert die Audiolatenz, kann aber die Verbindungsstabilität beeinträchtigen"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:398
+msgid "Limits the maximum volume of the earbuds"
+msgstr "Begrenzt die maximale Lautstärke der Ohrhörer"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:399
+msgid "No limit"
+msgstr "Keine Begrenzung"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Volume balance between the left and the right earbud"
+msgstr "Lautstärkebalance zwischen dem linken und dem rechten Ohrhörer"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:403
+msgid "L"
+msgstr "L"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:405
+msgid "R"
+msgstr "R"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Loudest"
+msgstr "Am lautesten"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Loud"
+msgstr "Laut"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Quiet"
+msgstr "Leise"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Quietest"
+msgstr "Am leisesten"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:410
+msgid "Microphone"
+msgstr "Mikrofon"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:411
+msgid "Use one earbud for calls or let the earbuds choose"
+msgstr "Einen Ohrhörer für Anrufe festlegen oder die Ohrhörer wählen lassen"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:447
+msgid "Multipoint Connection"
+msgstr "Multipoint-Verbindung"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:448
+msgid "Connect to two devices at the same time. Turn it off to use LDAC"
+msgstr "Mit zwei Geräten gleichzeitig verbinden. Für LDAC ausschalten"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:449
+msgid "Audio Quality"
+msgstr "Audioqualität"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:450
+msgid "Bluetooth codec. The earbuds restart and reconnect when this changes"
+msgstr "Bluetooth-Codec. Die Ohrhörer starten neu und verbinden sich erneut, wenn sich dies ändert"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:451
+msgid "Stable connection"
+msgstr "Stabile Verbindung"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:454
+msgid "Connection Mode"
+msgstr "Verbindungsmodus"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:455
+msgid "LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with LE Audio. The earbuds restart when this changes"
+msgstr "LE Audio aktiviert auch Auracast. Spielmodus, aptX und LDAC funktionieren mit LE Audio möglicherweise nicht. Die Ohrhörer starten neu, wenn sich dies ändert"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:463
+msgid "Country"
+msgstr "Country"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:465
+msgid "Hip-Hop"
+msgstr "Hip-Hop"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Metal"
+msgstr "Metal"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Soul"
+msgstr "Soul"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Hits"
+msgstr "Hits"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:467
+msgid "Voice Boost"
+msgstr "Stimmen hervorheben"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:468
+msgid "Voice Reduction"
+msgstr "Stimmen reduzieren"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:468
+msgid "Bass Boost 1"
+msgstr "Bass-Verstärkung 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:469
+msgid "Bass Boost 2"
+msgstr "Bass-Verstärkung 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:469
+msgid "Bass Boost 3"
+msgstr "Bass-Verstärkung 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:470
+msgid "Bass Reduction 1"
+msgstr "Bass-Absenkung 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:470
+msgid "Bass Reduction 2"
+msgstr "Bass-Absenkung 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:471
+msgid "Bass Reduction 3"
+msgstr "Bass-Absenkung 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:471
+msgid "Treble Boost 1"
+msgstr "Höhen-Verstärkung 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Treble Boost 2"
+msgstr "Höhen-Verstärkung 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Treble Boost 3"
+msgstr "Höhen-Verstärkung 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:473
+msgid "Treble Reduction 1"
+msgstr "Höhen-Absenkung 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:473
+msgid "Treble Reduction 2"
+msgstr "Höhen-Absenkung 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Treble Reduction 3"
+msgstr "Höhen-Absenkung 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Original Sound"
+msgstr "Originalton"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:495
+msgid "Choose a preset or your own curve"
+msgstr "Voreinstellung oder eigene Kurve wählen"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:496
+msgid "Preset"
+msgstr "Voreinstellung"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:551
+msgid "Name of the earbuds"
+msgstr "Name der Ohrhörer"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:561
+msgid "Change name?"
+msgstr "Name ändern?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:562
+msgid "After changing the name, put the earbuds in the charging case and close the lid for about 10 seconds. Remove the earbuds from the Bluetooth devices of this computer and pair them again to use the new name."
+msgstr "Lege die Ohrhörer nach der Namensänderung etwa 10 Sekunden lang in das geschlossene Ladecase. Entferne die Ohrhörer aus den Bluetooth-Geräten dieses Computers und koppele sie neu, um den neuen Namen zu verwenden."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:568
+msgid "Change"
+msgstr "Ändern"
