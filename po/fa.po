@@ -60,7 +60,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:935
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "In-Ear Detection"
-msgstr ""
+msgstr "تشخیص در گوش"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:81
 #: src/preferences/devices/nothingBuds/configureWindow.js:410
@@ -200,7 +200,7 @@ msgstr ""
 #: src/lib/devices/googleBuds/googleBudsDevice.js:211
 #: src/lib/widgets/settingsButton.js:401 src/lib/widgets/settingsButton.js:438
 msgid "Off"
-msgstr ""
+msgstr "خاموش"
 
 #: src/preferences/devices/airpods/configureWindow.js:226
 #: src/preferences/devices/soundcore/configureWindow.js:162
@@ -216,7 +216,7 @@ msgstr ""
 #: src/lib/devices/cambridgeBuds/cambridgeBudsDevice.js:298
 #: src/lib/devices/googleBuds/googleBudsDevice.js:217
 msgid "Transparency"
-msgstr ""
+msgstr "شفافیت"
 
 #: src/preferences/devices/airpods/configureWindow.js:232
 #: src/preferences/devices/soundcore/configureWindow.js:162
@@ -241,7 +241,7 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:187
 #: src/lib/devices/googleBuds/googleBudsDevice.js:223
 msgid "Noise Cancellation"
-msgstr ""
+msgstr "حذف نویز"
 
 #: src/preferences/devices/airpods/configureWindow.js:239
 #: src/preferences/devices/soundcore/configureWindow.js:167
@@ -390,7 +390,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:77
 #: src/preferences/devices/boseBuds/configureWindow.js:267
 msgid "Sound Settings"
-msgstr ""
+msgstr "تنظیمات صدا"
 
 #: src/preferences/devices/soundcore/configureWindow.js:94
 #: src/preferences/devices/nothingBuds/configureWindow.js:580
@@ -409,13 +409,13 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:466
 #: src/lib/devices/edifierBuds/edifierBudsDevice.js:284
 msgid "Ambient Sound"
-msgstr ""
+msgstr "صدای محیط"
 
 #: src/preferences/devices/soundcore/configureWindow.js:161
 #: src/preferences/devices/soundcore/configureWindow.js:375
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:85
 msgid "Mode"
-msgstr ""
+msgstr "حالت"
 
 #: src/preferences/devices/soundcore/configureWindow.js:166
 #: src/preferences/devices/nothingBuds/configureWindow.js:791
@@ -425,7 +425,7 @@ msgstr ""
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/sony/configureWindow.js:218
 msgid "Manual"
-msgstr ""
+msgstr "دستی"
 
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/soundcore/configureWindow.js:172
@@ -443,7 +443,7 @@ msgstr ""
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:678
 #: src/lib/devices/opoBuds/opoBudsDevice.js:600
 msgid "Noise Cancellation Level"
-msgstr ""
+msgstr "سطح حذف نویز"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Plane"
@@ -463,7 +463,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:177
 msgid "Transparency Type"
-msgstr ""
+msgstr "نوع شفافیت"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Fully Transparent"
@@ -477,13 +477,13 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:631
 #: src/lib/devices/opoBuds/opoBudsDevice.js:641
 msgid "Wind Noise Reduction"
-msgstr ""
+msgstr "کاهش نویز باد"
 
 #: src/preferences/devices/soundcore/configureWindow.js:184
 #: src/preferences/devices/opoBuds/configureWindow.js:712
 #: src/lib/devices/soundcore/soundcoreDevice.js:279
 msgid "Audio Effects"
-msgstr ""
+msgstr "افکت‌های صوتی"
 
 #: src/preferences/devices/soundcore/configureWindow.js:190
 msgid "Sound Leak Compensation"
@@ -495,7 +495,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:196
 msgid "Volume Limit"
-msgstr ""
+msgstr "محدودیت صدا"
 
 #: src/preferences/devices/soundcore/configureWindow.js:199
 msgid "Decibel Reading Refresh Rate"
@@ -527,7 +527,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:249
 msgid "Auto Play/Pause"
-msgstr ""
+msgstr "پخش/توقف خودکار"
 
 #: src/preferences/devices/soundcore/configureWindow.js:250
 #: src/preferences/devices/sony/configureWindow.js:446
@@ -591,7 +591,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:142
 #: src/preferences/devices/sony/configureWindow.js:268
 msgid "Frequency (Hz)"
-msgstr ""
+msgstr "فرکانس (هرتز)"
 
 #: src/preferences/devices/soundcore/configureWindow.js:367
 #: src/preferences/devices/redmiBuds/configureWindow.js:317
@@ -603,7 +603,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:269
 #: src/preferences/devices/googleBuds/configureWindow.js:139
 msgid "Gain (dB)"
-msgstr ""
+msgstr "بهره (دسی‌بل)"
 
 #: src/preferences/devices/soundcore/configureWindow.js:372
 #: src/preferences/devices/redmiBuds/configureWindow.js:336
@@ -645,7 +645,7 @@ msgstr ""
 #: src/preferences/devices/googleBuds/configureWindow.js:108
 #: src/lib/devices/soundcore/soundcoreDevice.js:284
 msgid "Custom Equalizer"
-msgstr ""
+msgstr "اکولایزر سفارشی"
 
 #: src/preferences/devices/soundcore/configureWindow.js:402
 msgid "Saved Equalizers"
@@ -688,7 +688,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:239
 #: src/preferences/devices/googleBuds/configureWindow.js:102
 msgid "Equalizer Preset"
-msgstr ""
+msgstr "پیش‌تنظیم اکولایزر"
 
 #: src/preferences/devices/soundcore/configureWindow.js:461
 #: src/lib/devices/soundcore/soundcoreDevice.js:280
@@ -781,7 +781,7 @@ msgstr "جاز"
 
 #: src/preferences/devices/soundcore/configureWindow.js:514
 msgid "Latin"
-msgstr ""
+msgstr "لاتین"
 
 #: src/preferences/devices/soundcore/configureWindow.js:515
 msgid "Lounge"
@@ -796,11 +796,11 @@ msgstr ""
 #: src/preferences/devices/senhBuds/configureWindow.js:260
 #: src/preferences/devices/opoBuds/configureWindow.js:358
 msgid "Pop"
-msgstr ""
+msgstr "پاپ"
 
 #: src/preferences/devices/soundcore/configureWindow.js:518
 msgid "R&B"
-msgstr ""
+msgstr "آر‌اندبی"
 
 #: src/preferences/devices/soundcore/configureWindow.js:519
 #: src/preferences/devices/nothingBuds/configureWindow.js:255
@@ -855,7 +855,7 @@ msgstr ""
 #: src/preferences/widgets/earTipFitTestRow.js:199
 #: src/lib/widgets/settingsButton.js:304
 msgid "Cancel"
-msgstr ""
+msgstr "لغو"
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:607
@@ -864,7 +864,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 #: src/preferences/devices/boseBuds/configureWindow.js:818
 msgid "Play / Pause"
-msgstr ""
+msgstr "پخش / توقف"
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:613
@@ -873,7 +873,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 #: src/preferences/devices/boseBuds/configureWindow.js:836
 msgid "Next Track"
-msgstr ""
+msgstr "آهنگ بعدی"
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:610
@@ -882,7 +882,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 #: src/preferences/devices/boseBuds/configureWindow.js:833
 msgid "Previous Track"
-msgstr ""
+msgstr "آهنگ قبلی"
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:619
@@ -890,7 +890,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1169
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 msgid "Volume Up"
-msgstr ""
+msgstr "افزایش صدا"
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:622
@@ -898,7 +898,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1170
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:215
 msgid "Volume Down"
-msgstr ""
+msgstr "کاهش صدا"
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:625
@@ -924,7 +924,7 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:180
 #: src/lib/devices/googleBuds/googleBudsDevice.js:199
 msgid "Noise Control"
-msgstr ""
+msgstr "کنترل نویز"
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:616
@@ -935,7 +935,7 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:803
 #: src/preferences/devices/boseBuds/configureWindow.js:809
 msgid "Voice Assistant"
-msgstr ""
+msgstr "دستیار صوتی"
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:628
@@ -944,7 +944,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:215
 #: src/preferences/devices/boseBuds/configureWindow.js:788
 msgid "No Action"
-msgstr ""
+msgstr "بدون عملکرد"
 
 #: src/preferences/devices/soundcore/configureWindow.js:615
 #: src/preferences/devices/redmiBuds/configureWindow.js:263
@@ -973,7 +973,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:219
 #: src/preferences/devices/boseBuds/configureWindow.js:693
 msgid "Single Tap"
-msgstr ""
+msgstr "یک ضربه"
 
 #: src/preferences/devices/soundcore/configureWindow.js:619
 #: src/preferences/devices/redmiBuds/configureWindow.js:518
@@ -984,7 +984,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:220
 #: src/preferences/devices/boseBuds/configureWindow.js:694
 msgid "Double Tap"
-msgstr ""
+msgstr "دو ضربه"
 
 #: src/preferences/devices/soundcore/configureWindow.js:620
 #: src/preferences/devices/redmiBuds/configureWindow.js:519
@@ -994,7 +994,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:221
 #: src/preferences/devices/boseBuds/configureWindow.js:695
 msgid "Triple Tap"
-msgstr ""
+msgstr "سه ضربه"
 
 #: src/preferences/devices/soundcore/configureWindow.js:621
 #: src/preferences/devices/redmiBuds/configureWindow.js:525
@@ -1005,26 +1005,26 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:222
 #: src/preferences/devices/boseBuds/configureWindow.js:702
 msgid "Press and Hold"
-msgstr ""
+msgstr "فشردن و نگه داشتن"
 
 #: src/preferences/devices/soundcore/configureWindow.js:624
 #: src/preferences/devices/nothingBuds/configureWindow.js:745
 #: src/preferences/devices/opoBuds/configureWindow.js:1361
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Left Earbud"
-msgstr ""
+msgstr "ایرباد چپ"
 
 #: src/preferences/devices/soundcore/configureWindow.js:624
 #: src/preferences/devices/nothingBuds/configureWindow.js:748
 #: src/preferences/devices/opoBuds/configureWindow.js:1363
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Right Earbud"
-msgstr ""
+msgstr "ایرباد راست"
 
 #: src/preferences/devices/soundcore/configureWindow.js:625
 #: src/preferences/devices/opoBuds/configureWindow.js:1369
 msgid "Button Controls"
-msgstr ""
+msgstr "کنترل‌های دکمه"
 
 #: src/preferences/devices/soundcore/configureWindow.js:636
 #: src/preferences/devices/opoBuds/configureWindow.js:1279
@@ -1069,7 +1069,7 @@ msgstr "اکولایزر"
 #: src/preferences/devices/sony/configureWindow.js:151
 #: src/lib/devices/sony/sonyDevice.js:197
 msgid "Standard"
-msgstr ""
+msgstr "استاندارد"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:259
 msgctxt "Redmi equalizer preset"
@@ -1721,11 +1721,11 @@ msgstr ""
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:307
 msgid "Balance"
-msgstr ""
+msgstr "توازن"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:311
 msgid "Left"
-msgstr ""
+msgstr "چپ"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:312
 msgid "Center"
@@ -1734,7 +1734,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:313
 #: src/preferences/widgets/earTipFitTestRow.js:122
 msgid "Right"
-msgstr ""
+msgstr "راست"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:331
 msgid "Earbuds Controls"
@@ -2035,11 +2035,11 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:83
 msgid "Blues"
-msgstr ""
+msgstr "بلوز"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:85
 msgid "Natural"
-msgstr ""
+msgstr "طبیعی"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:87
 #: src/lib/devices/opoBuds/opoBudsDevice.js:566
@@ -2288,7 +2288,7 @@ msgstr ""
 
 #: src/preferences/devices/boseBuds/configureWindow.js:488
 msgid "Medium"
-msgstr ""
+msgstr "متوسط"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:568
 #: src/preferences/devices/sony/configureWindow.js:476
@@ -2385,7 +2385,7 @@ msgstr ""
 
 #: src/preferences/devices/boseBuds/configureWindow.js:854
 msgid "Disabled"
-msgstr ""
+msgstr "غیرفعال"
 
 #: src/preferences/devices/sony/configureWindow.js:109
 #: src/lib/devices/airpods/airpodsDevice.js:239
@@ -2530,7 +2530,7 @@ msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:413
 msgid "Voice Prompt Volume"
-msgstr ""
+msgstr "بلندی صدای پیام‌های صوتی"
 
 #: src/preferences/devices/sony/configureWindow.js:414
 msgid "Adjust the volume of voice prompts"
@@ -3165,3 +3165,298 @@ msgstr ""
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr ""
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:123
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "Find My Earbuds"
+msgstr "یافتن ایربادهای من"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:124
+msgid "Gestures"
+msgstr "حرکات"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:126
+msgid "Advanced Settings"
+msgstr "تنظیمات پیشرفته"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:128
+msgid "System"
+msgstr "سیستم"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:240
+msgid "Case"
+msgstr "کیس"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:270
+msgid "Firmware"
+msgstr "فریم‌ور"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:271
+msgid "Serial Number (Left)"
+msgstr "شماره سریال (چپ)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:272
+msgid "Serial Number (Right)"
+msgstr "شماره سریال (راست)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:315
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:380
+msgid "Noise Cancellation Type"
+msgstr "نوع حذف نویز"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:316
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
+msgid "Adaptive (Ear Canal)"
+msgstr "تطبیقی (مجرای گوش)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:316
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
+msgid "Adaptive (Environment)"
+msgstr "تطبیقی (محیط)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:338
+#: src/preferences/devices/earfunBuds/configureWindow.js:340
+msgid "Touch Control"
+msgstr "کنترل لمسی"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:341
+msgid "Turns off touch control of one or both earbuds"
+msgstr "کنترل لمسی یک یا هر دو ایرباد را خاموش می‌کند"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+msgid "Both earbuds"
+msgstr "هر دو ایرباد"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Right earbud only"
+msgstr "فقط ایرباد راست"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Left earbud only"
+msgstr "فقط ایرباد چپ"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:355
+msgid "Redial"
+msgstr "شماره‌گیری مجدد"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:375
+msgid "Press and Hold (Call)"
+msgstr "فشردن و نگه داشتن (تماس)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:376
+msgid "Reject Call"
+msgstr "رد تماس"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:376
+msgid "Mute Microphone"
+msgstr "بی‌صدا کردن میکروفون"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:385
+msgid "Detects whether the earbuds are worn"
+msgstr "تشخیص می‌دهد که ایربادها در گوش هستند یا نه"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:387
+msgid "Pause when taken off, resume when put in"
+msgstr "با درآوردن متوقف و با گذاشتن ادامه می‌یابد"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:388
+msgid "Automatic Call Answering"
+msgstr "پاسخ خودکار به تماس"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:389
+msgid "Answer incoming calls when the earbuds are worn"
+msgstr "با قرار گرفتن ایربادها در گوش، به تماس‌های ورودی پاسخ می‌دهد"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:390
+msgid "Higher Sensitivity"
+msgstr "حساسیت بیشتر"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:391
+msgid "Improves detection with different ear shapes, but may trigger by mistake"
+msgstr "تشخیص را برای شکل‌های مختلف گوش بهبود می‌دهد، اما ممکن است به اشتباه فعال شود"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Reduces audio latency, but may affect the connection stability"
+msgstr "تأخیر صدا را کاهش می‌دهد، اما ممکن است بر پایداری اتصال اثر بگذارد"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:398
+msgid "Limits the maximum volume of the earbuds"
+msgstr "حداکثر بلندی صدای ایربادها را محدود می‌کند"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:399
+msgid "No limit"
+msgstr "بدون محدودیت"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Volume balance between the left and the right earbud"
+msgstr "توازن صدا بین ایرباد چپ و راست"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:403
+msgid "L"
+msgstr "چ"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:405
+msgid "R"
+msgstr "ر"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Loudest"
+msgstr "بلندترین"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Loud"
+msgstr "بلند"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Quiet"
+msgstr "آرام"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Quietest"
+msgstr "آرام‌ترین"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:410
+msgid "Microphone"
+msgstr "میکروفون"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:411
+msgid "Use one earbud for calls or let the earbuds choose"
+msgstr "برای تماس از یک ایرباد استفاده کنید یا بگذارید ایربادها انتخاب کنند"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Automatic"
+msgstr "خودکار"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:447
+msgid "Multipoint Connection"
+msgstr "اتصال Multipoint"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:448
+msgid "Connect to two devices at the same time. Turn it off to use LDAC"
+msgstr "هم‌زمان به دو دستگاه متصل شوید. برای استفاده از LDAC آن را خاموش کنید"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:449
+msgid "Audio Quality"
+msgstr "کیفیت صدا"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:450
+msgid "Bluetooth codec. The earbuds restart and reconnect when this changes"
+msgstr "کدک Bluetooth. با تغییر آن، ایربادها راه‌اندازی مجدد می‌شوند و دوباره متصل می‌شوند"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:451
+msgid "Stable connection"
+msgstr "اتصال پایدار"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:454
+msgid "Connection Mode"
+msgstr "حالت اتصال"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:455
+msgid "LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with LE Audio. The earbuds restart when this changes"
+msgstr "LE Audio، Auracast را هم روشن می‌کند. حالت بازی، aptX و LDAC ممکن است با LE Audio کار نکنند. با تغییر آن، ایربادها راه‌اندازی مجدد می‌شوند"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:463
+msgid "Country"
+msgstr "کانتری"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:465
+msgid "Hip-Hop"
+msgstr "هیپ‌هاپ"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Metal"
+msgstr "متال"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Soul"
+msgstr "سول"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Hits"
+msgstr "هیت‌ها"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:467
+msgid "Voice Boost"
+msgstr "تقویت صدای گفتار"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:468
+msgid "Voice Reduction"
+msgstr "کاهش صدای گفتار"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:468
+msgid "Bass Boost 1"
+msgstr "تقویت بیس ۱"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:469
+msgid "Bass Boost 2"
+msgstr "تقویت بیس ۲"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:469
+msgid "Bass Boost 3"
+msgstr "تقویت بیس ۳"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:470
+msgid "Bass Reduction 1"
+msgstr "کاهش بیس ۱"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:470
+msgid "Bass Reduction 2"
+msgstr "کاهش بیس ۲"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:471
+msgid "Bass Reduction 3"
+msgstr "کاهش بیس ۳"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:471
+msgid "Treble Boost 1"
+msgstr "تقویت تریبل ۱"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Treble Boost 2"
+msgstr "تقویت تریبل ۲"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Treble Boost 3"
+msgstr "تقویت تریبل ۳"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:473
+msgid "Treble Reduction 1"
+msgstr "کاهش تریبل ۱"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:473
+msgid "Treble Reduction 2"
+msgstr "کاهش تریبل ۲"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Treble Reduction 3"
+msgstr "کاهش تریبل ۳"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Original Sound"
+msgstr "صدای اصلی"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:495
+msgid "Choose a preset or your own curve"
+msgstr "یک پیش‌تنظیم یا منحنی دلخواه خود را انتخاب کنید"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:496
+msgid "Preset"
+msgstr "پیش‌تنظیم"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:551
+msgid "Name of the earbuds"
+msgstr "نام ایربادها"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:561
+msgid "Change name?"
+msgstr "نام تغییر کند؟"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:562
+msgid "After changing the name, put the earbuds in the charging case and close the lid for about 10 seconds. Remove the earbuds from the Bluetooth devices of this computer and pair them again to use the new name."
+msgstr "پس از تغییر نام، ایربادها را در کیس شارژ بگذارید و درِ آن را حدود ۱۰ ثانیه ببندید. ایربادها را از دستگاه‌های Bluetooth این رایانه حذف کنید و برای استفاده از نام جدید دوباره جفت کنید."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:568
+msgid "Change"
+msgstr "تغییر"
