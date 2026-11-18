@@ -3452,3 +3452,79 @@ msgstr "Sau khi đổi tên, hãy đặt tai nghe vào hộp sạc và đóng n�
 #: src/preferences/devices/earfunBuds/configureWindow.js:568
 msgid "Change"
 msgstr "Đổi"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Lắng nghe âm thanh trong ống tai và việc tai nghe có đang được đeo hay không, rồi liên tục tự điều chỉnh tính năng chống ồn."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Kỹ thuật: lệnh 0x033A với giá trị 0. Tai nghe phân tích âm thanh đo được trong ống tai và tự điều chỉnh bộ lọc."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Lắng nghe tiếng ồn xung quanh và việc tai nghe có đang được đeo hay không, rồi liên tục tự điều chỉnh tính năng chống ồn."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Kỹ thuật: lệnh 0x033A với giá trị 4. Tai nghe phân tích tiếng ồn đo được bên ngoài và tự điều chỉnh bộ lọc."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "Bạn tự chọn mức độ chống ồn, gồm bốn mức."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Kỹ thuật: lệnh 0x033A với giá trị 6, 5, 3 hoặc 2 cho các mức 1 đến 4. Mức 4 (giá trị 2) mạnh nhất."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Dành cho gió mạnh. Giúp giảm tiếng ồn gió nhưng khả năng chống ồn sẽ kém hiệu quả hơn."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Kỹ thuật: lệnh 0x033A với giá trị 1. Chế độ này thay thế các loại khác và không thể kết hợp với chúng."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "Ưu tiên kết nối ổn định hơn chất lượng âm thanh. Hãy chọn khi âm thanh bị giật hoặc mất tiếng."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Kỹ thuật: lệnh 0x032E với giá trị 0. Cùng giá trị này cũng được gửi khi tắt aptX hoặc LDAC, nên không có biến thể aptX hay LDAC nào được chọn."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Codec của Qualcomm có tốc độ dữ liệu cao hơn các codec Bluetooth thông thường. Hoạt động tốt nhất với thiết bị có chip Qualcomm."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Kỹ thuật: lệnh 0x032E với giá trị 1. Khoảng 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "Tự điều chỉnh tốc độ bit và độ trễ theo việc bạn đang làm và điều kiện sóng vô tuyến."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Kỹ thuật: lệnh 0x032E với giá trị 3. Tốc độ bit không cố định."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "Truyền âm thanh chất lượng CD với tốc độ dữ liệu cao. Cần thiết bị Qualcomm Snapdragon đời mới; hãy ở gần và dùng băng tần Wi-Fi 5 GHz hoặc tắt Wi-Fi."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Kỹ thuật: lệnh 0x032E với giá trị 0x13. Tối đa khoảng 1.200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Âm thanh chất lượng cao. Có thể làm giảm thời lượng pin và gây giật, vì vậy hãy ở gần. Không thể dùng cùng kết nối Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Kỹ thuật: lệnh 0x032E với giá trị 8. Tối đa khoảng 990 kbit/s. Ứng dụng của nhà sản xuất yêu cầu tắt Multipoint trước."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "Tai nghe sẽ khởi động lại khi thay đổi mục này. Tai nghe chỉ cung cấp codec: máy tính của bạn cùng tai nghe chọn codec được dùng và phải hỗ trợ codec đó."

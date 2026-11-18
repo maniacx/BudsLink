@@ -3492,3 +3492,79 @@ msgstr "Po změně názvu vložte sluchátka do nabíjecího pouzdra a asi na 10
 #: src/preferences/devices/earfunBuds/configureWindow.js:568
 msgid "Change"
 msgstr "Změnit"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Naslouchá zvuku ve zvukovodu a tomu, zda jsou sluchátka nasazená, a průběžně upravuje potlačování hluku."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Technicky: příkaz 0x033A s hodnotou 0. Sluchátka analyzují zvuk měřený ve zvukovodu a filtr si upraví sama."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Naslouchá hluku kolem vás a tomu, zda jsou sluchátka nasazená, a průběžně upravuje potlačování hluku."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Technicky: příkaz 0x033A s hodnotou 4. Sluchátka analyzují hluk měřený zvenčí a filtr si upraví sama."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "Sílu potlačování hluku si volíte sami ve čtyřech stupních."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Technicky: příkaz 0x033A s hodnotou 6, 5, 3 nebo 2 pro úrovně 1 až 4. Úroveň 4 (hodnota 2) je nejsilnější."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Pro silný vítr. Snižuje hluk větru, ale potlačování hluku je pak méně účinné."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Technicky: příkaz 0x033A s hodnotou 1. Nahrazuje ostatní typy, nelze je kombinovat."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "Upřednostňuje stabilní připojení před kvalitou zvuku. Zvolte ho, pokud zvuk přerušuje nebo vypadává."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Technicky: příkaz 0x032E s hodnotou 0. Stejná hodnota se odesílá při vypnutí aptX nebo LDAC, takže není vybrána žádná z variant aptX ani LDAC."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Kodek Qualcomm s vyšší přenosovou rychlostí než běžné kodeky Bluetooth. Nejlépe funguje se zařízeními s čipem Qualcomm."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Technicky: příkaz 0x032E s hodnotou 1. Přibližně 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "Samo přizpůsobuje datový tok a zpoždění tomu, co děláte, a podmínkám rádiového signálu."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Technicky: příkaz 0x032E s hodnotou 3. Datový tok není pevný."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "Přenáší zvuk v kvalitě CD s vysokou přenosovou rychlostí. Vyžaduje novější zařízení Qualcomm Snapdragon; zůstaňte blízko a používejte pásmo Wi-Fi 5 GHz nebo Wi-Fi vypněte."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Technicky: příkaz 0x032E s hodnotou 0x13. Až přibližně 1 200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Zvuk ve vysoké kvalitě. Může zkrátit výdrž baterie a způsobovat přerušování zvuku, proto zůstaňte blízko. Nelze ho používat společně s Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Technicky: příkaz 0x032E s hodnotou 8. Až přibližně 990 kbit/s. Aplikace výrobce vyžaduje, aby byl nejdřív vypnut Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "Při změně se sluchátka restartují. Kodek pouze nabízejí: ten, který se použije, vybere váš počítač společně se sluchátky a musí ho podporovat."

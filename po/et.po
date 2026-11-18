@@ -3450,3 +3450,79 @@ msgstr "Pärast nime muutmist pane kõrvaklapid laadimisümbrisesse ja sulge kaa
 #: src/preferences/devices/earfunBuds/configureWindow.js:568
 msgid "Change"
 msgstr "Muuda"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Kuulab heli kuulmekäigus ja seda, kas kuularid on kõrvas, ning kohandab mürasummutust pidevalt."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Tehniline: käsk 0x033A väärtusega 0. Kuularid analüüsivad kuulmekäigus mõõdetud heli ja kohandavad filtrit ise."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Kuulab sinu ümber olevat müra ja seda, kas kuularid on kõrvas, ning kohandab mürasummutust pidevalt."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Tehniline: käsk 0x033A väärtusega 4. Kuularid analüüsivad väljastpoolt mõõdetud müra ja kohandavad filtrit ise."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "Mürasummutuse tugevuse valid ise, nelja astmega."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Tehniline: käsk 0x033A väärtusega 6, 5, 3 või 2 tasemetele 1 kuni 4. Tase 4 (väärtus 2) on kõige tugevam."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Tugeva tuule jaoks. See vähendab tuulemüra, kuid mürasummutus muutub vähem tõhusaks."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Tehniline: käsk 0x033A väärtusega 1. See asendab teised tüübid, neid ei saa kombineerida."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "Eelistab stabiilset ühendust heli kvaliteedile. Vali see, kui heli katkeb või hakib."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Tehniline: käsk 0x032E väärtusega 0. Sama väärtus saadetakse, kui aptX või LDAC lülitatakse välja, seega pole ühtegi aptX-i ega LDAC-i varianti valitud."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Qualcommi koodek, mille andmekiirus on suurem kui tavalistel Bluetoothi koodekitel. Töötab kõige paremini Qualcommi kiibiga seadmetega."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Tehniline: käsk 0x032E väärtusega 1. Umbes 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "Kohandab bitikiirust ja viivitust ise vastavalt sellele, mida teed, ning raadiotingimustele."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Tehniline: käsk 0x032E väärtusega 3. Bitikiirus ei ole fikseeritud."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "Edastab CD-kvaliteeti suure andmekiirusega. See vajab uuemat Qualcomm Snapdragon seadet; püsi lähedal ja kasuta 5 GHz Wi-Fi sagedusriba või lülita Wi-Fi välja."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Tehniline: käsk 0x032E väärtusega 0x13. Kuni umbes 1 200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Kvaliteetne heli. See võib lühendada aku tööaega ja põhjustada hakkimist, seega püsi lähedal. Seda ei saa kasutada koos Multipointiga."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Tehniline: käsk 0x032E väärtusega 8. Kuni umbes 990 kbit/s. Tootja rakendus palub Multipoint kõigepealt välja lülitada."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "Kuularid taaskäivituvad, kui seda muudetakse. Nad pakuvad ainult koodekit: kasutatava valib sinu arvuti koos kuularitega ja see peab seda toetama."

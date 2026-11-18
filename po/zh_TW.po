@@ -3456,3 +3456,79 @@ msgstr "變更名稱後，請將耳機放入充電盒並蓋上盒蓋約 10 秒�
 #: src/preferences/devices/earfunBuds/configureWindow.js:568
 msgid "Change"
 msgstr "變更"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "偵測耳道內的聲音以及耳機是否佩戴，並持續自動調整降噪效果。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "技術資訊：命令 0x033A，值 0。耳機分析耳道內測得的聲音，並自動調整濾波器。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "偵測周圍的噪音以及耳機是否佩戴，並持續自動調整降噪效果。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "技術資訊：命令 0x033A，值 4。耳機分析外部測得的噪音，並自動調整濾波器。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "由你自行分四段選擇降噪強度。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "技術資訊：命令 0x033A，等級 1 至 4 對應的值為 6、5、3、2。等級 4（值 2）最強。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "適用於強風環境。可減少風切聲，但降噪效果會變弱。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "技術資訊：命令 0x033A，值 1。它會取代其他類型，無法與其組合使用。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "優先確保連線穩定，而非音質。如果聲音斷斷續續或中斷，請選擇此項。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "技術資訊：命令 0x032E，值 0。關閉 aptX 或 LDAC 時也會傳送相同的值，因此不會選取任何 aptX 或 LDAC 變體。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Qualcomm 編解碼器，資料速率高於常見的藍牙編解碼器。搭配具備 Qualcomm 晶片的裝置效果最佳。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "技術資訊：命令 0x032E，值 1。約 352 kbit/s。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "依據你的使用情境與無線環境，自動調整位元率與延遲。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "技術資訊：命令 0x032E，值 3。位元率不固定。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "以高資料速率傳輸 CD 音質。需要較新的 Qualcomm Snapdragon 裝置；請靠近裝置，並使用 5 GHz Wi-Fi 頻段或關閉 Wi-Fi。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "技術資訊：命令 0x032E，值 0x13。最高約 1,200 kbit/s。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "高品質音訊。可能縮短電池續航力並造成聲音斷續，請靠近裝置使用。無法與 Multipoint 連線同時使用。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "技術資訊：命令 0x032E，值 8。最高約 990 kbit/s。廠商應用程式要求先關閉 Multipoint。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "變更此項時耳機會重新啟動。耳機只提供編解碼器：實際使用哪一種由電腦與耳機協商決定，且電腦必須支援該編解碼器。"

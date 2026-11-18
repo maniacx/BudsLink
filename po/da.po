@@ -3448,3 +3448,79 @@ msgstr "Når du har ændret navnet, skal du lægge øretelefonerne i opladningse
 #: src/preferences/devices/earfunBuds/configureWindow.js:568
 msgid "Change"
 msgstr "Skift"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Lytter til lyden inde i øregangen og til, om øretelefonerne er i brug, og justerer støjreduktionen løbende."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Teknisk: kommando 0x033A med værdi 0. Øretelefonerne analyserer lyden målt i øregangen og justerer filteret selv."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Lytter til støjen omkring dig og til, om øretelefonerne er i brug, og justerer støjreduktionen løbende."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Teknisk: kommando 0x033A med værdi 4. Øretelefonerne analyserer støjen målt udenfor og justerer filteret selv."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "Du vælger selv styrken af støjreduktionen i fire trin."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Teknisk: kommando 0x033A med værdi 6, 5, 3 eller 2 for niveau 1 til 4. Niveau 4 (værdi 2) er det stærkeste."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Til kraftig vind. Den reducerer vindstøj, men støjreduktionen bliver mindre effektiv."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Teknisk: kommando 0x033A med værdi 1. Den erstatter de andre typer, de kan ikke kombineres."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "Prioriterer en stabil forbindelse frem for lydkvalitet. Vælg den, hvis lyden hakker eller falder ud."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Teknisk: kommando 0x032E med værdi 0. Den samme værdi sendes, når aptX eller LDAC slås fra, så ingen af aptX- eller LDAC-varianterne er valgt."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "En Qualcomm-codec med en højere datarate end almindelige Bluetooth-codecs. Den fungerer bedst med enheder med en Qualcomm-chip."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Teknisk: kommando 0x032E med værdi 1. Ca. 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "Tilpasser selv bitrate og forsinkelse til det, du laver, og til radioforholdene."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Teknisk: kommando 0x032E med værdi 3. Bitraten er ikke fast."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "Overfører cd-kvalitet med en høj datarate. Den kræver en nyere Qualcomm Snapdragon-enhed; hold dig tæt på og brug 5 GHz Wi-Fi-båndet, eller slå Wi-Fi fra."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Teknisk: kommando 0x032E med værdi 0x13. Op til ca. 1.200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Lyd i høj kvalitet. Den kan forkorte batteritiden og give hakkende lyd, så hold dig tæt på. Den kan ikke bruges sammen med Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Teknisk: kommando 0x032E med værdi 8. Op til ca. 990 kbit/s. Producentens app beder om, at Multipoint slås fra først."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "Øretelefonerne genstarter, når dette ændres. De tilbyder kun codec'en: Din computer vælger sammen med øretelefonerne, hvilken der bruges, og skal understøtte den."

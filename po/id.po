@@ -3487,3 +3487,79 @@ msgstr "Setelah mengubah nama, letakkan earbud di casing pengisi daya dan tutup 
 #: src/preferences/devices/earfunBuds/configureWindow.js:568
 msgid "Change"
 msgstr "Ubah"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Mendengarkan suara di dalam saluran telinga dan apakah earbud sedang dipakai, lalu menyesuaikan peredam bising secara terus-menerus."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Teknis: perintah 0x033A dengan nilai 0. Earbud menganalisis suara yang terukur di dalam saluran telinga dan menyesuaikan filter secara otomatis."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Mendengarkan kebisingan di sekitar Anda dan apakah earbud sedang dipakai, lalu menyesuaikan peredam bising secara terus-menerus."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Teknis: perintah 0x033A dengan nilai 4. Earbud menganalisis kebisingan yang terukur di luar dan menyesuaikan filter secara otomatis."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "Anda sendiri yang memilih kekuatan peredam bising, dalam empat tingkat."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Teknis: perintah 0x033A dengan nilai 6, 5, 3 atau 2 untuk tingkat 1 sampai 4. Tingkat 4 (nilai 2) adalah yang terkuat."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Untuk angin kencang. Mengurangi kebisingan angin, tetapi peredam bising menjadi kurang efektif."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Teknis: perintah 0x033A dengan nilai 1. Menggantikan jenis lainnya dan tidak dapat dikombinasikan."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "Mengutamakan koneksi yang stabil daripada kualitas suara. Pilih jika suara tersendat atau terputus."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Teknis: perintah 0x032E dengan nilai 0. Nilai yang sama dikirim saat aptX atau LDAC dimatikan, sehingga tidak ada varian aptX atau LDAC yang dipilih."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Codec Qualcomm dengan laju data lebih tinggi daripada codec Bluetooth umum. Bekerja paling baik dengan perangkat yang memiliki chip Qualcomm."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Teknis: perintah 0x032E dengan nilai 1. Sekitar 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "Menyesuaikan bit rate dan jeda secara otomatis sesuai aktivitas Anda dan kondisi sinyal radio."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Teknis: perintah 0x032E dengan nilai 3. Bit rate tidak tetap."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "Mengirimkan kualitas CD dengan laju data tinggi. Memerlukan perangkat Qualcomm Snapdragon terbaru; tetaplah dekat dan gunakan pita Wi-Fi 5 GHz atau matikan Wi-Fi."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Teknis: perintah 0x032E dengan nilai 0x13. Hingga sekitar 1.200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Audio berkualitas tinggi. Dapat mempersingkat masa pakai baterai dan menyebabkan suara tersendat, jadi tetaplah dekat. Tidak dapat digunakan bersama koneksi Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Teknis: perintah 0x032E dengan nilai 8. Hingga sekitar 990 kbit/s. Aplikasi vendor meminta Multipoint dimatikan terlebih dahulu."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "Earbud dimulai ulang saat ini diubah. Earbud hanya menawarkan codec: komputer Anda memilih codec yang dipakai bersama earbud dan harus mendukungnya."

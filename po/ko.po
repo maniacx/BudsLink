@@ -3456,3 +3456,79 @@ msgstr "이름을 변경한 후 이어버드를 충전 케이스에 넣고 뚜�
 #: src/preferences/devices/earfunBuds/configureWindow.js:568
 msgid "Change"
 msgstr "변경"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "귓속의 소리와 이어버드 착용 여부를 감지하여 노이즈 캔슬링을 계속 자동으로 조절합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "기술 정보: 명령 0x033A, 값 0. 이어버드가 귓속에서 측정한 소리를 분석해 필터를 스스로 조절합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "주변 소음과 이어버드 착용 여부를 감지하여 노이즈 캔슬링을 계속 자동으로 조절합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "기술 정보: 명령 0x033A, 값 4. 이어버드가 바깥에서 측정한 소음을 분석해 필터를 스스로 조절합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "노이즈 캔슬링의 세기를 4단계 중에서 직접 선택합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "기술 정보: 명령 0x033A, 레벨 1~4에 대해 값 6, 5, 3, 2. 레벨 4(값 2)가 가장 강합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "강한 바람이 불 때 사용합니다. 바람 소음을 줄여 주지만 노이즈 캔슬링 효과는 떨어집니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "기술 정보: 명령 0x033A, 값 1. 다른 유형을 대체하며 함께 사용할 수 없습니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "음질보다 안정적인 연결을 우선합니다. 소리가 끊기거나 끊어지는 경우에 선택하세요."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "기술 정보: 명령 0x032E, 값 0. aptX 또는 LDAC를 끌 때도 같은 값이 전송되므로 aptX나 LDAC 변형은 하나도 선택되지 않습니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "일반적인 Bluetooth 코덱보다 데이터 전송률이 높은 Qualcomm 코덱입니다. Qualcomm 칩이 있는 기기에서 가장 잘 작동합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "기술 정보: 명령 0x032E, 값 1. 약 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "사용 중인 작업과 무선 환경에 맞춰 비트레이트와 지연 시간을 스스로 조절합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "기술 정보: 명령 0x032E, 값 3. 비트레이트가 고정되어 있지 않습니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "높은 데이터 전송률로 CD 음질을 전송합니다. 최신 Qualcomm Snapdragon 기기가 필요하며, 가까이에서 사용하고 5 GHz Wi-Fi 대역을 쓰거나 Wi-Fi를 끄세요."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "기술 정보: 명령 0x032E, 값 0x13. 최대 약 1,200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "고음질 오디오입니다. 배터리 사용 시간이 줄고 소리가 끊길 수 있으므로 가까이에서 사용하세요. Multipoint 연결과 함께 사용할 수 없습니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "기술 정보: 명령 0x032E, 값 8. 최대 약 990 kbit/s. 제조사 앱에서는 먼저 Multipoint를 끄라고 안내합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "이 설정을 바꾸면 이어버드가 다시 시작됩니다. 이어버드는 코덱을 제공할 뿐이며, 실제로 사용되는 코덱은 컴퓨터가 이어버드와 함께 정하므로 컴퓨터가 해당 코덱을 지원해야 합니다."

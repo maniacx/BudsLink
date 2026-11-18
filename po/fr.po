@@ -3500,3 +3500,79 @@ msgstr "Après avoir changé le nom, placez les écouteurs dans le boîtier de c
 #: src/preferences/devices/earfunBuds/configureWindow.js:568
 msgid "Change"
 msgstr "Changer"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Écoute le son à l'intérieur du conduit auditif et détecte si les écouteurs sont portés, puis ajuste la réduction du bruit en continu."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Technique : commande 0x033A avec la valeur 0. Les écouteurs analysent le son mesuré dans le conduit auditif et ajustent eux-mêmes le filtre."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Écoute le bruit autour de vous et détecte si les écouteurs sont portés, puis ajuste la réduction du bruit en continu."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Technique : commande 0x033A avec la valeur 4. Les écouteurs analysent le bruit mesuré à l'extérieur et ajustent eux-mêmes le filtre."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "Vous choisissez vous-même l'intensité de la réduction du bruit, en quatre niveaux."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Technique : commande 0x033A avec la valeur 6, 5, 3 ou 2 pour les niveaux 1 à 4. Le niveau 4 (valeur 2) est le plus fort."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Pour un vent fort. Réduit les bruits de vent, mais la réduction du bruit devient moins efficace."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Technique : commande 0x033A avec la valeur 1. Elle remplace les autres types, ils ne peuvent pas être combinés."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "Privilégie une connexion stable plutôt que la qualité sonore. À choisir si le son saccade ou se coupe."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Technique : commande 0x032E avec la valeur 0. La même valeur est envoyée lorsque aptX ou LDAC est désactivé ; aucune des variantes aptX ou LDAC n'est alors sélectionnée."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Un codec Qualcomm avec un débit supérieur à celui des codecs Bluetooth courants. Il fonctionne mieux avec les appareils équipés d'une puce Qualcomm."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Technique : commande 0x032E avec la valeur 1. Environ 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "Adapte lui-même le débit et le délai à votre activité et aux conditions radio."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Technique : commande 0x032E avec la valeur 3. Le débit n'est pas fixe."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "Transmet une qualité CD avec un débit élevé. Il nécessite un appareil Qualcomm Snapdragon récent ; restez à proximité et utilisez la bande Wi-Fi 5 GHz ou désactivez le Wi-Fi."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Technique : commande 0x032E avec la valeur 0x13. Jusqu'à environ 1 200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Son de haute qualité. Peut réduire l'autonomie de la batterie et provoquer des saccades, restez donc à proximité. Ne peut pas être utilisé avec le multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Technique : commande 0x032E avec la valeur 8. Jusqu'à environ 990 kbit/s. L'application du fabricant demande de désactiver d'abord le multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "Les écouteurs redémarrent lorsque ce réglage change. Ils ne font que proposer le codec : votre ordinateur choisit celui utilisé avec les écouteurs et doit le prendre en charge."

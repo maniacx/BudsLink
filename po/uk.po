@@ -3456,3 +3456,79 @@ msgstr "Після зміни назви покладіть навушники �
 #: src/preferences/devices/earfunBuds/configureWindow.js:568
 msgid "Change"
 msgstr "Змінити"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Аналізує звук усередині слухового каналу та те, чи вдягнені навушники, і безперервно підлаштовує шумопоглинання."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Технічно: команда 0x033A зі значенням 0. Навушники аналізують звук, виміряний у слуховому каналі, і самі налаштовують фільтр."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Аналізує навколишній шум та те, чи вдягнені навушники, і безперервно підлаштовує шумопоглинання."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Технічно: команда 0x033A зі значенням 4. Навушники аналізують шум, виміряний ззовні, і самі налаштовують фільтр."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "Ви самі обираєте силу шумопоглинання в чотири кроки."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Технічно: команда 0x033A зі значенням 6, 5, 3 або 2 для рівнів від 1 до 4. Рівень 4 (значення 2) найсильніший."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Для сильного вітру. Зменшує шум вітру, але шумопоглинання стає менш ефективним."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Технічно: команда 0x033A зі значенням 1. Замінює інші типи, їх не можна поєднувати."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "Віддає перевагу стабільному з'єднанню, а не якості звуку. Оберіть, якщо звук уривається або пропадає."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Технічно: команда 0x032E зі значенням 0. Те саме значення надсилається, коли aptX або LDAC вимкнено, тому жоден із варіантів aptX чи LDAC не вибрано."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Кодек Qualcomm із вищою швидкістю передавання даних, ніж у звичайних кодеків Bluetooth. Найкраще працює з пристроями на чипі Qualcomm."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Технічно: команда 0x032E зі значенням 1. Приблизно 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "Сам підлаштовує бітрейт і затримку під ваші дії та умови радіозв'язку."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Технічно: команда 0x032E зі значенням 3. Бітрейт не фіксований."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "Передає звук якості CD з високою швидкістю передавання даних. Потрібен сучасний пристрій Qualcomm Snapdragon; тримайтеся поруч і використовуйте діапазон Wi-Fi 5 GHz або вимкніть Wi-Fi."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Технічно: команда 0x032E зі значенням 0x13. До 1 200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Звук високої якості. Може скоротити час роботи від акумулятора та спричиняти уривання звуку, тому тримайтеся поруч. Не можна використовувати разом із Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Технічно: команда 0x032E зі значенням 8. До 990 kbit/s. Застосунок виробника вимагає спершу вимкнути Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "Під час зміни навушники перезапускаються. Вони лише пропонують кодек: використовуваний кодек обирає ваш комп'ютер разом із навушниками, і він має його підтримувати."

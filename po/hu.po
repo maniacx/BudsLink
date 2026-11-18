@@ -3447,3 +3447,79 @@ msgstr "A név módosítása után tedd a fülhallgatót a töltődobozba, és z
 #: src/preferences/devices/earfunBuds/configureWindow.js:568
 msgid "Change"
 msgstr "Módosítás"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Figyeli a hangot a hallójáratban és azt, hogy a fülhallgató viselve van-e, és folyamatosan hangolja a zajszűrést."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Technikai: 0x033A parancs 0 értékkel. A fülhallgató elemzi a hallójáratban mért hangot, és magától hangolja a szűrőt."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Figyeli a körülötted lévő zajt és azt, hogy a fülhallgató viselve van-e, és folyamatosan hangolja a zajszűrést."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Technikai: 0x033A parancs 4 értékkel. A fülhallgató elemzi a kívül mért zajt, és magától hangolja a szűrőt."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "A zajszűrés erősségét te választod meg, négy fokozatban."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Technikai: 0x033A parancs 6, 5, 3 vagy 2 értékkel az 1–4. szinthez. A 4. szint (2-es érték) a legerősebb."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Erős szélhez. Csökkenti a szélzajt, de a zajszűrés kevésbé lesz hatékony."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Technikai: 0x033A parancs 1 értékkel. Felváltja a többi típust, nem kombinálhatók."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "A stabil kapcsolatot részesíti előnyben a hangminőséggel szemben. Válaszd, ha a hang akadozik vagy kimarad."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Technikai: 0x032E parancs 0 értékkel. Ugyanez az érték megy el, ha az aptX vagy az LDAC ki van kapcsolva, ezért egyik aptX- vagy LDAC-változat sincs kiválasztva."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Qualcomm kodek, amelynek adatsebessége nagyobb a szokásos Bluetooth-kodekekénél. Qualcomm lapkával rendelkező eszközökkel működik a legjobban."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Technikai: 0x032E parancs 1 értékkel. Körülbelül 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "A bitrátát és a késleltetést magától igazítja ahhoz, amit csinálsz, és a rádiós körülményekhez."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Technikai: 0x032E parancs 3 értékkel. A bitráta nem rögzített."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "CD-minőséget továbbít nagy adatsebességgel. Újabb Qualcomm Snapdragon eszközt igényel; maradj közel, és használd az 5 GHz-es Wi-Fi-sávot, vagy kapcsold ki a Wi-Fit."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Technikai: 0x032E parancs 0x13 értékkel. Legfeljebb körülbelül 1200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Kiváló minőségű hang. Csökkentheti az akkumulátor üzemidejét és akadozást okozhat, ezért maradj közel. Multipoint kapcsolattal együtt nem használható."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Technikai: 0x032E parancs 8 értékkel. Legfeljebb körülbelül 990 kbit/s. A gyártó alkalmazása kéri, hogy előbb kapcsold ki a Multipointot."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "A fülhallgató újraindul, ha ezt módosítod. Csak a kodeket kínálja fel: a használtat a számítógéped választja ki a fülhallgatóval együtt, és támogatnia kell azt."
