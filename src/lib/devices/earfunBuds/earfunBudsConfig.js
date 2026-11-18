@@ -41,6 +41,7 @@ export const Frame = {
 // Requests. The reply (and a later notification) uses the same id.
 export const Cmd = {
     FIRMWARE: 0x0309,
+    SERIAL_NUMBER: 0x0359,
     BATTERY_LEFT: 0x0306,
     BATTERY_RIGHT: 0x0307,
     BATTERY_CASE: 0x0317,
@@ -87,7 +88,7 @@ export const InitialRequests = [
     Cmd.FIRMWARE, Cmd.BATTERY_LEFT, Cmd.BATTERY_RIGHT, Cmd.BATTERY_CASE, Cmd.AMBIENT,
     Cmd.ANC, Cmd.TRANSPARENCY, Cmd.GAME_MODE, Cmd.IN_EAR, Cmd.TOUCH_MODE, Cmd.TOUCH_ACTION,
     Cmd.MULTIPOINT, Cmd.CODEC, Cmd.MIC, Cmd.VOICE_PROMPT, Cmd.VOICE_PROTECT, Cmd.BALANCE,
-    Cmd.FIND_DEVICE, Cmd.ADVANCED_AUDIO,
+    Cmd.FIND_DEVICE, Cmd.ADVANCED_AUDIO, Cmd.SERIAL_NUMBER,
 ];
 
 export const AmbientMode = {

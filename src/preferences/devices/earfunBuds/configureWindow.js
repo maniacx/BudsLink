@@ -70,6 +70,7 @@ export const ConfigureWindow = GObject.registerClass({
             this._eq?.setValues(this._settingsItems['eq-custom']);
             this._syncRingRow();
             this._syncHero();
+            this._syncInfo();
             this._updateVisibility();
         });
 
@@ -263,15 +264,25 @@ export const ConfigureWindow = GObject.registerClass({
             navGroup.add(row);
         }
 
-        const fw = this._settingsItems['fw'];
-        if (fw) {
-            const infoGroup = new Adw.PreferencesGroup();
-            page.add(infoGroup);
-            infoGroup.add(new Adw.ActionRow({
-                title: _('Firmware'),
-                subtitle: fw,
-                subtitle_selectable: true,
-            }));
+        const infoGroup = new Adw.PreferencesGroup();
+        page.add(infoGroup);
+        this._info = {};
+        for (const [key, title] of [['fw', _('Firmware')],
+            ['serial-left', _('Serial Number (Left)')],
+            ['serial-right', _('Serial Number (Right)')]]) {
+            const row = new Adw.ActionRow({title, subtitle_selectable: true});
+            infoGroup.add(row);
+            this._info[key] = row;
+        }
+        this._syncInfo();
+    }
+
+    // Firmware and serial numbers, shown only when the earbuds have reported them
+    _syncInfo() {
+        for (const [key, row] of Object.entries(this._info ?? {})) {
+            const value = this._settingsItems[key] ?? '';
+            row.subtitle = value;
+            row.visible = value !== '';
         }
     }
 
@@ -402,6 +413,12 @@ export const ConfigureWindow = GObject.registerClass({
             [MicMode.AUTO, MicMode.LEFT, MicMode.RIGHT]);
     }
 
+    _serialText() {
+        const left = this._settingsItems['serial-left'] ?? '';
+        const right = this._settingsItems['serial-right'] ?? '';
+        return left === right ? left : [left, right].filter(Boolean).join(' / ');
+    }
+
     _addSystemPage(page) {
         const iconSelector = new IconSelectorWidget({
             iconList: supportedAudioSingleIcons,
@@ -412,7 +429,7 @@ export const ConfigureWindow = GObject.registerClass({
             fw: this._settingsItems['fw'] ?? '',
             lFw: '',
             rFw: '',
-            serial: '',
+            serial: this._serialText(),
         });
 
         iconSelector.connect('notify::selected-icon', () => {

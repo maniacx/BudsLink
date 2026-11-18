@@ -201,6 +201,11 @@ export const EarfunBudsSocket = GObject.registerClass({
             case Cmd.FIRMWARE:
                 cb.updateFirmware(new TextDecoder().decode(Uint8Array.from(payload.slice(1))));
                 break;
+            case Cmd.SERIAL_NUMBER:
+                // One reply per earbud: the side (0 left, 1 right), then the serial as text
+                cb.updateSerial(value === 1 ? 'right' : 'left',
+                    new TextDecoder().decode(Uint8Array.from(payload.slice(2))));
+                break;
             case Cmd.BATTERY_LEFT:
                 this._updateBattery('left', value);
                 break;

@@ -122,6 +122,7 @@ export const EarfunBudsDevice = GObject.registerClass({
         this._callbacks = {
             updateBatteryProps: this.updateBatteryProps.bind(this),
             updateFirmware: this.updateFirmware.bind(this),
+            updateSerial: this.updateSerial.bind(this),
             updateAmbientMode: this.updateAmbientMode.bind(this),
             updateAncMode: this.updateAncMode.bind(this),
             updateTransparencyMode: this.updateTransparencyMode.bind(this),
@@ -153,6 +154,8 @@ export const EarfunBudsDevice = GObject.registerClass({
             icon: m.budsIcon,
             case: m.case,
             fw: this._fwVersion,
+            'serial-left': '',
+            'serial-right': '',
             'ambient-mode': AmbientMode.OFF,
             'anc-type': 'ear',
             'anc-level': 3,
@@ -475,6 +478,12 @@ export const EarfunBudsDevice = GObject.registerClass({
             this._fwVersion = fwVersion;
             this._writeSettings({fw: fwVersion});
         }
+    }
+
+    updateSerial(side, serial) {
+        const text = serial.replace(/\0/g, '').trim();
+        if (text !== '')
+            this._writeSettings({[`serial-${side}`]: text});
     }
 
     updateAmbientMode(mode) {
