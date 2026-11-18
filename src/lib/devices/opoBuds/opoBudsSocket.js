@@ -373,6 +373,10 @@ export const OpoBudsSocket = GObject.registerClass({
                 this._parseCustomEqInfo(payload);
                 break;
 
+            case Cmd.SET_EQ_INFO_RSP:
+                this._parseCustomEqOperationResponse(payload);
+                break;
+
             case Cmd.KEY_FUNCTION_RSP:
                 this._parseGestures(payload);
                 break;
@@ -728,6 +732,15 @@ export const OpoBudsSocket = GObject.registerClass({
         this._queuePacket(Cmd.SET_EQ_INFO, payload, `Custom EQ ${actionLabel}: ${name || eqId}`);
     }
 
+    _parseCustomEqOperationResponse(payload) {
+        if (payload.length < 2)
+            return;
+
+        const [status, eqId] = payload;
+        if (status === 0)
+            this._callbacks?.onCustomEqOperationResult?.(eqId);
+    }
+
     addCustomEq(eqId, eqData) {
         this.setCustomEq(CustomEqAction.ADD, eqId, eqData);
     }
@@ -738,6 +751,7 @@ export const OpoBudsSocket = GObject.registerClass({
 
     deleteCustomEq(eqId, eqData = {}) {
         this.setCustomEq(CustomEqAction.DELETE, eqId, eqData);
+        this.getCustomEqInfo();
     }
 
     requestCustomEqInfo() {
