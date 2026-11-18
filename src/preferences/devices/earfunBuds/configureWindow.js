@@ -1,10 +1,11 @@
 'use strict';
 import Adw from 'gi://Adw';
+import Gtk from 'gi://Gtk';
 import GObject from 'gi://GObject';
 import {gettext as _} from 'gettext';
 
 import {
-    supportedAudioSingleIcons, supportedCaseIcons
+    supportedAudioSingleIcons, supportedAudioDualIcons, supportedCaseIcons
 } from '../../../lib/widgets/iconGroups.js';
 import {IconSelectorWidget} from './../../widgets/iconSelectorWidget.js';
 import {DropDownRowWidget} from './../../widgets/dropDownRowWidget.js';
@@ -46,30 +47,7 @@ export const ConfigureWindow = GObject.registerClass({
 
         this.title = this._settingsItems.alias;
 
-        const stack = new Adw.ViewStack();
-        const toolViewBar = new Adw.ToolbarView();
-        const headerBar = new Adw.HeaderBar();
-        const switcherTitle = new Adw.WindowTitle({title: this.title, subtitle: ''});
-        headerBar.set_title_widget(switcherTitle);
-        const switcherBar = new Adw.ViewSwitcherBar({stack, reveal: true});
-
-        toolViewBar.add_top_bar(headerBar);
-        toolViewBar.add_bottom_bar(switcherBar);
-        toolViewBar.set_content(stack);
-        this.set_content(toolViewBar);
-        this._switcherTitle = switcherTitle;
-
-        const soundPage = new Adw.PreferencesPage();
-        const controlsPage = new Adw.PreferencesPage();
-        const devicePage = new Adw.PreferencesPage();
-        stack.add_titled_with_icon(soundPage, 'sound', _('Sound Settings'), 'bbm-eq-symbolic');
-        stack.add_titled_with_icon(controlsPage, 'controls', _('Gesture Controls'),
-            'bbm-edit-symbolic');
-        stack.add_titled_with_icon(devicePage, 'device', _('Device'), 'bbm-settings-symbolic');
-
-        this._addSoundPage(soundPage);
-        this._addControlsPage(controlsPage);
-        this._addDevicePage(devicePage, mac);
+        this._buildLayout(mac);
         this._updateVisibility();
 
         const settingSignalId = this._settings.connect(`changed::${SettingsKey}`, () => {
@@ -78,7 +56,7 @@ export const ConfigureWindow = GObject.registerClass({
                 return;
 
             this.title = this._settingsItems.alias;
-            this._switcherTitle.title = this._settingsItems.alias;
+            this._sidebarTitle.title = this._settingsItems.alias;
 
             for (const [key, row] of Object.entries(this._switches))
                 row.active = this._settingsItems[key];
@@ -91,6 +69,7 @@ export const ConfigureWindow = GObject.registerClass({
 
             this._eq?.setValues(this._settingsItems['eq-custom']);
             this._syncRingRow();
+            this._syncHero();
             this._updateVisibility();
         });
 
@@ -114,7 +93,208 @@ export const ConfigureWindow = GObject.registerClass({
         });
     }
 
-    _addSoundPage(page) {
+    // Navigation rail on the left (a list of the pages when the window is narrow) and the
+    // pages on the right
+    _buildLayout(mac) {
+        this._mac = mac;
+        this._split = new Adw.NavigationSplitView({
+            min_sidebar_width: 64,
+            max_sidebar_width: 64,
+        });
+
+        this._pages = new Gtk.Stack({
+            transition_type: Gtk.StackTransitionType.NONE,
+            hexpand: true,
+            vexpand: true,
+        });
+        this._navList = new Gtk.ListBox({
+            selection_mode: Gtk.SelectionMode.SINGLE,
+            css_classes: ['navigation-sidebar'],
+        });
+        this._navRows = [];
+
+        const definitions = [
+            ['home', _('Home'), 'go-home-symbolic', page => this._addHomePage(page)],
+            ['noise', _('Noise Control'), 'bbm-anc-on-symbolic',
+                page => this._addNoisePage(page)],
+            ['equalizer', _('Equalizer'), 'bbm-eq-symbolic',
+                page => this._addEqualizerPage(page)],
+            ['find', _('Find My Earbuds'), 'bbm-bell-symbolic', page => this._addFindPage(page)],
+            ['gestures', _('Gestures'), 'bbm-edit-symbolic',
+                page => this._addGesturesPage(page)],
+            ['advanced', _('Advanced Settings'), 'bbm-settings-symbolic',
+                page => this._addAdvancedPage(page)],
+            ['system', _('System'), 'bbm-device-mgmt-symbolic',
+                page => this._addSystemPage(page)],
+        ];
+        this._pageDefinitions = definitions;
+
+        for (const [id, title, icon, build] of definitions) {
+            const page = new Adw.PreferencesPage();
+            build(page);
+            this._pages.add_named(page, id);
+
+            const row = new Gtk.ListBoxRow({tooltip_text: title});
+            const box = new Gtk.Box({
+                orientation: Gtk.Orientation.HORIZONTAL,
+                spacing: 12,
+                margin_top: 10,
+                margin_bottom: 10,
+                margin_start: 8,
+                margin_end: 8,
+            });
+            box.append(new Gtk.Image({icon_name: icon, pixel_size: 20, halign: Gtk.Align.CENTER}));
+            const label = new Gtk.Label({label: title, xalign: 0, hexpand: true, visible: false});
+            box.append(label);
+            row.set_child(box);
+            row._id = id;
+            row._title = title;
+            row._label = label;
+            this._navList.append(row);
+            this._navRows.push(row);
+        }
+
+        this._sidebarTitle = new Adw.WindowTitle({title: this.title, subtitle: ''});
+        this._sidebarTitle.visible = false;
+        const sidebarToolbar = new Adw.ToolbarView();
+        sidebarToolbar.add_top_bar(new Adw.HeaderBar({
+            title_widget: this._sidebarTitle,
+            show_end_title_buttons: false,
+        }));
+        sidebarToolbar.set_content(new Gtk.ScrolledWindow({
+            child: this._navList,
+            vexpand: true,
+            hscrollbar_policy: Gtk.PolicyType.NEVER,
+        }));
+        this._split.sidebar = new Adw.NavigationPage({title: this.title, child: sidebarToolbar});
+
+        this._contentTitle = new Adw.WindowTitle({title: definitions[0][1], subtitle: ''});
+        const contentToolbar = new Adw.ToolbarView();
+        contentToolbar.add_top_bar(new Adw.HeaderBar({
+            title_widget: this._contentTitle,
+            show_start_title_buttons: false,
+        }));
+        contentToolbar.set_content(this._pages);
+        this._split.content = new Adw.NavigationPage({title: this.title, child: contentToolbar});
+
+        this._navList.connect('row-selected', (_list, row) => {
+            if (!row)
+                return;
+
+            this._pages.set_visible_child_name(row._id);
+            this._contentTitle.title = row._title;
+        });
+        this._navList.connect('row-activated', () => {
+            if (this._split.collapsed)
+                this._split.show_content = true;
+        });
+        this._navList.select_row(this._navRows[0]);
+
+        // Narrow windows: the rail becomes a list of the pages with labels
+        const breakpoint = new Adw.Breakpoint({
+            condition: Adw.BreakpointCondition.parse('max-width: 560px'),
+        });
+        breakpoint.connect('apply', () => this._setCollapsed(true));
+        breakpoint.connect('unapply', () => this._setCollapsed(false));
+        this.add_breakpoint(breakpoint);
+
+        this.set_content(this._split);
+        this._syncHero();
+    }
+
+    _setCollapsed(collapsed) {
+        this._split.collapsed = collapsed;
+        this._split.min_sidebar_width = collapsed ? 200 : 64;
+        this._split.max_sidebar_width = collapsed ? 400 : 64;
+        this._sidebarTitle.visible = collapsed;
+        for (const row of this._navRows)
+            row._label.visible = collapsed;
+
+        if (collapsed)
+            this._split.show_content = false;
+    }
+
+    _showPage(id) {
+        const row = this._navRows.find(r => r._id === id);
+        if (!row)
+            return;
+
+        this._navList.select_row(row);
+        if (this._split.collapsed)
+            this._split.show_content = true;
+    }
+
+    _addHomePage(page) {
+        const heroGroup = new Adw.PreferencesGroup();
+        page.add(heroGroup);
+
+        const hero = new Gtk.Box({
+            orientation: Gtk.Orientation.HORIZONTAL,
+            spacing: 36,
+            halign: Gtk.Align.CENTER,
+            margin_top: 24,
+            margin_bottom: 24,
+        });
+        this._hero = {};
+        for (const [part, caption] of [['left', _('Left')], ['case', _('Case')],
+            ['right', _('Right')]]) {
+            const unit = new Gtk.Box({
+                orientation: Gtk.Orientation.VERTICAL,
+                spacing: 6,
+                halign: Gtk.Align.CENTER,
+            });
+            const icon = new Gtk.Image({pixel_size: 72, halign: Gtk.Align.CENTER});
+            const level = new Gtk.Label({css_classes: ['title-2']});
+            unit.append(icon);
+            unit.append(level);
+            unit.append(new Gtk.Label({label: caption, css_classes: ['dim-label']}));
+            hero.append(unit);
+            this._hero[part] = {icon, level};
+        }
+        heroGroup.add(hero);
+
+        const navGroup = new Adw.PreferencesGroup();
+        page.add(navGroup);
+        for (const [id, title, icon] of this._pageDefinitions.slice(1)) {
+            const row = new Adw.ActionRow({title, activatable: true});
+            row.add_prefix(new Gtk.Image({icon_name: icon}));
+            row.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
+            row.connect('activated', () => this._showPage(id));
+            navGroup.add(row);
+        }
+
+        const fw = this._settingsItems['fw'];
+        if (fw) {
+            const infoGroup = new Adw.PreferencesGroup();
+            page.add(infoGroup);
+            infoGroup.add(new Adw.ActionRow({
+                title: _('Firmware'),
+                subtitle: fw,
+                subtitle_selectable: true,
+            }));
+        }
+    }
+
+    // Icons and battery levels of the three units on the home page
+    _syncHero() {
+        if (!this._hero)
+            return;
+
+        const items = this._settingsItems;
+        const dual = supportedAudioDualIcons.includes(items['icon']) ? items['icon'] : 'earbuds';
+        const icons = {
+            left: `bbm-${dual}-left-symbolic`,
+            right: `bbm-${dual}-right-symbolic`,
+            case: `bbm-${items['case'] ?? this._modelData.case}-symbolic`,
+        };
+        for (const [part, widgets] of Object.entries(this._hero)) {
+            widgets.icon.icon_name = icons[part];
+            const level = items[`battery-${part}`] ?? 0;
+            widgets.level.label = level > 0 ? `${level} %` : '–';
+        }
+    }
+
+    _addNoisePage(page) {
         const ambientGroup = new Adw.PreferencesGroup({title: _('Ambient Sound')});
         page.add(ambientGroup);
 
@@ -129,10 +309,75 @@ export const ConfigureWindow = GObject.registerClass({
         this._addDropdown(ambientGroup, 'transparency-mode', _('Transparency Type'), '',
             [_('Standard'), _('Natural')],
             [TransparencyMode.STANDARD, TransparencyMode.NATURAL]);
+    }
 
+    _addEqualizerPage(page) {
         const effectsGroup = new Adw.PreferencesGroup({title: _('Audio Effects')});
         page.add(effectsGroup);
         this._addEqualizer(effectsGroup);
+    }
+
+    _addFindPage(page) {
+        const findGroup = new Adw.PreferencesGroup({title: _('Find My Earbuds')});
+        page.add(findGroup);
+        this._addFindRow(findGroup);
+    }
+
+    _addGesturesPage(page) {
+        const touchGroup = new Adw.PreferencesGroup({title: _('Touch Control')});
+        page.add(touchGroup);
+        this._addDropdown(touchGroup, 'touch-mode', _('Touch Control'),
+            _('Turns off touch control of one or both earbuds'),
+            [_('Both earbuds'), _('Disabled'), _('Right earbud only'), _('Left earbud only')],
+            [TouchMode.BOTH, TouchMode.NONE, TouchMode.RIGHT_ONLY, TouchMode.LEFT_ONLY]);
+
+        const shortLabels = [
+            _('Volume Up'), _('Volume Down'), _('Next Track'), _('Previous Track'),
+            _('Play / Pause'), _('Voice Assistant'), _('Noise Control'), _('No Action'),
+        ];
+        const shortValues = [
+            GestureActions.VOLUME_UP, GestureActions.VOLUME_DOWN, GestureActions.NEXT,
+            GestureActions.PREVIOUS, GestureActions.PLAY_PAUSE, GestureActions.VOICE_ASSISTANT,
+            GestureActions.NOISE_CONTROL, GestureActions.NONE,
+        ];
+        const longLabels = [...shortLabels.slice(0, 6), _('Game Mode'), _('Noise Control'),
+            _('Redial'), _('No Action')];
+        const longValues = [...shortValues.slice(0, 6), GestureActions.GAME_MODE,
+            GestureActions.NOISE_CONTROL, GestureActions.REDIAL, GestureActions.NONE];
+
+        const presses = [
+            ['single', _('Single Tap'), shortLabels, shortValues],
+            ['double', _('Double Tap'), shortLabels, shortValues],
+            ['triple', _('Triple Tap'), shortLabels, shortValues],
+            ['long', _('Press and Hold'), longLabels, longValues],
+        ];
+
+        for (const [side, title] of [['left', _('Left Earbud')], ['right', _('Right Earbud')]]) {
+            const group = new Adw.PreferencesGroup({title, description: _('Button Controls')});
+            page.add(group);
+
+            for (const [press, pressTitle, labels, values] of presses) {
+                this._addDropdown(group, `gesture-${press}-${side}`, pressTitle, '', labels,
+                    values);
+            }
+
+            this._addDropdown(group, `gesture-calllong-${side}`, _('Press and Hold (Call)'), '',
+                [_('Reject Call'), _('Mute Microphone')],
+                [CallActions.REJECT, CallActions.MUTE]);
+        }
+    }
+
+    _addAdvancedPage(page) {
+        const inEarGroup = new Adw.PreferencesGroup({title: _('In-Ear Detection')});
+        page.add(inEarGroup);
+        this._addSwitch(inEarGroup, 'in-ear', _('In-Ear Detection'),
+            _('Detects whether the earbuds are worn'));
+        this._addSwitch(inEarGroup, 'auto-play-pause', _('Auto Play/Pause'),
+            _('Pause when taken off, resume when put in'));
+        this._addSwitch(inEarGroup, 'auto-answer', _('Automatic Call Answering'),
+            _('Answer incoming calls when the earbuds are worn'));
+        this._addSwitch(inEarGroup, 'high-sensitivity', _('Higher Sensitivity'),
+            _('Improves detection with different ear shapes, but may trigger by mistake'));
 
         const soundGroup = new Adw.PreferencesGroup({title: _('Sound Settings')});
         page.add(soundGroup);
@@ -151,6 +396,49 @@ export const ConfigureWindow = GObject.registerClass({
         this._addDropdown(soundGroup, 'voice-prompt', _('Voice Prompt Volume'), '',
             [_('Loudest'), _('Loud'), _('Medium'), _('Quiet'), _('Quietest')],
             [0, 1, 2, 3, 4]);
+        this._addDropdown(soundGroup, 'mic-mode', _('Microphone'),
+            _('Use one earbud for calls or let the earbuds choose'),
+            [_('Automatic'), _('Left earbud only'), _('Right earbud only')],
+            [MicMode.AUTO, MicMode.LEFT, MicMode.RIGHT]);
+    }
+
+    _addSystemPage(page) {
+        const iconSelector = new IconSelectorWidget({
+            iconList: supportedAudioSingleIcons,
+            initialIcon: this._settingsItems['icon'] || this._modelData.budsIcon,
+            caseIconList: supportedCaseIcons,
+            initialCaseIcon: this._settingsItems['case'] || this._modelData.case,
+            mac: this._mac,
+            fw: this._settingsItems['fw'] ?? '',
+            lFw: '',
+            rFw: '',
+            serial: '',
+        });
+
+        iconSelector.connect('notify::selected-icon', () => {
+            this._updateGsettings('icon', iconSelector.selected_icon);
+        });
+        iconSelector.connect('notify::selected-case-icon', () => {
+            this._updateGsettings('case', iconSelector.selected_case_icon);
+        });
+        page.add(iconSelector);
+
+        const settingsGroup = new Adw.PreferencesGroup({title: _('Settings')});
+        page.add(settingsGroup);
+
+        this._addNameRow(settingsGroup);
+        this._addSwitch(settingsGroup, 'multipoint', _('Multipoint Connection'),
+            _('Connect to two devices at the same time. Turn it off to use LDAC'));
+        this._addDropdown(settingsGroup, 'codec', _('Audio Quality'),
+            _('Bluetooth codec. The earbuds restart and reconnect when this changes'),
+            [_('Stable connection'), 'aptX', 'aptX Adaptive', 'aptX Adaptive Lossless',
+                'LDAC'],
+            [Codec.STABLE, Codec.APTX, Codec.APTX_ADAPTIVE, Codec.APTX_LOSSLESS, Codec.LDAC]);
+        this._addDropdown(settingsGroup, 'advanced-audio', _('Connection Mode'),
+            _('LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with ' +
+              'LE Audio. The earbuds restart when this changes'),
+            ['Google Fast Pair', 'LE Audio'],
+            [AdvancedAudio.FAST_PAIR, AdvancedAudio.LE_AUDIO]);
     }
 
     _addEqualizer(group) {
@@ -209,109 +497,6 @@ export const ConfigureWindow = GObject.registerClass({
         this._addDropdown(group, 'eq-preset', _('Equalizer Preset'), '',
             EqPresets.map(([key]) => presetLabels[key]),
             EqPresets.map((_p, index) => index));
-    }
-
-    _addControlsPage(page) {
-        const touchGroup = new Adw.PreferencesGroup({title: _('Touch Control')});
-        page.add(touchGroup);
-        this._addDropdown(touchGroup, 'touch-mode', _('Touch Control'),
-            _('Turns off touch control of one or both earbuds'),
-            [_('Both earbuds'), _('Disabled'), _('Right earbud only'), _('Left earbud only')],
-            [TouchMode.BOTH, TouchMode.NONE, TouchMode.RIGHT_ONLY, TouchMode.LEFT_ONLY]);
-
-        const shortLabels = [
-            _('Volume Up'), _('Volume Down'), _('Next Track'), _('Previous Track'),
-            _('Play / Pause'), _('Voice Assistant'), _('Noise Control'), _('No Action'),
-        ];
-        const shortValues = [
-            GestureActions.VOLUME_UP, GestureActions.VOLUME_DOWN, GestureActions.NEXT,
-            GestureActions.PREVIOUS, GestureActions.PLAY_PAUSE, GestureActions.VOICE_ASSISTANT,
-            GestureActions.NOISE_CONTROL, GestureActions.NONE,
-        ];
-        const longLabels = [...shortLabels.slice(0, 6), _('Game Mode'), _('Noise Control'),
-            _('Redial'), _('No Action')];
-        const longValues = [...shortValues.slice(0, 6), GestureActions.GAME_MODE,
-            GestureActions.NOISE_CONTROL, GestureActions.REDIAL, GestureActions.NONE];
-
-        const presses = [
-            ['single', _('Single Tap'), shortLabels, shortValues],
-            ['double', _('Double Tap'), shortLabels, shortValues],
-            ['triple', _('Triple Tap'), shortLabels, shortValues],
-            ['long', _('Press and Hold'), longLabels, longValues],
-        ];
-
-        for (const [side, title] of [['left', _('Left Earbud')], ['right', _('Right Earbud')]]) {
-            const group = new Adw.PreferencesGroup({title, description: _('Button Controls')});
-            page.add(group);
-
-            for (const [press, pressTitle, labels, values] of presses) {
-                this._addDropdown(group, `gesture-${press}-${side}`, pressTitle, '', labels,
-                    values);
-            }
-
-            this._addDropdown(group, `gesture-calllong-${side}`, _('Press and Hold (Call)'), '',
-                [_('Reject Call'), _('Mute Microphone')],
-                [CallActions.REJECT, CallActions.MUTE]);
-        }
-
-        const inEarGroup = new Adw.PreferencesGroup({title: _('In-Ear Detection')});
-        page.add(inEarGroup);
-        this._addSwitch(inEarGroup, 'in-ear', _('In-Ear Detection'),
-            _('Detects whether the earbuds are worn'));
-        this._addSwitch(inEarGroup, 'auto-play-pause', _('Auto Play/Pause'),
-            _('Pause when taken off, resume when put in'));
-        this._addSwitch(inEarGroup, 'auto-answer', _('Automatic Call Answering'),
-            _('Answer incoming calls when the earbuds are worn'));
-        this._addSwitch(inEarGroup, 'high-sensitivity', _('Higher Sensitivity'),
-            _('Improves detection with different ear shapes, but may trigger by mistake'));
-    }
-
-    _addDevicePage(page, mac) {
-        const iconSelector = new IconSelectorWidget({
-            iconList: supportedAudioSingleIcons,
-            initialIcon: this._settingsItems['icon'] || this._modelData.budsIcon,
-            caseIconList: supportedCaseIcons,
-            initialCaseIcon: this._settingsItems['case'] || this._modelData.case,
-            mac,
-            fw: this._settingsItems['fw'] ?? '',
-            lFw: '',
-            rFw: '',
-            serial: '',
-        });
-
-        iconSelector.connect('notify::selected-icon', () => {
-            this._updateGsettings('icon', iconSelector.selected_icon);
-        });
-        iconSelector.connect('notify::selected-case-icon', () => {
-            this._updateGsettings('case', iconSelector.selected_case_icon);
-        });
-        page.add(iconSelector);
-
-        const findGroup = new Adw.PreferencesGroup({title: _('Find My Earbuds')});
-        page.add(findGroup);
-        this._addFindRow(findGroup);
-
-        const settingsGroup = new Adw.PreferencesGroup({title: _('Settings')});
-        page.add(settingsGroup);
-
-        this._addNameRow(settingsGroup);
-        this._addDropdown(settingsGroup, 'mic-mode', _('Microphone'),
-            _('Use one earbud for calls or let the earbuds choose'),
-            [_('Automatic'), _('Left earbud only'), _('Right earbud only')],
-            [MicMode.AUTO, MicMode.LEFT, MicMode.RIGHT]);
-        this._addSwitch(settingsGroup, 'multipoint', _('Multipoint Connection'),
-            _('Connect to two devices at the same time. The earbuds restart when this ' +
-              'changes. Turn it off to use LDAC'));
-        this._addDropdown(settingsGroup, 'codec', _('Audio Quality'),
-            _('Bluetooth codec. The earbuds restart and reconnect when this changes'),
-            [_('Stable connection'), 'aptX', 'aptX Adaptive', 'aptX Adaptive Lossless',
-                'LDAC'],
-            [Codec.STABLE, Codec.APTX, Codec.APTX_ADAPTIVE, Codec.APTX_LOSSLESS, Codec.LDAC]);
-        this._addDropdown(settingsGroup, 'advanced-audio', _('Connection Mode'),
-            _('LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with ' +
-              'LE Audio. The earbuds restart when this changes'),
-            ['Google Fast Pair', 'LE Audio'],
-            [AdvancedAudio.FAST_PAIR, AdvancedAudio.LE_AUDIO]);
     }
 
     // Both earbuds can play the tone on their own: the left button is the left earbud

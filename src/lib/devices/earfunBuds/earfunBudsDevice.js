@@ -171,6 +171,9 @@ export const EarfunBudsDevice = GObject.registerClass({
             codec: Codec.APTX,
             'advanced-audio': AdvancedAudio.FAST_PAIR,
             'find-device': FindDevice.OFF,
+            'battery-left': 0,
+            'battery-right': 0,
+            'battery-case': 0,
             'name-request': {seq: 0, name: ''},
             'eq-mode': 'preset',
             'eq-preset': 0,
@@ -453,6 +456,13 @@ export const EarfunBudsDevice = GObject.registerClass({
 
         this._props = {...this._props, ...props};
         this._props.computedBatteryLevel = buds2to1BatteryLevel(this._props);
+
+        // The configure window shows the levels
+        this._writeSettings({
+            'battery-left': this._props.battery1Level,
+            'battery-right': this._props.battery2Level,
+            'battery-case': this._props.battery3Level,
+        });
 
         if (!this.dataHandler)
             this._startConfiguration();
