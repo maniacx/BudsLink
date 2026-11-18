@@ -137,6 +137,11 @@ export const SoundcoreSocket = GObject.registerClass({
             return;
         }
 
+        if (this._initialRequestTimeoutId) {
+            GLib.source_remove(this._initialRequestTimeoutId);
+            this._initialRequestTimeoutId = null;
+        }
+
         this._emitBattery(body);
 
         if (m.firmware)
