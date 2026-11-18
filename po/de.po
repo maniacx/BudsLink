@@ -43,7 +43,7 @@ msgstr "Einstellungen"
 #: src/preferences/devices/opoBuds/configureWindow.js:919
 #: src/preferences/devices/opoBuds/configureWindow.js:1173
 msgid "Game Mode"
-msgstr "Spiel-Mode"
+msgstr "Spielmodus"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:69
 #: src/preferences/devices/soundcore/configureWindow.js:193
