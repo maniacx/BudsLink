@@ -88,6 +88,7 @@
         <file>lib/devices/boseBuds/deviceConfigs/QCUltra2Headphones.js</file>
         <file>lib/devices/boseBuds/deviceConfigs/QCUltraEarbuds.js</file>
         <file>lib/devices/boseBuds/deviceConfigs/QCUltraHeadphones.js</file>
+        <file>lib/devices/boseBuds/deviceConfigs/QC2023Headphones.js</file>
         <file>preferences/devices/boseBuds/configureWindow.js</file>
         <file>preferences/devices/boseBuds/modesGroupWidget.js</file>
 
