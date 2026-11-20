@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-11-16 16:13+0000\n"
+"PO-Revision-Date: 2026-11-20 23:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -1471,7 +1471,7 @@ msgstr "Pulsar Ambos Auriculares"
 #: src/preferences/devices/nothingBuds/configureWindow.js:603
 #: src/preferences/devices/boseBuds/configureWindow.js:709
 msgid "Double Pinch and Hold"
-msgstr ""
+msgstr "Doble click y mantener pulsado"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:604
 msgid "Pinch Both Buds"
@@ -1479,20 +1479,20 @@ msgstr ""
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:607
 msgid "Slide to Adjust"
-msgstr ""
+msgstr "Arrastrar para ajustar"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:614
 msgid "Rotate"
-msgstr ""
+msgstr "Rotar"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:633
 msgid "Unknown Gesture"
-msgstr ""
+msgstr "Gesto desconocido"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:707
 #: src/preferences/devices/opoBuds/configureWindow.js:1215
 msgid "Configure controls"
-msgstr ""
+msgstr "Configurar controles"
 
 #: src/preferences/devices/nothingBuds/configureWindow.js:751
 msgid "Roller Controls"
