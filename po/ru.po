@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-07 10:51+0000\n"
+"PO-Revision-Date: 2026-11-19 19:29+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -421,7 +421,7 @@ msgstr "Управление жестами"
 
 #: src/preferences/devices/soundcore/configureWindow.js:96
 msgid "Device"
-msgstr ""
+msgstr "Устройство"
 
 #: src/preferences/devices/soundcore/configureWindow.js:158
 #: src/preferences/devices/galaxyBuds/configureWindow.js:466
@@ -448,7 +448,7 @@ msgstr "Вручную"
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/soundcore/configureWindow.js:172
 msgid "Transportation"
-msgstr ""
+msgstr "Транспорт"
 
 #: src/preferences/devices/soundcore/configureWindow.js:169
 msgid "Environment Detection"
@@ -465,37 +465,37 @@ msgstr "Уровень шумоподавления"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Plane"
-msgstr ""
+msgstr "Самолет"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Train"
-msgstr ""
+msgstr "Поезд"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Bus"
-msgstr ""
+msgstr "Автобус"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Car"
-msgstr ""
+msgstr "Автомобиль"
 
 #: src/preferences/devices/soundcore/configureWindow.js:177
 msgid "Transparency Type"
-msgstr ""
+msgstr "Тип прозрачности"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Fully Transparent"
-msgstr ""
+msgstr "Полная прозрачность"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Vocal Mode"
-msgstr ""
+msgstr "Вокальный режим"
 
 #: src/preferences/devices/soundcore/configureWindow.js:181
 #: src/lib/devices/opoBuds/opoBudsDevice.js:631
 #: src/lib/devices/opoBuds/opoBudsDevice.js:641
 msgid "Wind Noise Reduction"
-msgstr ""
+msgstr "Снижение шума ветра"
 
 #: src/preferences/devices/soundcore/configureWindow.js:184
 #: src/preferences/devices/opoBuds/configureWindow.js:712
@@ -505,7 +505,7 @@ msgstr "Аудио эффекты"
 
 #: src/preferences/devices/soundcore/configureWindow.js:190
 msgid "Sound Leak Compensation"
-msgstr ""
+msgstr "Компенсация утечки звука"
 
 #: src/preferences/devices/soundcore/configureWindow.js:194
 msgid "Limit High Volume"
@@ -513,15 +513,15 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:196
 msgid "Volume Limit"
-msgstr ""
+msgstr "Лимит громкости"
 
 #: src/preferences/devices/soundcore/configureWindow.js:199
 msgid "Decibel Reading Refresh Rate"
-msgstr ""
+msgstr "Частота обновления показаний в децибелах"
 
 #: src/preferences/devices/soundcore/configureWindow.js:200
 msgid "Real time"
-msgstr ""
+msgstr "Настоящее время"
 
 #: src/preferences/devices/soundcore/configureWindow.js:200
 #: src/preferences/devices/galaxyBuds/configureWindow.js:249
@@ -530,18 +530,20 @@ msgstr "10 секунд"
 
 #: src/preferences/devices/soundcore/configureWindow.js:200
 msgid "1 minute"
-msgstr ""
+msgstr "1 минута"
 
 #: src/preferences/devices/soundcore/configureWindow.js:246
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:178
 msgid "LDAC"
-msgstr ""
+msgstr "LDAC"
 
 #: src/preferences/devices/soundcore/configureWindow.js:247
 msgid ""
 "High resolution codec. Turns off connections to multiple devices and the "
 "earbuds reconnect when this changes"
 msgstr ""
+"Кодек высокого разрешения. Отключает соединения с несколькими устройствами, "
+"и наушники переподключаются при изменении этого параметра"
 
 #: src/preferences/devices/soundcore/configureWindow.js:249
 msgid "Auto Play/Pause"
@@ -583,7 +585,7 @@ msgstr "Никогда"
 
 #: src/preferences/devices/soundcore/configureWindow.js:260
 msgid "After 10 minutes"
-msgstr ""
+msgstr "Через 10 минут"
 
 #: src/preferences/devices/soundcore/configureWindow.js:260
 #: src/preferences/devices/boseBuds/configureWindow.js:569
@@ -667,26 +669,26 @@ msgstr "Пользовательский эквалайзер"
 
 #: src/preferences/devices/soundcore/configureWindow.js:402
 msgid "Saved Equalizers"
-msgstr ""
+msgstr "Сохраненные эквалайзеры"
 
 #: src/preferences/devices/soundcore/configureWindow.js:403
 #: src/preferences/devices/soundcore/configureWindow.js:545
 msgid "Not saved"
-msgstr ""
+msgstr "Не сохранено"
 
 #: src/preferences/devices/soundcore/configureWindow.js:419
 #: src/preferences/devices/soundcore/configureWindow.js:560
 msgid "Save Equalizer"
-msgstr ""
+msgstr "Сохранить эквалайзер"
 
 #: src/preferences/devices/soundcore/configureWindow.js:422
 #: src/preferences/devices/soundcore/configureWindow.js:565
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: src/preferences/devices/soundcore/configureWindow.js:431
 msgid "Delete Saved Equalizer"
-msgstr ""
+msgstr "Удалить сохранённый эквалайзер"
 
 #: src/preferences/devices/soundcore/configureWindow.js:434
 #: src/preferences/devices/opoBuds/configureWindow.js:675
@@ -724,7 +726,7 @@ msgstr ""
 #: src/preferences/devices/soundcore/configureWindow.js:462
 #: src/preferences/devices/soundcore/configureWindow.js:485
 msgid "Favorite Music Genre"
-msgstr ""
+msgstr "Любимый жанр музыки"
 
 #: src/preferences/devices/soundcore/configureWindow.js:502
 msgid "Anker Signature"
@@ -732,7 +734,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:503
 msgid "Acoustic"
-msgstr ""
+msgstr "Акустика"
 
 #: src/preferences/devices/soundcore/configureWindow.js:504
 #: src/preferences/devices/redmiBuds/configureWindow.js:260
@@ -768,8 +770,9 @@ msgid "Dance"
 msgstr "Танцевальная"
 
 #: src/preferences/devices/soundcore/configureWindow.js:509
+#, fuzzy
 msgid "Deep"
-msgstr ""
+msgstr "Deep"
 
 #: src/preferences/devices/soundcore/configureWindow.js:510
 #: src/preferences/devices/nothingBuds/configureWindow.js:256
@@ -850,7 +853,7 @@ msgstr "Уменьшение высоких частот"
 
 #: src/preferences/devices/soundcore/configureWindow.js:554
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: src/preferences/devices/soundcore/configureWindow.js:561
 #: src/preferences/devices/opoBuds/configureWindow.js:588
@@ -1027,14 +1030,14 @@ msgstr "Нажатие и удержание"
 #: src/preferences/devices/opoBuds/configureWindow.js:1361
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Left Earbud"
-msgstr ""
+msgstr "Левый наушник"
 
 #: src/preferences/devices/soundcore/configureWindow.js:624
 #: src/preferences/devices/nothingBuds/configureWindow.js:748
 #: src/preferences/devices/opoBuds/configureWindow.js:1363
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Right Earbud"
-msgstr ""
+msgstr "Правый наушник"
 
 #: src/preferences/devices/soundcore/configureWindow.js:625
 #: src/preferences/devices/opoBuds/configureWindow.js:1369
@@ -3184,12 +3187,3 @@ msgstr "Настроить"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Уровень заряда"
-
-#~ msgid "Roller Gesture Control"
-#~ msgstr "Жест колесика"
-
-#~ msgid "Case Gesture Control"
-#~ msgstr "Жест на кейсе"
-
-#~ msgid "Slider Gesture Control"
-#~ msgstr "Жест слайдера"
