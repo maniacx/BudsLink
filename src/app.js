@@ -169,6 +169,7 @@ export const BudsLinkApplication = GObject.registerClass({
         this.senhBudsEnabled = true;
         this.boseBudsEnabled = true;
         this.edifierBudsEnabled = true;
+        this.oneMoreBudsEnabled = true;
         this.opoBudsEnabled = true;
         this.cambridgeBudsEnabled = true;
         this.soundcoreEnabled = true;

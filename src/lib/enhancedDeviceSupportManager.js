@@ -31,6 +31,9 @@ import {
     EdifierBudsDevice, isEdifierBuds, DeviceTypeEdifierBuds
 } from './devices/edifierBuds/edifierBudsDevice.js';
 import {
+    OneMoreBudsDevice, isOneMoreBuds, DeviceTypeOneMoreBuds
+} from './devices/oneMoreBuds/oneMoreBudsDevice.js';
+import {
     OpoBudsDevice, isOpoBuds, DeviceTypeOpoBuds
 } from './devices/opoBuds/opoBudsDevice.js';
 import {
@@ -155,6 +158,11 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                     enabled: this._toggle.edifierBudsEnabled,
                     check: isEdifierBuds,
                     type: DeviceTypeEdifierBuds,
+                },
+                {
+                    enabled: this._toggle.oneMoreBudsEnabled,
+                    check: isOneMoreBuds,
+                    type: DeviceTypeOneMoreBuds,
                 },
                 {
                     enabled: this._toggle.opoBudsEnabled,
@@ -303,9 +311,9 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                         new EdifierBudsDevice(this._settings, path, deviceProps.alias,
                             this._extPath, this._profileManager,
                             this.updateDeviceMapCb.bind(this));
-                } else if (deviceProps.type === DeviceTypeOpoBuds) {
+                } else if (deviceProps.type === DeviceTypeOneMoreBuds) {
                     deviceProps.enhancedDevice =
-                        new OpoBudsDevice(this._settings, path, deviceProps.alias,
+                        new OneMoreBudsDevice(this._settings, path, deviceProps.alias,
                             this._extPath, this._profileManager,
                             this.updateDeviceMapCb.bind(this));
                 } else if (deviceProps.type === DeviceTypeCambridgeBuds) {
