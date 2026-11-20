@@ -176,7 +176,7 @@ export const ProfileManager = GObject.registerClass({
         if (method === 'RequestDisconnection') {
             const [devicePath] = params.deep_unpack();
             this._log.info(`RequestDisconnection ${devicePath}`);
-            this.releaseFd(deviceType, devicePath, false);
+            this.releaseFd(devicePath, false);
             invocation.return_value(null);
         }
     }
@@ -199,21 +199,28 @@ export const ProfileManager = GObject.registerClass({
         }
     }
 
-    async connectProfile(deviceType, devicePath) {
-        const profile = this._profiles.get(deviceType);
+    async connectProfile(devicePath) {
+        const entry = this._fdByDevice.get(devicePath);
+        if (!entry)
+            return;
+
+        const profile = this._profiles.get(entry.deviceType);
         if (!profile)
             return;
 
-        const deviceProxy = await this._getDeviceProxy(devicePath);
-        if (!deviceProxy)
-            return;
 
         try {
+            entry.connecting = true;
+
+            const deviceProxy = await this._getDeviceProxy(devicePath);
+            if (!deviceProxy)
+                return;
+
             await deviceProxy.call(
                 'ConnectProfile',
                 GLib.Variant.new_tuple([new GLib.Variant('s', profile.uuid)]),
                 Gio.DBusCallFlags.NONE,
-                -1,
+                5000,
                 null
             );
 
@@ -224,11 +231,17 @@ export const ProfileManager = GObject.registerClass({
             this._log.info(
                 `ConnectProfile Failed for ${profile.uuid} on ${sanitizeDevPath(devicePath)}. ${e}`
             );
+        } finally {
+            entry.connecting = false;
         }
     }
 
-    async disconnectProfile(deviceType, devicePath) {
-        const profile = this._profiles.get(deviceType);
+    async disconnectProfile(devicePath) {
+        const entry = this._fdByDevice.get(devicePath);
+        if (!entry)
+            return;
+
+        const profile = this._profiles.get(entry.deviceType);
         if (!profile)
             return;
 
@@ -243,7 +256,7 @@ export const ProfileManager = GObject.registerClass({
                     new GLib.Variant('s', profile.uuid),
                 ]),
                 Gio.DBusCallFlags.NONE,
-                -1,
+                5000,
                 null
             );
 
@@ -313,7 +326,7 @@ export const ProfileManager = GObject.registerClass({
 
             entry.timeoutId = GLib.timeout_add(
                 GLib.PRIORITY_DEFAULT,
-                500,
+                700,
                 () => {
                     if (!this._fdByDevice.has(devicePath))
                         return GLib.SOURCE_REMOVE;
@@ -324,31 +337,24 @@ export const ProfileManager = GObject.registerClass({
                     // While a second device's audio link is still being set up,
                     // BlueZ answers br-connection-busy for several seconds; the
                     // connection then often arrives just after a 4.5 s cut-off.
-                    if (attempt === 1 || attempt === 2 || attempt === 4 || attempt === 8 ||
-                            attempt === 16)
-                        this.connectProfile(deviceType, devicePath);
-
-                    if (attempt > 24) {
-                        if (entry.signalId) {
-                            this.disconnect(entry.signalId);
-                            entry.signalId = null;
-                        }
-                        this._fdByDevice.delete(devicePath);
-                        entry.timeoutId = null;
-                        resolve(-1);
+                    if (attempt > 8) {
+                        this.releaseFd(devicePath, false);
                         return GLib.SOURCE_REMOVE;
                     }
+
+                    if (!entry.connecting)
+                        this.connectProfile(devicePath);
 
                     return GLib.SOURCE_CONTINUE;
                 }
             );
 
-            this.connectProfile(deviceType, devicePath);
+            this.connectProfile(devicePath);
         });
     }
 
 
-    async releaseFd(deviceType, devicePath, disconnect = true) {
+    async releaseFd(devicePath, disconnect = true) {
         const entry = this._fdByDevice.get(devicePath);
         if (!entry)
             return;
@@ -364,10 +370,12 @@ export const ProfileManager = GObject.registerClass({
             entry.resolve = null;
         }
 
+        if (disconnect)
+            await this.disconnectProfile(devicePath);
+
         this._fdByDevice.delete(devicePath);
 
-        if (disconnect)
-            await this.disconnectProfile(deviceType, devicePath);
+        const deviceType = entry.deviceType;
 
         const hasOtherDevices =
             Array.from(this._fdByDevice.values()).some(e => e.deviceType === deviceType);
