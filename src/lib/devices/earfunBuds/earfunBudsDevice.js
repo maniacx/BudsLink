@@ -1,4 +1,5 @@
 'use strict';
+import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import {gettext as _} from 'gettext';
@@ -48,11 +49,26 @@ function findModel(name) {
     return EarfunModels.find(m => m.pattern.test(name)) ?? null;
 }
 
+// Earbuds that were recognized before are remembered in the settings. They are still recognized
+// after the owner gave them another name, because the name is the only mark that tells them
+// apart from other earbuds with the same services
+function isRememberedDevice(devicePath) {
+    try {
+        const settings = new Gio.Settings({schema_id: 'io.github.maniacx.BudsLink'});
+        return settings.get_strv(SettingsKey).some(item => JSON.parse(item).path === devicePath);
+    } catch {
+        return false;
+    }
+}
+
 export function isEarfunBuds(bluezDeviceProxy, uuids) {
     const bluezProps = ['Name'];
     const lower = uuids.map(u => u.toLowerCase());
     if (!lower.includes(SppUUid) || !lower.includes(EarfunVendorUuid))
         return {supported: 'no', bluezProps};
+
+    if (isRememberedDevice(bluezDeviceProxy.g_object_path))
+        return {supported: 'yes', bluezProps};
 
     const name = bluezDeviceProxy.Name;
     if (!name)
@@ -140,7 +156,9 @@ export const EarfunBudsDevice = GObject.registerClass({
             updateAdvancedAudio: this.updateAdvancedAudio.bind(this),
         };
 
-        const profile = {type: DeviceTypeEarfunBuds, uuid: SppUUid};
+        // The earbuds accept one connection to the serial port: it may be taken by the app of
+        // the vendor on a phone for a while, so BudsLink keeps asking (for an hour at most)
+        const profile = {type: DeviceTypeEarfunBuds, uuid: SppUUid, retrySeconds: 3600};
         this._socket = new EarfunBudsSocket(this._devicePath, profileManager, profile,
             this._callbacks);
     }

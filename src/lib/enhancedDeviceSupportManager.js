@@ -85,6 +85,13 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
             if (deviceProps.connected && !connected)
                 this._destroyEnhancedDevice(path);
 
+            // A device that connects is detected again: its name and its services may
+            // have changed since it was seen the last time, for example while it was off
+            if (!deviceProps.connected && connected && !deviceProps.enhancedDevice) {
+                deviceProps.type = null;
+                deviceProps.pendingDetection = true;
+            }
+
             deviceProps.connected = connected;
         }
 

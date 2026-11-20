@@ -256,7 +256,11 @@ export const ProfileManager = GObject.registerClass({
         }
     }
 
-    async acquireFd(deviceType, uuid, devicePath) {
+    // retrySeconds: how long to keep asking BlueZ to connect the profile. The default (0) gives up
+    // after about 12 seconds. A larger value keeps trying every 4 seconds for the first 90
+    // seconds and every 30 seconds after that. Another program, for example the app of the
+    // vendor, may hold the only connection to the device for a long time
+    async acquireFd(deviceType, uuid, devicePath, retrySeconds = 0) {
         if (!this._profiles.has(deviceType)) {
             const iniEntry = {
                 uuid,
@@ -325,10 +329,11 @@ export const ProfileManager = GObject.registerClass({
                     // BlueZ answers br-connection-busy for several seconds; the
                     // connection then often arrives just after a 4.5 s cut-off.
                     if (attempt === 1 || attempt === 2 || attempt === 4 || attempt === 8 ||
-                            attempt === 16)
+                            attempt === 16 || retrySeconds > 0 && attempt > 16 &&
+                            attempt % (attempt <= 180 ? 8 : 60) === 0)
                         this.connectProfile(deviceType, devicePath);
 
-                    if (attempt > 24) {
+                    if (attempt > (retrySeconds > 0 ? retrySeconds * 2 : 24)) {
                         if (entry.signalId) {
                             this.disconnect(entry.signalId);
                             entry.signalId = null;
