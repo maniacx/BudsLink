@@ -3544,3 +3544,75 @@ msgstr "받기 / 통화 전환"
 #: src/preferences/devices/earfunBuds/configureWindow.js:402
 msgid "Answer / Hang Up"
 msgstr "받기 / 끊기"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "이어버드를 다른 앱(예: 휴대폰의 제조사 앱)에서 사용 중입니다. BudsLink는 연결이 비면 계속 시도하고 설정을 바로 적용합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "LDAC에서는 Multipoint를 사용할 수 없습니다"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "먼저 다른 음질을 선택한 다음 Multipoint를 켜세요."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "이어버드를 다시 시작할까요?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "연결 모드가 바뀌면 이어버드가 다시 시작됩니다. 음악과 통화가 몇 초 동안 중단됩니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "Multipoint를 끌까요?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "LDAC은 Multipoint와 함께 사용할 수 없습니다. 먼저 Multipoint를 끄고 LDAC을 선택합니다. 이어버드가 다시 시작됩니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "끄고 선택"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "음질이 바뀌면 이어버드가 다시 시작됩니다. 음악과 통화가 몇 초 동안 중단됩니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "이어폰에 연결되어 있거나 연결된 적이 있는 기기"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "새 기기 페어링"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "다른 기기가 이어폰에 연결할 수 있도록 페어링 모드를 시작합니다"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "시작"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "페어링 모드를 시작할까요?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "이어폰이 잠시 동안 새 기기를 기다립니다. 두 자리를 모두 사용 중이면 안 되므로 먼저 기기 중 하나의 연결을 해제하세요."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "연결되지 않음"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "항상 이 기기에서 재생"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "이 기기에서 재생"

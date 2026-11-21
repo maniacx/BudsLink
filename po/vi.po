@@ -3540,3 +3540,75 @@ msgstr "Trả lời / Chuyển đổi giữa các cuộc gọi"
 #: src/preferences/devices/earfunBuds/configureWindow.js:402
 msgid "Answer / Hang Up"
 msgstr "Trả lời / Kết thúc cuộc gọi"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "Tai nghe đang được một ứng dụng khác sử dụng, ví dụ ứng dụng của nhà sản xuất trên điện thoại. BudsLink sẽ tiếp tục thử và áp dụng cài đặt ngay khi kết nối rảnh."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "Không thể dùng Multipoint với LDAC"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "Hãy chọn chất lượng âm thanh khác trước, sau đó bật Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "Khởi động lại tai nghe?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "Tai nghe sẽ khởi động lại khi chế độ kết nối thay đổi. Nhạc và cuộc gọi sẽ bị gián đoạn trong vài giây."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "Tắt Multipoint?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "Không thể dùng LDAC cùng lúc với Multipoint. Multipoint sẽ được tắt trước, sau đó LDAC được chọn. Tai nghe sẽ khởi động lại."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "Tắt và chọn"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "Tai nghe sẽ khởi động lại khi chất lượng âm thanh thay đổi. Nhạc và cuộc gọi sẽ bị gián đoạn trong vài giây."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "Các thiết bị đang hoặc đã từng kết nối với tai nghe"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "Ghép nối thiết bị mới"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "Bắt đầu chế độ ghép nối để thiết bị khác có thể kết nối với tai nghe"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "Bắt đầu"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "Bắt đầu chế độ ghép nối?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "Tai nghe chờ thiết bị mới trong một khoảng thời gian. Cả hai vị trí không được đang sử dụng, vì vậy hãy ngắt kết nối một trong các thiết bị trước."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "Chưa kết nối"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "Luôn phát trên thiết bị này"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "Phát trên thiết bị này"

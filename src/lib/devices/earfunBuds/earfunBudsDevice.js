@@ -161,6 +161,8 @@ export const EarfunBudsDevice = GObject.registerClass({
             updateBalance: this.updateBalance.bind(this),
             updateFindDevice: this.updateFindDevice.bind(this),
             updateAdvancedAudio: this.updateAdvancedAudio.bind(this),
+            updateChannel: this.updateChannel.bind(this),
+            updateDevices: this.updateDevices.bind(this),
         };
 
         // The earbuds accept one connection to the serial port: it may be taken by the app of
@@ -168,6 +170,14 @@ export const EarfunBudsDevice = GObject.registerClass({
         const profile = {type: DeviceTypeEarfunBuds, uuid: SppUUid, retrySeconds: 3600};
         this._socket = new EarfunBudsSocket(this._devicePath, profileManager, profile,
             this._callbacks);
+
+        // Another app (the one of the vendor on a phone) may hold the connection to the serial
+        // port. Without a connection after a few seconds, the configure window says so
+        this._busyTimeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 6, () => {
+            this._busyTimeoutId = null;
+            this._writeSettings({'channel-busy': true});
+            return GLib.SOURCE_REMOVE;
+        });
     }
 
     _initSettings() {
@@ -203,6 +213,9 @@ export const EarfunBudsDevice = GObject.registerClass({
             'battery-right': 0,
             'battery-case': 0,
             'name-request': {seq: 0, name: ''},
+            'device-request': {seq: 0, action: ''},
+            'channel-busy': false,
+            'multipoint-devices': [],
             'eq-mode': 'preset',
             'eq-preset': 0,
             'eq-custom': new Array(10).fill(0),
@@ -225,6 +238,7 @@ export const EarfunBudsDevice = GObject.registerClass({
         this._caseIcon = this._settingsItems['case'];
         this._lastEqGains = this._eqGains(this._settingsItems);
         this._nameRequestSeq = this._settingsItems['name-request']?.seq ?? 0;
+        this._deviceRequestSeq = this._settingsItems['device-request']?.seq ?? 0;
 
         this._settingsHandlerId = this._settings.connect(`changed::${SettingsKey}`, () => {
             if (!this._ignoreGsettingsChange)
@@ -315,6 +329,7 @@ export const EarfunBudsDevice = GObject.registerClass({
         }
 
         this._handleNameRequest(items['name-request']);
+        this._handleDeviceRequest(items['device-request']);
 
         const mask = inEarMaskFromSettings(items, state['in-ear-mask']);
         if (state['in-ear-mask'] !== undefined && mask !== state['in-ear-mask']) {
@@ -350,6 +365,32 @@ export const EarfunBudsDevice = GObject.registerClass({
 
         this._log.info('Sending new device name');
         this._socket?.setDeviceName(name);
+    }
+
+    // The configure window asks for one action on the list of devices, with a counter so that
+    // the same action can be asked again
+    _handleDeviceRequest(request) {
+        if (!request || request.seq === this._deviceRequestSeq)
+            return;
+
+        this._deviceRequestSeq = request.seq;
+        const socket = this._socket;
+        switch (request.action) {
+            case 'connect':
+                socket?.connectDevice(request.position);
+                break;
+            case 'disconnect':
+                socket?.disconnectDevice(request.position);
+                break;
+            case 'playback':
+                socket?.setPlaybackDevice(request.id, request.mode);
+                break;
+            case 'pair':
+                socket?.startPairing();
+                break;
+            default:
+                break;
+        }
     }
 
     _eqGains(items) {
@@ -563,6 +604,19 @@ export const EarfunBudsDevice = GObject.registerClass({
         this._reported(values);
     }
 
+    // The earbuds send one reply per slot (four slots). A slot is replaced by its new reply, and
+    // empty slots are left out
+    updateDevices(devices) {
+        const slots = new Map((this._deviceState['multipoint-devices'] ??
+            this._settingsItems['multipoint-devices'] ?? []).map(d => [d.index, d]));
+        for (const device of devices)
+            slots.set(device.index, device);
+
+        const list = [...slots.values()].filter(d => d.name !== '')
+            .sort((a, b) => a.index - b.index);
+        this._reported({'multipoint-devices': list});
+    }
+
     updateMultipoint(enabled) {
         this._reported({multipoint: enabled});
     }
@@ -599,7 +653,19 @@ export const EarfunBudsDevice = GObject.registerClass({
         this._reported({balance: Math.min(value, 100)});
     }
 
+    // The control connection to the earbuds is open
+    updateChannel(connected) {
+        if (this._busyTimeoutId)
+            GLib.source_remove(this._busyTimeoutId);
+        this._busyTimeoutId = null;
+        this._writeSettings({'channel-busy': !connected});
+    }
+
     destroy() {
+        if (this._busyTimeoutId)
+            GLib.source_remove(this._busyTimeoutId);
+        this._busyTimeoutId = null;
+
         if (this._eqTimeoutId)
             GLib.source_remove(this._eqTimeoutId);
         this._eqTimeoutId = null;

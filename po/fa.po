@@ -3548,3 +3548,75 @@ msgstr "پاسخ دادن / جابه‌جایی بین تماس‌ها"
 #: src/preferences/devices/earfunBuds/configureWindow.js:402
 msgid "Answer / Hang Up"
 msgstr "پاسخ دادن / قطع تماس"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "ایرباد‌ها در حال استفاده از برنامهٔ دیگری هستند، برای نمونه برنامهٔ سازنده روی گوشی. BudsLink به تلاش ادامه می‌دهد و به محض آزاد شدن اتصال، تنظیمات را اعمال می‌کند."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "Multipoint با LDAC امکان‌پذیر نیست"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "ابتدا کیفیت صدای دیگری انتخاب کنید، سپس Multipoint را روشن کنید."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "ایرباد‌ها دوباره راه‌اندازی شود؟"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "ایرباد‌ها هنگام تغییر حالت اتصال دوباره راه‌اندازی می‌شوند. پخش موسیقی و تماس‌ها برای چند ثانیه قطع می‌شود."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "Multipoint خاموش شود؟"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "LDAC را نمی‌توان همراه با Multipoint استفاده کرد. ابتدا Multipoint خاموش می‌شود، سپس LDAC انتخاب می‌شود. ایرباد‌ها دوباره راه‌اندازی می‌شوند."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "خاموش کردن و انتخاب"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "ایرباد‌ها هنگام تغییر کیفیت صدا دوباره راه‌اندازی می‌شوند. پخش موسیقی و تماس‌ها برای چند ثانیه قطع می‌شود."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "دستگاه‌هایی که به ایرفون‌ها متصل هستند یا بوده‌اند"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "جفت‌کردن دستگاه جدید"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "حالت جفت‌سازی را شروع کنید تا دستگاه دیگری بتواند به ایرفون‌ها متصل شود"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "شروع"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "حالت جفت‌سازی شروع شود؟"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "ایرفون‌ها مدتی منتظر یک دستگاه جدید می‌مانند. هر دو جای اتصال نباید اشغال باشند، پس ابتدا یکی از دستگاه‌ها را قطع کنید."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "متصل نیست"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "همیشه در این دستگاه پخش شود"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "پخش در این دستگاه"

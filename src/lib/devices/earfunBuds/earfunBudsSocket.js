@@ -6,7 +6,7 @@ import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
 import {SocketHandler} from '../socketByProfile.js';
 import {
     Frame, Cmd, SetCmd, InitialRequests, TouchActionLayout, GestureType, buildPacket, buildEqBandPacket,
-    EqFrequencies
+    EqFrequencies, parseDeviceList
 } from './earfunBudsConfig.js';
 
 // The earbuds answer a burst of requests, but drop frames that are sent far too fast
@@ -32,6 +32,7 @@ export const EarfunBudsSocket = GObject.registerClass({
     }
 
     postConnectInitialization() {
+        this._callbacks.updateChannel?.(true);
         for (const command of InitialRequests)
             this._send(buildPacket(command));
     }
@@ -126,7 +127,44 @@ export const EarfunBudsSocket = GObject.registerClass({
     // The earbuds do not announce this change on their own, so the state is read back
     setMultipoint(enabled) {
         this._set(SetCmd.MULTIPOINT, enabled ? 1 : 0);
+        // The vendor app restarts the earbuds 3 seconds after it turned multipoint on, so that
+        // they can store the value first. It does not restart them when it turns it off
+        if (enabled) {
+            if (this._rebootTimeoutId)
+                GLib.source_remove(this._rebootTimeoutId);
+            this._rebootTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 3000, () => {
+                this._rebootTimeoutId = null;
+                this._send(buildPacket(SetCmd.REBOOT));
+                return GLib.SOURCE_REMOVE;
+            });
+        }
         this._readBack(Cmd.MULTIPOINT);
+        this._readBack(Cmd.CONNECTED_DEVICES);
+    }
+
+    // The list of devices: connect or disconnect the device at a position, make a device the one
+    // that plays (a tap) or the fixed one (a long press), or start pairing a new device
+    connectDevice(position) {
+        this._set(SetCmd.CONNECT_DEVICE, position);
+        this._readBack(Cmd.CONNECTED_DEVICES);
+    }
+
+    disconnectDevice(position) {
+        this._set(SetCmd.DISCONNECT_DEVICE, position);
+        this._readBack(Cmd.CONNECTED_DEVICES);
+    }
+
+    setPlaybackDevice(id, mode) {
+        const bytes = id.match(/../g)?.map(h => parseInt(h, 16)) ?? [];
+        if (bytes.length !== 3)
+            return;
+
+        this._send(buildPacket(SetCmd.PLAYBACK_DEVICE, [...bytes, mode]));
+        this._readBack(Cmd.CONNECTED_DEVICES);
+    }
+
+    startPairing() {
+        this._send(buildPacket(SetCmd.PAIRING));
     }
 
     // The earbuds restart after a codec change
@@ -239,6 +277,9 @@ export const EarfunBudsSocket = GObject.registerClass({
             case Cmd.MULTIPOINT:
                 cb.updateMultipoint(value === 1);
                 break;
+            case Cmd.CONNECTED_DEVICES:
+                cb.updateDevices(parseDeviceList(Array.from(payload.slice(1))));
+                break;
             case Cmd.CODEC:
                 cb.updateCodec(value);
                 break;
@@ -307,6 +348,10 @@ export const EarfunBudsSocket = GObject.registerClass({
     }
 
     destroy() {
+        if (this._rebootTimeoutId)
+            GLib.source_remove(this._rebootTimeoutId);
+        this._rebootTimeoutId = null;
+
         if (this._txTimeoutId)
             GLib.source_remove(this._txTimeoutId);
         this._txTimeoutId = null;

@@ -3671,3 +3671,75 @@ msgstr "Annehmen / zwischen Anrufen wechseln"
 #: src/preferences/devices/earfunBuds/configureWindow.js:402
 msgid "Answer / Hang Up"
 msgstr "Annehmen / Auflegen"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "Die Ohrhörer werden gerade von einer anderen App verwendet, zum Beispiel der Hersteller-App auf einem Handy. BudsLink versucht es weiter und übernimmt die Einstellungen, sobald die Verbindung frei ist."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "Multipoint ist mit LDAC nicht möglich"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "Wähle zuerst eine andere Audioqualität und schalte dann Multipoint ein."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "Ohrhörer neu starten?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "Die Ohrhörer starten neu, wenn sich der Verbindungsmodus ändert. Musik und Anrufe werden für einige Sekunden unterbrochen."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "Multipoint ausschalten?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "LDAC lässt sich nicht zusammen mit Multipoint nutzen. Zuerst wird Multipoint ausgeschaltet, dann LDAC gewählt. Die Ohrhörer starten neu."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "Ausschalten und wählen"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "Die Ohrhörer starten neu, wenn sich die Audioqualität ändert. Musik und Anrufe werden für einige Sekunden unterbrochen."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "Geräte, die mit den Ohrhörern verbunden sind oder waren"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "Neues Gerät koppeln"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "Koppelmodus starten, damit sich ein weiteres Gerät mit den Ohrhörern verbinden kann"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "Starten"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "Koppelmodus starten?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "Die Ohrhörer warten eine Weile auf ein neues Gerät. Dafür dürfen nicht beide Plätze belegt sein, trenne also zuerst eines der Geräte."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "Nicht verbunden"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "Immer auf diesem Gerät wiedergeben"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "Auf diesem Gerät wiedergeben"

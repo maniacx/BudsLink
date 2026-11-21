@@ -3547,3 +3547,75 @@ msgstr "Yanıtla / Aramalar Arasında Geç"
 #: src/preferences/devices/earfunBuds/configureWindow.js:402
 msgid "Answer / Hang Up"
 msgstr "Yanıtla / Aramayı Kapat"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "Kulaklıklar başka bir uygulama tarafından kullanılıyor, örneğin telefondaki üretici uygulaması. BudsLink denemeye devam eder ve bağlantı boşaldığı anda ayarları uygular."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "Multipoint, LDAC ile kullanılamaz"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "Önce başka bir ses kalitesi seçin, ardından Multipoint'i açın."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "Kulaklıklar yeniden başlatılsın mı?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "Bağlantı modu değiştiğinde kulaklıklar yeniden başlar. Müzik ve aramalar birkaç saniyeliğine kesilir."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "Multipoint kapatılsın mı?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "LDAC, Multipoint ile birlikte kullanılamaz. Önce Multipoint kapatılır, ardından LDAC seçilir. Kulaklıklar yeniden başlar."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "Kapat ve Seç"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "Ses kalitesi değiştiğinde kulaklıklar yeniden başlar. Müzik ve aramalar birkaç saniyeliğine kesilir."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "Kulaklıklara bağlı olan veya daha önce bağlanmış cihazlar"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "Yeni Cihaz Eşleştir"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "Başka bir cihazın kulaklıklara bağlanabilmesi için eşleştirme modunu başlatın"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "Başlat"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "Eşleştirme modu başlatılsın mı?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "Kulaklıklar bir süre yeni bir cihaz için bekler. İki yer de kullanımda olmamalıdır, bu yüzden önce cihazlardan birinin bağlantısını kesin."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "Bağlı değil"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "Her zaman bu cihazda çal"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "Bu cihazda çal"

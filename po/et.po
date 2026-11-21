@@ -3538,3 +3538,75 @@ msgstr "Vasta / lülitu kõnede vahel"
 #: src/preferences/devices/earfunBuds/configureWindow.js:402
 msgid "Answer / Hang Up"
 msgstr "Vasta / lõpeta kõne"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "Kõrvaklappe kasutab praegu mõni muu rakendus, näiteks telefoni tootja rakendus. BudsLink proovib pidevalt uuesti ja rakendab seaded kohe, kui ühendus on vaba."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "Multipoint ei ole LDAC-iga võimalik"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "Vali esmalt teine helikvaliteet ja lülita seejärel Multipoint sisse."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "Kas taaskäivitada kõrvaklapid?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "Kõrvaklapid taaskäivituvad, kui ühendusrežiim muutub. Muusika ja kõned katkevad mõneks sekundiks."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "Kas lülitada Multipoint välja?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "LDAC-i ei saa kasutada koos Multipointiga. Esmalt lülitatakse Multipoint välja, seejärel valitakse LDAC. Kõrvaklapid taaskäivituvad."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "Lülita välja ja vali"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "Kõrvaklapid taaskäivituvad, kui helikvaliteet muutub. Muusika ja kõned katkevad mõneks sekundiks."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "Seadmed, mis on kõrvaklappidega ühendatud või olid varem"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "Uue seadme sidumine"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "Käivita sidumisrežiim, et teine seade saaks kõrvaklappidega ühenduda"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "Käivita"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "Käivitada sidumisrežiim?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "Kõrvaklapid ootavad mõnda aega uut seadet. Mõlemad kohad ei tohi olla kasutusel, seega ühenda enne üks seadmetest lahti."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "Pole ühendatud"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "Mängi alati sellel seadmel"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "Mängi sellel seadmel"

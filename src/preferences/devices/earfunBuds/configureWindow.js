@@ -15,7 +15,8 @@ import {SliderRowWidget} from './../../widgets/sliderRowWidget.js';
 import {RingMyBudsRow} from './../../widgets/ringMyBudsRow.js';
 import {
     EarfunModels, AmbientMode, TransparencyMode, Codec, MicMode, TouchMode, GestureActions,
-    CallActions, EqPresets, EqFrequencies, EqRange, AdvancedAudio, FindDevice, DeviceNameMaxBytes
+    CallActions, EqPresets, EqFrequencies, EqRange, AdvancedAudio, FindDevice, DeviceNameMaxBytes,
+    PlaybackDevice
 } from '../../../lib/devices/earfunBuds/earfunBudsConfig.js';
 
 const SettingsKey = 'earfun-buds-list';
@@ -73,6 +74,8 @@ export const ConfigureWindow = GObject.registerClass({
             this._syncHero();
             this._syncInfo();
             this._updateVisibility();
+            this._channelBanner.revealed = !!this._settingsItems['channel-busy'];
+            this._syncDevices();
         });
 
         this.connect('close-request', () => {
@@ -176,6 +179,13 @@ export const ConfigureWindow = GObject.registerClass({
             title_widget: this._contentTitle,
             show_start_title_buttons: false,
         }));
+        this._channelBanner = new Adw.Banner({
+            title: _('The earbuds are in use by another app, for example the vendor app on a ' +
+                     'phone. BudsLink keeps trying and applies the settings as soon as the ' +
+                     'connection is free.'),
+            revealed: !!this._settingsItems['channel-busy'],
+        });
+        contentToolbar.add_top_bar(this._channelBanner);
         contentToolbar.set_content(this._pages);
         this._split.content = new Adw.NavigationPage({title: this.title, child: contentToolbar});
 
@@ -473,12 +483,21 @@ export const ConfigureWindow = GObject.registerClass({
 
         this._addNameRow(settingsGroup);
         this._addSwitch(settingsGroup, 'multipoint', _('Multipoint Connection'),
-            _('Connect to two devices at the same time. Turn it off to use LDAC'));
+            _('Connect to two devices at the same time. Turn it off to use LDAC'),
+            on => {
+                if (!on || this._settingsItems['codec'] !== Codec.LDAC)
+                    return null;
+
+                return {
+                    heading: _('Multipoint is not possible with LDAC'),
+                    body: _('Choose another audio quality first, then turn multipoint on.'),
+                };
+            });
         const codecValues = [Codec.STABLE, Codec.APTX, Codec.APTX_ADAPTIVE, Codec.APTX_LOSSLESS,
             Codec.LDAC];
         this._addDescription(this._addDropdown(settingsGroup, 'codec', _('Audio Quality'), '',
             [_('Stable connection'), 'aptX', 'aptX Adaptive', 'aptX Adaptive Lossless',
-                'LDAC'], codecValues), codecValues, [
+                'LDAC'], codecValues, value => this._codecQuestion(value)), codecValues, [
             [_('Favours a steady connection over sound quality. Choose it if the sound ' +
                'stutters or drops out.'),
                 _('Technical: command 0x032E with value 0. The same value is sent when aptX ' +
@@ -503,7 +522,145 @@ export const ConfigureWindow = GObject.registerClass({
             _('LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with ' +
               'LE Audio. The earbuds restart when this changes'),
             ['Google Fast Pair', 'LE Audio'],
-            [AdvancedAudio.FAST_PAIR, AdvancedAudio.LE_AUDIO]);
+            [AdvancedAudio.FAST_PAIR, AdvancedAudio.LE_AUDIO],
+            () => ({
+                heading: _('Restart the earbuds?'),
+                body: _('The earbuds restart when the connection mode changes. Music and ' +
+                        'calls are interrupted for a few seconds.'),
+                accept: _('Change'),
+            }));
+
+        this._addDevicesGroup(page);
+    }
+
+    // The devices that are known to the earbuds (multipoint): a switch connects or disconnects a
+    // device, two buttons choose the device that plays, and one row starts pairing a new device
+    _addDevicesGroup(page) {
+        this._devicesGroup = new Adw.PreferencesGroup({
+            title: _('Devices'),
+            description: _('Devices that are or were connected to the earbuds'),
+        });
+        page.add(this._devicesGroup);
+        this._deviceRows = [];
+
+        this._pairRow = new Adw.ActionRow({
+            title: _('Pair a New Device'),
+            subtitle: _('Start the pairing mode so that another device can connect to the earbuds'),
+        });
+        this._pairButton = new Gtk.Button({
+            label: _('Start'),
+            valign: Gtk.Align.CENTER,
+        });
+        this._pairButton.connect('clicked', () => this._askPairing());
+        this._pairRow.add_suffix(this._pairButton);
+        this._devicesGroup.add(this._pairRow);
+
+        this._syncDevices();
+    }
+
+    // One action on the list of devices. The counter lets the same action be asked again
+    _requestDevice(action, extra = {}) {
+        const seq = (this._settingsItems['device-request']?.seq ?? 0) + 1;
+        this._updateGsettings('device-request', {seq, action, ...extra});
+    }
+
+    _askPairing() {
+        this._ask({
+            heading: _('Start the pairing mode?'),
+            body: _('The earbuds wait for a new device for a while. Both places must not be ' +
+                    'in use, so disconnect one of the devices first.'),
+            accept: _('Start'),
+        }, () => this._requestDevice('pair'), () => {});
+    }
+
+    _syncDevices() {
+        if (!this._devicesGroup)
+            return;
+
+        for (const row of this._deviceRows)
+            this._devicesGroup.remove(row);
+        this._deviceRows = [];
+
+        const devices = this._settingsItems['multipoint-devices'] ?? [];
+        const connected = devices.filter(d => d.active).length;
+
+        // New rows go in front of the pairing row. The group has no way to insert, so the
+        // pairing row is taken out and put back last
+        this._devicesGroup.remove(this._pairRow);
+        for (const device of devices) {
+            const row = new Adw.ActionRow({
+                title: GLib.markup_escape_text(device.name, -1),
+                subtitle: device.active ? _('Connected') : _('Not connected'),
+            });
+
+            const fixButton = new Gtk.Button({
+                icon_name: 'starred-symbolic',
+                tooltip_text: _('Always play on this device'),
+                valign: Gtk.Align.CENTER,
+                css_classes: ['flat'],
+                sensitive: device.active,
+            });
+            fixButton.connect('clicked', () =>
+                this._requestDevice('playback', {id: device.id, mode: PlaybackDevice.FIX}));
+            row.add_suffix(fixButton);
+
+            const playButton = new Gtk.Button({
+                icon_name: 'media-playback-start-symbolic',
+                tooltip_text: _('Play on this device'),
+                valign: Gtk.Align.CENTER,
+                css_classes: ['flat'],
+                sensitive: device.active,
+            });
+            playButton.connect('clicked', () =>
+                this._requestDevice('playback', {id: device.id, mode: PlaybackDevice.SWITCH}));
+            row.add_suffix(playButton);
+
+            const toggle = new Gtk.Switch({valign: Gtk.Align.CENTER, active: device.active});
+            toggle.connect('notify::active', () => {
+                if (toggle.active === device.active)
+                    return;
+
+                this._requestDevice(toggle.active ? 'connect' : 'disconnect',
+                    {position: device.index});
+            });
+            row.add_suffix(toggle);
+            row.activatable_widget = toggle;
+
+            this._devicesGroup.add(row);
+            this._deviceRows.push(row);
+        }
+        this._devicesGroup.add(this._pairRow);
+        this._pairButton.sensitive = connected < 2;
+
+        this._devicesGroup.visible = !!this._settingsItems['multipoint'];
+    }
+
+    // Changing the codec restarts the earbuds. LDAC needs multipoint to be off, so multipoint is
+    // turned off first and the earbuds get a moment before the codec follows
+    _codecQuestion(codec) {
+        if (codec === Codec.LDAC && this._settingsItems['multipoint']) {
+            return {
+                heading: _('Turn off multipoint?'),
+                body: _('LDAC cannot be used together with multipoint. Multipoint is turned ' +
+                        'off first, then LDAC is selected. The earbuds restart.'),
+                accept: _('Turn Off and Select'),
+                onAccept: () => {
+                    this._updateGsettings('multipoint', false);
+                    GLib.timeout_add(GLib.PRIORITY_DEFAULT, 3000, () => {
+                        if (this._settings)
+                            this._updateGsettings('codec', Codec.LDAC);
+                        return GLib.SOURCE_REMOVE;
+                    });
+                },
+            };
+        }
+
+        return {
+            heading: _('Restart the earbuds?'),
+            body: _('The earbuds restart when the audio quality changes. Music and calls are ' +
+                    'interrupted for a few seconds.'),
+            accept: _('Change'),
+        };
     }
 
     _addEqualizer(group) {
@@ -649,21 +806,53 @@ export const ConfigureWindow = GObject.registerClass({
         }
     }
 
-    _addSwitch(group, key, title, subtitle) {
+    // A question before a change that has side effects. {heading, body, accept} asks for a
+    // confirmation; without accept the dialog only informs and the change is dropped
+    _ask(question, onAccept, onDecline) {
+        const dialog = new Adw.AlertDialog({heading: question.heading, body: question.body});
+        if (question.accept) {
+            dialog.add_response('cancel', _('Cancel'));
+            dialog.add_response('accept', question.accept);
+            dialog.set_response_appearance('accept', Adw.ResponseAppearance.SUGGESTED);
+        } else {
+            dialog.add_response('cancel', _('OK'));
+        }
+        dialog.set_default_response('cancel');
+        dialog.set_close_response('cancel');
+        dialog.connect('response', (_dialog, response) => {
+            if (response === 'accept')
+                onAccept();
+            else
+                onDecline();
+        });
+        dialog.present(this);
+    }
+
+    _addSwitch(group, key, title, subtitle, guard = null) {
         if (!(key in this._settingsItems))
             return;
 
         const row = new Adw.SwitchRow({title, subtitle});
         row.active = this._settingsItems[key];
         row.connect('notify::active', () => {
-            if (this._settingsItems[key] !== row.active)
-                this._updateGsettings(key, row.active);
+            if (this._settingsItems[key] === row.active)
+                return;
+
+            const value = row.active;
+            const question = guard?.(value);
+            if (!question) {
+                this._updateGsettings(key, value);
+                return;
+            }
+
+            this._ask(question, () => this._updateGsettings(key, value),
+                () => (row.active = this._settingsItems[key]));
         });
         group.add(row);
         this._switches[key] = row;
     }
 
-    _addDropdown(group, key, title, subtitle, options, values) {
+    _addDropdown(group, key, title, subtitle, options, values, guard = null) {
         if (!(key in this._settingsItems))
             return;
 
@@ -676,8 +865,17 @@ export const ConfigureWindow = GObject.registerClass({
         });
         row.connect('notify::selected-item', () => {
             const value = row.selected_item;
-            if (value !== undefined && value !== this._settingsItems[key])
+            if (value === undefined || value === this._settingsItems[key])
+                return;
+
+            const question = guard?.(value);
+            if (!question) {
                 this._updateGsettings(key, value);
+                return;
+            }
+
+            const accept = question.onAccept ?? (() => this._updateGsettings(key, value));
+            this._ask(question, accept, () => (row.selected_item = this._settingsItems[key]));
         });
         group.add(row);
         this._dropdowns[key] = row;

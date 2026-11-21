@@ -3535,3 +3535,75 @@ msgstr "Fogadás / váltás a hívások között"
 #: src/preferences/devices/earfunBuds/configureWindow.js:402
 msgid "Answer / Hang Up"
 msgstr "Fogadás / bontás"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "A fülhallgatót egy másik alkalmazás használja, például a telefon gyártói alkalmazása. A BudsLink folyamatosan újrapróbálkozik, és a kapcsolat felszabadulása után azonnal alkalmazza a beállításokat."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "A Multipoint nem használható LDAC-kal"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "Előbb válasszon másik hangminőséget, majd kapcsolja be a Multipointot."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "Újraindítja a fülhallgatókat?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "A fülhallgatók újraindulnak, ha a csatlakozási mód változik. A zene és a hívások néhány másodpercre megszakadnak."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "Kikapcsolja a Multipointot?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "Az LDAC nem használható a Multipointtal együtt. A Multipoint előbb kikapcsol, utána lesz kiválasztva az LDAC. A fülhallgatók újraindulnak."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "Kikapcsolás és kiválasztás"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "A fülhallgatók újraindulnak, ha a hangminőség változik. A zene és a hívások néhány másodpercre megszakadnak."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "Azok az eszközök, amelyek csatlakoznak vagy korábban csatlakoztak a fülhallgatóhoz"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "Új eszköz párosítása"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "Indítsa el a párosítási módot, hogy egy másik eszköz csatlakozhasson a fülhallgatóhoz"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "Indítás"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "Elindítja a párosítási módot?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "A fülhallgató egy ideig új eszközre vár. Mindkét hely nem lehet foglalt, ezért először válasszon le az eszközök egyikét."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "Nincs csatlakoztatva"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "Mindig ezen az eszközön játssza le"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "Lejátszás ezen az eszközön"

@@ -3551,3 +3551,75 @@ msgstr "الرد / التبديل بين المكالمات"
 #: src/preferences/devices/earfunBuds/configureWindow.js:402
 msgid "Answer / Hang Up"
 msgstr "الرد / إنهاء المكالمة"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "السماعات مستخدمة حاليًا من تطبيق آخر، مثل تطبيق الشركة المصنّعة على الهاتف. يواصل BudsLink المحاولة ويطبّق الإعدادات بمجرد أن يصبح الاتصال متاحًا."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "Multipoint غير متاح مع LDAC"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "اختر جودة صوت أخرى أولًا، ثم فعّل Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "إعادة تشغيل السماعات؟"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "تُعاد تشغيل السماعات عند تغيير وضع الاتصال. تتوقف الموسيقى والمكالمات لبضع ثوانٍ."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "إيقاف Multipoint؟"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "لا يمكن استخدام LDAC مع Multipoint. يتم إيقاف Multipoint أولًا ثم اختيار LDAC. تُعاد تشغيل السماعات."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "إيقاف الخيار وتحديد"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "تُعاد تشغيل السماعات عند تغيير جودة الصوت. تتوقف الموسيقى والمكالمات لبضع ثوانٍ."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "الأجهزة المتصلة بالسماعات حاليًا أو سابقًا"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "إقران جهاز جديد"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "ابدأ وضع الإقران حتى يتمكن جهاز آخر من الاتصال بالسماعات"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "ابدأ"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "بدء وضع الإقران؟"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "تنتظر السماعات جهازًا جديدًا لفترة من الوقت. يجب ألا يكون المكانان مشغولين، لذا افصل أحد الجهازين أولًا."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "غير متصل"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "تشغيل دائمًا على هذا الجهاز"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "تشغيل على هذا الجهاز"

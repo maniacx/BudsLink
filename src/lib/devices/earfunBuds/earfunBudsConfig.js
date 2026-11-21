@@ -49,6 +49,7 @@ export const Cmd = {
     GAME_MODE: 0x0313,
     AMBIENT: 0x0315,
     MULTIPOINT: 0x0326,
+    CONNECTED_DEVICES: 0x032C,
     CODEC: 0x032F,
     MIC: 0x0331,
     TOUCH_MODE: 0x0335,
@@ -69,6 +70,9 @@ export const SetCmd = {
     DEVICE_NAME: 0x0316,
     AMBIENT: 0x0314,
     MULTIPOINT: 0x0327,
+    CONNECT_DEVICE: 0x0329,
+    DISCONNECT_DEVICE: 0x032A,
+    PAIRING: 0x032B,
     CODEC: 0x032E,
     MIC: 0x0330,
     FIND_DEVICE: 0x0332,
@@ -80,16 +84,45 @@ export const SetCmd = {
     ADVANCED_AUDIO: 0x034B,
     VOICE_PROTECT: 0x0353,
     BALANCE: 0x0355,
+    PLAYBACK_DEVICE: 0x0357,
+    REBOOT: 0x0308,
     EQ_BAND: 0x0E01,
+};
+
+// What a tap and a long press on a device name do in the list of devices
+export const PlaybackDevice = {
+    SWITCH: 1,
+    FIX: 2,
 };
 
 // Requests sent after the connection, in this order
 export const InitialRequests = [
     Cmd.FIRMWARE, Cmd.BATTERY_LEFT, Cmd.BATTERY_RIGHT, Cmd.BATTERY_CASE, Cmd.AMBIENT,
     Cmd.ANC, Cmd.TRANSPARENCY, Cmd.GAME_MODE, Cmd.IN_EAR, Cmd.TOUCH_MODE, Cmd.TOUCH_ACTION,
-    Cmd.MULTIPOINT, Cmd.CODEC, Cmd.MIC, Cmd.VOICE_PROMPT, Cmd.VOICE_PROTECT, Cmd.BALANCE,
+    Cmd.MULTIPOINT, Cmd.CONNECTED_DEVICES, Cmd.CODEC, Cmd.MIC, Cmd.VOICE_PROMPT, Cmd.VOICE_PROTECT, Cmd.BALANCE,
     Cmd.FIND_DEVICE, Cmd.ADVANCED_AUDIO, Cmd.SERIAL_NUMBER,
 ];
+
+// The list of devices that are connected to the earbuds (multipoint): per device the index, the
+// name (21 bytes, filled up with zeros), 3 bytes that identify the device and a state (1 = active)
+const DEVICE_ENTRY_LEN = 26;
+
+export function parseDeviceList(bytes) {
+    const devices = [];
+    for (let i = 0; i + DEVICE_ENTRY_LEN <= bytes.length; i += DEVICE_ENTRY_LEN) {
+        const entry = bytes.slice(i, i + DEVICE_ENTRY_LEN);
+        const nameBytes = entry.slice(1, 22);
+        const end = nameBytes.indexOf(0);
+        const name = end === -1 ? nameBytes : nameBytes.slice(0, end);
+        devices.push({
+            index: entry[0],
+            name: new TextDecoder().decode(Uint8Array.from(name)),
+            id: Array.from(entry.slice(22, 25)).map(b => b.toString(16).padStart(2, '0')).join(''),
+            active: entry[25] === 1,
+        });
+    }
+    return devices;
+}
 
 export const AmbientMode = {
     OFF: 0,
