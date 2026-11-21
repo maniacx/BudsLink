@@ -5,7 +5,7 @@ import GObject from 'gi://GObject';
 import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
 import {SocketHandler} from '../socketByProfile.js';
 import {
-    Frame, Cmd, SetCmd, InitialRequests, TouchActionLayout, buildPacket, buildEqBandPacket,
+    Frame, Cmd, SetCmd, InitialRequests, TouchActionLayout, GestureType, buildPacket, buildEqBandPacket,
     EqFrequencies
 } from './earfunBudsConfig.js';
 
@@ -295,10 +295,12 @@ export const EarfunBudsSocket = GObject.registerClass({
                     result[`${name}-${side}`] = action;
             }
         }
-        for (const side of ['left', 'right']) {
-            const action = actions[`${0x13}-${side}`];
-            if (action !== undefined)
-                result[`calllong-${side}`] = action;
+        for (const [type, name] of [[GestureType.callTriple, 'calltriple'], [GestureType.callLong, 'calllong']]) {
+            for (const side of ['left', 'right']) {
+                const action = actions[`${type}-${side}`];
+                if (action !== undefined)
+                    result[`${name}-${side}`] = action;
+            }
         }
 
         this._callbacks.updateGestures(result);

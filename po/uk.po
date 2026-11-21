@@ -3532,3 +3532,15 @@ msgstr "Технічно: команда 0x032E зі значенням 8. До 
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "Під час зміни навушники перезапускаються. Вони лише пропонують кодек: використовуваний кодек обирає ваш комп'ютер разом із навушниками, і він має його підтримувати."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Потрійний дотик (виклик)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Відповісти / перемкнутися між викликами"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Відповісти / завершити виклик"

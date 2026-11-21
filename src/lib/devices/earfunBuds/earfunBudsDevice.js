@@ -41,8 +41,15 @@ const DefaultGestures = {
     'triple-right': GestureActions.NEXT,
     'long-left': GestureActions.NOISE_CONTROL,
     'long-right': GestureActions.VOICE_ASSISTANT,
+    'calltriple-left': CallActions.ANSWER_SWAP,
+    'calltriple-right': CallActions.ANSWER_SWAP,
     'calllong-left': CallActions.REJECT,
     'calllong-right': CallActions.REJECT,
+};
+
+const CallGestureTypes = {
+    calltriple: GestureType.callTriple,
+    calllong: GestureType.callLong,
 };
 
 function findModel(name) {
@@ -316,11 +323,11 @@ export const EarfunBudsDevice = GObject.registerClass({
         }
 
         for (const side of Sides) {
-            for (const name of [...GestureNames, 'calllong']) {
+            for (const name of [...GestureNames, ...Object.keys(CallGestureTypes)]) {
                 const key = `gesture-${name}-${side}`;
                 if (differs(key)) {
                     state[key] = items[key];
-                    const type = name === 'calllong' ? GestureType.callLong : GestureType[name];
+                    const type = CallGestureTypes[name] ?? GestureType[name];
                     socket?.setTouchAction(type, side, items[key]);
                 }
             }

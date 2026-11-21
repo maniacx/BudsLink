@@ -3525,3 +3525,15 @@ msgstr "Tehnički: naredba 0x032E s vrijednošću 8. Do oko 990 kbit/s. Aplikaci
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "Slušalice se ponovno pokreću kad se ovo promijeni. One samo nude kodek: koji će se koristiti, odabire vaše računalo zajedno sa slušalicama i mora ga podržavati."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Trostruki dodir (poziv)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Odgovori / prebaci između poziva"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Odgovori / prekini poziv"

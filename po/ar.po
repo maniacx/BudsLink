@@ -3539,3 +3539,15 @@ msgstr "تقني: الأمر 0x032E بالقيمة 8. حتى حوالي 990 kbit
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "تُعاد السماعتان للتشغيل عند تغيير هذا الخيار. تعرض السماعتان برنامج الترميز فقط: يختار حاسوبك البرنامج المستخدم مع السماعتين ويجب أن يدعمه."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "ثلاث نقرات (مكالمة)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "الرد / التبديل بين المكالمات"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "الرد / إنهاء المكالمة"

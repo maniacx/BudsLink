@@ -3528,3 +3528,15 @@ msgstr "Kỹ thuật: lệnh 0x032E với giá trị 8. Tối đa khoảng 990 k
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "Tai nghe sẽ khởi động lại khi thay đổi mục này. Tai nghe chỉ cung cấp codec: máy tính của bạn cùng tai nghe chọn codec được dùng và phải hỗ trợ codec đó."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Chạm ba lần (Cuộc gọi)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Trả lời / Chuyển đổi giữa các cuộc gọi"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Trả lời / Kết thúc cuộc gọi"

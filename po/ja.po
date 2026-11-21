@@ -3538,3 +3538,15 @@ msgstr "技術情報: コマンド 0x032E、値 8。最大約 990 kbit/s。メ�
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "この設定を変更するとイヤホンが再起動します。イヤホンが提供するのはコーデックのみで、実際に使用されるコーデックはコンピューターがイヤホンと調整して決定するため、コンピューター側が対応している必要があります。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "3回タップ（通話）"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "応答 / 通話の切り替え"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "応答 / 通話終了"

@@ -3523,3 +3523,15 @@ msgstr "Technikai: 0x032E parancs 8 értékkel. Legfeljebb körülbelül 990 kbi
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "A fülhallgató újraindul, ha ezt módosítod. Csak a kodeket kínálja fel: a használtat a számítógéped választja ki a fülhallgatóval együtt, és támogatnia kell azt."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Hármas koppintás (hívás)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Fogadás / váltás a hívások között"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Fogadás / bontás"

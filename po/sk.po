@@ -3564,3 +3564,15 @@ msgstr "Technicky: príkaz 0x032E s hodnotou 8. Až približne 990 kbit/s. Aplik
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "Pri zmene sa slúchadlá reštartujú. Kodek iba ponúkajú: ten, ktorý sa použije, vyberie váš počítač spoločne so slúchadlami a musí ho podporovať."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Trojité ťuknutie (hovor)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Prijať / prepnúť medzi hovormi"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Prijať / ukončiť hovor"

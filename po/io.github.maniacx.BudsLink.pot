@@ -3151,3 +3151,15 @@ msgstr ""
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr ""
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr ""
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr ""
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr ""

@@ -3526,3 +3526,15 @@ msgstr "Tehniline: käsk 0x032E väärtusega 8. Kuni umbes 990 kbit/s. Tootja ra
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "Kuularid taaskäivituvad, kui seda muudetakse. Nad pakuvad ainult koodekit: kasutatava valib sinu arvuti koos kuularitega ja see peab seda toetama."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Kolmikpuudutus (kõne)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Vasta / lülitu kõnede vahel"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Vasta / lõpeta kõne"

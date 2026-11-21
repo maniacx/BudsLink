@@ -3529,3 +3529,15 @@ msgstr "技术信息：命令 0x032E，值 8。最高约 990 kbit/s。厂商应�
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "更改此项时耳机会重新启动。耳机只提供编解码器：实际使用哪一种由电脑与耳机协商决定，且电脑必须支持该编解码器。"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "三击（通话）"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "接听 / 在两通电话间切换"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "接听 / 挂断"

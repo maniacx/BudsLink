@@ -3524,3 +3524,15 @@ msgstr "Tehnic: comanda 0x032E cu valoarea 8. Până la aproximativ 990 kbit/s. 
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "Căștile repornesc la această modificare. Ele doar oferă codecul: cel folosit este ales de computer împreună cu căștile și trebuie să îl suporte."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Trei atingeri (apel)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Răspunde / comută între apeluri"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Răspunde / încheie apelul"

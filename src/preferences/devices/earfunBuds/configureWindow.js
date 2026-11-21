@@ -390,9 +390,19 @@ export const ConfigureWindow = GObject.registerClass({
                     values);
             }
 
+            // During a call only the triple tap and press and hold can be set. Single and double
+            // tap keep the settings above
+            this._addDropdown(group, `gesture-calltriple-${side}`, _('Triple Tap (Call)'), '',
+                [_('Answer / Switch Between Calls'), _('Mute Microphone'), _('Noise Control'),
+                    _('No Action')],
+                [CallActions.ANSWER_SWAP, CallActions.MUTE, CallActions.NOISE_CONTROL,
+                    CallActions.NONE]);
+
             this._addDropdown(group, `gesture-calllong-${side}`, _('Press and Hold (Call)'), '',
-                [_('Reject Call'), _('Mute Microphone')],
-                [CallActions.REJECT, CallActions.MUTE]);
+                [_('Answer / Hang Up'), _('Reject Call'), _('Mute Microphone'),
+                    _('Noise Control'), _('No Action')],
+                [CallActions.ANSWER_HANGUP, CallActions.REJECT, CallActions.MUTE,
+                    CallActions.NOISE_CONTROL, CallActions.NONE]);
         }
     }
 

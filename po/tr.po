@@ -3535,3 +3535,15 @@ msgstr "Teknik: 0x032E komutu, değer 8. Yaklaşık 990 kbit/s'ye kadar. Üretic
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "Bu değiştiğinde kulaklıklar yeniden başlar. Yalnızca codec'i sunarlar: kullanılacak codec'i bilgisayarınız kulaklıklarla birlikte seçer ve onu desteklemesi gerekir."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Üç Dokunuş (Arama)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Yanıtla / Aramalar Arasında Geç"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Yanıtla / Aramayı Kapat"

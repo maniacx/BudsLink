@@ -3532,3 +3532,15 @@ msgstr "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vend
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Triple Tap (Call)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Answer / Switch Between Calls"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Answer / Hang Up"

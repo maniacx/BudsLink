@@ -3526,3 +3526,15 @@ msgstr "Tecnic : comanda 0x032E amb la valor 8. Fins a environ 990 kbit/s. L'apl
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "Los escotadors se reaviton quand aquò càmbia. Pas que proposan lo codèc : vòstre ordenador causís aquel que s'utiliza amb los escotadors e lo deu suportar."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Tòca tripla (apel)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Respondre / commutar entre los apèls"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Respondre / acabar l’apel"

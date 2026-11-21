@@ -3563,3 +3563,15 @@ msgstr "Teknis: perintah 0x032E dengan nilai 8. Hingga sekitar 990 kbit/s. Aplik
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "Earbud dimulai ulang saat ini diubah. Earbud hanya menawarkan codec: komputer Anda memilih codec yang dipakai bersama earbud dan harus mendukungnya."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Ketukan Tiga Kali (Panggilan)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Jawab / Beralih Antar Panggilan"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Jawab / Tutup Panggilan"

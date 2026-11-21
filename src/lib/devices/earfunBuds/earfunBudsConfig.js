@@ -165,6 +165,7 @@ export const GestureType = {
     double: 0x02,
     triple: 0x03,
     long: 0x11,
+    callTriple: 0x06,
     callLong: 0x13,
 };
 
@@ -181,10 +182,17 @@ export const GestureActions = {
     REDIAL: 0x0D,
 };
 
-// Actions of a call gesture
+// Actions of the two call gestures (triple tap, press and hold). Each gesture offers only some of
+// them: ANSWER_SWAP belongs to the triple tap, ANSWER_HANGUP and REJECT to press and hold.
+// NOISE_CONTROL cycles through all three noise modes. The app can also pick only some of the
+// modes, which gives other codes (0x0A = noise cancellation and transparency, measured)
 export const CallActions = {
+    ANSWER_HANGUP: 0x01,
     REJECT: 0x04,
     MUTE: 0x05,
+    ANSWER_SWAP: 0x06,
+    NOISE_CONTROL: 0x07,
+    NONE: 0x10,
 };
 
 // Reply to the touch action request: (type, action) pairs for left and right, in this order

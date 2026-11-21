@@ -3532,3 +3532,15 @@ msgstr "기술 정보: 명령 0x032E, 값 8. 최대 약 990 kbit/s. 제조사 �
 #: src/preferences/devices/earfunBuds/configureWindow.js:490
 msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
 msgstr "이 설정을 바꾸면 이어버드가 다시 시작됩니다. 이어버드는 코덱을 제공할 뿐이며, 실제로 사용되는 코덱은 컴퓨터가 이어버드와 함께 정하므로 컴퓨터가 해당 코덱을 지원해야 합니다."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "세 번 두드리기 (통화)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "받기 / 통화 전환"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "받기 / 끊기"
