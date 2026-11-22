@@ -15,13 +15,11 @@ import {EqualizerWidget} from './../../widgets/equalizerWidget.js';
 import {SliderRowWidget} from './../../widgets/sliderRowWidget.js';
 import {RingMyBudsRow} from './../../widgets/ringMyBudsRow.js';
 import {
-    EarfunModels, AmbientMode, TransparencyMode, Codec, MicMode, TouchMode, GestureActions,
+    AmbientMode, TransparencyMode, Codec, MicMode, TouchMode, GestureActions,
     CallActions, EqPresets, EqFrequencies, EqRange, AdvancedAudio, FindDevice, DeviceNameMaxBytes,
     PlaybackDevice
 } from '../../../lib/devices/earfunBuds/earfunBudsConfig.js';
 import {checkFirmware, fetchVoicePacks, downloadVoicePack} from '../../../lib/devices/earfunBuds/earfunServer.js';
-
-const SettingsKey = 'earfun-buds-list';
 
 // The voice pack installation and the firmware check are switched off in this build. The code
 // stays, so it can be switched on again by setting this to true
@@ -30,41 +28,35 @@ const VoicePackAndFirmwareUi = false;
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_EarfunBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    constructor(settings, mac, devicePath, parentWindow, modal = false) {
+    constructor(devInfo, modelData) {
         super({
             default_width: 650,
             default_height: 700,
             width_request: 320,
             height_request: 100,
-            modal,
-            transient_for: parentWindow ?? null,
         });
 
-        this._settings = settings;
-        this._devicePath = devicePath;
+        this._devInfo = devInfo;
+        this._modelData = modelData;
         this._switches = {};
         this._dropdowns = {};
         this._sliders = {};
 
-        this._settingsItems = this._readSettingsItems();
-        if (!this._settingsItems)
-            return;
+        // A live view of the values of the device: _settingsItems[key]
+        this._settingsItems = new Proxy({}, {
+            get: (_target, key) => this._devInfo?.getValue(key),
+            has: (_target, key) => this._devInfo?.getValue(key) !== undefined,
+        });
 
-        this._modelData = EarfunModels.find(m => m.name === this._settingsItems.modelId) ??
-            EarfunModels[0];
+        this.title = this._devInfo.getValue('alias');
 
-        this.title = this._settingsItems.alias;
-
-        this._buildLayout(mac);
+        this._buildLayout(this._devInfo.mac);
         this._updateVisibility();
 
-        const settingSignalId = this._settings.connect(`changed::${SettingsKey}`, () => {
-            this._settingsItems = this._readSettingsItems();
-            if (!this._settingsItems)
-                return;
-
-            this.title = this._settingsItems.alias;
-            this._sidebarTitle.title = this._settingsItems.alias;
+        this._devInfoSignalId = this._devInfo.connect('update-ui', () => {
+            const alias = this._devInfo.getValue('alias');
+            this.title = alias;
+            this._sidebarTitle.title = alias;
 
             for (const [key, row] of Object.entries(this._switches))
                 row.active = this._settingsItems[key];
@@ -87,8 +79,12 @@ export const ConfigureWindow = GObject.registerClass({
         });
 
         this.connect('close-request', () => {
+            if (this._devInfoSignalId)
+                this._devInfo?.disconnect(this._devInfoSignalId);
+            this._devInfoSignalId = null;
+
             // Never leave the tone playing
-            if (this._settingsItems?.['find-device'])
+            if (this._settingsItems['find-device'])
                 this._updateGsettings('find-device', FindDevice.OFF);
 
             for (const row of Object.values(this._sliders))
@@ -96,11 +92,7 @@ export const ConfigureWindow = GObject.registerClass({
 
             this._eq?.destroy();
             this._eq = null;
-
-            if (settingSignalId && this._settings)
-                this._settings.disconnect(settingSignalId);
-
-            this._settings = null;
+            this._devInfo = null;
 
             return false;
         });
@@ -678,8 +670,7 @@ export const ConfigureWindow = GObject.registerClass({
     }
 
     _requestUpgrade(action, extra = {}) {
-        const seq = (this._settingsItems['upgrade-request']?.seq ?? 0) + 1;
-        this._updateGsettings('upgrade-request', {seq, action, ...extra});
+        this._updateGsettings('upgrade-request', {action, ...extra});
     }
 
     _chooseVoiceFile() {
@@ -758,10 +749,9 @@ export const ConfigureWindow = GObject.registerClass({
         }
     }
 
-    // One action on the list of devices. The counter lets the same action be asked again
+    // One action on the list of devices
     _requestDevice(action, extra = {}) {
-        const seq = (this._settingsItems['device-request']?.seq ?? 0) + 1;
-        this._updateGsettings('device-request', {seq, action, ...extra});
+        this._updateGsettings('device-request', {action, ...extra});
     }
 
     _askPairing() {
@@ -847,7 +837,7 @@ export const ConfigureWindow = GObject.registerClass({
                 onAccept: () => {
                     this._updateGsettings('multipoint', false);
                     GLib.timeout_add(GLib.PRIORITY_DEFAULT, 3000, () => {
-                        if (this._settings)
+                        if (this._devInfo)
                             this._updateGsettings('codec', Codec.LDAC);
                         return GLib.SOURCE_REMOVE;
                     });
@@ -923,9 +913,6 @@ export const ConfigureWindow = GObject.registerClass({
 
     // Both earbuds can play the tone on their own: the left button is the left earbud
     _addFindRow(group) {
-        if (!('find-device' in this._settingsItems))
-            return;
-
         this._ringRow = new RingMyBudsRow({dual: true});
         const apply = () => {
             const mode = (this._ringRow.statusLeft === 'playing' ? FindDevice.LEFT : 0) |
@@ -949,9 +936,6 @@ export const ConfigureWindow = GObject.registerClass({
 
     // The name is used by the earbuds only after they are paired again
     _addNameRow(group) {
-        if (!('name-request' in this._settingsItems))
-            return;
-
         const row = new Adw.EntryRow({
             title: _('Name of the earbuds'),
             text: this._settingsItems['alias'] ?? '',
@@ -978,8 +962,7 @@ export const ConfigureWindow = GObject.registerClass({
                 if (response !== 'change')
                     return;
 
-                const seq = (this._settingsItems['name-request']?.seq ?? 0) + 1;
-                this._updateGsettings('name-request', {seq, name});
+                this._updateGsettings('name-request', {name});
             });
             dialog.present(this);
         });
@@ -1127,20 +1110,7 @@ export const ConfigureWindow = GObject.registerClass({
         this._sliders[key] = row;
     }
 
-    _readSettingsItems() {
-        const list = this._settings.get_strv(SettingsKey).map(JSON.parse);
-        return list.find(info => info.path === this._devicePath);
-    }
-
     _updateGsettings(key, value) {
-        const pairedDevice = this._settings.get_strv(SettingsKey);
-        const existingPathIndex =
-                pairedDevice.findIndex(item => JSON.parse(item).path === this._devicePath);
-        if (existingPathIndex !== -1) {
-            const existingItem = JSON.parse(pairedDevice[existingPathIndex]);
-            existingItem[key] = value;
-            pairedDevice[existingPathIndex] = JSON.stringify(existingItem);
-            this._settings.set_strv(SettingsKey, pairedDevice);
-        }
+        this._devInfo?.updateDevice(key, value);
     }
 });

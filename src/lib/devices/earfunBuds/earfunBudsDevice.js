@@ -5,9 +5,8 @@ import GObject from 'gi://GObject';
 import {gettext as _} from 'gettext';
 
 import {createLogger, getDeviceIdentifier} from '../logger.js';
-import {
-    buds2to1BatteryLevel, validateProperties, launchConfigureWindow, SppUUid
-} from '../deviceUtils.js';
+import {DeviceInfo} from '../../deviceInfo.js';
+import {buds2to1BatteryLevel, SppUUid} from '../deviceUtils.js';
 import {createConfig, createProperties, DataHandler} from '../../dataHandler.js';
 import {getBluezDeviceProxy} from '../../bluezDeviceProxy.js';
 import {EarfunBudsSocket} from './earfunBudsSocket.js';
@@ -16,6 +15,8 @@ import {
     Codec, MicMode, TouchMode, AdvancedAudio, FindDevice, DeviceNameMaxBytes, InEarMask, GestureType, GestureActions, CallActions, EqPresets,
     ancValueToSettings, ancSettingsToValue
 } from './earfunBudsConfig.js';
+
+import {ConfigureWindow} from '../../../preferences/devices/earfunBuds/configureWindow.js';
 
 export {DeviceTypeEarfunBuds};
 
@@ -167,7 +168,6 @@ export const EarfunBudsDevice = GObject.registerClass({
         this._alias = alias;
         this._extPath = extPath;
         this.updateDeviceMapCb = updateDeviceMapCb;
-        this._ignoreGsettingsChange = false;
         this._fwVersion = '';
 
         this._config = createConfig();
@@ -225,7 +225,6 @@ export const EarfunBudsDevice = GObject.registerClass({
     _initSettings() {
         const m = this._modelData;
         const defaults = {
-            path: this._devicePath,
             modelId: m.name,
             alias: this._alias,
             icon: m.budsIcon,
@@ -254,11 +253,7 @@ export const EarfunBudsDevice = GObject.registerClass({
             'battery-left': 0,
             'battery-right': 0,
             'battery-case': 0,
-            'name-request': {seq: 0, name: ''},
-            'device-request': {seq: 0, action: ''},
-            'upgrade-request': {seq: 0, action: '', path: ''},
             'upgrade-state': {state: '', percent: 0, error: '', id: '', at: 0},
-            'channel-busy': false,
             'multipoint-devices': [],
             'eq-mode': 'preset',
             'eq-preset': 0,
@@ -268,54 +263,66 @@ export const EarfunBudsDevice = GObject.registerClass({
         };
         this._defaultsDeviceSettings = defaults;
 
-        const devicesList = this._settings.get_strv(SettingsKey).map(JSON.parse);
-        if (!devicesList.some(d => d.path === this._devicePath)) {
-            devicesList.push(defaults);
-            this._settings.set_strv(SettingsKey, devicesList.map(JSON.stringify));
-        } else {
-            validateProperties(this._settings, SettingsKey, devicesList, defaults,
-                this._devicePath);
-        }
+        // What the configure window asks for once; not stored
+        const requests = {
+            'name-request': {name: ''},
+            'device-request': {action: ''},
+            'upgrade-request': {action: '', path: ''},
+        };
+        this._requestKeys = Object.keys(requests);
 
-        this._settingsItems = this._readSettingsItems();
-        this._commonIcon = this._settingsItems['icon'];
-        this._caseIcon = this._settingsItems['case'];
-        this._lastEqGains = this._eqGains(this._settingsItems);
-        this._nameRequestSeq = this._settingsItems['name-request']?.seq ?? 0;
-        this._deviceRequestSeq = this._settingsItems['device-request']?.seq ?? 0;
-        this._upgradeRequestSeq = this._settingsItems['upgrade-request']?.seq ?? 0;
+        const features = [
+            ...Object.entries(defaults).map(([key, value]) => ({
+                key, default: value, persist: !['alias', 'multipoint-devices'].includes(key),
+            })),
+            ...Object.entries(requests).map(([key, value]) => ({
+                key, default: value, relay: true,
+            })),
+            {key: 'channel-busy', default: false},
+        ];
+        this._featureKeys = features.map(f => f.key);
 
-        this._settingsHandlerId = this._settings.connect(`changed::${SettingsKey}`, () => {
-            if (!this._ignoreGsettingsChange)
-                this._onGsettingsChanged();
+        this._devInfo = new DeviceInfo({
+            settings: this._settings,
+            settingsKey: SettingsKey,
+            devicePath: this._devicePath,
+            features,
+        });
+        this._devInfo.updateUI('alias', this._alias);
+
+        this._commonIcon = this._devInfo.getValue('icon');
+        this._caseIcon = this._devInfo.getValue('case');
+        this._lastEqGains = this._eqGains(this._items());
+
+        this._devInfoSignalId = this._devInfo.connect('update-device', (_info, feature) => {
+            switch (feature) {
+                case 'name-request':
+                    this._handleNameRequest(this._devInfo.getValue(feature));
+                    break;
+                case 'device-request':
+                    this._handleDeviceRequest(this._devInfo.getValue(feature));
+                    break;
+                case 'upgrade-request':
+                    this._handleUpgradeRequest(this._devInfo.getValue(feature));
+                    break;
+                default:
+                    this._sendChanges();
+            }
         });
     }
 
-    _readSettingsItems() {
-        const devicesList = this._settings.get_strv(SettingsKey).map(JSON.parse);
-        return devicesList.find(d => d.path === this._devicePath) ?? null;
+    // All values of the device as one object
+    _items() {
+        return Object.fromEntries(this._featureKeys.map(key => [key, this._devInfo.getValue(key)]));
     }
 
+    // Shows the values on the configure window and in the panel
     _writeSettings(values) {
-        if (!this._settingsItems)
+        if (!this._devInfo)
             return;
 
-        const changed = Object.entries(values).filter(([k, v]) =>
-            JSON.stringify(this._settingsItems[k]) !== JSON.stringify(v));
-        if (changed.length === 0)
-            return;
-
-        for (const [k, v] of changed)
-            this._settingsItems[k] = v;
-
-        this._ignoreGsettingsChange = true;
-        const devicesList = this._settings.get_strv(SettingsKey).map(JSON.parse);
-        const index = devicesList.findIndex(d => d.path === this._devicePath);
-        if (index !== -1) {
-            devicesList[index] = this._settingsItems;
-            this._settings.set_strv(SettingsKey, devicesList.map(JSON.stringify));
-        }
-        this._ignoreGsettingsChange = false;
+        for (const [key, value] of Object.entries(values))
+            this._devInfo.updateUI(key, value);
     }
 
     // A value reported by the earbuds: remember it as the state of the device and show it
@@ -326,11 +333,8 @@ export const EarfunBudsDevice = GObject.registerClass({
     }
 
     // Sends the settings that differ from what the earbuds reported
-    _onGsettingsChanged() {
-        const items = this._readSettingsItems();
-        if (!items)
-            return;
-        this._settingsItems = items;
+    _sendChanges() {
+        const items = this._items();
 
         if (items['icon'] !== this._commonIcon || items['case'] !== this._caseIcon) {
             this._commonIcon = items['icon'];
@@ -373,10 +377,6 @@ export const EarfunBudsDevice = GObject.registerClass({
             }
         }
 
-        this._handleNameRequest(items['name-request']);
-        this._handleDeviceRequest(items['device-request']);
-        this._handleUpgradeRequest(items['upgrade-request']);
-
         const mask = inEarMaskFromSettings(items, state['in-ear-mask']);
         if (state['in-ear-mask'] !== undefined && mask !== state['in-ear-mask']) {
             state['in-ear-mask'] = mask;
@@ -398,13 +398,11 @@ export const EarfunBudsDevice = GObject.registerClass({
         this._syncPanelOptions();
     }
 
-    // The configure window asks for a new name with a counter, so that the same name can be
-    // requested again
+    // The configure window asks for a new name
     _handleNameRequest(request) {
-        if (!request || request.seq === this._nameRequestSeq)
+        if (!request)
             return;
 
-        this._nameRequestSeq = request.seq;
         const name = (request.name ?? '').trim();
         if (name === '' || new TextEncoder().encode(name).length > DeviceNameMaxBytes)
             return;
@@ -413,13 +411,11 @@ export const EarfunBudsDevice = GObject.registerClass({
         this._socket?.setDeviceName(name);
     }
 
-    // The configure window asks for one action on the list of devices, with a counter so that
-    // the same action can be asked again
+    // The configure window asks for one action on the list of devices
     _handleDeviceRequest(request) {
-        if (!request || request.seq === this._deviceRequestSeq)
+        if (!request)
             return;
 
-        this._deviceRequestSeq = request.seq;
         const socket = this._socket;
         switch (request.action) {
             case 'connect':
@@ -441,10 +437,9 @@ export const EarfunBudsDevice = GObject.registerClass({
 
     // The configure window asks to send a file (a voice pack) to the earbuds, or to cancel that
     _handleUpgradeRequest(request) {
-        if (!request || request.seq === this._upgradeRequestSeq)
+        if (!request)
             return;
 
-        this._upgradeRequestSeq = request.seq;
         if (request.action === 'cancel') {
             this._socket?.abortUpgrade();
             return;
@@ -478,7 +473,7 @@ export const EarfunBudsDevice = GObject.registerClass({
     // Progress of a transfer. After the transfer the earbuds restart: the id of the file is
     // stored so that the next connection can finish with the commit
     updateUpgrade(state, info = {}) {
-        const previous = this._settingsItems['upgrade-state'] ?? {};
+        const previous = this._devInfo.getValue('upgrade-state') ?? {};
         const percent = info.percent ?? previous.percent ?? 0;
         if (state === previous.state && percent === previous.percent && !info.error)
             return;
@@ -501,7 +496,7 @@ export const EarfunBudsDevice = GObject.registerClass({
 
     // The id of a file that was sent before the earbuds restarted (waiting for the commit)
     pendingUpgrade() {
-        const stored = this._settingsItems['upgrade-state'];
+        const stored = this._devInfo?.getValue('upgrade-state');
         if (stored?.state !== 'reboot' || !stored.id || Date.now() / 1000 - stored.at > 1800)
             return null;
 
@@ -572,7 +567,7 @@ export const EarfunBudsDevice = GObject.registerClass({
     }
 
     _syncPanelOptions() {
-        const items = this._settingsItems;
+        const items = this._items();
         const props = this._props;
         const ambient = items['ambient-mode'];
 
@@ -605,8 +600,21 @@ export const EarfunBudsDevice = GObject.registerClass({
                 this._transparencyTypeClicked(value);
 
             if (command === 'settingsButtonClicked')
-                launchConfigureWindow(this._devicePath, DeviceTypeEarfunBuds);
+                this._settingsButtonClicked();
         });
+    }
+
+    _settingsButtonClicked() {
+        if (this._configureWindow) {
+            this._configureWindow.present();
+            return;
+        }
+
+        this._configureWindow = new ConfigureWindow(this._devInfo, this._modelData);
+        this._configureWindow.connect('close-request', () => {
+            this._configureWindow = null;
+        });
+        this._configureWindow.present();
     }
 
     _toggle1ButtonClicked(index) {
@@ -615,7 +623,7 @@ export const EarfunBudsDevice = GObject.registerClass({
             return;
 
         this._writeSettings({'ambient-mode': ambient});
-        this._onGsettingsChanged();
+        this._sendChanges();
     }
 
     _ancTypeClicked(index) {
@@ -624,7 +632,7 @@ export const EarfunBudsDevice = GObject.registerClass({
             return;
 
         this._writeSettings({'anc-type': type});
-        this._onGsettingsChanged();
+        this._sendChanges();
     }
 
     _transparencyTypeClicked(index) {
@@ -633,7 +641,7 @@ export const EarfunBudsDevice = GObject.registerClass({
             return;
 
         this._writeSettings({'transparency-mode': mode});
-        this._onGsettingsChanged();
+        this._sendChanges();
     }
 
     updateBatteryProps(props) {
@@ -685,7 +693,7 @@ export const EarfunBudsDevice = GObject.registerClass({
         if (parsed.level)
             values['anc-level'] = parsed.level;
         else
-            values['anc-level'] = this._settingsItems['anc-level'];
+            values['anc-level'] = this._devInfo.getValue('anc-level');
 
         this._reported(values);
     }
@@ -723,7 +731,7 @@ export const EarfunBudsDevice = GObject.registerClass({
     // empty slots are left out
     updateDevices(devices) {
         const slots = new Map((this._deviceState['multipoint-devices'] ??
-            this._settingsItems['multipoint-devices'] ?? []).map(d => [d.index, d]));
+            this._devInfo.getValue('multipoint-devices') ?? []).map(d => [d.index, d]));
         for (const device of devices)
             slots.set(device.index, device);
 
@@ -777,6 +785,9 @@ export const EarfunBudsDevice = GObject.registerClass({
     }
 
     destroy() {
+        this._configureWindow?.close();
+        this._configureWindow = null;
+
         if (this._busyTimeoutId)
             GLib.source_remove(this._busyTimeoutId);
         this._busyTimeoutId = null;
@@ -793,9 +804,10 @@ export const EarfunBudsDevice = GObject.registerClass({
         this._dataHandlerId = null;
         this.dataHandler = null;
 
-        if (this._settingsHandlerId)
-            this._settings?.disconnect(this._settingsHandlerId);
-        this._settingsHandlerId = null;
+        if (this._devInfoSignalId)
+            this._devInfo?.disconnect(this._devInfoSignalId);
+        this._devInfoSignalId = null;
+        this._devInfo = null;
         this._settings = null;
     }
 });
