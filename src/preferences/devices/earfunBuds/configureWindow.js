@@ -79,6 +79,7 @@ export const ConfigureWindow = GObject.registerClass({
             this._channelBanner.revealed = !!this._settingsItems['channel-busy'];
             this._syncDevices();
             this._syncUpgrade();
+            this._autoCheckFirmware();
         });
 
         this.connect('close-request', () => {
@@ -611,6 +612,17 @@ export const ConfigureWindow = GObject.registerClass({
         group.add(this._firmwareRow);
 
         this._syncUpgrade();
+        this._autoCheckFirmware();
+    }
+
+    // Looks for a newer firmware once per window, as soon as the earbuds reported their version.
+    // Without the key of the server nothing is asked and the row stays as it is
+    _autoCheckFirmware() {
+        if (this._firmwareChecked || !(this._settingsItems['fw'] ?? ''))
+            return;
+
+        this._firmwareChecked = true;
+        this._checkFirmware(true);
     }
 
     async _loadVoicePacks() {
@@ -721,11 +733,17 @@ export const ConfigureWindow = GObject.registerClass({
             row.sensitive = free;
     }
 
-    async _checkFirmware() {
+    async _checkFirmware(quiet = false) {
         this._firmwareButton.sensitive = false;
         this._firmwareRow.subtitle = _('Asking the server…');
         const result = await checkFirmware(this._settingsItems['fw'] ?? '');
         this._firmwareButton.sensitive = true;
+        if (quiet && (result.status === 'nokey' || result.status === 'error')) {
+            // A check nobody asked for does not complain
+            this._firmwareRow.subtitle = _('Ask the server of the vendor whether a newer ' +
+                'firmware exists. BudsLink does not install firmware.');
+            return;
+        }
 
         const texts = {
             current: _('The firmware is up to date.'),
