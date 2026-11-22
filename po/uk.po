@@ -61,7 +61,7 @@ msgstr "Знижує затримку та оптимізує ігровий з�
 #: src/preferences/devices/opoBuds/configureWindow.js:935
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "In-Ear Detection"
-msgstr ""
+msgstr "Визначення носіння"
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:81
 #: src/preferences/devices/nothingBuds/configureWindow.js:410
@@ -217,7 +217,7 @@ msgstr "Вимкнено"
 #: src/lib/devices/cambridgeBuds/cambridgeBudsDevice.js:298
 #: src/lib/devices/googleBuds/googleBudsDevice.js:217
 msgid "Transparency"
-msgstr ""
+msgstr "Прозорість"
 
 #: src/preferences/devices/airpods/configureWindow.js:232
 #: src/preferences/devices/soundcore/configureWindow.js:162
@@ -242,7 +242,7 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:187
 #: src/lib/devices/googleBuds/googleBudsDevice.js:223
 msgid "Noise Cancellation"
-msgstr ""
+msgstr "Шумопоглинання"
 
 #: src/preferences/devices/airpods/configureWindow.js:239
 #: src/preferences/devices/soundcore/configureWindow.js:167
@@ -411,13 +411,13 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:466
 #: src/lib/devices/edifierBuds/edifierBudsDevice.js:284
 msgid "Ambient Sound"
-msgstr ""
+msgstr "Навколишній звук"
 
 #: src/preferences/devices/soundcore/configureWindow.js:161
 #: src/preferences/devices/soundcore/configureWindow.js:375
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:85
 msgid "Mode"
-msgstr ""
+msgstr "Режим"
 
 #: src/preferences/devices/soundcore/configureWindow.js:166
 #: src/preferences/devices/nothingBuds/configureWindow.js:791
@@ -427,7 +427,7 @@ msgstr ""
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/sony/configureWindow.js:218
 msgid "Manual"
-msgstr ""
+msgstr "Вручну"
 
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/soundcore/configureWindow.js:172
@@ -445,7 +445,7 @@ msgstr ""
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:678
 #: src/lib/devices/opoBuds/opoBudsDevice.js:600
 msgid "Noise Cancellation Level"
-msgstr ""
+msgstr "Рівень шумопоглинання"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Plane"
@@ -465,7 +465,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:177
 msgid "Transparency Type"
-msgstr ""
+msgstr "Тип прозорості"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Fully Transparent"
@@ -479,13 +479,13 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:631
 #: src/lib/devices/opoBuds/opoBudsDevice.js:641
 msgid "Wind Noise Reduction"
-msgstr ""
+msgstr "Зменшення шуму вітру"
 
 #: src/preferences/devices/soundcore/configureWindow.js:184
 #: src/preferences/devices/opoBuds/configureWindow.js:712
 #: src/lib/devices/soundcore/soundcoreDevice.js:279
 msgid "Audio Effects"
-msgstr ""
+msgstr "Аудіоефекти"
 
 #: src/preferences/devices/soundcore/configureWindow.js:190
 msgid "Sound Leak Compensation"
@@ -497,7 +497,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:196
 msgid "Volume Limit"
-msgstr ""
+msgstr "Обмеження гучності"
 
 #: src/preferences/devices/soundcore/configureWindow.js:199
 msgid "Decibel Reading Refresh Rate"
@@ -529,7 +529,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:249
 msgid "Auto Play/Pause"
-msgstr ""
+msgstr "Автопауза та відтворення"
 
 #: src/preferences/devices/soundcore/configureWindow.js:250
 #: src/preferences/devices/sony/configureWindow.js:446
@@ -593,7 +593,7 @@ msgstr "Через 1 годину"
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:142
 #: src/preferences/devices/sony/configureWindow.js:268
 msgid "Frequency (Hz)"
-msgstr ""
+msgstr "Частота (Гц)"
 
 #: src/preferences/devices/soundcore/configureWindow.js:367
 #: src/preferences/devices/redmiBuds/configureWindow.js:317
@@ -605,7 +605,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:269
 #: src/preferences/devices/googleBuds/configureWindow.js:139
 msgid "Gain (dB)"
-msgstr ""
+msgstr "Підсилення (дБ)"
 
 #: src/preferences/devices/soundcore/configureWindow.js:372
 #: src/preferences/devices/redmiBuds/configureWindow.js:336
@@ -647,7 +647,7 @@ msgstr ""
 #: src/preferences/devices/googleBuds/configureWindow.js:108
 #: src/lib/devices/soundcore/soundcoreDevice.js:284
 msgid "Custom Equalizer"
-msgstr ""
+msgstr "Власний еквалайзер"
 
 #: src/preferences/devices/soundcore/configureWindow.js:402
 msgid "Saved Equalizers"
@@ -690,7 +690,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:239
 #: src/preferences/devices/googleBuds/configureWindow.js:102
 msgid "Equalizer Preset"
-msgstr ""
+msgstr "Пресет еквалайзера"
 
 #: src/preferences/devices/soundcore/configureWindow.js:461
 #: src/lib/devices/soundcore/soundcoreDevice.js:280
@@ -781,7 +781,7 @@ msgstr "Джаз"
 
 #: src/preferences/devices/soundcore/configureWindow.js:514
 msgid "Latin"
-msgstr ""
+msgstr "Латино"
 
 #: src/preferences/devices/soundcore/configureWindow.js:515
 msgid "Lounge"
@@ -800,7 +800,7 @@ msgstr "Поп"
 
 #: src/preferences/devices/soundcore/configureWindow.js:518
 msgid "R&B"
-msgstr ""
+msgstr "R&B"
 
 #: src/preferences/devices/soundcore/configureWindow.js:519
 #: src/preferences/devices/nothingBuds/configureWindow.js:255
@@ -854,7 +854,7 @@ msgstr ""
 #: src/preferences/widgets/earTipFitTestRow.js:199
 #: src/lib/widgets/settingsButton.js:304
 msgid "Cancel"
-msgstr ""
+msgstr "Скасувати"
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:607
@@ -923,7 +923,7 @@ msgstr "Зменшити гучність"
 #: src/lib/devices/sony/sonyDevice.js:180
 #: src/lib/devices/googleBuds/googleBudsDevice.js:199
 msgid "Noise Control"
-msgstr ""
+msgstr "Керування шумом"
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:616
@@ -1011,19 +1011,19 @@ msgstr "Натиснути та тримати"
 #: src/preferences/devices/opoBuds/configureWindow.js:1361
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Left Earbud"
-msgstr ""
+msgstr "Лівий навушник"
 
 #: src/preferences/devices/soundcore/configureWindow.js:624
 #: src/preferences/devices/nothingBuds/configureWindow.js:748
 #: src/preferences/devices/opoBuds/configureWindow.js:1363
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Right Earbud"
-msgstr ""
+msgstr "Правий навушник"
 
 #: src/preferences/devices/soundcore/configureWindow.js:625
 #: src/preferences/devices/opoBuds/configureWindow.js:1369
 msgid "Button Controls"
-msgstr ""
+msgstr "Керування кнопками"
 
 #: src/preferences/devices/soundcore/configureWindow.js:636
 #: src/preferences/devices/opoBuds/configureWindow.js:1279
@@ -1067,7 +1067,7 @@ msgstr "Еквалайзер"
 #: src/preferences/devices/sony/configureWindow.js:151
 #: src/lib/devices/sony/sonyDevice.js:197
 msgid "Standard"
-msgstr ""
+msgstr "Стандартний"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:259
 msgctxt "Redmi equalizer preset"
@@ -2034,11 +2034,11 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:83
 msgid "Blues"
-msgstr ""
+msgstr "Блюз"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:85
 msgid "Natural"
-msgstr ""
+msgstr "Природний"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:87
 #: src/lib/devices/opoBuds/opoBudsDevice.js:566
@@ -2286,7 +2286,7 @@ msgstr ""
 
 #: src/preferences/devices/boseBuds/configureWindow.js:488
 msgid "Medium"
-msgstr ""
+msgstr "Середня"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:568
 #: src/preferences/devices/sony/configureWindow.js:476
@@ -2383,7 +2383,7 @@ msgstr ""
 
 #: src/preferences/devices/boseBuds/configureWindow.js:854
 msgid "Disabled"
-msgstr ""
+msgstr "Вимкнено"
 
 #: src/preferences/devices/sony/configureWindow.js:109
 #: src/lib/devices/airpods/airpodsDevice.js:239
@@ -2527,7 +2527,7 @@ msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:413
 msgid "Voice Prompt Volume"
-msgstr ""
+msgstr "Гучність голосових підказок"
 
 #: src/preferences/devices/sony/configureWindow.js:414
 msgid "Adjust the volume of voice prompts"
@@ -3161,3 +3161,598 @@ msgstr "Налаштувати"
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr "Рівень батареї"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:123
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "Find My Earbuds"
+msgstr "Знайти мої навушники"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:124
+msgid "Gestures"
+msgstr "Жести"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:126
+msgid "Advanced Settings"
+msgstr "Додаткові налаштування"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:128
+msgid "System"
+msgstr "Система"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:240
+msgid "Case"
+msgstr "Кейс"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:270
+msgid "Firmware"
+msgstr "Прошивка"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:271
+msgid "Serial Number (Left)"
+msgstr "Серійний номер (лівий)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:272
+msgid "Serial Number (Right)"
+msgstr "Серійний номер (правий)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:315
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:380
+msgid "Noise Cancellation Type"
+msgstr "Тип шумопоглинання"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:316
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
+msgid "Adaptive (Ear Canal)"
+msgstr "Адаптивне (слуховий прохід)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:316
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
+msgid "Adaptive (Environment)"
+msgstr "Адаптивне (оточення)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:338
+#: src/preferences/devices/earfunBuds/configureWindow.js:340
+msgid "Touch Control"
+msgstr "Сенсорне керування"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:341
+msgid "Turns off touch control of one or both earbuds"
+msgstr "Вимикає сенсорне керування одного або обох навушників"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+msgid "Both earbuds"
+msgstr "Обидва навушники"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Right earbud only"
+msgstr "Лише правий навушник"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Left earbud only"
+msgstr "Лише лівий навушник"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:355
+msgid "Redial"
+msgstr "Повторний набір"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:375
+msgid "Press and Hold (Call)"
+msgstr "Натиснути та тримати (виклик)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:376
+msgid "Reject Call"
+msgstr "Відхилити виклик"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:376
+msgid "Mute Microphone"
+msgstr "Вимкнути мікрофон"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:385
+msgid "Detects whether the earbuds are worn"
+msgstr "Визначає, чи вдягнені навушники"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:387
+msgid "Pause when taken off, resume when put in"
+msgstr "Пауза при знятті, продовження при вдяганні"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:388
+msgid "Automatic Call Answering"
+msgstr "Автоматична відповідь на виклики"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:389
+msgid "Answer incoming calls when the earbuds are worn"
+msgstr "Відповідати на вхідні виклики, коли навушники вдягнені"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:390
+msgid "Higher Sensitivity"
+msgstr "Вища чутливість"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:391
+msgid "Improves detection with different ear shapes, but may trigger by mistake"
+msgstr "Покращує визначення для різної форми вух, але можливі хибні спрацювання"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Reduces audio latency, but may affect the connection stability"
+msgstr "Зменшує затримку звуку, але може погіршити стабільність з’єднання"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:398
+msgid "Limits the maximum volume of the earbuds"
+msgstr "Обмежує максимальну гучність навушників"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:399
+msgid "No limit"
+msgstr "Без обмеження"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Volume balance between the left and the right earbud"
+msgstr "Баланс гучності між лівим і правим навушником"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:403
+msgid "L"
+msgstr "Л"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:405
+msgid "R"
+msgstr "П"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Loudest"
+msgstr "Найгучніше"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Loud"
+msgstr "Гучно"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Quiet"
+msgstr "Тихо"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Quietest"
+msgstr "Найтихіше"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:410
+msgid "Microphone"
+msgstr "Мікрофон"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:411
+msgid "Use one earbud for calls or let the earbuds choose"
+msgstr "Використовувати один навушник для викликів або довірити вибір навушникам"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Automatic"
+msgstr "Автоматично"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:447
+msgid "Multipoint Connection"
+msgstr "Підключення Multipoint"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:448
+msgid "Connect to two devices at the same time. Turn it off to use LDAC"
+msgstr "Підключення до двох пристроїв одночасно. Вимкніть, щоб використовувати LDAC"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:449
+msgid "Audio Quality"
+msgstr "Якість звуку"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:450
+msgid "Bluetooth codec. The earbuds restart and reconnect when this changes"
+msgstr "Кодек Bluetooth. Після зміни навушники перезапускаються та підключаються знову"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:451
+msgid "Stable connection"
+msgstr "Стабільне з’єднання"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:454
+msgid "Connection Mode"
+msgstr "Режим з’єднання"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:455
+msgid "LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with LE Audio. The earbuds restart when this changes"
+msgstr "LE Audio також вмикає Auracast. Ігровий режим, aptX і LDAC можуть не працювати з LE Audio. Після зміни навушники перезапускаються"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:463
+msgid "Country"
+msgstr "Кантрі"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:465
+msgid "Hip-Hop"
+msgstr "Хіп-хоп"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Metal"
+msgstr "Метал"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Soul"
+msgstr "Соул"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Hits"
+msgstr "Хіти"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:467
+msgid "Voice Boost"
+msgstr "Підсилення голосу"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:468
+msgid "Voice Reduction"
+msgstr "Ослаблення голосу"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:468
+msgid "Bass Boost 1"
+msgstr "Підсилення НЧ 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:469
+msgid "Bass Boost 2"
+msgstr "Підсилення НЧ 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:469
+msgid "Bass Boost 3"
+msgstr "Підсилення НЧ 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:470
+msgid "Bass Reduction 1"
+msgstr "Ослаблення НЧ 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:470
+msgid "Bass Reduction 2"
+msgstr "Ослаблення НЧ 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:471
+msgid "Bass Reduction 3"
+msgstr "Ослаблення НЧ 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:471
+msgid "Treble Boost 1"
+msgstr "Підсилення ВЧ 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Treble Boost 2"
+msgstr "Підсилення ВЧ 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Treble Boost 3"
+msgstr "Підсилення ВЧ 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:473
+msgid "Treble Reduction 1"
+msgstr "Ослаблення ВЧ 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:473
+msgid "Treble Reduction 2"
+msgstr "Ослаблення ВЧ 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Treble Reduction 3"
+msgstr "Ослаблення ВЧ 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Original Sound"
+msgstr "Оригінальний звук"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:495
+msgid "Choose a preset or your own curve"
+msgstr "Виберіть пресет або власну криву"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:496
+msgid "Preset"
+msgstr "Пресет"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:551
+msgid "Name of the earbuds"
+msgstr "Назва навушників"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:561
+msgid "Change name?"
+msgstr "Змінити назву?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:562
+msgid "After changing the name, put the earbuds in the charging case and close the lid for about 10 seconds. Remove the earbuds from the Bluetooth devices of this computer and pair them again to use the new name."
+msgstr "Після зміни назви покладіть навушники в зарядний кейс і закрийте кришку приблизно на 10 секунд. Видаліть навушники зі списку пристроїв Bluetooth цього комп’ютера та з’єднайте їх знову, щоб використовувати нову назву."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:568
+msgid "Change"
+msgstr "Змінити"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Аналізує звук усередині слухового каналу та те, чи вдягнені навушники, і безперервно підлаштовує шумопоглинання."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Технічно: команда 0x033A зі значенням 0. Навушники аналізують звук, виміряний у слуховому каналі, і самі налаштовують фільтр."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Аналізує навколишній шум та те, чи вдягнені навушники, і безперервно підлаштовує шумопоглинання."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Технічно: команда 0x033A зі значенням 4. Навушники аналізують шум, виміряний ззовні, і самі налаштовують фільтр."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "Ви самі обираєте силу шумопоглинання в чотири кроки."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Технічно: команда 0x033A зі значенням 6, 5, 3 або 2 для рівнів від 1 до 4. Рівень 4 (значення 2) найсильніший."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Для сильного вітру. Зменшує шум вітру, але шумопоглинання стає менш ефективним."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Технічно: команда 0x033A зі значенням 1. Замінює інші типи, їх не можна поєднувати."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "Віддає перевагу стабільному з'єднанню, а не якості звуку. Оберіть, якщо звук уривається або пропадає."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Технічно: команда 0x032E зі значенням 0. Те саме значення надсилається, коли aptX або LDAC вимкнено, тому жоден із варіантів aptX чи LDAC не вибрано."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Кодек Qualcomm із вищою швидкістю передавання даних, ніж у звичайних кодеків Bluetooth. Найкраще працює з пристроями на чипі Qualcomm."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Технічно: команда 0x032E зі значенням 1. Приблизно 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "Сам підлаштовує бітрейт і затримку під ваші дії та умови радіозв'язку."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Технічно: команда 0x032E зі значенням 3. Бітрейт не фіксований."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "Передає звук якості CD з високою швидкістю передавання даних. Потрібен сучасний пристрій Qualcomm Snapdragon; тримайтеся поруч і використовуйте діапазон Wi-Fi 5 GHz або вимкніть Wi-Fi."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Технічно: команда 0x032E зі значенням 0x13. До 1 200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Звук високої якості. Може скоротити час роботи від акумулятора та спричиняти уривання звуку, тому тримайтеся поруч. Не можна використовувати разом із Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Технічно: команда 0x032E зі значенням 8. До 990 kbit/s. Застосунок виробника вимагає спершу вимкнути Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "Під час зміни навушники перезапускаються. Вони лише пропонують кодек: використовуваний кодек обирає ваш комп'ютер разом із навушниками, і він має його підтримувати."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Потрійний дотик (виклик)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Відповісти / перемкнутися між викликами"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Відповісти / завершити виклик"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "Навушники зайняті іншим застосунком, наприклад застосунком виробника на телефоні. BudsLink продовжує спроби й застосує налаштування, щойно з’єднання звільниться."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "Multipoint неможливий з LDAC"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "Спершу виберіть іншу якість звуку, а потім увімкніть Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "Перезапустити навушники?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "Навушники перезапускаються, коли змінюється режим з’єднання. Музика та дзвінки перериваються на кілька секунд."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "Вимкнути Multipoint?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "LDAC не можна використовувати разом із Multipoint. Спершу Multipoint вимикається, потім вибирається LDAC. Навушники перезапускаються."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "Вимкнути й вибрати"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "Навушники перезапускаються, коли змінюється якість звуку. Музика та дзвінки перериваються на кілька секунд."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "Пристрої, які підключені до навушників або були підключені раніше"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "Підключити новий пристрій"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "Запустіть режим сполучення, щоб інший пристрій міг підключитися до навушників"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "Запустити"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "Запустити режим сполучення?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "Навушники деякий час чекають на новий пристрій. Обидва місця не можуть бути зайняті, тому спочатку від’єднайте один із пристроїв."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "Не підключено"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "Завжди відтворювати на цьому пристрої"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "Відтворювати на цьому пристрої"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "A newer firmware exists:"
+msgstr "Доступна новіша прошивка:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Ask the server of the vendor whether a newer firmware exists. BudsLink does not install firmware."
+msgstr "Запитайте сервер виробника, чи існує новіша прошивка. BudsLink не встановлює прошивки."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Asking the server…"
+msgstr "Запит до сервера…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Check"
+msgstr "Перевірити"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose File…"
+msgstr "Вибрати файл…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a Voice Pack"
+msgstr "Вибрати голосовий пакет"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Connecting…"
+msgstr "Підключення…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Finishing…"
+msgstr "Завершення…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Firmware Update"
+msgstr "Оновлення прошивки"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install"
+msgstr "Встановити"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install a Voice Pack"
+msgstr "Встановити голосовий пакет"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install it with the app of the vendor."
+msgstr "Встановіть його за допомогою застосунку виробника."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install this voice pack?"
+msgstr "Встановити цей голосовий пакет?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Not available: the key of the server is missing (see the documentation)."
+msgstr "Недоступно: відсутній ключ сервера (див. документацію)."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Send a voice pack file (.bin) to the earbuds"
+msgstr "Надіслати навушникам файл голосового пакета (.bin)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Sending the file…"
+msgstr "Надсилання файлу…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds apply the file…"
+msgstr "Навушники застосовують файл…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds check the file…"
+msgstr "Навушники перевіряють файл…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds restart. Wait until they connect again…"
+msgstr "Навушники перезапускаються. Зачекайте, доки вони знову підключаться…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file is sent to the earbuds, which takes about a minute, and they restart at the end. Keep them in their case or in your ears, close to the computer and charged, and do not turn them off or disconnect them meanwhile."
+msgstr "Файл надсилається на навушники, це триває близько хвилини, наприкінці вони перезапускаються. Тим часом тримайте їх у футлярі або у вухах, поблизу комп'ютера та зарядженими, і не вимикайте їх і не від'єднуйте."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The firmware is up to date."
+msgstr "Прошивка актуальна."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The server could not be asked."
+msgstr "Не вдалося запитати сервер."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer failed:"
+msgstr "Передача не вдалася:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer is finished."
+msgstr "Передачу завершено."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. BudsLink does not download voice packs: choose a file you have."
+msgstr "Голосові підказки навушників — це файл, який надсилається на них. BudsLink не завантажує голосові пакети: виберіть наявний у вас файл."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Transfer"
+msgstr "Передати"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Pack and Firmware"
+msgstr "Голосовий пакет і прошивка"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice pack (*.bin)"
+msgstr "Голосовий пакет (*.bin)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a language to install it"
+msgstr "Виберіть мову для встановлення"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load"
+msgstr "Завантажити"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load the list of languages from the server"
+msgstr "Завантажити список мов із сервера"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The download failed"
+msgstr "Помилка завантаження"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file could not be loaded."
+msgstr "Не вдалося завантажити файл."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. Choose one the server of the vendor offers, or a file you have."
+msgstr "Голосові підказки навушників — це файл, який надсилається до них. Виберіть один із пропонованих сервером виробника або свій файл."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Packs of the Vendor"
+msgstr "Голосові пакети виробника"

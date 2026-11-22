@@ -401,7 +401,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:77
 #: src/preferences/devices/boseBuds/configureWindow.js:267
 msgid "Sound Settings"
-msgstr ""
+msgstr "Ses Ayarları"
 
 #: src/preferences/devices/soundcore/configureWindow.js:94
 #: src/preferences/devices/nothingBuds/configureWindow.js:580
@@ -420,13 +420,13 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:466
 #: src/lib/devices/edifierBuds/edifierBudsDevice.js:284
 msgid "Ambient Sound"
-msgstr ""
+msgstr "Ortam Sesi"
 
 #: src/preferences/devices/soundcore/configureWindow.js:161
 #: src/preferences/devices/soundcore/configureWindow.js:375
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:85
 msgid "Mode"
-msgstr ""
+msgstr "Mod"
 
 #: src/preferences/devices/soundcore/configureWindow.js:166
 #: src/preferences/devices/nothingBuds/configureWindow.js:791
@@ -436,7 +436,7 @@ msgstr ""
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/sony/configureWindow.js:218
 msgid "Manual"
-msgstr ""
+msgstr "Manuel"
 
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/soundcore/configureWindow.js:172
@@ -454,7 +454,7 @@ msgstr ""
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:678
 #: src/lib/devices/opoBuds/opoBudsDevice.js:600
 msgid "Noise Cancellation Level"
-msgstr ""
+msgstr "Gürültü Engelleme Düzeyi"
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Plane"
@@ -474,7 +474,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:177
 msgid "Transparency Type"
-msgstr ""
+msgstr "Şeffaflık Türü"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Fully Transparent"
@@ -488,13 +488,13 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:631
 #: src/lib/devices/opoBuds/opoBudsDevice.js:641
 msgid "Wind Noise Reduction"
-msgstr ""
+msgstr "Rüzgar Gürültüsü Azaltma"
 
 #: src/preferences/devices/soundcore/configureWindow.js:184
 #: src/preferences/devices/opoBuds/configureWindow.js:712
 #: src/lib/devices/soundcore/soundcoreDevice.js:279
 msgid "Audio Effects"
-msgstr ""
+msgstr "Ses Efektleri"
 
 #: src/preferences/devices/soundcore/configureWindow.js:190
 msgid "Sound Leak Compensation"
@@ -506,7 +506,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:196
 msgid "Volume Limit"
-msgstr ""
+msgstr "Ses Sınırı"
 
 #: src/preferences/devices/soundcore/configureWindow.js:199
 msgid "Decibel Reading Refresh Rate"
@@ -538,7 +538,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:249
 msgid "Auto Play/Pause"
-msgstr ""
+msgstr "Otomatik Oynat/Duraklat"
 
 #: src/preferences/devices/soundcore/configureWindow.js:250
 #: src/preferences/devices/sony/configureWindow.js:446
@@ -602,7 +602,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:142
 #: src/preferences/devices/sony/configureWindow.js:268
 msgid "Frequency (Hz)"
-msgstr ""
+msgstr "Frekans (Hz)"
 
 #: src/preferences/devices/soundcore/configureWindow.js:367
 #: src/preferences/devices/redmiBuds/configureWindow.js:317
@@ -614,7 +614,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:269
 #: src/preferences/devices/googleBuds/configureWindow.js:139
 msgid "Gain (dB)"
-msgstr ""
+msgstr "Kazanç (dB)"
 
 #: src/preferences/devices/soundcore/configureWindow.js:372
 #: src/preferences/devices/redmiBuds/configureWindow.js:336
@@ -656,7 +656,7 @@ msgstr ""
 #: src/preferences/devices/googleBuds/configureWindow.js:108
 #: src/lib/devices/soundcore/soundcoreDevice.js:284
 msgid "Custom Equalizer"
-msgstr ""
+msgstr "Özel Ekolayzer"
 
 #: src/preferences/devices/soundcore/configureWindow.js:402
 msgid "Saved Equalizers"
@@ -699,7 +699,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:239
 #: src/preferences/devices/googleBuds/configureWindow.js:102
 msgid "Equalizer Preset"
-msgstr ""
+msgstr "Ekolayzer Hazır Ayarı"
 
 #: src/preferences/devices/soundcore/configureWindow.js:461
 #: src/lib/devices/soundcore/soundcoreDevice.js:280
@@ -790,7 +790,7 @@ msgstr "Caz"
 
 #: src/preferences/devices/soundcore/configureWindow.js:514
 msgid "Latin"
-msgstr ""
+msgstr "Latin"
 
 #: src/preferences/devices/soundcore/configureWindow.js:515
 msgid "Lounge"
@@ -805,11 +805,11 @@ msgstr ""
 #: src/preferences/devices/senhBuds/configureWindow.js:260
 #: src/preferences/devices/opoBuds/configureWindow.js:358
 msgid "Pop"
-msgstr ""
+msgstr "Pop"
 
 #: src/preferences/devices/soundcore/configureWindow.js:518
 msgid "R&B"
-msgstr ""
+msgstr "R&B"
 
 #: src/preferences/devices/soundcore/configureWindow.js:519
 #: src/preferences/devices/nothingBuds/configureWindow.js:255
@@ -863,7 +863,7 @@ msgstr ""
 #: src/preferences/widgets/earTipFitTestRow.js:199
 #: src/lib/widgets/settingsButton.js:304
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:607
@@ -872,7 +872,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 #: src/preferences/devices/boseBuds/configureWindow.js:818
 msgid "Play / Pause"
-msgstr ""
+msgstr "Oynat / Duraklat"
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:613
@@ -881,7 +881,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 #: src/preferences/devices/boseBuds/configureWindow.js:836
 msgid "Next Track"
-msgstr ""
+msgstr "Sonraki Parça"
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:610
@@ -890,7 +890,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 #: src/preferences/devices/boseBuds/configureWindow.js:833
 msgid "Previous Track"
-msgstr ""
+msgstr "Önceki Parça"
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:619
@@ -898,7 +898,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1169
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 msgid "Volume Up"
-msgstr ""
+msgstr "Sesi Artır"
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:622
@@ -906,7 +906,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1170
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:215
 msgid "Volume Down"
-msgstr ""
+msgstr "Sesi Azalt"
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:625
@@ -932,7 +932,7 @@ msgstr ""
 #: src/lib/devices/sony/sonyDevice.js:180
 #: src/lib/devices/googleBuds/googleBudsDevice.js:199
 msgid "Noise Control"
-msgstr ""
+msgstr "Gürültü Kontrolü"
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:616
@@ -943,7 +943,7 @@ msgstr ""
 #: src/preferences/devices/boseBuds/configureWindow.js:803
 #: src/preferences/devices/boseBuds/configureWindow.js:809
 msgid "Voice Assistant"
-msgstr ""
+msgstr "Sesli Asistan"
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:628
@@ -952,7 +952,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:215
 #: src/preferences/devices/boseBuds/configureWindow.js:788
 msgid "No Action"
-msgstr ""
+msgstr "İşlem Yok"
 
 #: src/preferences/devices/soundcore/configureWindow.js:615
 #: src/preferences/devices/redmiBuds/configureWindow.js:263
@@ -981,7 +981,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:219
 #: src/preferences/devices/boseBuds/configureWindow.js:693
 msgid "Single Tap"
-msgstr ""
+msgstr "Tek Dokunuş"
 
 #: src/preferences/devices/soundcore/configureWindow.js:619
 #: src/preferences/devices/redmiBuds/configureWindow.js:518
@@ -992,7 +992,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:220
 #: src/preferences/devices/boseBuds/configureWindow.js:694
 msgid "Double Tap"
-msgstr ""
+msgstr "Çift Dokunuş"
 
 #: src/preferences/devices/soundcore/configureWindow.js:620
 #: src/preferences/devices/redmiBuds/configureWindow.js:519
@@ -1002,7 +1002,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:221
 #: src/preferences/devices/boseBuds/configureWindow.js:695
 msgid "Triple Tap"
-msgstr ""
+msgstr "Üç Dokunuş"
 
 #: src/preferences/devices/soundcore/configureWindow.js:621
 #: src/preferences/devices/redmiBuds/configureWindow.js:525
@@ -1013,26 +1013,26 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:222
 #: src/preferences/devices/boseBuds/configureWindow.js:702
 msgid "Press and Hold"
-msgstr ""
+msgstr "Basılı Tut"
 
 #: src/preferences/devices/soundcore/configureWindow.js:624
 #: src/preferences/devices/nothingBuds/configureWindow.js:745
 #: src/preferences/devices/opoBuds/configureWindow.js:1361
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Left Earbud"
-msgstr ""
+msgstr "Sol Kulaklık"
 
 #: src/preferences/devices/soundcore/configureWindow.js:624
 #: src/preferences/devices/nothingBuds/configureWindow.js:748
 #: src/preferences/devices/opoBuds/configureWindow.js:1363
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Right Earbud"
-msgstr ""
+msgstr "Sağ Kulaklık"
 
 #: src/preferences/devices/soundcore/configureWindow.js:625
 #: src/preferences/devices/opoBuds/configureWindow.js:1369
 msgid "Button Controls"
-msgstr ""
+msgstr "Düğme Kontrolleri"
 
 #: src/preferences/devices/soundcore/configureWindow.js:636
 #: src/preferences/devices/opoBuds/configureWindow.js:1279
@@ -1076,7 +1076,7 @@ msgstr "Ekolayzer"
 #: src/preferences/devices/sony/configureWindow.js:151
 #: src/lib/devices/sony/sonyDevice.js:197
 msgid "Standard"
-msgstr ""
+msgstr "Standart"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:259
 msgctxt "Redmi equalizer preset"
@@ -1728,11 +1728,11 @@ msgstr ""
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:307
 msgid "Balance"
-msgstr ""
+msgstr "Denge"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:311
 msgid "Left"
-msgstr ""
+msgstr "Sol"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:312
 msgid "Center"
@@ -1741,7 +1741,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:313
 #: src/preferences/widgets/earTipFitTestRow.js:122
 msgid "Right"
-msgstr ""
+msgstr "Sağ"
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:331
 msgid "Earbuds Controls"
@@ -2042,11 +2042,11 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:83
 msgid "Blues"
-msgstr ""
+msgstr "Blues"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:85
 msgid "Natural"
-msgstr ""
+msgstr "Doğal"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:87
 #: src/lib/devices/opoBuds/opoBudsDevice.js:566
@@ -2293,7 +2293,7 @@ msgstr ""
 
 #: src/preferences/devices/boseBuds/configureWindow.js:488
 msgid "Medium"
-msgstr ""
+msgstr "Orta"
 
 #: src/preferences/devices/boseBuds/configureWindow.js:568
 #: src/preferences/devices/sony/configureWindow.js:476
@@ -2390,7 +2390,7 @@ msgstr ""
 
 #: src/preferences/devices/boseBuds/configureWindow.js:854
 msgid "Disabled"
-msgstr ""
+msgstr "Devre Dışı"
 
 #: src/preferences/devices/sony/configureWindow.js:109
 #: src/lib/devices/airpods/airpodsDevice.js:239
@@ -2534,7 +2534,7 @@ msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:413
 msgid "Voice Prompt Volume"
-msgstr ""
+msgstr "Sesli Uyarı Düzeyi"
 
 #: src/preferences/devices/sony/configureWindow.js:414
 msgid "Adjust the volume of voice prompts"
@@ -3164,3 +3164,598 @@ msgstr ""
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr ""
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:123
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "Find My Earbuds"
+msgstr "Kulaklıklarımı Bul"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:124
+msgid "Gestures"
+msgstr "Hareketler"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:126
+msgid "Advanced Settings"
+msgstr "Gelişmiş Ayarlar"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:128
+msgid "System"
+msgstr "Sistem"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:240
+msgid "Case"
+msgstr "Kutu"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:270
+msgid "Firmware"
+msgstr "Donanım Yazılımı"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:271
+msgid "Serial Number (Left)"
+msgstr "Seri Numarası (Sol)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:272
+msgid "Serial Number (Right)"
+msgstr "Seri Numarası (Sağ)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:315
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:380
+msgid "Noise Cancellation Type"
+msgstr "Gürültü Engelleme Türü"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:316
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
+msgid "Adaptive (Ear Canal)"
+msgstr "Uyarlamalı (Kulak Kanalı)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:316
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
+msgid "Adaptive (Environment)"
+msgstr "Uyarlamalı (Ortam)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:338
+#: src/preferences/devices/earfunBuds/configureWindow.js:340
+msgid "Touch Control"
+msgstr "Dokunmatik Kontrol"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:341
+msgid "Turns off touch control of one or both earbuds"
+msgstr "Bir veya iki kulaklığın dokunmatik kontrolünü kapatır"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+msgid "Both earbuds"
+msgstr "Her iki kulaklık"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Right earbud only"
+msgstr "Yalnızca sağ kulaklık"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Left earbud only"
+msgstr "Yalnızca sol kulaklık"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:355
+msgid "Redial"
+msgstr "Tekrar Ara"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:375
+msgid "Press and Hold (Call)"
+msgstr "Basılı Tut (Arama)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:376
+msgid "Reject Call"
+msgstr "Aramayı Reddet"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:376
+msgid "Mute Microphone"
+msgstr "Mikrofonu Sessize Al"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:385
+msgid "Detects whether the earbuds are worn"
+msgstr "Kulaklıkların takılı olup olmadığını algılar"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:387
+msgid "Pause when taken off, resume when put in"
+msgstr "Çıkarılınca duraklat, takılınca devam et"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:388
+msgid "Automatic Call Answering"
+msgstr "Otomatik Arama Yanıtlama"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:389
+msgid "Answer incoming calls when the earbuds are worn"
+msgstr "Kulaklıklar takılıyken gelen aramaları yanıtla"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:390
+msgid "Higher Sensitivity"
+msgstr "Daha Yüksek Hassasiyet"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:391
+msgid "Improves detection with different ear shapes, but may trigger by mistake"
+msgstr "Farklı kulak şekillerinde algılamayı iyileştirir, ancak yanlışlıkla tetiklenebilir"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Reduces audio latency, but may affect the connection stability"
+msgstr "Ses gecikmesini azaltır, ancak bağlantı kararlılığını etkileyebilir"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:398
+msgid "Limits the maximum volume of the earbuds"
+msgstr "Kulaklıkların en yüksek ses düzeyini sınırlar"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:399
+msgid "No limit"
+msgstr "Sınır yok"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Volume balance between the left and the right earbud"
+msgstr "Sol ve sağ kulaklık arasındaki ses dengesi"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:403
+msgid "L"
+msgstr "L"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:405
+msgid "R"
+msgstr "R"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Loudest"
+msgstr "En Yüksek"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Loud"
+msgstr "Yüksek"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Quiet"
+msgstr "Sessiz"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Quietest"
+msgstr "En Sessiz"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:410
+msgid "Microphone"
+msgstr "Mikrofon"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:411
+msgid "Use one earbud for calls or let the earbuds choose"
+msgstr "Aramalar için tek kulaklık kullan veya seçimi kulaklıklara bırak"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Automatic"
+msgstr "Otomatik"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:447
+msgid "Multipoint Connection"
+msgstr "Multipoint Bağlantı"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:448
+msgid "Connect to two devices at the same time. Turn it off to use LDAC"
+msgstr "Aynı anda iki cihaza bağlanır. LDAC kullanmak için kapatın"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:449
+msgid "Audio Quality"
+msgstr "Ses Kalitesi"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:450
+msgid "Bluetooth codec. The earbuds restart and reconnect when this changes"
+msgstr "Bluetooth kodeği. Değiştirildiğinde kulaklıklar yeniden başlar ve yeniden bağlanır"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:451
+msgid "Stable connection"
+msgstr "Kararlı bağlantı"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:454
+msgid "Connection Mode"
+msgstr "Bağlantı Modu"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:455
+msgid "LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with LE Audio. The earbuds restart when this changes"
+msgstr "LE Audio, Auracast'i de açar. Oyun Modu, aptX ve LDAC, LE Audio ile çalışmayabilir. Değiştirildiğinde kulaklıklar yeniden başlar"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:463
+msgid "Country"
+msgstr "Country"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:465
+msgid "Hip-Hop"
+msgstr "Hip-Hop"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Metal"
+msgstr "Metal"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Soul"
+msgstr "Soul"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Hits"
+msgstr "Hit"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:467
+msgid "Voice Boost"
+msgstr "Ses Yükseltme"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:468
+msgid "Voice Reduction"
+msgstr "Ses Azaltma"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:468
+msgid "Bass Boost 1"
+msgstr "Bas Yükseltme 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:469
+msgid "Bass Boost 2"
+msgstr "Bas Yükseltme 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:469
+msgid "Bass Boost 3"
+msgstr "Bas Yükseltme 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:470
+msgid "Bass Reduction 1"
+msgstr "Bas Azaltma 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:470
+msgid "Bass Reduction 2"
+msgstr "Bas Azaltma 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:471
+msgid "Bass Reduction 3"
+msgstr "Bas Azaltma 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:471
+msgid "Treble Boost 1"
+msgstr "Tiz Yükseltme 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Treble Boost 2"
+msgstr "Tiz Yükseltme 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Treble Boost 3"
+msgstr "Tiz Yükseltme 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:473
+msgid "Treble Reduction 1"
+msgstr "Tiz Azaltma 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:473
+msgid "Treble Reduction 2"
+msgstr "Tiz Azaltma 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Treble Reduction 3"
+msgstr "Tiz Azaltma 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Original Sound"
+msgstr "Orijinal Ses"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:495
+msgid "Choose a preset or your own curve"
+msgstr "Bir hazır ayar veya kendi eğrinizi seçin"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:496
+msgid "Preset"
+msgstr "Hazır Ayar"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:551
+msgid "Name of the earbuds"
+msgstr "Kulaklıkların adı"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:561
+msgid "Change name?"
+msgstr "Ad değiştirilsin mi?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:562
+msgid "After changing the name, put the earbuds in the charging case and close the lid for about 10 seconds. Remove the earbuds from the Bluetooth devices of this computer and pair them again to use the new name."
+msgstr "Adı değiştirdikten sonra kulaklıkları şarj kutusuna koyun ve kapağı yaklaşık 10 saniye kapalı tutun. Yeni adı kullanmak için kulaklıkları bu bilgisayarın Bluetooth cihazlarından kaldırın ve yeniden eşleştirin."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:568
+msgid "Change"
+msgstr "Değiştir"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Kulak kanalındaki sesi ve kulaklıkların takılı olup olmadığını dinler, gürültü engellemeyi sürekli ayarlar."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Teknik: 0x033A komutu, değer 0. Kulaklıklar kulak kanalında ölçülen sesi analiz eder ve filtreyi kendileri ayarlar."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Çevrenizdeki gürültüyü ve kulaklıkların takılı olup olmadığını dinler, gürültü engellemeyi sürekli ayarlar."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Teknik: 0x033A komutu, değer 4. Kulaklıklar dışarıda ölçülen gürültüyü analiz eder ve filtreyi kendileri ayarlar."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "Gürültü engellemenin gücünü dört kademe içinde kendiniz seçersiniz."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Teknik: 0x033A komutu, 1 ile 4 arası seviyeler için değer 6, 5, 3 veya 2. Seviye 4 (değer 2) en güçlüsüdür."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Şiddetli rüzgar için. Rüzgar gürültüsünü azaltır, ancak gürültü engelleme daha az etkili olur."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Teknik: 0x033A komutu, değer 1. Diğer türlerin yerini alır, birlikte kullanılamazlar."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "Ses kalitesi yerine kararlı bağlantıyı tercih eder. Ses kesiliyor veya aksıyorsa bunu seçin."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Teknik: 0x032E komutu, değer 0. aptX veya LDAC kapatıldığında da aynı değer gönderilir, bu yüzden aptX ya da LDAC varyantlarından hiçbiri seçili olmaz."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Yaygın Bluetooth codec'lerinden daha yüksek veri hızına sahip bir Qualcomm codec'i. Qualcomm çipli cihazlarla en iyi şekilde çalışır."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Teknik: 0x032E komutu, değer 1. Yaklaşık 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "Bit hızını ve gecikmeyi yaptığınız işe ve radyo koşullarına göre kendisi ayarlar."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Teknik: 0x032E komutu, değer 3. Bit hızı sabit değildir."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "CD kalitesini yüksek veri hızıyla iletir. Yeni bir Qualcomm Snapdragon cihaz gerekir; yakın durun ve 5 GHz Wi-Fi bandını kullanın veya Wi-Fi'yi kapatın."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Teknik: 0x032E komutu, değer 0x13. Yaklaşık 1.200 kbit/s'ye kadar."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Yüksek kaliteli ses. Pil ömrünü kısaltabilir ve takılmalara yol açabilir, bu yüzden yakın durun. Multipoint ile birlikte kullanılamaz."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Teknik: 0x032E komutu, değer 8. Yaklaşık 990 kbit/s'ye kadar. Üreticinin uygulaması önce Multipoint'in kapatılmasını ister."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "Bu değiştiğinde kulaklıklar yeniden başlar. Yalnızca codec'i sunarlar: kullanılacak codec'i bilgisayarınız kulaklıklarla birlikte seçer ve onu desteklemesi gerekir."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Üç Dokunuş (Arama)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Yanıtla / Aramalar Arasında Geç"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Yanıtla / Aramayı Kapat"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "Kulaklıklar başka bir uygulama tarafından kullanılıyor, örneğin telefondaki üretici uygulaması. BudsLink denemeye devam eder ve bağlantı boşaldığı anda ayarları uygular."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "Multipoint, LDAC ile kullanılamaz"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "Önce başka bir ses kalitesi seçin, ardından Multipoint'i açın."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "Kulaklıklar yeniden başlatılsın mı?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "Bağlantı modu değiştiğinde kulaklıklar yeniden başlar. Müzik ve aramalar birkaç saniyeliğine kesilir."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "Multipoint kapatılsın mı?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "LDAC, Multipoint ile birlikte kullanılamaz. Önce Multipoint kapatılır, ardından LDAC seçilir. Kulaklıklar yeniden başlar."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "Kapat ve Seç"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "Ses kalitesi değiştiğinde kulaklıklar yeniden başlar. Müzik ve aramalar birkaç saniyeliğine kesilir."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "Kulaklıklara bağlı olan veya daha önce bağlanmış cihazlar"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "Yeni Cihaz Eşleştir"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "Başka bir cihazın kulaklıklara bağlanabilmesi için eşleştirme modunu başlatın"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "Başlat"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "Eşleştirme modu başlatılsın mı?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "Kulaklıklar bir süre yeni bir cihaz için bekler. İki yer de kullanımda olmamalıdır, bu yüzden önce cihazlardan birinin bağlantısını kesin."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "Bağlı değil"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "Her zaman bu cihazda çal"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "Bu cihazda çal"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "A newer firmware exists:"
+msgstr "Daha yeni bir firmware mevcut:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Ask the server of the vendor whether a newer firmware exists. BudsLink does not install firmware."
+msgstr "Üreticinin sunucusuna daha yeni bir firmware olup olmadığını sorun. BudsLink firmware yüklemez."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Asking the server…"
+msgstr "Sunucuya soruluyor…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Check"
+msgstr "Denetle"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose File…"
+msgstr "Dosya Seç…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a Voice Pack"
+msgstr "Ses Paketi Seç"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Connecting…"
+msgstr "Bağlanıyor…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Finishing…"
+msgstr "Tamamlanıyor…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Firmware Update"
+msgstr "Firmware Güncellemesi"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install"
+msgstr "Yükle"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install a Voice Pack"
+msgstr "Ses Paketi Yükle"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install it with the app of the vendor."
+msgstr "Üreticinin uygulamasıyla yükleyin."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install this voice pack?"
+msgstr "Bu ses paketi yüklensin mi?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Not available: the key of the server is missing (see the documentation)."
+msgstr "Kullanılamıyor: sunucu anahtarı eksik (belgelere bakın)."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Send a voice pack file (.bin) to the earbuds"
+msgstr "Kulaklıklara bir ses paketi dosyası (.bin) gönder"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Sending the file…"
+msgstr "Dosya gönderiliyor…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds apply the file…"
+msgstr "Kulaklıklar dosyayı uyguluyor…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds check the file…"
+msgstr "Kulaklıklar dosyayı denetliyor…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds restart. Wait until they connect again…"
+msgstr "Kulaklıklar yeniden başlatılıyor. Yeniden bağlanana kadar bekleyin…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file is sent to the earbuds, which takes about a minute, and they restart at the end. Keep them in their case or in your ears, close to the computer and charged, and do not turn them off or disconnect them meanwhile."
+msgstr "Dosya kulaklıklara gönderiliyor; bu yaklaşık bir dakika sürer ve sonunda kulaklıklar yeniden başlatılır. Bu sırada kulaklıkları şarj kutusunda veya kulağınızda, bilgisayara yakın ve şarjlı tutun; kapatmayın veya bağlantısını kesmeyin."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The firmware is up to date."
+msgstr "Firmware güncel."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The server could not be asked."
+msgstr "Sunucuya sorulamadı."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer failed:"
+msgstr "Aktarım başarısız oldu:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer is finished."
+msgstr "Aktarım tamamlandı."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. BudsLink does not download voice packs: choose a file you have."
+msgstr "Kulaklıkların sesli uyarıları, kulaklıklara gönderilen bir dosyadır. BudsLink ses paketlerini indirmez: sahip olduğunuz bir dosyayı seçin."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Transfer"
+msgstr "Aktar"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Pack and Firmware"
+msgstr "Ses Paketi ve Firmware"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice pack (*.bin)"
+msgstr "Ses Paketi (*.bin)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a language to install it"
+msgstr "Yüklemek için bir dil seçin"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load"
+msgstr "Yükle"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load the list of languages from the server"
+msgstr "Dil listesini sunucudan yükle"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The download failed"
+msgstr "İndirme başarısız oldu"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file could not be loaded."
+msgstr "Dosya yüklenemedi."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. Choose one the server of the vendor offers, or a file you have."
+msgstr "Kulaklıkların sesli istemleri, kulaklıklara gönderilen bir dosyadır. Üreticinin sunucusunun sunduğu bir dosyayı veya kendi dosyanızı seçin."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Packs of the Vendor"
+msgstr "Üreticinin ses paketleri"

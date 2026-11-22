@@ -478,7 +478,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:177
 msgid "Transparency Type"
-msgstr ""
+msgstr "Tipo di trasparenza"
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Fully Transparent"
@@ -492,13 +492,13 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:631
 #: src/lib/devices/opoBuds/opoBudsDevice.js:641
 msgid "Wind Noise Reduction"
-msgstr ""
+msgstr "Riduzione del rumore del vento"
 
 #: src/preferences/devices/soundcore/configureWindow.js:184
 #: src/preferences/devices/opoBuds/configureWindow.js:712
 #: src/lib/devices/soundcore/soundcoreDevice.js:279
 msgid "Audio Effects"
-msgstr ""
+msgstr "Effetti audio"
 
 #: src/preferences/devices/soundcore/configureWindow.js:190
 msgid "Sound Leak Compensation"
@@ -510,7 +510,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:196
 msgid "Volume Limit"
-msgstr ""
+msgstr "Limite del volume"
 
 #: src/preferences/devices/soundcore/configureWindow.js:199
 msgid "Decibel Reading Refresh Rate"
@@ -542,7 +542,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:249
 msgid "Auto Play/Pause"
-msgstr ""
+msgstr "Riproduzione/pausa automatica"
 
 #: src/preferences/devices/soundcore/configureWindow.js:250
 #: src/preferences/devices/sony/configureWindow.js:446
@@ -795,7 +795,7 @@ msgstr "Jazz"
 
 #: src/preferences/devices/soundcore/configureWindow.js:514
 msgid "Latin"
-msgstr ""
+msgstr "Latin"
 
 #: src/preferences/devices/soundcore/configureWindow.js:515
 msgid "Lounge"
@@ -814,7 +814,7 @@ msgstr "Pop"
 
 #: src/preferences/devices/soundcore/configureWindow.js:518
 msgid "R&B"
-msgstr ""
+msgstr "R&B"
 
 #: src/preferences/devices/soundcore/configureWindow.js:519
 #: src/preferences/devices/nothingBuds/configureWindow.js:255
@@ -1025,19 +1025,19 @@ msgstr "Premi e tieni premuto"
 #: src/preferences/devices/opoBuds/configureWindow.js:1361
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Left Earbud"
-msgstr ""
+msgstr "Auricolare sinistro"
 
 #: src/preferences/devices/soundcore/configureWindow.js:624
 #: src/preferences/devices/nothingBuds/configureWindow.js:748
 #: src/preferences/devices/opoBuds/configureWindow.js:1363
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Right Earbud"
-msgstr ""
+msgstr "Auricolare destro"
 
 #: src/preferences/devices/soundcore/configureWindow.js:625
 #: src/preferences/devices/opoBuds/configureWindow.js:1369
 msgid "Button Controls"
-msgstr ""
+msgstr "Controlli pulsanti"
 
 #: src/preferences/devices/soundcore/configureWindow.js:636
 #: src/preferences/devices/opoBuds/configureWindow.js:1279
@@ -2047,11 +2047,11 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:83
 msgid "Blues"
-msgstr ""
+msgstr "Blues"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:85
 msgid "Natural"
-msgstr ""
+msgstr "Naturale"
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:87
 #: src/lib/devices/opoBuds/opoBudsDevice.js:566
@@ -2539,7 +2539,7 @@ msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:413
 msgid "Voice Prompt Volume"
-msgstr ""
+msgstr "Volume dei messaggi vocali"
 
 #: src/preferences/devices/sony/configureWindow.js:414
 msgid "Adjust the volume of voice prompts"
@@ -3186,3 +3186,598 @@ msgstr "Livello batteria"
 
 #~ msgid "Select the icon used for the indicator and quick menu"
 #~ msgstr "Seleziona l'icona utilizzata per l'indicatore e il menu rapido"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:123
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "Find My Earbuds"
+msgstr "Trova i miei auricolari"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:124
+msgid "Gestures"
+msgstr "Gesture"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:126
+msgid "Advanced Settings"
+msgstr "Impostazioni avanzate"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:128
+msgid "System"
+msgstr "Sistema"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:240
+msgid "Case"
+msgstr "Custodia"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:270
+msgid "Firmware"
+msgstr "Firmware"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:271
+msgid "Serial Number (Left)"
+msgstr "Numero di serie (sinistro)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:272
+msgid "Serial Number (Right)"
+msgstr "Numero di serie (destro)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:315
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:380
+msgid "Noise Cancellation Type"
+msgstr "Tipo di cancellazione del rumore"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:316
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
+msgid "Adaptive (Ear Canal)"
+msgstr "Adattiva (canale uditivo)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:316
+#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
+msgid "Adaptive (Environment)"
+msgstr "Adattiva (ambiente)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:338
+#: src/preferences/devices/earfunBuds/configureWindow.js:340
+msgid "Touch Control"
+msgstr "Controllo touch"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:341
+msgid "Turns off touch control of one or both earbuds"
+msgstr "Disattiva il controllo touch di uno o di entrambi gli auricolari"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+msgid "Both earbuds"
+msgstr "Entrambi gli auricolari"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Right earbud only"
+msgstr "Solo auricolare destro"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:342
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Left earbud only"
+msgstr "Solo auricolare sinistro"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:355
+msgid "Redial"
+msgstr "Ricomponi"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:375
+msgid "Press and Hold (Call)"
+msgstr "Premi e tieni premuto (chiamata)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:376
+msgid "Reject Call"
+msgstr "Rifiuta chiamata"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:376
+msgid "Mute Microphone"
+msgstr "Disattiva microfono"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:385
+msgid "Detects whether the earbuds are worn"
+msgstr "Rileva se gli auricolari sono indossati"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:387
+msgid "Pause when taken off, resume when put in"
+msgstr "Pausa quando vengono tolti, riprende quando vengono rimessi"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:388
+msgid "Automatic Call Answering"
+msgstr "Risposta automatica alle chiamate"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:389
+msgid "Answer incoming calls when the earbuds are worn"
+msgstr "Risponde alle chiamate in arrivo quando gli auricolari sono indossati"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:390
+msgid "Higher Sensitivity"
+msgstr "Sensibilità più alta"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:391
+msgid "Improves detection with different ear shapes, but may trigger by mistake"
+msgstr "Migliora il rilevamento con diverse forme dell’orecchio, ma può attivarsi per errore"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Reduces audio latency, but may affect the connection stability"
+msgstr "Riduce la latenza audio, ma può compromettere la stabilità della connessione"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:398
+msgid "Limits the maximum volume of the earbuds"
+msgstr "Limita il volume massimo degli auricolari"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:399
+msgid "No limit"
+msgstr "Nessun limite"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Volume balance between the left and the right earbud"
+msgstr "Bilanciamento del volume tra l’auricolare sinistro e quello destro"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:403
+msgid "L"
+msgstr "S"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:405
+msgid "R"
+msgstr "D"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Loudest"
+msgstr "Il più alto"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Loud"
+msgstr "Alto"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Quiet"
+msgstr "Basso"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:408
+msgid "Quietest"
+msgstr "Il più basso"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:410
+msgid "Microphone"
+msgstr "Microfono"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:411
+msgid "Use one earbud for calls or let the earbuds choose"
+msgstr "Usa un solo auricolare per le chiamate oppure lascia scegliere agli auricolari"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:412
+msgid "Automatic"
+msgstr "Automatico"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:447
+msgid "Multipoint Connection"
+msgstr "Connessione Multipoint"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:448
+msgid "Connect to two devices at the same time. Turn it off to use LDAC"
+msgstr "Connettiti a due dispositivi contemporaneamente. Disattivala per usare LDAC"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:449
+msgid "Audio Quality"
+msgstr "Qualità audio"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:450
+msgid "Bluetooth codec. The earbuds restart and reconnect when this changes"
+msgstr "Codec Bluetooth. Gli auricolari si riavviano e si riconnettono quando cambia"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:451
+msgid "Stable connection"
+msgstr "Connessione stabile"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:454
+msgid "Connection Mode"
+msgstr "Modalità di connessione"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:455
+msgid "LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with LE Audio. The earbuds restart when this changes"
+msgstr "LE Audio attiva anche Auracast. La modalità gioco, aptX e LDAC potrebbero non funzionare con LE Audio. Gli auricolari si riavviano quando cambia"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:463
+msgid "Country"
+msgstr "Country"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:465
+msgid "Hip-Hop"
+msgstr "Hip-Hop"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Metal"
+msgstr "Metal"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Soul"
+msgstr "Soul"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:466
+msgid "Hits"
+msgstr "Hits"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:467
+msgid "Voice Boost"
+msgstr "Enfatizzazione voce"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:468
+msgid "Voice Reduction"
+msgstr "Riduzione voce"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:468
+msgid "Bass Boost 1"
+msgstr "Enfatizzazione bassi 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:469
+msgid "Bass Boost 2"
+msgstr "Enfatizzazione bassi 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:469
+msgid "Bass Boost 3"
+msgstr "Enfatizzazione bassi 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:470
+msgid "Bass Reduction 1"
+msgstr "Riduzione bassi 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:470
+msgid "Bass Reduction 2"
+msgstr "Riduzione bassi 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:471
+msgid "Bass Reduction 3"
+msgstr "Riduzione bassi 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:471
+msgid "Treble Boost 1"
+msgstr "Enfatizzazione acuti 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Treble Boost 2"
+msgstr "Enfatizzazione acuti 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Treble Boost 3"
+msgstr "Enfatizzazione acuti 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:473
+msgid "Treble Reduction 1"
+msgstr "Riduzione acuti 1"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:473
+msgid "Treble Reduction 2"
+msgstr "Riduzione acuti 2"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Treble Reduction 3"
+msgstr "Riduzione acuti 3"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Original Sound"
+msgstr "Suono originale"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:495
+msgid "Choose a preset or your own curve"
+msgstr "Scegli un preset o la tua curva personalizzata"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:496
+msgid "Preset"
+msgstr "Preset"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:551
+msgid "Name of the earbuds"
+msgstr "Nome degli auricolari"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:561
+msgid "Change name?"
+msgstr "Cambiare il nome?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:562
+msgid "After changing the name, put the earbuds in the charging case and close the lid for about 10 seconds. Remove the earbuds from the Bluetooth devices of this computer and pair them again to use the new name."
+msgstr "Dopo aver cambiato il nome, metti gli auricolari nella custodia di ricarica e chiudi il coperchio per circa 10 secondi. Rimuovi gli auricolari dai dispositivi Bluetooth di questo computer e abbinali di nuovo per usare il nuovo nome."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:568
+msgid "Change"
+msgstr "Cambia"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:321
+msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Ascolta il suono all'interno del canale uditivo e se gli auricolari sono indossati, e regola di continuo la cancellazione del rumore."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:323
+msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
+msgstr "Tecnico: comando 0x033A con valore 0. Gli auricolari analizzano il suono misurato nel canale uditivo e regolano il filtro da soli."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:325
+msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
+msgstr "Ascolta il rumore intorno a te e se gli auricolari sono indossati, e regola di continuo la cancellazione del rumore."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:327
+msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
+msgstr "Tecnico: comando 0x033A con valore 4. Gli auricolari analizzano il rumore misurato all'esterno e regolano il filtro da soli."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:329
+msgid "You choose the strength of the noise cancellation yourself, in four steps."
+msgstr "Scegli tu l'intensità della cancellazione del rumore, in quattro livelli."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:330
+msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
+msgstr "Tecnico: comando 0x033A con valore 6, 5, 3 o 2 per i livelli da 1 a 4. Il livello 4 (valore 2) è il più forte."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:332
+msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
+msgstr "Per vento forte. Riduce il rumore del vento, ma la cancellazione del rumore diventa meno efficace."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:334
+msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
+msgstr "Tecnico: comando 0x033A con valore 1. Sostituisce gli altri tipi, non possono essere combinati."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:472
+msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
+msgstr "Privilegia una connessione stabile rispetto alla qualità del suono. Sceglila se l'audio si interrompe o a scatti."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:474
+msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
+msgstr "Tecnico: comando 0x032E con valore 0. Lo stesso valore viene inviato quando aptX o LDAC è disattivato, quindi nessuna variante di aptX o LDAC è selezionata."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:476
+msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
+msgstr "Un codec Qualcomm con una velocità di trasmissione dati superiore ai comuni codec Bluetooth. Funziona meglio con dispositivi dotati di chip Qualcomm."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:478
+msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
+msgstr "Tecnico: comando 0x032E con valore 1. Circa 352 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:479
+msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
+msgstr "Adatta da solo bitrate e ritardo a ciò che stai facendo e alle condizioni radio."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:481
+msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
+msgstr "Tecnico: comando 0x032E con valore 3. Il bitrate non è fisso."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:482
+msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
+msgstr "Trasmette qualità CD con un'elevata velocità di trasmissione dati. Richiede un dispositivo Qualcomm Snapdragon recente; stai vicino e usa la banda Wi-Fi a 5 GHz oppure disattiva il Wi-Fi."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:485
+msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
+msgstr "Tecnico: comando 0x032E con valore 0x13. Fino a circa 1.200 kbit/s."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:486
+msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
+msgstr "Audio di alta qualità. Può ridurre la durata della batteria e causare interruzioni, quindi stai vicino. Non può essere usato insieme al multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:488
+msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
+msgstr "Tecnico: comando 0x032E con valore 8. Fino a circa 990 kbit/s. L'app del produttore richiede di disattivare prima il multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
+msgstr "Gli auricolari si riavviano quando questa impostazione cambia. Offrono soltanto il codec: il computer sceglie quello in uso insieme agli auricolari e deve supportarlo."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:395
+msgid "Triple Tap (Call)"
+msgstr "Triplo tocco (chiamata)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:396
+msgid "Answer / Switch Between Calls"
+msgstr "Rispondi / passa tra chiamate"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:402
+msgid "Answer / Hang Up"
+msgstr "Rispondi / riattacca"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:181
+msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
+msgstr "Gli auricolari sono in uso da un'altra app, ad esempio l'app del produttore sul telefono. BudsLink continua a riprovare e applica le impostazioni non appena la connessione è libera."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:490
+msgid "Multipoint is not possible with LDAC"
+msgstr "Multipoint non è possibile con LDAC"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:491
+msgid "Choose another audio quality first, then turn multipoint on."
+msgstr "Scegli prima un'altra qualità audio, poi attiva Multipoint."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:525
+msgid "Restart the earbuds?"
+msgstr "Riavviare gli auricolari?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
+msgstr "Gli auricolari si riavviano quando cambia la modalità di connessione. Musica e chiamate vengono interrotte per alcuni secondi."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:537
+msgid "Turn off multipoint?"
+msgstr "Disattivare Multipoint?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:538
+msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
+msgstr "LDAC non può essere usato insieme a Multipoint. Multipoint viene prima disattivato, poi viene selezionato LDAC. Gli auricolari si riavviano."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:540
+msgid "Turn Off and Select"
+msgstr "Disattiva e seleziona"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:526
+msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
+msgstr "Gli auricolari si riavviano quando cambia la qualità audio. Musica e chiamate vengono interrotte per alcuni secondi."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:541
+msgid "Devices that are or were connected to the earbuds"
+msgstr "Dispositivi connessi o che sono stati connessi agli auricolari"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:547
+msgid "Pair a New Device"
+msgstr "Associa un nuovo dispositivo"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start the pairing mode so that another device can connect to the earbuds"
+msgstr "Avvia la modalità di associazione in modo che un altro dispositivo possa connettersi agli auricolari"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:548
+msgid "Start"
+msgstr "Avvia"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:569
+msgid "Start the pairing mode?"
+msgstr "Avviare la modalità di associazione?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:570
+msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
+msgstr "Gli auricolari attendono per un po' un nuovo dispositivo. Entrambi i posti non devono essere in uso, quindi disconnetti prima uno dei dispositivi."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:593
+msgid "Not connected"
+msgstr "Non connesso"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:598
+msgid "Always play on this device"
+msgstr "Riproduci sempre su questo dispositivo"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js:609
+msgid "Play on this device"
+msgstr "Riproduci su questo dispositivo"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "A newer firmware exists:"
+msgstr "È disponibile un firmware più recente:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Ask the server of the vendor whether a newer firmware exists. BudsLink does not install firmware."
+msgstr "Verifica sul server del produttore se esiste un firmware più recente. BudsLink non installa il firmware."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Asking the server…"
+msgstr "Richiesta al server…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Check"
+msgstr "Verifica"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose File…"
+msgstr "Scegli file…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a Voice Pack"
+msgstr "Scegli un pacchetto vocale"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Connecting…"
+msgstr "Connessione…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Finishing…"
+msgstr "Completamento…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Firmware Update"
+msgstr "Aggiornamento firmware"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install"
+msgstr "Installa"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install a Voice Pack"
+msgstr "Installa un pacchetto vocale"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install it with the app of the vendor."
+msgstr "Installalo con l'app del produttore."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install this voice pack?"
+msgstr "Installare questo pacchetto vocale?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Not available: the key of the server is missing (see the documentation)."
+msgstr "Non disponibile: manca la chiave del server (vedi la documentazione)."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Send a voice pack file (.bin) to the earbuds"
+msgstr "Invia un file del pacchetto vocale (.bin) agli auricolari"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Sending the file…"
+msgstr "Invio del file…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds apply the file…"
+msgstr "Gli auricolari applicano il file…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds check the file…"
+msgstr "Gli auricolari verificano il file…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds restart. Wait until they connect again…"
+msgstr "Gli auricolari si riavviano. Attendi che si ricolleghino…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file is sent to the earbuds, which takes about a minute, and they restart at the end. Keep them in their case or in your ears, close to the computer and charged, and do not turn them off or disconnect them meanwhile."
+msgstr "Il file viene inviato agli auricolari, operazione che richiede circa un minuto; alla fine si riavviano. Tienili nella custodia o nelle orecchie, vicino al computer e carichi, e nel frattempo non spegnerli né disconnetterli."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The firmware is up to date."
+msgstr "Il firmware è aggiornato."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The server could not be asked."
+msgstr "Impossibile interrogare il server."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer failed:"
+msgstr "Trasferimento non riuscito:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer is finished."
+msgstr "Trasferimento completato."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. BudsLink does not download voice packs: choose a file you have."
+msgstr "I messaggi vocali degli auricolari sono un file che viene inviato a questi ultimi. BudsLink non scarica pacchetti vocali: scegli un file che hai già."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Transfer"
+msgstr "Trasferisci"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Pack and Firmware"
+msgstr "Pacchetto vocale e firmware"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice pack (*.bin)"
+msgstr "Pacchetto vocale (*.bin)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a language to install it"
+msgstr "Scegli una lingua da installare"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load"
+msgstr "Carica"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load the list of languages from the server"
+msgstr "Carica l'elenco delle lingue dal server"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The download failed"
+msgstr "Download non riuscito"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file could not be loaded."
+msgstr "Impossibile caricare il file."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. Choose one the server of the vendor offers, or a file you have."
+msgstr "I messaggi vocali degli auricolari sono un file che viene inviato a questi ultimi. Scegline uno offerto dal server del produttore oppure un file tuo."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Packs of the Vendor"
+msgstr "Pacchetti vocali del produttore"
