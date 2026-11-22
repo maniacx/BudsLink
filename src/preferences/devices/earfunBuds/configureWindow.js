@@ -23,6 +23,10 @@ import {checkFirmware, fetchVoicePacks, downloadVoicePack} from '../../../lib/de
 
 const SettingsKey = 'earfun-buds-list';
 
+// The voice pack installation and the firmware check are switched off in this build. The code
+// stays, so it can be switched on again by setting this to true
+const VoicePackAndFirmwareUi = false;
+
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_EarfunBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
@@ -535,7 +539,8 @@ export const ConfigureWindow = GObject.registerClass({
             }));
 
         this._addDevicesGroup(page);
-        this._addUpgradeGroup(page);
+        if (VoicePackAndFirmwareUi)
+            this._addUpgradeGroup(page);
     }
 
     // The devices that are known to the earbuds (multipoint): a switch connects or disconnects a
@@ -618,7 +623,7 @@ export const ConfigureWindow = GObject.registerClass({
     // Looks for a newer firmware once per window, as soon as the earbuds reported their version.
     // Without the key of the server nothing is asked and the row stays as it is
     _autoCheckFirmware() {
-        if (this._firmwareChecked || !(this._settingsItems['fw'] ?? ''))
+        if (!this._firmwareRow || this._firmwareChecked || !(this._settingsItems['fw'] ?? ''))
             return;
 
         this._firmwareChecked = true;
