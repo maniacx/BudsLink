@@ -16,8 +16,8 @@ const TX_INTERVAL_MS = 30;
 export const EarfunBudsSocket = GObject.registerClass({
     GTypeName: 'BudsLink_EarfunBudsSocket',
 }, class EarfunBudsSocket extends SocketHandler {
-    _init(devicePath, profileManager, profile, callbacks) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, callbacks) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         this._log = createLogger(`EarfunBudsSocket-${identifier}`);
         this._log.info('EarfunBudsSocket init');

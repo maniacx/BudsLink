@@ -157,8 +157,8 @@ function inEarSettingsFromMask(mask) {
 export const EarfunBudsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_EarfunBudsDevice',
 }, class EarfunBudsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         this._log = createLogger(`EarfunBudsDevice-${identifier}`);
         this._log.info('------------------- EarfunBudsDevice init -------------------');
