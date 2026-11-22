@@ -61,7 +61,7 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:935
 #: src/preferences/devices/boseBuds/configureWindow.js:374
 msgid "In-Ear Detection"
-msgstr "装着検出"
+msgstr ""
 
 #: src/preferences/devices/edifierBuds/configureWindow.js:81
 #: src/preferences/devices/nothingBuds/configureWindow.js:410
@@ -208,7 +208,7 @@ msgstr ""
 #: src/lib/devices/googleBuds/googleBudsDevice.js:211
 #: src/lib/widgets/settingsButton.js:401 src/lib/widgets/settingsButton.js:438
 msgid "Off"
-msgstr "オフ"
+msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:226
 #: src/preferences/devices/soundcore/configureWindow.js:162
@@ -224,7 +224,7 @@ msgstr "オフ"
 #: src/lib/devices/cambridgeBuds/cambridgeBudsDevice.js:298
 #: src/lib/devices/googleBuds/googleBudsDevice.js:217
 msgid "Transparency"
-msgstr "外音取り込み"
+msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:232
 #: src/preferences/devices/soundcore/configureWindow.js:162
@@ -249,7 +249,7 @@ msgstr "外音取り込み"
 #: src/lib/devices/sony/sonyDevice.js:187
 #: src/lib/devices/googleBuds/googleBudsDevice.js:223
 msgid "Noise Cancellation"
-msgstr "ノイズキャンセリング"
+msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:239
 #: src/preferences/devices/soundcore/configureWindow.js:167
@@ -398,7 +398,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:77
 #: src/preferences/devices/boseBuds/configureWindow.js:267
 msgid "Sound Settings"
-msgstr "サウンド設定"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:94
 #: src/preferences/devices/nothingBuds/configureWindow.js:580
@@ -417,13 +417,13 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:466
 #: src/lib/devices/edifierBuds/edifierBudsDevice.js:284
 msgid "Ambient Sound"
-msgstr "周囲の音"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:161
 #: src/preferences/devices/soundcore/configureWindow.js:375
 #: src/preferences/devices/boseBuds/modesGroupWidget.js:85
 msgid "Mode"
-msgstr "モード"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:166
 #: src/preferences/devices/nothingBuds/configureWindow.js:791
@@ -433,7 +433,7 @@ msgstr ""
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/sony/configureWindow.js:218
 msgid "Manual"
-msgstr "手動"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:167
 #: src/preferences/devices/soundcore/configureWindow.js:172
@@ -451,7 +451,7 @@ msgstr ""
 #: src/lib/devices/galaxyBuds/galaxyBudsDevice.js:678
 #: src/lib/devices/opoBuds/opoBudsDevice.js:600
 msgid "Noise Cancellation Level"
-msgstr "ノイズキャンセリングのレベル"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:173
 msgid "Plane"
@@ -471,7 +471,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:177
 msgid "Transparency Type"
-msgstr "外音取り込みの種類"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:178
 msgid "Fully Transparent"
@@ -485,13 +485,13 @@ msgstr ""
 #: src/lib/devices/opoBuds/opoBudsDevice.js:631
 #: src/lib/devices/opoBuds/opoBudsDevice.js:641
 msgid "Wind Noise Reduction"
-msgstr "風切り音の低減"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:184
 #: src/preferences/devices/opoBuds/configureWindow.js:712
 #: src/lib/devices/soundcore/soundcoreDevice.js:279
 msgid "Audio Effects"
-msgstr "オーディオエフェクト"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:190
 msgid "Sound Leak Compensation"
@@ -503,7 +503,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:196
 msgid "Volume Limit"
-msgstr "音量制限"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:199
 msgid "Decibel Reading Refresh Rate"
@@ -535,7 +535,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:249
 msgid "Auto Play/Pause"
-msgstr "自動再生/一時停止"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:250
 #: src/preferences/devices/sony/configureWindow.js:446
@@ -599,7 +599,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:142
 #: src/preferences/devices/sony/configureWindow.js:268
 msgid "Frequency (Hz)"
-msgstr "周波数（Hz）"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:367
 #: src/preferences/devices/redmiBuds/configureWindow.js:317
@@ -611,7 +611,7 @@ msgstr "周波数（Hz）"
 #: src/preferences/devices/sony/configureWindow.js:269
 #: src/preferences/devices/googleBuds/configureWindow.js:139
 msgid "Gain (dB)"
-msgstr "ゲイン（dB）"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:372
 #: src/preferences/devices/redmiBuds/configureWindow.js:336
@@ -653,7 +653,7 @@ msgstr ""
 #: src/preferences/devices/googleBuds/configureWindow.js:108
 #: src/lib/devices/soundcore/soundcoreDevice.js:284
 msgid "Custom Equalizer"
-msgstr "カスタムイコライザ"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:402
 msgid "Saved Equalizers"
@@ -696,7 +696,7 @@ msgstr ""
 #: src/preferences/devices/sony/configureWindow.js:239
 #: src/preferences/devices/googleBuds/configureWindow.js:102
 msgid "Equalizer Preset"
-msgstr "イコライザのプリセット"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:461
 #: src/lib/devices/soundcore/soundcoreDevice.js:280
@@ -790,7 +790,7 @@ msgstr "ジャズ"
 
 #: src/preferences/devices/soundcore/configureWindow.js:514
 msgid "Latin"
-msgstr "ラテン"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:515
 msgid "Lounge"
@@ -805,11 +805,11 @@ msgstr ""
 #: src/preferences/devices/senhBuds/configureWindow.js:260
 #: src/preferences/devices/opoBuds/configureWindow.js:358
 msgid "Pop"
-msgstr "ポップ"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:518
 msgid "R&B"
-msgstr "R&B"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:519
 #: src/preferences/devices/nothingBuds/configureWindow.js:255
@@ -863,7 +863,7 @@ msgstr ""
 #: src/preferences/widgets/earTipFitTestRow.js:199
 #: src/lib/widgets/settingsButton.js:304
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:607
@@ -872,7 +872,7 @@ msgstr "キャンセル"
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 #: src/preferences/devices/boseBuds/configureWindow.js:818
 msgid "Play / Pause"
-msgstr "再生 / 一時停止"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:613
@@ -881,7 +881,7 @@ msgstr "再生 / 一時停止"
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 #: src/preferences/devices/boseBuds/configureWindow.js:836
 msgid "Next Track"
-msgstr "次のトラック"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:613
 #: src/preferences/devices/redmiBuds/configureWindow.js:610
@@ -898,7 +898,7 @@ msgstr "現在のトラック"
 #: src/preferences/devices/opoBuds/configureWindow.js:1169
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:214
 msgid "Volume Up"
-msgstr "音量を上げる"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:622
@@ -906,7 +906,7 @@ msgstr "音量を上げる"
 #: src/preferences/devices/opoBuds/configureWindow.js:1170
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:215
 msgid "Volume Down"
-msgstr "音量を下げる"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:625
@@ -932,7 +932,7 @@ msgstr "音量を下げる"
 #: src/lib/devices/sony/sonyDevice.js:180
 #: src/lib/devices/googleBuds/googleBudsDevice.js:199
 msgid "Noise Control"
-msgstr "ノイズコントロール"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:616
@@ -943,7 +943,7 @@ msgstr "ノイズコントロール"
 #: src/preferences/devices/boseBuds/configureWindow.js:803
 #: src/preferences/devices/boseBuds/configureWindow.js:809
 msgid "Voice Assistant"
-msgstr "音声アシスタント"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:614
 #: src/preferences/devices/redmiBuds/configureWindow.js:628
@@ -952,7 +952,7 @@ msgstr "音声アシスタント"
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:215
 #: src/preferences/devices/boseBuds/configureWindow.js:788
 msgid "No Action"
-msgstr "何もしない"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:615
 #: src/preferences/devices/redmiBuds/configureWindow.js:263
@@ -981,7 +981,7 @@ msgstr ""
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:219
 #: src/preferences/devices/boseBuds/configureWindow.js:693
 msgid "Single Tap"
-msgstr "1回タップ"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:619
 #: src/preferences/devices/redmiBuds/configureWindow.js:518
@@ -992,7 +992,7 @@ msgstr "1回タップ"
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:220
 #: src/preferences/devices/boseBuds/configureWindow.js:694
 msgid "Double Tap"
-msgstr "2回タップ"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:620
 #: src/preferences/devices/redmiBuds/configureWindow.js:519
@@ -1002,7 +1002,7 @@ msgstr "2回タップ"
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:221
 #: src/preferences/devices/boseBuds/configureWindow.js:695
 msgid "Triple Tap"
-msgstr "3回タップ"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:621
 #: src/preferences/devices/redmiBuds/configureWindow.js:525
@@ -1013,26 +1013,26 @@ msgstr "3回タップ"
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:222
 #: src/preferences/devices/boseBuds/configureWindow.js:702
 msgid "Press and Hold"
-msgstr "長押し"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:624
 #: src/preferences/devices/nothingBuds/configureWindow.js:745
 #: src/preferences/devices/opoBuds/configureWindow.js:1361
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Left Earbud"
-msgstr "左イヤホン"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:624
 #: src/preferences/devices/nothingBuds/configureWindow.js:748
 #: src/preferences/devices/opoBuds/configureWindow.js:1363
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:225
 msgid "Right Earbud"
-msgstr "右イヤホン"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:625
 #: src/preferences/devices/opoBuds/configureWindow.js:1369
 msgid "Button Controls"
-msgstr "ボタン操作"
+msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:636
 #: src/preferences/devices/opoBuds/configureWindow.js:1279
@@ -1729,11 +1729,11 @@ msgstr ""
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:307
 msgid "Balance"
-msgstr "バランス"
+msgstr ""
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:311
 msgid "Left"
-msgstr "左"
+msgstr ""
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:312
 msgid "Center"
@@ -1742,7 +1742,7 @@ msgstr ""
 #: src/preferences/devices/galaxyBuds/configureWindow.js:313
 #: src/preferences/widgets/earTipFitTestRow.js:122
 msgid "Right"
-msgstr "右"
+msgstr ""
 
 #: src/preferences/devices/galaxyBuds/configureWindow.js:331
 msgid "Earbuds Controls"
@@ -2043,11 +2043,11 @@ msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:83
 msgid "Blues"
-msgstr "ブルース"
+msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:85
 msgid "Natural"
-msgstr "ナチュラル"
+msgstr ""
 
 #: src/preferences/devices/cambridgeBuds/configureWindow.js:87
 #: src/lib/devices/opoBuds/opoBudsDevice.js:566
@@ -2295,7 +2295,7 @@ msgstr ""
 
 #: src/preferences/devices/boseBuds/configureWindow.js:488
 msgid "Medium"
-msgstr "中"
+msgstr ""
 
 #: src/preferences/devices/boseBuds/configureWindow.js:568
 #: src/preferences/devices/sony/configureWindow.js:476
@@ -2392,7 +2392,7 @@ msgstr ""
 
 #: src/preferences/devices/boseBuds/configureWindow.js:854
 msgid "Disabled"
-msgstr "無効"
+msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:109
 #: src/lib/devices/airpods/airpodsDevice.js:239
@@ -2536,7 +2536,7 @@ msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:413
 msgid "Voice Prompt Volume"
-msgstr "音声ガイドの音量"
+msgstr ""
 
 #: src/preferences/devices/sony/configureWindow.js:414
 msgid "Adjust the volume of voice prompts"
@@ -3167,598 +3167,3 @@ msgstr ""
 #: src/lib/widgets/deviceRow.js:110
 msgid "Battery Level"
 msgstr ""
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:123
-#: src/preferences/devices/earfunBuds/configureWindow.js:332
-msgid "Find My Earbuds"
-msgstr "イヤホンを探す"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:124
-msgid "Gestures"
-msgstr "ジェスチャー"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:126
-msgid "Advanced Settings"
-msgstr "詳細設定"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:128
-msgid "System"
-msgstr "システム"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:240
-msgid "Case"
-msgstr "ケース"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:270
-msgid "Firmware"
-msgstr "ファームウェア"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:271
-msgid "Serial Number (Left)"
-msgstr "シリアル番号（左）"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:272
-msgid "Serial Number (Right)"
-msgstr "シリアル番号（右）"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:315
-#: src/lib/devices/earfunBuds/earfunBudsDevice.js:380
-msgid "Noise Cancellation Type"
-msgstr "ノイズキャンセリングの種類"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:316
-#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
-msgid "Adaptive (Ear Canal)"
-msgstr "アダプティブ（耳道）"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:316
-#: src/lib/devices/earfunBuds/earfunBudsDevice.js:382
-msgid "Adaptive (Environment)"
-msgstr "アダプティブ（環境）"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:338
-#: src/preferences/devices/earfunBuds/configureWindow.js:340
-msgid "Touch Control"
-msgstr "タッチ操作"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:341
-msgid "Turns off touch control of one or both earbuds"
-msgstr "片方または両方のイヤホンのタッチ操作をオフにします"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:342
-msgid "Both earbuds"
-msgstr "両方のイヤホン"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:342
-#: src/preferences/devices/earfunBuds/configureWindow.js:412
-msgid "Right earbud only"
-msgstr "右イヤホンのみ"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:342
-#: src/preferences/devices/earfunBuds/configureWindow.js:412
-msgid "Left earbud only"
-msgstr "左イヤホンのみ"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:355
-msgid "Redial"
-msgstr "リダイヤル"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:375
-msgid "Press and Hold (Call)"
-msgstr "長押し（通話）"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:376
-msgid "Reject Call"
-msgstr "通話を拒否"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:376
-msgid "Mute Microphone"
-msgstr "マイクをミュート"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:385
-msgid "Detects whether the earbuds are worn"
-msgstr "イヤホンを装着しているかどうかを検出します"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:387
-msgid "Pause when taken off, resume when put in"
-msgstr "外すと一時停止し、着けると再開します"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:388
-msgid "Automatic Call Answering"
-msgstr "自動応答"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:389
-msgid "Answer incoming calls when the earbuds are worn"
-msgstr "イヤホン装着時に着信へ自動で応答します"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:390
-msgid "Higher Sensitivity"
-msgstr "感度を高める"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:391
-msgid "Improves detection with different ear shapes, but may trigger by mistake"
-msgstr "耳の形が異なっても検出しやすくなりますが、誤動作することがあります"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:396
-msgid "Reduces audio latency, but may affect the connection stability"
-msgstr "音声の遅延を減らしますが、接続の安定性に影響する場合があります"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:398
-msgid "Limits the maximum volume of the earbuds"
-msgstr "イヤホンの最大音量を制限します"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:399
-msgid "No limit"
-msgstr "制限なし"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:402
-msgid "Volume balance between the left and the right earbud"
-msgstr "左右のイヤホンの音量バランス"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:403
-msgid "L"
-msgstr "L"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:405
-msgid "R"
-msgstr "R"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:408
-msgid "Loudest"
-msgstr "最大"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:408
-msgid "Loud"
-msgstr "大"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:408
-msgid "Quiet"
-msgstr "小"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:408
-msgid "Quietest"
-msgstr "最小"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:410
-msgid "Microphone"
-msgstr "マイク"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:411
-msgid "Use one earbud for calls or let the earbuds choose"
-msgstr "通話に片方のイヤホンを使うか、イヤホンに自動で選ばせます"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:412
-msgid "Automatic"
-msgstr "自動"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:447
-msgid "Multipoint Connection"
-msgstr "Multipoint接続"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:448
-msgid "Connect to two devices at the same time. Turn it off to use LDAC"
-msgstr "2台のデバイスに同時に接続します。LDACを使用するにはオフにしてください"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:449
-msgid "Audio Quality"
-msgstr "音質"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:450
-msgid "Bluetooth codec. The earbuds restart and reconnect when this changes"
-msgstr "Bluetoothコーデック。変更するとイヤホンが再起動し、再接続されます"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:451
-msgid "Stable connection"
-msgstr "安定した接続"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:454
-msgid "Connection Mode"
-msgstr "接続モード"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:455
-msgid "LE Audio also turns on Auracast. Game mode, aptX and LDAC may not work with LE Audio. The earbuds restart when this changes"
-msgstr "LE AudioはAuracastも有効にします。ゲームモード、aptX、LDACはLE Audioでは動作しない場合があります。変更するとイヤホンが再起動します"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:463
-msgid "Country"
-msgstr "カントリー"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:465
-msgid "Hip-Hop"
-msgstr "ヒップホップ"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:466
-msgid "Metal"
-msgstr "メタル"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:466
-msgid "Soul"
-msgstr "ソウル"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:466
-msgid "Hits"
-msgstr "ヒット"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:467
-msgid "Voice Boost"
-msgstr "音声強調"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:468
-msgid "Voice Reduction"
-msgstr "音声低減"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:468
-msgid "Bass Boost 1"
-msgstr "低音強調 1"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:469
-msgid "Bass Boost 2"
-msgstr "低音強調 2"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:469
-msgid "Bass Boost 3"
-msgstr "低音強調 3"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:470
-msgid "Bass Reduction 1"
-msgstr "低音低減 1"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:470
-msgid "Bass Reduction 2"
-msgstr "低音低減 2"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:471
-msgid "Bass Reduction 3"
-msgstr "低音低減 3"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:471
-msgid "Treble Boost 1"
-msgstr "高音強調 1"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:472
-msgid "Treble Boost 2"
-msgstr "高音強調 2"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:472
-msgid "Treble Boost 3"
-msgstr "高音強調 3"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:473
-msgid "Treble Reduction 1"
-msgstr "高音低減 1"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:473
-msgid "Treble Reduction 2"
-msgstr "高音低減 2"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:474
-msgid "Treble Reduction 3"
-msgstr "高音低減 3"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:474
-msgid "Original Sound"
-msgstr "オリジナルサウンド"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:495
-msgid "Choose a preset or your own curve"
-msgstr "プリセットまたは独自のカーブを選択します"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:496
-msgid "Preset"
-msgstr "プリセット"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:551
-msgid "Name of the earbuds"
-msgstr "イヤホンの名前"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:561
-msgid "Change name?"
-msgstr "名前を変更しますか？"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:562
-msgid "After changing the name, put the earbuds in the charging case and close the lid for about 10 seconds. Remove the earbuds from the Bluetooth devices of this computer and pair them again to use the new name."
-msgstr "名前を変更したら、イヤホンを充電ケースに入れてフタを約10秒間閉じてください。このコンピューターのBluetoothデバイスからイヤホンを削除し、再度ペアリングすると新しい名前が使われます。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:568
-msgid "Change"
-msgstr "変更"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:321
-msgid "Listens to the sound inside the ear canal and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
-msgstr "耳道内の音と、イヤホンを装着しているかどうかを検知し、ノイズキャンセリングを常に自動で調整します。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:323
-msgid "Technical: command 0x033A with value 0. The earbuds analyse the sound measured in the ear canal and adjust the filter by themselves."
-msgstr "技術情報: コマンド 0x033A、値 0。イヤホンが耳道内で測定した音を解析し、フィルターを自動で調整します。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:325
-msgid "Listens to the noise around you and to whether the earbuds are worn, and adjusts the noise cancellation continuously."
-msgstr "周囲の騒音と、イヤホンを装着しているかどうかを検知し、ノイズキャンセリングを常に自動で調整します。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:327
-msgid "Technical: command 0x033A with value 4. The earbuds analyse the noise measured outside and adjust the filter by themselves."
-msgstr "技術情報: コマンド 0x033A、値 4。イヤホンが外側で測定した騒音を解析し、フィルターを自動で調整します。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:329
-msgid "You choose the strength of the noise cancellation yourself, in four steps."
-msgstr "ノイズキャンセリングの強さを4段階から自分で選べます。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:330
-msgid "Technical: command 0x033A with value 6, 5, 3 or 2 for the levels 1 to 4. Level 4 (value 2) is the strongest."
-msgstr "技術情報: コマンド 0x033A、レベル1〜4に対して値 6、5、3、2。レベル4(値 2)が最も強くなります。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:332
-msgid "For strong wind. It reduces wind noise, but the noise cancellation becomes less effective."
-msgstr "強風向けです。風切り音を低減しますが、ノイズキャンセリングの効果は弱まります。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:334
-msgid "Technical: command 0x033A with value 1. It replaces the other types, they cannot be combined."
-msgstr "技術情報: コマンド 0x033A、値 1。他のタイプと置き換わり、組み合わせることはできません。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:472
-msgid "Favours a steady connection over sound quality. Choose it if the sound stutters or drops out."
-msgstr "音質よりも安定した接続を優先します。音が途切れる場合や途絶える場合に選んでください。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:474
-msgid "Technical: command 0x032E with value 0. The same value is sent when aptX or LDAC is turned off, so none of the aptX or LDAC variants is selected."
-msgstr "技術情報: コマンド 0x032E、値 0。aptX または LDAC をオフにしたときも同じ値が送信されるため、aptX や LDAC のどのバリエーションも選択されない状態になります。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:476
-msgid "A Qualcomm codec with a higher data rate than common Bluetooth codecs. It works best with devices that have a Qualcomm chip."
-msgstr "一般的な Bluetooth コーデックより高いデータレートの Qualcomm 製コーデックです。Qualcomm チップを搭載したデバイスで最適に動作します。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:478
-msgid "Technical: command 0x032E with value 1. About 352 kbit/s."
-msgstr "技術情報: コマンド 0x032E、値 1。約 352 kbit/s。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:479
-msgid "Adjusts the bit rate and the delay by itself to what you are doing and to the radio conditions."
-msgstr "操作内容や電波状況に合わせて、ビットレートと遅延を自動で調整します。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:481
-msgid "Technical: command 0x032E with value 3. The bit rate is not fixed."
-msgstr "技術情報: コマンド 0x032E、値 3。ビットレートは固定されていません。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:482
-msgid "Transmits CD quality at a high data rate. It needs a recent Qualcomm Snapdragon device; stay close and use the 5 GHz Wi-Fi band or turn Wi-Fi off."
-msgstr "高いデータレートで CD 品質を伝送します。最新の Qualcomm Snapdragon 搭載デバイスが必要です。近くで使用し、Wi-Fi は 5 GHz 帯を使うかオフにしてください。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:485
-msgid "Technical: command 0x032E with value 0x13. Up to about 1,200 kbit/s."
-msgstr "技術情報: コマンド 0x032E、値 0x13。最大約 1,200 kbit/s。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:486
-msgid "High quality audio. It can shorten the battery life and cause stutter, so stay close. It cannot be used together with multipoint."
-msgstr "高音質オーディオです。バッテリー持続時間が短くなったり音が途切れたりすることがあるため、近くで使用してください。Multipoint接続とは併用できません。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:488
-msgid "Technical: command 0x032E with value 8. Up to about 990 kbit/s. The vendor app asks for multipoint to be turned off first."
-msgstr "技術情報: コマンド 0x032E、値 8。最大約 990 kbit/s。メーカーのアプリでは、先に Multipoint をオフにするよう求められます。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:490
-msgid "The earbuds restart when this changes. They only offer the codec: your computer chooses the one in use together with the earbuds and must support it."
-msgstr "この設定を変更するとイヤホンが再起動します。イヤホンが提供するのはコーデックのみで、実際に使用されるコーデックはコンピューターがイヤホンと調整して決定するため、コンピューター側が対応している必要があります。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:395
-msgid "Triple Tap (Call)"
-msgstr "3回タップ（通話）"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:396
-msgid "Answer / Switch Between Calls"
-msgstr "応答 / 通話の切り替え"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:402
-msgid "Answer / Hang Up"
-msgstr "応答 / 通話終了"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:181
-msgid "The earbuds are in use by another app, for example the vendor app on a phone. BudsLink keeps trying and applies the settings as soon as the connection is free."
-msgstr "イヤホンは、スマートフォンのメーカー純正アプリなど、別のアプリで使用中です。BudsLinkは接続が空き次第、繰り返し接続を試み、設定を適用します。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:490
-msgid "Multipoint is not possible with LDAC"
-msgstr "LDACではMultipointを使用できません"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:491
-msgid "Choose another audio quality first, then turn multipoint on."
-msgstr "先に別の音質を選択してから、Multipointをオンにしてください。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:525
-msgid "Restart the earbuds?"
-msgstr "イヤホンを再起動しますか？"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:526
-msgid "The earbuds restart when the connection mode changes. Music and calls are interrupted for a few seconds."
-msgstr "接続モードを変更すると、イヤホンが再起動します。音楽と通話が数秒間中断されます。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:537
-msgid "Turn off multipoint?"
-msgstr "Multipointをオフにしますか？"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:538
-msgid "LDAC cannot be used together with multipoint. Multipoint is turned off first, then LDAC is selected. The earbuds restart."
-msgstr "LDACはMultipointと同時に使用できません。Multipointを先にオフにしてからLDACを選択します。イヤホンが再起動します。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:540
-msgid "Turn Off and Select"
-msgstr "オフにして選択"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:526
-msgid "The earbuds restart when the audio quality changes. Music and calls are interrupted for a few seconds."
-msgstr "音質を変更すると、イヤホンが再起動します。音楽と通話が数秒間中断されます。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:541
-msgid "Devices that are or were connected to the earbuds"
-msgstr "イヤホンに接続している、または接続したことのあるデバイス"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:547
-msgid "Pair a New Device"
-msgstr "新しいデバイスをペアリング"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:548
-msgid "Start the pairing mode so that another device can connect to the earbuds"
-msgstr "ペアリングモードを開始して、別のデバイスがイヤホンに接続できるようにします"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:548
-msgid "Start"
-msgstr "開始"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:569
-msgid "Start the pairing mode?"
-msgstr "ペアリングモードを開始しますか？"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:570
-msgid "The earbuds wait for a new device for a while. Both places must not be in use, so disconnect one of the devices first."
-msgstr "イヤホンはしばらくの間、新しいデバイスを待機します。両方の枠を使用中にすることはできないため、まずいずれかのデバイスの接続を解除してください。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:593
-msgid "Not connected"
-msgstr "未接続"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:598
-msgid "Always play on this device"
-msgstr "常にこのデバイスで再生"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js:609
-msgid "Play on this device"
-msgstr "このデバイスで再生"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "A newer firmware exists:"
-msgstr "新しいファームウェアがあります:"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Ask the server of the vendor whether a newer firmware exists. BudsLink does not install firmware."
-msgstr "メーカーのサーバーに新しいファームウェアがあるか問い合わせます。BudsLink はファームウェアをインストールしません。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Asking the server…"
-msgstr "サーバーに問い合わせ中…"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Check"
-msgstr "確認"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Choose File…"
-msgstr "ファイルを選択…"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Choose a Voice Pack"
-msgstr "音声パックを選択"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Connecting…"
-msgstr "接続中…"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Finishing…"
-msgstr "完了中…"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Firmware Update"
-msgstr "ファームウェアのアップデート"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Install"
-msgstr "インストール"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Install a Voice Pack"
-msgstr "音声パックをインストール"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Install it with the app of the vendor."
-msgstr "メーカーのアプリでインストールしてください。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Install this voice pack?"
-msgstr "この音声パックをインストールしますか？"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Not available: the key of the server is missing (see the documentation)."
-msgstr "利用できません: サーバーのキーがありません（ドキュメントを参照）。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Send a voice pack file (.bin) to the earbuds"
-msgstr "音声パックファイル (.bin) をイヤホンに送信"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Sending the file…"
-msgstr "ファイルを送信中…"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The earbuds apply the file…"
-msgstr "イヤホンがファイルを適用中…"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The earbuds check the file…"
-msgstr "イヤホンがファイルを確認中…"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The earbuds restart. Wait until they connect again…"
-msgstr "イヤホンを再起動中です。再び接続されるまでお待ちください…"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The file is sent to the earbuds, which takes about a minute, and they restart at the end. Keep them in their case or in your ears, close to the computer and charged, and do not turn them off or disconnect them meanwhile."
-msgstr "ファイルをイヤホンに送信します。約1分かかり、完了後にイヤホンが再起動します。その間は、ケースに入れるか耳に装着したまま、パソコンの近くで充電した状態にし、電源を切ったり接続を切断したりしないでください。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The firmware is up to date."
-msgstr "ファームウェアは最新です。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The server could not be asked."
-msgstr "サーバーに問い合わせできませんでした。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The transfer failed:"
-msgstr "転送に失敗しました:"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The transfer is finished."
-msgstr "転送が完了しました。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The voice prompts of the earbuds are a file that is sent to them. BudsLink does not download voice packs: choose a file you have."
-msgstr "イヤホンの音声ガイドは、イヤホンに送信されるファイルです。BudsLink は音声パックをダウンロードしません。お手元にあるファイルを選択してください。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Transfer"
-msgstr "転送"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Voice Pack and Firmware"
-msgstr "音声パックとファームウェア"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Voice pack (*.bin)"
-msgstr "音声パック (*.bin)"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Choose a language to install it"
-msgstr "インストールする言語を選択してください"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Load"
-msgstr "読み込む"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Load the list of languages from the server"
-msgstr "サーバーから言語の一覧を読み込む"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The download failed"
-msgstr "ダウンロードに失敗しました"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The file could not be loaded."
-msgstr "ファイルを読み込めませんでした。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "The voice prompts of the earbuds are a file that is sent to them. Choose one the server of the vendor offers, or a file you have."
-msgstr "イヤホンの音声ガイドは、イヤホンに送信されるファイルです。メーカーのサーバーが提供するファイル、または手持ちのファイルから選択してください。"
-
-#: src/preferences/devices/earfunBuds/configureWindow.js
-msgid "Voice Packs of the Vendor"
-msgstr "メーカー提供の音声パック"
