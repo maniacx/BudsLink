@@ -635,13 +635,6 @@ export const ConfigureWindow = GObject.registerClass({
             this._upgradeGroup.remove(row);
         this._packRows = [];
 
-        if (result.status !== 'ok' || result.packs.length === 0) {
-            this._packsRow.subtitle = result.status === 'nokey'
-                ? _('Not available: the key of the server is missing (see the documentation).')
-                : _('The server could not be asked.');
-            return;
-        }
-
         this._packsRow.subtitle = _('Choose a language to install it');
         for (const pack of result.packs) {
             const row = new Adw.ActionRow({

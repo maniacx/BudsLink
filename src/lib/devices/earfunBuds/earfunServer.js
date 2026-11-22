@@ -74,17 +74,32 @@ async function signedGet(path, query) {
     return answer.code === 0 ? answer.data : undefined;
 }
 
+// The packs the server offered for the Air Pro 4+ (November 2026). The files are public and need no
+// key, only the list does. This list is used when there is no key or the server cannot be asked.
+// A pack that changed is refused by the size and header check of the download
+const KnownVoicePacks = [
+    {name: 'English', file: '700-EN', size: 675568, custom: false,
+        url: 'https://oss.myearfun.com/voice/345eqmnkiyqqxuzdgxb.bin'},
+    {name: '日本語', file: '700-JP', size: 709232, custom: false,
+        url: 'https://oss.myearfun.com/voice/673dhwb9soi0qsr57j8.bin'},
+    {name: 'Deutsch', file: '700-DE', size: 706416, custom: false,
+        url: 'https://oss.myearfun.com/voice/529ke1osurresbejubi.bin'},
+    {name: '中文（普通话）', file: '700-CH', size: 642672, custom: false,
+        url: 'https://oss.myearfun.com/voice/176rlkaffhqm9svglpf.bin'},
+    {name: 'EarFun Tones', file: 'TW700_20260420_PROMPT-T&C', size: 818416, custom: true,
+        url: 'https://oss.myearfun.com/voice/661ooo0dyxhdb9h7izm.bin'},
+];
+
 // The voice packs the server offers for the earbuds. The app of the vendor asks with an empty
 // firmware version for this model, which gives the whole list.
-// Returns {status: 'ok'|'nokey'|'error', packs: [{name, file, size, url, custom}]}
+// Returns {status: 'ok'|'known', packs: [{name, file, size, url, custom}]}. 'known' is the list
+// that is built in, because the server was not asked or did not answer
 export async function fetchVoicePacks(hardwareModel = 'TW700') {
     try {
         const data = await signedGet('/m/api/ota-voice-guide',
             {hardware_model: hardwareModel, hardware_firmware_version: ''});
-        if (data === null)
-            return {status: 'nokey', packs: []};
-        if (data === undefined)
-            return {status: 'error', packs: []};
+        if (data === null || data === undefined)
+            return {status: 'known', packs: KnownVoicePacks};
 
         const packs = [];
         for (const [kind, list] of [[false, data.upgrade ?? []], [true, data.custom ?? []]]) {
@@ -96,9 +111,9 @@ export async function fetchVoicePacks(hardwareModel = 'TW700') {
                     });
             }
         }
-        return {status: 'ok', packs};
+        return packs.length > 0 ? {status: 'ok', packs} : {status: 'known', packs: KnownVoicePacks};
     } catch {
-        return {status: 'error', packs: []};
+        return {status: 'known', packs: KnownVoicePacks};
     }
 }
 
