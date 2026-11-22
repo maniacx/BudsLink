@@ -32,6 +32,7 @@ export const Frame = {
     SOP: 0xFF,
     VERSION: 0x04,
     FLAGS: 0x00,
+    FLAGS_EXTENDED: 0x02,
     HEADER_LEN: 8,
     VENDOR: 0x000A,
     VENDOR_EQ: 0x001D,

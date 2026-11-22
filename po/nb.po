@@ -3609,3 +3609,143 @@ msgstr "Spill alltid av på denne enheten"
 #: src/preferences/devices/earfunBuds/configureWindow.js:609
 msgid "Play on this device"
 msgstr "Spill av på denne enheten"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "A newer firmware exists:"
+msgstr "En nyere fastvare finnes:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Ask the server of the vendor whether a newer firmware exists. BudsLink does not install firmware."
+msgstr "Spør serveren til produsenten om det finnes en nyere fastvare. BudsLink installerer ikke fastvare."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Asking the server…"
+msgstr "Spør serveren…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Check"
+msgstr "Sjekk"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose File…"
+msgstr "Velg fil…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a Voice Pack"
+msgstr "Velg en stemmepakke"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Connecting…"
+msgstr "Kobler til…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Finishing…"
+msgstr "Fullfører…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Firmware Update"
+msgstr "Fastvareoppdatering"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install"
+msgstr "Installer"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install a Voice Pack"
+msgstr "Installer en stemmepakke"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install it with the app of the vendor."
+msgstr "Installer den med produsentens app."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install this voice pack?"
+msgstr "Vil du installere denne stemmepakken?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Not available: the key of the server is missing (see the documentation)."
+msgstr "Ikke tilgjengelig: nøkkelen til serveren mangler (se dokumentasjonen)."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Send a voice pack file (.bin) to the earbuds"
+msgstr "Send en stemmepakkefil (.bin) til øreproppene"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Sending the file…"
+msgstr "Sender filen…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds apply the file…"
+msgstr "Øreproppene tar i bruk filen…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds check the file…"
+msgstr "Øreproppene sjekker filen…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds restart. Wait until they connect again…"
+msgstr "Øreproppene starter på nytt. Vent til de kobler til igjen…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file is sent to the earbuds, which takes about a minute, and they restart at the end. Keep them in their case or in your ears, close to the computer and charged, and do not turn them off or disconnect them meanwhile."
+msgstr "Filen sendes til øreproppene, noe som tar omtrent ett minutt, og de starter på nytt til slutt. Hold dem i etuiet eller i ørene, nær datamaskinen og oppladet, og ikke slå dem av eller koble dem fra i mellomtiden."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The firmware is up to date."
+msgstr "Fastvaren er oppdatert."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The server could not be asked."
+msgstr "Serveren kunne ikke spørres."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer failed:"
+msgstr "Overføringen mislyktes:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer is finished."
+msgstr "Overføringen er fullført."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. BudsLink does not download voice packs: choose a file you have."
+msgstr "Stemmemeldingene til øreproppene er en fil som sendes til dem. BudsLink laster ikke ned stemmepakker: velg en fil du har."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Transfer"
+msgstr "Overfør"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Pack and Firmware"
+msgstr "Stemmepakke og fastvare"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice pack (*.bin)"
+msgstr "Stemmepakke (*.bin)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a language to install it"
+msgstr "Velg et språk å installere"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load"
+msgstr "Last inn"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load the list of languages from the server"
+msgstr "Last inn språklisten fra serveren"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The download failed"
+msgstr "Nedlastingen mislyktes"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file could not be loaded."
+msgstr "Filen kunne ikke lastes inn."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. Choose one the server of the vendor offers, or a file you have."
+msgstr "Stemmemeldingene i øreproppene er en fil som sendes til dem. Velg en som tilbys av produsentens server, eller en fil du har."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Packs of the Vendor"
+msgstr "Stemmepakker fra produsenten"

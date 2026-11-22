@@ -3612,3 +3612,143 @@ msgstr "Luôn phát trên thiết bị này"
 #: src/preferences/devices/earfunBuds/configureWindow.js:609
 msgid "Play on this device"
 msgstr "Phát trên thiết bị này"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "A newer firmware exists:"
+msgstr "Có phần sụn mới hơn:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Ask the server of the vendor whether a newer firmware exists. BudsLink does not install firmware."
+msgstr "Hỏi máy chủ của nhà sản xuất xem có phần sụn mới hơn không. BudsLink không cài đặt phần sụn."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Asking the server…"
+msgstr "Đang hỏi máy chủ…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Check"
+msgstr "Kiểm tra"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose File…"
+msgstr "Chọn tệp…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a Voice Pack"
+msgstr "Chọn gói giọng nói"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Connecting…"
+msgstr "Đang kết nối…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Finishing…"
+msgstr "Đang hoàn tất…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Firmware Update"
+msgstr "Cập nhật phần sụn"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install"
+msgstr "Cài đặt"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install a Voice Pack"
+msgstr "Cài đặt gói giọng nói"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install it with the app of the vendor."
+msgstr "Hãy cài đặt bằng ứng dụng của nhà sản xuất."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install this voice pack?"
+msgstr "Cài đặt gói giọng nói này?"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Not available: the key of the server is missing (see the documentation)."
+msgstr "Không khả dụng: thiếu khóa của máy chủ (xem tài liệu)."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Send a voice pack file (.bin) to the earbuds"
+msgstr "Gửi tệp gói giọng nói (.bin) đến tai nghe"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Sending the file…"
+msgstr "Đang gửi tệp…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds apply the file…"
+msgstr "Tai nghe đang áp dụng tệp…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds check the file…"
+msgstr "Tai nghe đang kiểm tra tệp…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds restart. Wait until they connect again…"
+msgstr "Tai nghe đang khởi động lại. Vui lòng đợi đến khi kết nối lại…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file is sent to the earbuds, which takes about a minute, and they restart at the end. Keep them in their case or in your ears, close to the computer and charged, and do not turn them off or disconnect them meanwhile."
+msgstr "Tệp được gửi đến tai nghe, mất khoảng một phút, và tai nghe sẽ khởi động lại khi xong. Trong thời gian này, hãy để tai nghe trong hộp sạc hoặc trong tai, gần máy tính và đang sạc, đồng thời không tắt hay ngắt kết nối."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The firmware is up to date."
+msgstr "Phần sụn đã là bản mới nhất."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The server could not be asked."
+msgstr "Không thể hỏi máy chủ."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer failed:"
+msgstr "Truyền thất bại:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer is finished."
+msgstr "Đã truyền xong."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. BudsLink does not download voice packs: choose a file you have."
+msgstr "Lời nhắc giọng nói của tai nghe là một tệp được gửi đến tai nghe. BudsLink không tải gói giọng nói: hãy chọn một tệp bạn đã có."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Transfer"
+msgstr "Truyền"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Pack and Firmware"
+msgstr "Gói giọng nói và phần sụn"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice pack (*.bin)"
+msgstr "Gói giọng nói (*.bin)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a language to install it"
+msgstr "Chọn ngôn ngữ để cài đặt"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load"
+msgstr "Tải"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load the list of languages from the server"
+msgstr "Tải danh sách ngôn ngữ từ máy chủ"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The download failed"
+msgstr "Tải xuống thất bại"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file could not be loaded."
+msgstr "Không thể tải tệp."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. Choose one the server of the vendor offers, or a file you have."
+msgstr "Lời nhắc bằng giọng nói của tai nghe là một tệp được gửi đến tai nghe. Hãy chọn một tệp do máy chủ của nhà sản xuất cung cấp hoặc tệp của bạn."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Packs of the Vendor"
+msgstr "Gói giọng nói của nhà sản xuất"

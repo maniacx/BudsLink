@@ -4,6 +4,7 @@ import GObject from 'gi://GObject';
 
 import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
 import {SocketHandler} from '../socketByProfile.js';
+import {UpgradeClient} from './earfunUpgrade.js';
 import {
     Frame, Cmd, SetCmd, InitialRequests, TouchActionLayout, GestureType, buildPacket, buildEqBandPacket,
     EqFrequencies, parseDeviceList
@@ -35,6 +36,11 @@ export const EarfunBudsSocket = GObject.registerClass({
         this._callbacks.updateChannel?.(true);
         for (const command of InitialRequests)
             this._send(buildPacket(command));
+
+        // The earbuds restarted after they got a file: finish with the commit
+        const pending = this._callbacks.pendingUpgrade?.();
+        if (pending)
+            this.startUpgrade(new Uint8Array(0), pending, true);
     }
 
     // A packet with a tag replaces a still queued one with the same tag, so only the last
@@ -209,25 +215,46 @@ export const EarfunBudsSocket = GObject.registerClass({
             if (this._rxBuffer.length < Frame.HEADER_LEN)
                 return;
 
-            const [, version, flags, length] = this._rxBuffer;
-            const vendor = this._rxBuffer[4] << 8 | this._rxBuffer[5];
-            if (version !== Frame.VERSION && version !== 0x03 || flags !== Frame.FLAGS ||
+            const [, version, flags] = this._rxBuffer;
+            const extended = flags === Frame.FLAGS_EXTENDED;
+            const headerLen = extended ? Frame.HEADER_LEN + 1 : Frame.HEADER_LEN;
+            if (extended && this._rxBuffer.length < headerLen)
+                return;
+
+            const length = extended ? this._rxBuffer[3] << 8 | this._rxBuffer[4] : this._rxBuffer[3];
+            const vendorAt = extended ? 5 : 4;
+            const vendor = this._rxBuffer[vendorAt] << 8 | this._rxBuffer[vendorAt + 1];
+            if (version !== Frame.VERSION && version !== 0x03 ||
+                    flags !== Frame.FLAGS && !extended ||
                     vendor !== Frame.VENDOR && vendor !== Frame.VENDOR_EQ) {
                 this._rxBuffer.shift();
                 continue;
             }
 
-            if (this._rxBuffer.length < Frame.HEADER_LEN + length)
+            if (this._rxBuffer.length < headerLen + length)
                 return;
 
-            const frame = this._rxBuffer.splice(0, Frame.HEADER_LEN + length);
-            const command = (frame[6] << 8 | frame[7]) & ~Frame.ACK_MASK;
+            const frame = this._rxBuffer.splice(0, headerLen + length);
+            const at = headerLen - 2;
+            const raw = frame[at] << 8 | frame[at + 1];
+            const payload = frame.slice(headerLen);
+            if (vendor === Frame.VENDOR_EQ && this._isUpgradeCommand(raw)) {
+                this._upgrade?.handleFrame(raw, payload);
+                continue;
+            }
+
+            const command = raw & ~Frame.ACK_MASK;
             try {
-                this._handleFrame(command, frame.slice(Frame.HEADER_LEN));
+                this._handleFrame(command, payload);
             } catch (e) {
                 this._log.error(e, `Failed to handle frame ${hexBytes(frame)}`);
             }
         }
+    }
+
+    // Commands of the upgrade feature (0x0C00 to 0x0DFF)
+    _isUpgradeCommand(raw) {
+        return raw >= 0x0C00 && raw < 0x0E00;
     }
 
     // A reply and a notification both start with a status byte, followed by the value
@@ -347,7 +374,51 @@ export const EarfunBudsSocket = GObject.registerClass({
         this._callbacks.updateGestures(result);
     }
 
+    // Sends a file to the earbuds (a voice pack) with the upgrade protocol. fileId: last four
+    // bytes of the MD5 of the file. resumeOnly: finish a transfer after the earbuds restarted
+    startUpgrade(file, fileId, resumeOnly = false) {
+        if (this._upgrade && !this._upgrade.finished)
+            return;
+
+        const timers = new Map();
+        let nextTimer = 1;
+        const hooks = {
+            send: frame => this.sendMessage(frame),
+            setTimer: (ms, fn) => {
+                const id = nextTimer++;
+                timers.set(id, GLib.timeout_add(GLib.PRIORITY_DEFAULT, ms, () => {
+                    timers.delete(id);
+                    fn();
+                    return GLib.SOURCE_REMOVE;
+                }));
+                return id;
+            },
+            clearTimer: id => {
+                if (timers.has(id))
+                    GLib.source_remove(timers.get(id));
+                timers.delete(id);
+            },
+            onState: (state, info) => this._callbacks.updateUpgrade?.(state, info),
+            log: text => this._log.info(text),
+        };
+        this._upgradeTimers = timers;
+        this._upgrade = new UpgradeClient(file, fileId, hooks, resumeOnly);
+        this._upgrade.start();
+    }
+
+    abortUpgrade() {
+        this._upgrade?.abort('Cancelled');
+    }
+
     destroy() {
+        if (this._upgrade && !this._upgrade.finished) {
+            this._upgrade.onLinkLost();
+            for (const id of this._upgradeTimers?.values() ?? [])
+                GLib.source_remove(id);
+            this._upgradeTimers?.clear();
+        }
+        this._upgrade = null;
+
         if (this._rebootTimeoutId)
             GLib.source_remove(this._rebootTimeoutId);
         this._rebootTimeoutId = null;

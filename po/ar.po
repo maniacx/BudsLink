@@ -3623,3 +3623,143 @@ msgstr "تشغيل دائمًا على هذا الجهاز"
 #: src/preferences/devices/earfunBuds/configureWindow.js:609
 msgid "Play on this device"
 msgstr "تشغيل على هذا الجهاز"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "A newer firmware exists:"
+msgstr "يتوفر إصدار أحدث من البرنامج الثابت:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Ask the server of the vendor whether a newer firmware exists. BudsLink does not install firmware."
+msgstr "اسأل خادم الشركة المصنعة عما إذا كان هناك برنامج ثابت أحدث. لا يقوم BudsLink بتثبيت البرنامج الثابت."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Asking the server…"
+msgstr "جارٍ الاستعلام من الخادم…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Check"
+msgstr "تحقق"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose File…"
+msgstr "اختيار ملف…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a Voice Pack"
+msgstr "اختر حزمة صوتية"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Connecting…"
+msgstr "جارٍ الاتصال…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Finishing…"
+msgstr "جارٍ الإنهاء…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Firmware Update"
+msgstr "تحديث البرنامج الثابت"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install"
+msgstr "تثبيت"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install a Voice Pack"
+msgstr "تثبيت حزمة صوتية"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install it with the app of the vendor."
+msgstr "ثبّتها باستخدام تطبيق الشركة المصنعة."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Install this voice pack?"
+msgstr "هل تريد تثبيت هذه الحزمة الصوتية؟"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Not available: the key of the server is missing (see the documentation)."
+msgstr "غير متاح: مفتاح الخادم مفقود (راجع الوثائق)."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Send a voice pack file (.bin) to the earbuds"
+msgstr "إرسال ملف حزمة صوتية (.bin) إلى سماعات الأذن"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Sending the file…"
+msgstr "جارٍ إرسال الملف…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds apply the file…"
+msgstr "تطبّق سماعات الأذن الملف…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds check the file…"
+msgstr "تتحقق سماعات الأذن من الملف…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The earbuds restart. Wait until they connect again…"
+msgstr "تعيد سماعات الأذن التشغيل. انتظر حتى تتصل مجددًا…"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file is sent to the earbuds, which takes about a minute, and they restart at the end. Keep them in their case or in your ears, close to the computer and charged, and do not turn them off or disconnect them meanwhile."
+msgstr "يُرسل الملف إلى سماعات الأذن، وتستغرق العملية نحو دقيقة، وتعيد السماعات التشغيل في النهاية. أبقِها في علبتها أو في أذنيك، قريبة من الحاسوب ومشحونة، ولا تُطفئها أو تفصلها خلال ذلك."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The firmware is up to date."
+msgstr "البرنامج الثابت محدّث."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The server could not be asked."
+msgstr "تعذّر الاستعلام من الخادم."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer failed:"
+msgstr "فشل النقل:"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The transfer is finished."
+msgstr "اكتمل النقل."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. BudsLink does not download voice packs: choose a file you have."
+msgstr "المطالبات الصوتية لسماعات الأذن ملف يُرسل إليها. لا يقوم BudsLink بتنزيل الحزم الصوتية: اختر ملفًا لديك."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Transfer"
+msgstr "نقل"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Pack and Firmware"
+msgstr "الحزمة الصوتية والبرنامج الثابت"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice pack (*.bin)"
+msgstr "الحزمة الصوتية (*.bin)"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Choose a language to install it"
+msgstr "اختر لغة للتثبيت"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load"
+msgstr "تحميل"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Load the list of languages from the server"
+msgstr "تحميل قائمة اللغات من الخادم"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The download failed"
+msgstr "فشل التنزيل"
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The file could not be loaded."
+msgstr "تعذّر تحميل الملف."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "The voice prompts of the earbuds are a file that is sent to them. Choose one the server of the vendor offers, or a file you have."
+msgstr "أصوات التنبيه الصوتية لسماعات الأذن هي ملف يُرسل إليها. اختر واحدًا يقدمه خادم الشركة المصنّعة، أو ملفًا لديك."
+
+#: src/preferences/devices/earfunBuds/configureWindow.js
+msgid "Voice Packs of the Vendor"
+msgstr "حزم الصوت من الشركة المصنّعة"

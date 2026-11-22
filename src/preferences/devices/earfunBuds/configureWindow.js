@@ -2,6 +2,7 @@
 import Adw from 'gi://Adw';
 import Gtk from 'gi://Gtk';
 import GLib from 'gi://GLib';
+import Gio from 'gi://Gio';
 import GObject from 'gi://GObject';
 import {gettext as _} from 'gettext';
 
@@ -18,6 +19,7 @@ import {
     CallActions, EqPresets, EqFrequencies, EqRange, AdvancedAudio, FindDevice, DeviceNameMaxBytes,
     PlaybackDevice
 } from '../../../lib/devices/earfunBuds/earfunBudsConfig.js';
+import {checkFirmware, fetchVoicePacks, downloadVoicePack} from '../../../lib/devices/earfunBuds/earfunServer.js';
 
 const SettingsKey = 'earfun-buds-list';
 
@@ -76,6 +78,7 @@ export const ConfigureWindow = GObject.registerClass({
             this._updateVisibility();
             this._channelBanner.revealed = !!this._settingsItems['channel-busy'];
             this._syncDevices();
+            this._syncUpgrade();
         });
 
         this.connect('close-request', () => {
@@ -531,6 +534,7 @@ export const ConfigureWindow = GObject.registerClass({
             }));
 
         this._addDevicesGroup(page);
+        this._addUpgradeGroup(page);
     }
 
     // The devices that are known to the earbuds (multipoint): a switch connects or disconnects a
@@ -556,6 +560,186 @@ export const ConfigureWindow = GObject.registerClass({
         this._devicesGroup.add(this._pairRow);
 
         this._syncDevices();
+    }
+
+    // Voice pack: a file that the earbuds take with the upgrade protocol of the chip. Firmware: the
+    // server is only asked whether there is a newer one, nothing is installed
+    _addUpgradeGroup(page) {
+        const group = new Adw.PreferencesGroup({
+            title: _('Voice Pack and Firmware'),
+            description: _('The voice prompts of the earbuds are a file that is sent to them. ' +
+                           'Choose one the server of the vendor offers, or a file you have.'),
+        });
+        page.add(group);
+        this._upgradeGroup = group;
+        this._packRows = [];
+
+        this._packsRow = new Adw.ActionRow({
+            title: _('Voice Packs of the Vendor'),
+            subtitle: _('Load the list of languages from the server'),
+        });
+        this._packsButton = new Gtk.Button({label: _('Load'), valign: Gtk.Align.CENTER});
+        this._packsButton.connect('clicked', () => this._loadVoicePacks());
+        this._packsRow.add_suffix(this._packsButton);
+        group.add(this._packsRow);
+
+        this._voiceRow = new Adw.ActionRow({
+            title: _('Install a Voice Pack'),
+            subtitle: _('Send a voice pack file (.bin) to the earbuds'),
+        });
+        this._voiceButton = new Gtk.Button({label: _('Choose File…'), valign: Gtk.Align.CENTER});
+        this._voiceButton.connect('clicked', () => this._chooseVoiceFile());
+        this._voiceRow.add_suffix(this._voiceButton);
+        group.add(this._voiceRow);
+
+        this._upgradeRow = new Adw.ActionRow({title: _('Transfer'), visible: false});
+        this._upgradeBar = new Gtk.ProgressBar({valign: Gtk.Align.CENTER, width_request: 160});
+        this._upgradeRow.add_suffix(this._upgradeBar);
+        this._upgradeCancel = new Gtk.Button({label: _('Cancel'), valign: Gtk.Align.CENTER});
+        this._upgradeCancel.connect('clicked', () => this._requestUpgrade('cancel'));
+        this._upgradeRow.add_suffix(this._upgradeCancel);
+        group.add(this._upgradeRow);
+
+        this._firmwareRow = new Adw.ActionRow({
+            title: _('Firmware Update'),
+            subtitle: _('Ask the server of the vendor whether a newer firmware exists. BudsLink ' +
+                        'does not install firmware.'),
+        });
+        this._firmwareButton = new Gtk.Button({label: _('Check'), valign: Gtk.Align.CENTER});
+        this._firmwareButton.connect('clicked', () => this._checkFirmware());
+        this._firmwareRow.add_suffix(this._firmwareButton);
+        group.add(this._firmwareRow);
+
+        this._syncUpgrade();
+    }
+
+    async _loadVoicePacks() {
+        this._packsButton.sensitive = false;
+        this._packsRow.subtitle = _('Asking the server…');
+        const result = await fetchVoicePacks();
+        this._packsButton.sensitive = true;
+
+        for (const row of this._packRows)
+            this._upgradeGroup.remove(row);
+        this._packRows = [];
+
+        if (result.status !== 'ok' || result.packs.length === 0) {
+            this._packsRow.subtitle = result.status === 'nokey'
+                ? _('Not available: the key of the server is missing (see the documentation).')
+                : _('The server could not be asked.');
+            return;
+        }
+
+        this._packsRow.subtitle = _('Choose a language to install it');
+        for (const pack of result.packs) {
+            const row = new Adw.ActionRow({
+                title: pack.name,
+                subtitle: `${pack.file}, ${(pack.size / 1024).toFixed(0)} KB`,
+            });
+            const button = new Gtk.Button({label: _('Install'), valign: Gtk.Align.CENTER});
+            button.connect('clicked', () => this._installPack(pack, button));
+            row.add_suffix(button);
+            this._upgradeGroup.add(row);
+            this._packRows.push(row);
+        }
+    }
+
+    _installPack(pack, button) {
+        this._askVoiceInstall(async () => {
+            button.sensitive = false;
+            const path = await downloadVoicePack(pack);
+            button.sensitive = true;
+            if (path)
+                this._requestUpgrade('start', {path});
+            else
+                this._ask({heading: _('The download failed'), body: _('The file could not be loaded.')}, () => {}, () => {});
+        });
+    }
+
+    _askVoiceInstall(onAccept) {
+        this._ask({
+            heading: _('Install this voice pack?'),
+            body: _('The file is sent to the earbuds, which takes about a minute, and ' +
+                    'they restart at the end. Keep them in their case or in your ears, ' +
+                    'close to the computer and charged, and do not turn them off or ' +
+                    'disconnect them meanwhile.'),
+            accept: _('Install'),
+        }, onAccept, () => {});
+    }
+
+    _requestUpgrade(action, extra = {}) {
+        const seq = (this._settingsItems['upgrade-request']?.seq ?? 0) + 1;
+        this._updateGsettings('upgrade-request', {seq, action, ...extra});
+    }
+
+    _chooseVoiceFile() {
+        const filter = new Gtk.FileFilter({name: _('Voice pack (*.bin)')});
+        filter.add_pattern('*.bin');
+        const filters = new Gio.ListStore({item_type: Gtk.FileFilter});
+        filters.append(filter);
+        const dialog = new Gtk.FileDialog({title: _('Choose a Voice Pack'), filters});
+        dialog.open(this, null, (_dialog, result) => {
+            let file;
+            try {
+                file = dialog.open_finish(result);
+            } catch {
+                return;
+            }
+            const path = file.get_path();
+            this._askVoiceInstall(() => this._requestUpgrade('start', {path}));
+        });
+    }
+
+    _syncUpgrade() {
+        if (!this._upgradeRow)
+            return;
+
+        const upgrade = this._settingsItems['upgrade-state'] ?? {};
+        const busy = ['setup', 'sync', 'upload', 'validate', 'transferred', 'reboot', 'commit']
+            .includes(upgrade.state);
+        const texts = {
+            setup: _('Connecting…'),
+            sync: _('Connecting…'),
+            upload: _('Sending the file…'),
+            validate: _('The earbuds check the file…'),
+            transferred: _('The earbuds apply the file…'),
+            reboot: _('The earbuds restart. Wait until they connect again…'),
+            commit: _('Finishing…'),
+            done: _('The transfer is finished.'),
+        };
+        const failed = upgrade.state === 'failed';
+        this._upgradeRow.visible = busy || failed || upgrade.state === 'done';
+        this._upgradeRow.subtitle = failed
+            ? `${_('The transfer failed:')} ${upgrade.error ?? ''}`
+            : texts[upgrade.state] ?? '';
+        this._upgradeBar.visible = busy;
+        this._upgradeBar.fraction = (upgrade.percent ?? 0) / 100;
+        this._upgradeCancel.visible = busy && upgrade.state !== 'reboot';
+        const free = !busy && !this._settingsItems['channel-busy'];
+        this._voiceButton.sensitive = free;
+        for (const row of this._packRows ?? [])
+            row.sensitive = free;
+    }
+
+    async _checkFirmware() {
+        this._firmwareButton.sensitive = false;
+        this._firmwareRow.subtitle = _('Asking the server…');
+        const result = await checkFirmware(this._settingsItems['fw'] ?? '');
+        this._firmwareButton.sensitive = true;
+
+        const texts = {
+            current: _('The firmware is up to date.'),
+            error: _('The server could not be asked.'),
+            nokey: _('Not available: the key of the server is missing (see the documentation).'),
+        };
+        if (result.status === 'available') {
+            const notes = (result.notes ?? []).join(' ');
+            this._firmwareRow.subtitle =
+                `${_('A newer firmware exists:')} ${result.version}. ` +
+                `${_('Install it with the app of the vendor.')}${notes ? `\n${notes}` : ''}`;
+        } else {
+            this._firmwareRow.subtitle = texts[result.status] ?? texts.error;
+        }
     }
 
     // One action on the list of devices. The counter lets the same action be asked again

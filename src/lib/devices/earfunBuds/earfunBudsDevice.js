@@ -21,6 +21,46 @@ export {DeviceTypeEarfunBuds};
 
 const SettingsKey = 'earfun-buds-list';
 
+// After a transfer the earbuds restart. The app of the vendor connects to them again within
+// seconds, and an earbud that waits too long for that was seen to drop the new file. This runs
+// on its own (the device object is gone while the earbuds are off) and stops when they are
+// connected or after a minute
+const reconnecting = new Set();
+function reconnectAfterRestart(devicePath) {
+    if (reconnecting.has(devicePath))
+        return;
+
+    const log = createLogger(`EarfunReconnect-${getDeviceIdentifier(devicePath)}`);
+    log.info('The earbuds restart: connecting to them again');
+    reconnecting.add(devicePath);
+    let tries = 0;
+    GLib.timeout_add(GLib.PRIORITY_DEFAULT, 2000, () => {
+        let connected = false;
+        try {
+            connected = !!getBluezDeviceProxy(devicePath).Connected;
+        } catch {
+            // The device is gone: stop
+            tries = 30;
+        }
+        if (connected || ++tries > 30) {
+            log.info(connected ? `Connected again after ${tries} tries` : 'Gave up connecting');
+            reconnecting.delete(devicePath);
+            return GLib.SOURCE_REMOVE;
+        }
+
+        Gio.DBus.system.call('org.bluez', devicePath, 'org.bluez.Device1', 'Connect', null, null,
+            Gio.DBusCallFlags.NONE, 15000, null, (connection, result) => {
+                try {
+                    connection.call_finish(result);
+                    log.info('Connect succeeded');
+                } catch {
+                    // The earbuds are still off: the next try follows
+                }
+            });
+        return GLib.SOURCE_CONTINUE;
+    });
+}
+
 // Toggle buttons in panel order: Noise Cancellation, Off, Transparency
 const ToggleAmbientModes = [AmbientMode.ANC, AmbientMode.OFF, AmbientMode.TRANSPARENCY];
 
@@ -163,6 +203,8 @@ export const EarfunBudsDevice = GObject.registerClass({
             updateAdvancedAudio: this.updateAdvancedAudio.bind(this),
             updateChannel: this.updateChannel.bind(this),
             updateDevices: this.updateDevices.bind(this),
+            updateUpgrade: this.updateUpgrade.bind(this),
+            pendingUpgrade: this.pendingUpgrade.bind(this),
         };
 
         // The earbuds accept one connection to the serial port: it may be taken by the app of
@@ -214,6 +256,8 @@ export const EarfunBudsDevice = GObject.registerClass({
             'battery-case': 0,
             'name-request': {seq: 0, name: ''},
             'device-request': {seq: 0, action: ''},
+            'upgrade-request': {seq: 0, action: '', path: ''},
+            'upgrade-state': {state: '', percent: 0, error: '', id: '', at: 0},
             'channel-busy': false,
             'multipoint-devices': [],
             'eq-mode': 'preset',
@@ -239,6 +283,7 @@ export const EarfunBudsDevice = GObject.registerClass({
         this._lastEqGains = this._eqGains(this._settingsItems);
         this._nameRequestSeq = this._settingsItems['name-request']?.seq ?? 0;
         this._deviceRequestSeq = this._settingsItems['device-request']?.seq ?? 0;
+        this._upgradeRequestSeq = this._settingsItems['upgrade-request']?.seq ?? 0;
 
         this._settingsHandlerId = this._settings.connect(`changed::${SettingsKey}`, () => {
             if (!this._ignoreGsettingsChange)
@@ -330,6 +375,7 @@ export const EarfunBudsDevice = GObject.registerClass({
 
         this._handleNameRequest(items['name-request']);
         this._handleDeviceRequest(items['device-request']);
+        this._handleUpgradeRequest(items['upgrade-request']);
 
         const mask = inEarMaskFromSettings(items, state['in-ear-mask']);
         if (state['in-ear-mask'] !== undefined && mask !== state['in-ear-mask']) {
@@ -391,6 +437,75 @@ export const EarfunBudsDevice = GObject.registerClass({
             default:
                 break;
         }
+    }
+
+    // The configure window asks to send a file (a voice pack) to the earbuds, or to cancel that
+    _handleUpgradeRequest(request) {
+        if (!request || request.seq === this._upgradeRequestSeq)
+            return;
+
+        this._upgradeRequestSeq = request.seq;
+        if (request.action === 'cancel') {
+            this._socket?.abortUpgrade();
+            return;
+        }
+        if (request.action !== 'start')
+            return;
+
+        let bytes;
+        try {
+            [, bytes] = Gio.File.new_for_path(request.path).load_contents(null);
+        } catch (e) {
+            this._log.error(e, 'Cannot read the upgrade file');
+            this.updateUpgrade('failed', {error: 'file'});
+            return;
+        }
+
+        // An upgrade file of the earbuds starts with "APPUHDR5" (the application upgrade header)
+        const header = new TextDecoder().decode(bytes.subarray(0, 8));
+        if (header !== 'APPUHDR5' || bytes.length < 1024 || bytes.length > 32 * 1024 * 1024) {
+            this._log.error(`Not an upgrade file (${header}, ${bytes.length} bytes)`);
+            this.updateUpgrade('failed', {error: 'format'});
+            return;
+        }
+
+        const md5 = GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, bytes);
+        this._log.info(`Sending upgrade file of ${bytes.length} bytes, md5 ${md5}`);
+        this._upgradeId = md5.slice(-8);
+        this._socket?.startUpgrade(bytes, md5.slice(-8).match(/../g).map(h => parseInt(h, 16)));
+    }
+
+    // Progress of a transfer. After the transfer the earbuds restart: the id of the file is
+    // stored so that the next connection can finish with the commit
+    updateUpgrade(state, info = {}) {
+        const previous = this._settingsItems['upgrade-state'] ?? {};
+        const percent = info.percent ?? previous.percent ?? 0;
+        if (state === previous.state && percent === previous.percent && !info.error)
+            return;
+
+        const value = {
+            state, percent, error: info.error ?? '',
+            id: previous.id ?? '', at: previous.at ?? 0,
+        };
+        if (state === 'reboot') {
+            value.id = this._upgradeId ?? previous.id;
+            value.at = Math.floor(Date.now() / 1000);
+            reconnectAfterRestart(this._devicePath);
+        } else if (state === 'done' || state === 'failed') {
+            value.id = '';
+            value.at = 0;
+        }
+        this._log.info(`Upgrade ${state} ${percent}% ${value.error}`);
+        this._writeSettings({'upgrade-state': value});
+    }
+
+    // The id of a file that was sent before the earbuds restarted (waiting for the commit)
+    pendingUpgrade() {
+        const stored = this._settingsItems['upgrade-state'];
+        if (stored?.state !== 'reboot' || !stored.id || Date.now() / 1000 - stored.at > 1800)
+            return null;
+
+        return stored.id.match(/../g).map(h => parseInt(h, 16));
     }
 
     _eqGains(items) {

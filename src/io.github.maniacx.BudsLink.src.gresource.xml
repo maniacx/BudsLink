@@ -261,6 +261,8 @@
         <file>lib/devices/earfunBuds/earfunBudsConfig.js</file>
         <file>lib/devices/earfunBuds/earfunBudsDevice.js</file>
         <file>lib/devices/earfunBuds/earfunBudsSocket.js</file>
+        <file>lib/devices/earfunBuds/earfunServer.js</file>
+        <file>lib/devices/earfunBuds/earfunUpgrade.js</file>
         <file>preferences/devices/earfunBuds/configureWindow.js</file>
     </gresource>
 </gresources>
