@@ -56,8 +56,8 @@ export function isSoundcore(bluezDeviceProxy, uuids) {
 export const SoundcoreDevice = GObject.registerClass({
     GTypeName: 'BudsLink_SoundcoreDevice',
 }, class SoundcoreDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         this._log = createLogger(`SoundcoreDevice-${identifier}`);
         this._log.info('------------------- SoundcoreDevice init -------------------');

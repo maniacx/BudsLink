@@ -29,8 +29,8 @@ const WRITE_REFRESH_TIMEOUT_MS = 3000;
 export const GoogleBudsSocket = GObject.registerClass({
     GTypeName: 'BudsLink_GoogleBudsSocket',
 }, class GoogleBudsSocket extends SocketHandler {
-    _init(devicePath, profileManager, profile, callbacks) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, callbacks) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `GoogleBudsSocket-${identifier}`;
         this._log = createLogger(tag);

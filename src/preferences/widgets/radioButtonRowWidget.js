@@ -17,7 +17,7 @@ export const RadioButtonRowWidget = GObject.registerClass({
         ),
     },
 }, class RadioButtonRowWidget extends Adw.PreferencesRow {
-    _init(params = {}) {
+    constructor(params = {}) {
         const {
             title = '',
             subtitle = '',
@@ -25,7 +25,7 @@ export const RadioButtonRowWidget = GObject.registerClass({
             initialValue = 0,
         } = params;
 
-        super._init();
+        super();
 
         this._updatingProgrammatically = false;
         this._buttons = [];

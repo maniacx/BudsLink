@@ -10,8 +10,8 @@ import {RadioButtonBin} from './radioButtonBin.js';
 export const OptionsBox = GObject.registerClass({
     GTypeName: 'BudsLink_OptionsBox',
 }, class OptionsBox extends Gtk.Box {
-    _init(dataHandler) {
-        super._init({
+    constructor(dataHandler) {
+        super({
             orientation: Gtk.Orientation.VERTICAL,
             hexpand: true,
             margin_bottom: 12,

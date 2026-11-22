@@ -19,8 +19,8 @@ const TX_INTERVAL_MS = 250;
 export const SoundcoreSocket = GObject.registerClass({
     GTypeName: 'BudsLink_SoundcoreSocket',
 }, class SoundcoreSocket extends SocketHandler {
-    _init(devicePath, profileManager, profile, callbacks, modelData) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, callbacks, modelData) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         this._log = createLogger(`SoundcoreSocket-${identifier}`);
         this._log.info('SoundcoreSocket init');
@@ -135,6 +135,11 @@ export const SoundcoreSocket = GObject.registerClass({
         if (body.length !== m.stateBodyLength) {
             this._log.info(`Unexpected state length ${body.length}`);
             return;
+        }
+
+        if (this._initialRequestTimeoutId) {
+            GLib.source_remove(this._initialRequestTimeoutId);
+            this._initialRequestTimeoutId = null;
         }
 
         this._emitBattery(body);

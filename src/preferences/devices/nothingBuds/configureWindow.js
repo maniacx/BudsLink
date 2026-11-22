@@ -34,8 +34,8 @@ const NC_BYTE_TO_BITMASK = {
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_NothingBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    _init(devInfo, modelData) {
-        super._init({
+    constructor(devInfo, modelData) {
+        super({
             default_width: 650,
             default_height: 650,
             width_request: 320,

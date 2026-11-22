@@ -8,8 +8,8 @@ const THROTTLE_DELAY = 1000;
 export const SliderBin = GObject.registerClass({
     GTypeName: 'BudsLink_SliderBin',
 }, class SliderBin extends Gtk.Box {
-    _init(dataHandler, id) {
-        super._init({
+    constructor(dataHandler, id) {
+        super({
             orientation: Gtk.Orientation.VERTICAL,
             spacing: 6,
             hexpand: true,

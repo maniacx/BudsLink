@@ -76,8 +76,8 @@ export function isCambridgeBuds(bluezDeviceProxy, uuids) {
 export const CambridgeBudsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_CambridgeBudsDevice',
 }, class CambridgeBudsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         this._log = createLogger(`CambridgeBudsDevice-${identifier}`);
         this._log.info('------------------- CambridgeBudsDevice init -------------------');

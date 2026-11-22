@@ -264,8 +264,8 @@ const EqGraph = GObject.registerClass({
         },
     },
 }, class EqGraph extends Gtk.DrawingArea {
-    _init(config) {
-        super._init({});
+    constructor(config) {
+        super({});
         this._config = config;
 
         this._styleManager = Adw.StyleManager.get_default();
@@ -491,8 +491,8 @@ const EqBand = GObject.registerClass({
         bypass: GObject.ParamSpec.boolean('bypass', '', '', GObject.ParamFlags.READWRITE, false),
     },
 }, class EqBand extends GObject.Object {
-    _init(index, params = {}) {
-        super._init(params);
+    constructor(index, params = {}) {
+        super(params);
         this.index = index;
         this.color = null;
     }
@@ -501,8 +501,8 @@ const EqBand = GObject.registerClass({
 const ParamButton = GObject.registerClass({
     GTypeName: 'ParamButton',
 }, class ParamButton extends Gtk.MenuButton {
-    _init(tooltip, iconName, config, value, css, useButtonContent = false) {
-        super._init({tooltip_text: tooltip});
+    constructor(tooltip, iconName, config, value, css, useButtonContent = false) {
+        super({tooltip_text: tooltip});
 
         if (useButtonContent) {
             this.buttonContent = new Adw.ButtonContent({
@@ -603,8 +603,8 @@ const ParamButton = GObject.registerClass({
 const BandPage = GObject.registerClass({
     GTypeName: 'BudsLink_BandPage',
 }, class BandPage extends Gtk.Box {
-    _init(bandNumber, eqBand, config) {
-        super._init({
+    constructor(bandNumber, eqBand, config) {
+        super({
             orientation: Gtk.Orientation.VERTICAL,
             spacing: 6,
             halign: Gtk.Align.CENTER,
@@ -838,8 +838,8 @@ const ParametricEqDialog = GObject.registerClass({
         },
     },
 }, class ParametricEqDialog extends Adw.Dialog {
-    _init(config) {
-        super._init({
+    constructor(config) {
+        super({
             content_width: 650,
             content_height: 520,
             width_request: 300,
@@ -1297,8 +1297,8 @@ const ParametricEqDialog = GObject.registerClass({
 export const ParametricEqRowWidget = GObject.registerClass({
     GTypeName: 'BudsLink_ParametricEqRowWidget',
 }, class ParametricEqRowWidget extends Adw.ActionRow {
-    _init(window, config = {}) {
-        super._init({
+    constructor(window, config = {}) {
+        super({
             title: _('Parametric Equalizer'),
         });
 

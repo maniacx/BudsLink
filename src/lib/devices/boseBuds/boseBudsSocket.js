@@ -21,8 +21,8 @@ const MAX_BUFFER_SIZE = 2048;
 export const BoseBudsSocket = GObject.registerClass({
     GTypeName: 'BudsLink_BoseSocket',
 }, class BoseBudsSocket extends SocketHandler {
-    _init(devicePath, profileManager, profile, modelData, callbacks) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, modelData, callbacks) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `BoseSocket-${identifier}`;
         this._log = createLogger(tag);

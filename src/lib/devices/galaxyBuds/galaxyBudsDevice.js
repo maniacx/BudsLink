@@ -47,8 +47,8 @@ export function isGalaxyBuds(bluezDeviceProxy, uuids) {
 export const GalaxyBudsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_GalaxyBudsDevice',
 }, class GalaxyBudsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `GalaxyBudsDevice-${identifier}`;
         this._log = createLogger(tag);

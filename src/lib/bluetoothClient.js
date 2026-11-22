@@ -15,8 +15,8 @@ export const BluetoothClient = GObject.registerClass({
         'devices-update': {},
     },
 }, class BluetoothClient extends GObject.Object {
-    _init() {
-        super._init();
+    constructor() {
+        super();
 
         this._log = createLogger('BluetoothClient');
         this._bus = Gio.DBus.system;

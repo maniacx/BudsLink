@@ -19,8 +19,8 @@ const BATTERY_UNAVAILABLE = 0xFF;
 export const CambridgeBudsSocket = GObject.registerClass({
     GTypeName: 'BudsLink_CambridgeBudsSocket',
 }, class CambridgeBudsSocket extends SocketHandler {
-    _init(devicePath, profileManager, profile, callbacks, modelData) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, callbacks, modelData) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         this._log = createLogger(`CambridgeBudsSocket-${identifier}`);
         this._log.info('CambridgeBudsSocket init');

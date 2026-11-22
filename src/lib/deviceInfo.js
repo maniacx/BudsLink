@@ -43,8 +43,8 @@ export const DeviceInfo = GObject.registerClass({
         },
     },
 }, class DeviceInfo extends GObject.Object {
-    _init({settings, settingsKey, devicePath, features}) {
-        super._init();
+    constructor({settings, settingsKey, devicePath, features}) {
+        super();
         this.path = devicePath;
         this.mac = pathToMac(devicePath);
         this._settings = settings;

@@ -16,8 +16,8 @@ export const MediaController = GObject.registerClass({
         ),
     },
 }, class MediaController extends GObject.Object {
-    _init(settings, devicePath) {
-        super._init();
+    constructor(settings, devicePath) {
+        super();
         this._log = createLogger('MediaController');
         this._settings = settings;
         this._devicePath = devicePath;

@@ -27,8 +27,8 @@ https://github.com/andreasolofsson/MDR-protocol
 export const SonySocketV2 = GObject.registerClass({
     GTypeName: 'BudsLink_SonySocketV2',
 }, class SonySocketV2 extends SonySocketBase {
-    _init(devicePath, profileManager, profile, modelData, callbacks) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, modelData, callbacks) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `SonySocketV2-${identifier}`;
         this._log = createLogger(tag);

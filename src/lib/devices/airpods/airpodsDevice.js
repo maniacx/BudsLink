@@ -47,8 +47,8 @@ export function isAirpods(bluezDeviceProxy, uuids) {
 export const AirpodsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_AirpodsDevice',
 }, class AirpodsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `AirpodsDevice-${identifier}`;
         this._log = createLogger(tag);

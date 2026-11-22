@@ -35,8 +35,8 @@ export function isEdifierBuds(bluezDeviceProxy, uuids) {
 export const EdifierBudsDevice = GObject.registerClass({
     GTypeName: 'BudsLink_EdifierBudsDevice',
 }, class EdifierBudsDevice extends GObject.Object {
-    _init(settings, devicePath, alias, extPath, _profileManager, updateDeviceMapCb) {
-        super._init();
+    constructor(settings, devicePath, alias, extPath, _profileManager, updateDeviceMapCb) {
+        super();
         const identifier = getDeviceIdentifier(devicePath);
         this._log = createLogger(`EdifierBudsDevice-${identifier}`);
         this._log.info('------------------- EdifierBudsDevice init -------------------');

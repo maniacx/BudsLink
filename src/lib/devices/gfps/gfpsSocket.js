@@ -9,8 +9,8 @@ import {MessageGroup, DeviceInfoMessage, HearableControlMessage} from './gfpsCon
 export const GfpsSocket = GObject.registerClass({
     GTypeName: 'BudsLink_GfpsSocket',
 }, class GfpsSocket extends SocketHandler {
-    _init(devicePath, profileManager, profile, callbacks) {
-        super._init(devicePath, profileManager, profile);
+    constructor(devicePath, profileManager, profile, callbacks) {
+        super(devicePath, profileManager, profile);
         const identifier = getDeviceIdentifier(devicePath);
         const tag = `GfpsSocket-${identifier}`;
         this._log = createLogger(tag);

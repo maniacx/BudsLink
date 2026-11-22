@@ -7,8 +7,8 @@ import Pango from 'gi://Pango';
 export const RadioButtonBin = GObject.registerClass({
     GTypeName: 'BudsLink_RadioButtonBin',
 }, class RadioButtonBin extends Gtk.Box {
-    _init(dataHandler, id) {
-        super._init({
+    constructor(dataHandler, id) {
+        super({
             orientation: Gtk.Orientation.VERTICAL,
             spacing: 8,
             hexpand: true,

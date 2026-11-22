@@ -52,8 +52,8 @@ const dataDir = resolveDataDir();
 export const BudsLinkApplication = GObject.registerClass({
     GTypeName: 'BudsLinkApplication',
 }, class BudsLinkApplication extends Adw.Application {
-    _init() {
-        super._init({
+    constructor() {
+        super({
             application_id: AppId,
             flags: Gio.ApplicationFlags.FLAGS_NONE,
         });

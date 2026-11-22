@@ -14,8 +14,8 @@ export const EarTipStatus = {
 const EarTipFitTestDialog = GObject.registerClass({
     GTypeName: 'EarTipTestDialog',
 }, class EarTipFitTestDialog extends Adw.Dialog {
-    _init(parentRow, deviceIcon, noCancelButton) {
-        super._init({
+    constructor(parentRow, deviceIcon, noCancelButton) {
+        super({
             title: _('Earbud Fit Test'),
             content_width: 300,
         });
@@ -308,8 +308,8 @@ export const EarTipFitTestRow = GObject.registerClass({
         'cancel-test': {},
     },
 }, class EarTipFitTestRow extends Adw.ActionRow {
-    _init(window, icon, noCancelButton = false) {
-        super._init({
+    constructor(window, icon, noCancelButton = false) {
+        super({
             title: _('Earbud Fit Test'),
             subtitle: _(
                 'Check acoustic seal for optimal sound quality and noise cancellation'

@@ -20,8 +20,8 @@ const LANG_SYSTEM = 'system';
 
 export const SettingsButton = GObject.registerClass(
 class SettingsButton extends Gtk.MenuButton {
-    _init(settings, direction) {
-        super._init({
+    constructor(settings, direction) {
+        super({
             icon_name: 'bbm-open-menu-symbolic',
             tooltip_text: _('Application Settings'),
             margin_top: 6,
