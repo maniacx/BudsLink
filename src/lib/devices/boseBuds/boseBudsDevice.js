@@ -1,20 +1,21 @@
 'use strict';
-import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import {gettext as _} from 'gettext';
 
 import {createLogger, getDeviceIdentifier, hexBytes} from '../logger.js';
 import {
-    buds2to1BatteryLevel, validateProperties, launchConfigureWindow, isArrayEqual,
-    SppUUidType, SppUUid, getAdapterMac
+    buds2to1BatteryLevel, isArrayEqual, SppUUidType, SppUUid, getAdapterMac
 } from '../deviceUtils.js';
+import {DeviceInfo} from '../../deviceInfo.js';
 import {createConfig, createProperties, DataHandler} from '../../dataHandler.js';
 import {getBluezDeviceProxy} from '../../bluezDeviceProxy.js';
 import {MediaController} from '../mediaController.js';
 import {BoseBudsSocket} from './boseBudsSocket.js';
 import {BoseBudsModelList, AudioModes} from './boseBudsConfig.js';
 import {BtDeviceState, DeviceManagementAction} from '../commonEmuns.js';
+
+import {ConfigureWindow} from '../../../preferences/devices/boseBuds/configureWindow.js';
 
 export const DeviceTypeBoseBuds = 'boseBuds';
 const BoseBudsUUID = '00000000-deca-fade-deca-deafdecacaff';
@@ -58,15 +59,11 @@ export const BoseBudsDevice = GObject.registerClass({
         this._alias = alias;
         this._extPath = extPath;
         this.updateDeviceMapCb = updateDeviceMapCb;
-        this._ignoreGsettingsChange = false;
-        this._inEarSettings = false;
 
         this._config = createConfig();
         this._props = createProperties();
         this._modelData = null;
-        this._fwVersion = '';
-        this._serialNo = '';
-        this._deviceInfo = [];
+        this._deviceMgmtInfo = [];
         this._pendingBTOperations = new Map();
         this._modeCount = 10;
         this._bothBudsInEar = null;
@@ -124,29 +121,13 @@ export const BoseBudsDevice = GObject.registerClass({
 
         this._log.info(`Configuration: ${JSON.stringify(this._modelData, null, 2)}`);
 
-        this._commonIcon = this._modelData.budsIcon;
         this._config.battery1ShowOnDisconnect = true;
         this._config.showSettingsButton = true;
 
-        if (!this._modelData.batterySingle)
-            this._caseIcon = `${this._modelData.case}`;
-
-        this._createDefaultSettings();
-
-        const devicesList = this._settings.get_strv('bose-buds-list').map(JSON.parse);
-
-        if (devicesList.length === 0 ||
-                !devicesList.some(device => device.path === this._devicePath)) {
-            this._addPropsToSettings(devicesList);
-        } else {
-            validateProperties(this._settings, 'bose-buds-list', devicesList,
-                this._defaultsDeviceSettings, this._devicePath);
-        }
-
-        this._updateInitialValues();
-        this._monitorBoseBudsListGsettings();
+        this._initializeDeviceInfo();
         this._updateDeviceInfo();
         this._updateIcons();
+
         if (this._modelData.audioModes)
             this._setupAudioModeToggle();
         else if (this._modelData.anr)
@@ -213,404 +194,129 @@ export const BoseBudsDevice = GObject.registerClass({
         return gestures;
     }
 
-    _createDefaultSettings() {
-        this._defaultsDeviceSettings = {
-            path: this._devicePath,
-            id: this._modelData.id,
-            alias: this._alias,
-            icon: this._commonIcon,
-            'fw-version': this._fwVersion,
-            'serial': this._serialNo,
-
-            ...!this._modelData.batterySingle && {
-                'case': this._caseIcon,
-            },
-
-            ...this._modelData.audioModes && {
-                'modes': this._createModesArray(),
-                'current-mode': 0,
-                'restore-mode': false,
-            },
-
-            ...this._modelData.eq && {
-                'eq-preset': 'flat',
-            },
-
-            ...this._modelData.eq?.bands !== undefined && {
-                'eq-custom': new Array(this._modelData.eq.bands.length).fill(0),
-            },
-
-            ...this._modelData.dualConnection && {
-                'multipoint': false,
-                'dev-mgmt': [],
-                'pairing-mode': false,
-                'dev-mgmt-action': {seq: 0, action: 0, id: ''},
-                'active-dev': '',
-                'own-dev': '',
-            },
-
-            ...this._modelData.sideTone && {
-                'side-tone': 0,
-            },
-
-            ...this._modelData.inEarSettings && {
-                'in-ear': false,
-                'wear-detection-mode': 1,
-            },
-
-            ...this._modelData.autoAnswer && {
-                'auto-answer': false,
-            },
-
-            ...this._modelData.autoPause && {
-                'auto-pause': false,
-            },
-
-            ...this._modelData.autoTransparency && {
-                'auto-transp': false,
-            },
-
-            ...this._modelData.automaticPowerOffTimer && {
-                'auto-power': this._modelData.automaticPowerOffTimer[0],
-            },
-
-            ...this._modelData.voicePrompt && {
-                'voice-enabled': false,
-                'voice-prompt': 0xFF,
-                'supported-voice': 0xFFFFFFFF,
-                'batt-voice': 0,
-                'vobat-sup': false,
-                'vobat-en': false,
-            },
-
-            ...this._modelData.gestureOptions && {
-                'gestures': this._createDefaultGestureSettings(),
-            },
-        };
-    }
-
-    _addPropsToSettings(devicesList) {
-        devicesList.push(this._defaultsDeviceSettings);
-        this._settings.set_strv('bose-buds-list', devicesList.map(JSON.stringify));
-    }
-
-    _updateInitialValues() {
-        const devicesList = this._settings.get_strv('bose-buds-list').map(JSON.parse);
-        const existingPathIndex = devicesList.findIndex(item => item.path === this._devicePath);
-        if (existingPathIndex === -1)
-            return;
-
-        this._settingsItems = devicesList[existingPathIndex];
-
-        this._commonIcon = this._settingsItems['icon'];
+    _initializeDeviceInfo() {
+        const features = [
+            {key: 'id', default: this._modelData.id, persist: true},
+            {key: 'alias', default: this._alias, persist: true},
+            {key: 'icon', default: this._modelData.budsIcon, persist: true},
+            {key: 'fw-version', default: '', persist: true},
+            {key: 'serial', default: '', persist: true},
+        ];
 
         if (!this._modelData.batterySingle)
-            this._caseIcon = this._settingsItems['case'];
+            features.push({key: 'case', default: `${this._modelData.case}`, persist: true});
 
         if (this._modelData.audioModes) {
-            this._audioModes = this._settingsItems['modes'];
-            this._currentAudioMode = this._settingsItems['current-mode'];
-            this._restoreAudioMode = this._settingsItems['restore-mode'];
+            features.push({key: 'modes', default: this._createModesArray(), persist: true});
+            features.push({key: 'current-mode', default: 0, persist: true});
+            features.push({key: 'restore-mode', default: false, persist: true});
         }
 
         if (this._modelData.eq)
-            this._presetEq = this._settingsItems['eq-preset'];
+            features.push({key: 'eq-preset', default: 'flat', persist: true});
 
-        if (this._modelData.eq?.bands !== undefined)
-            this._customEq = this._settingsItems['eq-custom'];
+
+        if (this._modelData.eq?.bands !== undefined) {
+            const def = new Array(this._modelData.eq.bands.length).fill(0);
+            features.push({key: 'eq-custom', default: def, persist: true});
+        }
 
         if (this._modelData.dualConnection) {
-            this._multipoint = this._settingsItems['multipoint'];
-            this._pairingMode = this._settingsItems['pairing-mode'];
-            this._devMgmtAction = this._settingsItems['dev-mgmt-action'];
-            this._activeDevice = this._settingsItems['active-dev'];
-            this._deviceInfo = this._settingsItems['dev-mgmt'];
+            features.push({key: 'multipoint', default: false, persist: true});
+            features.push({key: 'dev-mgmt', default: [], persist: true});
+            features.push({key: 'pairing-mode', default: false, persist: true});
+            features.push({key: 'dev-mgmt-action', default: {action: 0, id: ''}, relay: true});
+            features.push({key: 'active-dev', default: '', persist: true});
+            features.push({key: 'own-dev', default: '', persist: true});
         }
 
         if (this._modelData.sideTone)
-            this._sideTone = this._settingsItems['side-tone'];
+            features.push({key: 'side-tone', default: 0, persist: true});
 
         if (this._modelData.inEarSettings) {
-            this._inEarSettings = this._settingsItems['in-ear'];
-            this._wearDetectionMode = this._settingsItems['wear-detection-mode'];
+            features.push({key: 'in-ear', default: false, persist: true});
+            features.push({key: 'wear-detection-mode', default: 1, persist: true});
         }
 
         if (this._modelData.autoAnswer)
-            this._autoAnswer = this._settingsItems['auto-answer'];
+            features.push({key: 'auto-answer', default: false, persist: true});
 
         if (this._modelData.autoPause)
-            this._autoPause = this._settingsItems['auto-pause'];
+            features.push({key: 'auto-pause', default: false, persist: true});
 
         if (this._modelData.autoTransparency)
-            this._autoTransparency = this._settingsItems['auto-transp'];
-
-        if (this._modelData.automaticPowerOffTimer)
-            this._autoPowerOffTimer = this._settingsItems['auto-power'];
-
-        if (this._modelData.voicePrompt) {
-            this._voiceEnabled = this._settingsItems['voice-enabled'];
-            this._voicePrompt = this._settingsItems['voice-prompt'];
-            this._supportedVoice = this._settingsItems['supported-voice'];
-            this._voiceBatSupported = this._settingsItems['vobat-sup'];
-            this._voiceBatEnabled = this._settingsItems['vobat-en'];
-        }
-
-        if (this._modelData.gestureOptions)
-            this._gestures = this._settingsItems['gestures'];
-    }
-
-    _updateGsettingsProps() {
-        const devicesList = this._settings.get_strv('bose-buds-list').map(JSON.parse);
-        const existingPathIndex = devicesList.findIndex(item => item.path === this._devicePath);
-        if (existingPathIndex === -1)
-            return;
-
-        this._settingsItems = devicesList[existingPathIndex];
-
-        const icon = this._settingsItems['icon'];
-        if (this._commonIcon !== icon) {
-            this._commonIcon = icon;
-            this._updateIcons();
-        }
-
-        if (!this._modelData.batterySingle) {
-            const caseIcon = this._settingsItems['case'];
-            if (this._caseIcon !== caseIcon) {
-                this._caseIcon = caseIcon;
-                this._updateIcons();
-            }
-        }
-
-        if (this._modelData.audioModes) {
-            const modes = this._settingsItems['modes'];
-            let favoritesChanged = false;
-            let uiModesChanged = false;
-            const favorites = [];
-
-            for (const mode of modes) {
-                const isModeEqual = (a, b) => Object.keys(a).every(key => {
-                    if (key === 'ui' || key === 'fav')
-                        return true;
-
-                    return a[key] === b[key];
-                });
-
-                const isFavoriteEqual = (a, b) => a.added === b.added && a.fav === b.fav;
-                const isUiEqual = (a, b) => a.added === b.added && a.ui === b.ui;
-
-
-                const current = this._audioModes.find(m => m.index === mode.index);
-
-                if (!current || !isModeEqual(current, mode))
-                    this._setAudioMode(mode);
-
-                if (current && !isFavoriteEqual(current, mode))
-                    favoritesChanged = true;
-
-                if (current && !isUiEqual(current, mode))
-                    uiModesChanged = true;
-
-                if (mode.added && mode.fav)
-                    favorites.push(mode.index);
-            }
-
-            if (favoritesChanged)
-                this._setAudioModeFavorites(favorites);
-
-            this._audioModes = modes.map(mode => ({...mode}));
-
-            if (uiModesChanged)
-                this._setupAudioModeToggle();
-
-            const currentAudioMode = this._settingsItems['current-mode'];
-            if (this._currentAudioMode !== currentAudioMode) {
-                this._currentAudioMode = currentAudioMode;
-                this._setCurrentAudioMode(currentAudioMode);
-                this.updateAudioModeCurrent(currentAudioMode, true);
-            }
-
-            const restoreAudioMode = this._settingsItems['restore-mode'];
-            if (this._restoreAudioMode !== restoreAudioMode) {
-                this._restoreAudioMode = restoreAudioMode;
-                this._setRestoreAudioMode(restoreAudioMode);
-            }
-        }
-
-        if (this._modelData.eq?.bands !== undefined) {
-            const eqCustom = this._settingsItems['eq-custom'];
-            if (!this._customEq || !isArrayEqual(eqCustom, this._customEq)) {
-                const oldGains = this._customEq;
-                const newGains = eqCustom;
-
-                this._customEq = eqCustom;
-                this._setCustomEq(oldGains, newGains);
-            }
-        }
-
-        if (this._modelData.dualConnection) {
-            const multipoint = this._settingsItems['multipoint'];
-            if (this._multipoint !== multipoint) {
-                this._multipoint = multipoint;
-                this._setMultipoint(multipoint);
-            }
-
-            const pairingMode = this._settingsItems['pairing-mode'];
-            if (this._pairingMode !== pairingMode) {
-                this._pairingMode = pairingMode;
-                this._setPairingMode(pairingMode);
-            }
-
-            const devMgmtAction = this._settingsItems['dev-mgmt-action'];
-            if (this._devMgmtAction.seq !== devMgmtAction.seq) {
-                this._devMgmtAction = devMgmtAction;
-
-                switch (devMgmtAction.action) {
-                    case DeviceManagementAction.Connect:
-                        this._connectBTDevice(devMgmtAction.id);
-                        break;
-
-                    case DeviceManagementAction.Disconnect:
-                        this._disconnectBTDevice(devMgmtAction.id);
-                        break;
-
-                    case DeviceManagementAction.Remove:
-                        this._removeBTDevice(devMgmtAction.id);
-                        break;
-
-                    case DeviceManagementAction.Routing:
-                        this._setRoutingBTDevice(devMgmtAction.id);
-                        break;
-
-                    case DeviceManagementAction.Refresh:
-                        this._refreshBTDevice();
-                        break;
-                }
-            }
-        }
-
-        if (this._modelData.sideTone) {
-            const sideTone = this._settingsItems['side-tone'];
-            if (this._sideTone !== sideTone) {
-                this._sideTone = sideTone;
-                this._setSideTone(sideTone);
-            }
-        }
-
-        if (this._modelData.inEarSettings) {
-            const inEarSettings = this._settingsItems['in-ear'];
-            if (this._inEarSettings !== inEarSettings) {
-                this._inEarSettings = inEarSettings;
-                this._setInEarSettings(inEarSettings);
-            }
-
-            const wearDetectionMode = this._settingsItems['wear-detection-mode'];
-            if (this._wearDetectionMode !== wearDetectionMode) {
-                this._wearDetectionMode = wearDetectionMode;
-                this._configureMediaController();
-            }
-        }
-
-        if (this._modelData.autoAnswer) {
-            const autoAnswer = this._settingsItems['auto-answer'];
-            if (this._autoAnswer !== autoAnswer) {
-                this._autoAnswer = autoAnswer;
-                this._setAutoAnswer(autoAnswer);
-            }
-        }
-
-        if (this._modelData.autoPause) {
-            const autoPause = this._settingsItems['auto-pause'];
-            if (this._autoPause !== autoPause) {
-                this._autoPause = autoPause;
-                this._setAutoPause(autoPause);
-            }
-        }
-
-        if (this._modelData.autoTransparency) {
-            const autoTransparency = this._settingsItems['auto-transp'];
-            if (this._autoTransparency !== autoTransparency) {
-                this._autoTransparency = autoTransparency;
-                this._setAutoTransparency(autoTransparency);
-            }
-        }
+            features.push({key: 'auto-transp', default: false, persist: true});
 
         if (this._modelData.automaticPowerOffTimer) {
-            const minutes = this._settingsItems['auto-power'];
-            if (this._autoPowerOffTimer !== minutes) {
-                this._autoPowerOffTimer = minutes;
-                this._setAutoPowerOffTimer(minutes);
-            }
+            const def = this._modelData.automaticPowerOffTimer[0];
+            features.push({key: 'auto-power', default: def, persist: true});
         }
 
         if (this._modelData.voicePrompt) {
-            let update = false;
-            const voiceEnabled = this._settingsItems['voice-enabled'];
-            if (this._voiceEnabled !== voiceEnabled) {
-                this._voiceEnabled = voiceEnabled;
-                update = true;
-            }
-
-            const voicePrompt = this._settingsItems['voice-prompt'];
-            if (this._voicePrompt !== voicePrompt) {
-                this._voicePrompt = voicePrompt;
-                update = true;
-            }
-
-            const batEnabled = this._settingsItems['vobat-en'];
-            if (this._voiceBatEnabled !== batEnabled) {
-                this._voiceBatEnabled = batEnabled;
-                update = true;
-            }
-
-            if (update)
-                this._setVoicePrompt();
+            features.push({key: 'voice-enabled', default: false, persist: true});
+            features.push({key: 'voice-prompt', default: 0x01, persist: true});
+            features.push({key: 'supported-voice', default: 0x00000002, persist: true});
+            features.push({key: 'vobat-sup', default: false, persist: true});
+            features.push({key: 'vobat-en', default: false, persist: true});
         }
 
         if (this._modelData.gestureOptions) {
-            const gestures = this._settingsItems['gestures'] ?? [];
-
-            const getGestureKey = g => g.id << 8 | g.gesture;
-
-            const oldGestures = new Map(
-                (this._gestures ?? []).map(g => [getGestureKey(g), g])
-            );
-
-            for (const gesture of gestures) {
-                const old = oldGestures.get(getGestureKey(gesture));
-
-                if (!old || old.action !== gesture.action)
-                    this._setGesture(gesture);
-            }
-
-            this._gestures = gestures;
+            const def = this._createDefaultGestureSettings();
+            features.push({key: 'gestures', default: def, persist: true});
         }
-    }
 
-    _monitorBoseBudsListGsettings() {
-        this._settingsHandlerId = this._settings?.connect('changed::bose-buds-list', () => {
-            if (this._ignoreGsettingsChange)
-                return;
+        this._devInfo = new DeviceInfo({
+            settings: this._settings,
+            settingsKey: 'bose-buds-list',
+            devicePath: this._devicePath,
+            features,
+        });
 
-            this._updateGsettingsProps();
+        if (this._modelData.audioModes)
+            this._audioModes = this._devInfo.getValue('modes');
+
+        if (this._modelData.eq?.bands !== undefined)
+            this._customEq = this._devInfo.getValue('eq-custom');
+
+        if (this._modelData.dualConnection)
+            this._deviceMgmtInfo = this._devInfo.getValue('dev-mgmt');
+
+        if (this._modelData.gestureOptions)
+            this._gestures = this._devInfo.getValue('gestures');
+
+
+        const featureCallbacks = {
+            'icon': () => this._updateIcons(),
+            'case': () => this._updateIcons(),
+            'modes': () => this._setAudioModes(),
+            'current-mode': () => this._setCurAudioMode(),
+            'restore-mode': () => this._setRestoreAudioMode(),
+            'eq-custom': () => this._setEqCustom(),
+            'multipoint': () => this._setMultipoint(),
+            'dev-mgmt-action': () => this._setDeviceManagementAction(),
+            'pairing-mode': () => this._setPairingMode(),
+            'side-tone': () => this._setSideTone(),
+            'in-ear': () => this._setInEarSettings(),
+            'wear-detection-mode': () => this._configureMediaController(),
+            'auto-answer': () => this._setAutoAnswer(),
+            'auto-pause': () => this._setAutoPause(),
+            'auto-transp': () => this._setAutoTransparency(),
+            'auto-power': () => this._setAutoPowerOffTimer(),
+            'voice-enabled': () => this._setVoicePrompt(),
+            'voice-prompt': () => this._setVoicePrompt(),
+            'vobat-en': () => this._setVoicePrompt(),
+            'gestures': () => this._setGestures(),
+        };
+
+        this._devInfoSignalId = this._devInfo.connect('update-device', (info, feature) => {
+            featureCallbacks[feature]?.();
         });
     }
 
-    _updateGsettings() {
-        this._ignoreGsettingsChange = true;
-
-        const currentList = this._settings.get_strv('bose-buds-list').map(JSON.parse);
-        const index = currentList.findIndex(d => d.path === this._devicePath);
-
-        if (index !== -1) {
-            currentList[index] = this._settingsItems;
-            this._settings.set_strv('bose-buds-list', currentList.map(JSON.stringify));
-        }
-
-        this._ignoreGsettingsChange = false;
-    }
-
     _configureMediaController() {
-        const enableMediaController = this._wearDetectionMode !== 0 && this._inEarSettings;
+        const wearDetectionMode = this._devInfo.getValue('wear-detection-mode');
+        const inEarSettings = this._devInfo.getValue('in-ear');
+        const enableMediaController = wearDetectionMode !== 0 && inEarSettings;
 
         if (enableMediaController && !this._mediaController) {
             this._mediaController = new MediaController(this._settings, this._devicePath);
@@ -634,42 +340,33 @@ export const BoseBudsDevice = GObject.registerClass({
     }
 
     _updateIcons() {
-        this._config.commonIcon = this._commonIcon;
-        this._config.albumArtIcon = this._commonIcon;
+        this._config.commonIcon = this._devInfo.getValue('icon');
+        this._config.albumArtIcon = this._devInfo.getValue('icon');
         this._config.battery1ShowOnDisconnect = true;
 
         if (this._modelData.batterySingle) {
-            this._config.battery1Icon = this._commonIcon;
+            this._config.battery1Icon = this._devInfo.getValue('icon');
         } else {
-            this._config.battery1Icon = `${this._commonIcon}-left`;
-            this._config.battery2Icon = `${this._commonIcon}-right`;
+            this._config.battery1Icon = `${this._devInfo.getValue('icon')}-left`;
+            this._config.battery2Icon = `${this._devInfo.getValue('icon')}-right`;
             this._config.battery2ShowOnDisconnect = true;
-            this._config.battery3Icon = this._caseIcon;
+            this._config.battery3Icon = this._devInfo.getValue('case');
         }
 
         this.dataHandler?.setConfig(this._config);
     }
 
     _updateDeviceInfo() {
-        this._settingsItems['id'] = this._modelData.id;
-        this._settingsItems['alias'] = this._alias;
-        this._updateGsettings();
+        this._devInfo?.updateUI('id', this._modelData.id);
+        this._devInfo?.updateUI('alias', this._alias);
     }
 
     updateFirmware(fwVersion) {
-        this._fwVersion = fwVersion;
-        if (this._settingsItems) {
-            this._settingsItems['fw-version'] = fwVersion;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('fw-version', fwVersion);
     }
 
     updateSerial(serial) {
-        this._serialNo = serial;
-        if (this._settingsItems) {
-            this._settingsItems['serial'] = serial;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('serial', serial);
     }
 
     _setupAnrToggle() {
@@ -844,12 +541,14 @@ export const BoseBudsDevice = GObject.registerClass({
         this._bothBudsInEar = bothBudsInEar;
         this._budInEar = budInEar;
 
-        if (this._wearDetectionMode !== 0) {
+        const wearDetectionMode = this._devInfo.getValue('wear-detection-mode');
+
+        if (wearDetectionMode !== 0) {
             let playbackMode = null;
 
-            if (this._wearDetectionMode === 1 && bothBudsInEarChanged)
+            if (wearDetectionMode === 1 && bothBudsInEarChanged)
                 playbackMode = this._bothBudsInEar ? 'play' : 'pause';
-            else if (this._wearDetectionMode === 2 && budInEarChanged)
+            else if (wearDetectionMode === 2 && budInEarChanged)
                 playbackMode = this._budInEar ? 'play' : 'pause';
 
             if (playbackMode)
@@ -899,9 +598,7 @@ export const BoseBudsDevice = GObject.registerClass({
         this.dataHandler?.setProps(this._props);
 
         this._currentAudioMode = mode.index;
-        this._settingsItems['current-mode'] = mode.index;
-        this._updateGsettings();
-
+        this._devInfo?.updateUI('current-mode', mode.index);
         this._setCurrentAudioMode(mode.index);
     }
 
@@ -912,8 +609,7 @@ export const BoseBudsDevice = GObject.registerClass({
 
         if (index === -1) {
             this._audioModes.push({...mode});
-            this._settingsItems['modes'] = this._audioModes;
-            this._updateGsettings();
+            this._devInfo?.updateUI('modes', this._audioModes);
             return;
         }
 
@@ -935,13 +631,51 @@ export const BoseBudsDevice = GObject.registerClass({
 
         if (!areModesEqual(current, mode)) {
             this._audioModes[index] = {...mode};
-            this._settingsItems['modes'] = this._audioModes;
-            this._updateGsettings();
+            this._devInfo?.updateUI('modes', this._audioModes);
         }
     }
 
-    _setAudioMode(mode) {
-        this._boseBudsSocket?.setAudioMode(mode);
+    _setAudioModes() {
+        const modes = this._devInfo.getValue('modes');
+        const hasFavourites = this._modelData?.audioModes?.hasFavourites;
+        let favoritesChanged = false;
+        let uiModesChanged = false;
+        const favorites = [];
+
+        for (const mode of modes) {
+            const isModeEqual = (a, b) => Object.keys(a).every(key => {
+                if (key === 'ui' || key === 'fav')
+                    return true;
+
+                return a[key] === b[key];
+            });
+
+            const isFavoriteEqual = (a, b) => a.added === b.added && a.fav === b.fav;
+            const isUiEqual = (a, b) => a.added === b.added && a.ui === b.ui;
+
+
+            const current = this._audioModes.find(m => m.index === mode.index);
+
+            if (!current || !isModeEqual(current, mode))
+                this._boseBudsSocket?.setAudioMode(mode);
+
+            if (current && !isFavoriteEqual(current, mode))
+                favoritesChanged = true;
+
+            if (current && !isUiEqual(current, mode))
+                uiModesChanged = true;
+
+            if (hasFavourites && mode.added && mode.fav)
+                favorites.push(mode.index);
+        }
+
+        if (hasFavourites && favoritesChanged)
+            this._setAudioModeFavorites(favorites);
+
+        this._audioModes = modes.map(mode => ({...mode}));
+
+        if (uiModesChanged)
+            this._setupAudioModeToggle();
     }
 
     updateAudioModeCurrent(index, uiUpdate = false) {
@@ -952,8 +686,7 @@ export const BoseBudsDevice = GObject.registerClass({
 
         if (!uiUpdate && this._currentAudioMode !== index) {
             this._currentAudioMode = index;
-            this._settingsItems['current-mode'] = index;
-            this._updateGsettings();
+            this._devInfo?.updateUI('current-mode', index);
         }
 
         const toggleIndex = this._toggle1AudioModeMap?.get(index) ?? 0;
@@ -972,6 +705,12 @@ export const BoseBudsDevice = GObject.registerClass({
 
         if (propsChanged)
             this.dataHandler?.setProps(this._props);
+    }
+
+    _setCurAudioMode() {
+        this._currentAudioMode = this._devInfo.getValue('current-mode');
+        this._setCurrentAudioMode(this._currentAudioMode);
+        this.updateAudioModeCurrent(this._currentAudioMode, true);
     }
 
     _setCurrentAudioMode(index) {
@@ -1008,14 +747,11 @@ export const BoseBudsDevice = GObject.registerClass({
 
     updateAudioModeRestore(enabled) {
         this._log.info(`updateAudioModeRestore enabled: ${enabled}`);
-        if (this._restoreAudioMode !== enabled) {
-            this._restoreAudioMode = enabled;
-            this._settingsItems['restore-mode'] = enabled;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('restore-mode', enabled);
     }
 
-    _setRestoreAudioMode(enable) {
+    _setRestoreAudioMode() {
+        const enable = this._devInfo.getValue('restore-mode');
         this._boseBudsSocket?.setRestoreAudioMode(enable);
     }
 
@@ -1108,62 +844,50 @@ export const BoseBudsDevice = GObject.registerClass({
     }
 
     updateEq(arr) {
+        const gains = arr.map(({current}) => current);
         let preset = 'custom';
 
         for (const [name, values] of Object.entries(this._modelData.eq.presets ?? {})) {
-            if (isArrayEqual(arr, values)) {
+            if (gains.length === values.length && gains.every((value, i) => value === values[i])) {
                 preset = name;
                 break;
             }
         }
 
-        let settingsChanged = false;
-
-        if (this._settingsItems['eq-preset'] !== preset) {
-            this._settingsItems['eq-preset'] = preset;
-            settingsChanged = true;
-        }
-
-        if (!isArrayEqual(arr, this._customEq)) {
-            this._customEq = arr;
-            this._settingsItems['eq-custom'] = arr;
-            settingsChanged = true;
-        }
-
-        if (settingsChanged)
-            this._updateGsettings();
+        this._devInfo?.updateUI('eq-preset', preset);
+        this._devInfo?.updateUI('eq-custom', arr);
     }
 
-    _setCustomEq(oldGains, newGains) {
-        for (let i = 0; i < oldGains.length; i++) {
-            if (oldGains[i] !== newGains[i])
-                this._boseBudsSocket?.setEq(newGains[i], i);
+    _setEqCustom() {
+        const newGains = this._devInfo.getValue('eq-custom');
+        if (!this._customEq || !isArrayEqual(newGains, this._customEq)) {
+            const oldGains = this._customEq;
+            this._customEq = newGains;
+
+            for (let i = 0; i < (oldGains?.length ?? 0); i++) {
+                if (oldGains[i] !== newGains[i])
+                    this._boseBudsSocket?.setEq(newGains[i], i);
+            }
         }
     }
 
     updateSideTone(level) {
         this._log.info(`updateSideTone level: ${level}`);
-        if (this._sideTone !== level) {
-            this._sideTone = level;
-            this._settingsItems['side-tone'] = level;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('side-tone', level);
     }
 
-    _setSideTone(level) {
+    _setSideTone() {
+        const level = this._devInfo.getValue('side-tone');
         this._boseBudsSocket?.setSideTone(level);
     }
 
     updateDualConnection(enabled) {
         this._log.info(`updateDualConnection enabled: ${enabled}`);
-        if (this._multipoint !== enabled) {
-            this._multipoint = enabled;
-            this._settingsItems['multipoint'] = enabled;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('multipoint', enabled);
     }
 
-    _setMultipoint(enabled) {
+    _setMultipoint() {
+        const enabled = this._devInfo.getValue('multipoint');
         this._boseBudsSocket?.setDualConnection(enabled);
     }
 
@@ -1172,147 +896,91 @@ export const BoseBudsDevice = GObject.registerClass({
             `autoPause: ${autoPause}, autoAnswer: ${autoAnswer}, ` +
             `autoTransparency: ${autoTransparency}`);
 
-        let update = false;
-
-        if (this._inEarSettings !== enabled) {
-            this._inEarSettings = enabled;
-            this._settingsItems['in-ear'] = enabled;
-            update = true;
-        }
-
-        if (this._modelData.autoPause && this._autoPause !== autoPause) {
-            this._autoPause = autoPause;
-            this._settingsItems['auto-pause'] = autoPause;
-            update = true;
-        }
-
-        if (this._modelData.autoAnswer && this._autoAnswer !== autoAnswer) {
-            this._autoAnswer = autoAnswer;
-            this._settingsItems['auto-answer'] = autoAnswer;
-            update = true;
-        }
-
-        if (this._modelData.autoTransparency && this._autoTransparency !== autoTransparency) {
-            this._autoTransparency = autoTransparency;
-            this._settingsItems['auto-transp'] = autoTransparency;
-            update = true;
-        }
-
-        if (update)
-            this._updateGsettings();
+        this._devInfo?.updateUI('in-ear', enabled);
+        this._devInfo?.updateUI('auto-pause', autoPause);
+        this._devInfo?.updateUI('auto-answer', autoAnswer);
+        this._devInfo?.updateUI('auto-transp', autoTransparency);
     }
 
-    _setInEarSettings(enabled) {
-        const autoPause = this._autoPause ?? false;
-        const autoAnswer = this._autoAnswer ?? false;
-        const autoTransparency = this._autoTransparency ?? false;
+    _setInEarSettings() {
+        const enabled = this._devInfo.getValue('in-ear');
+        const autoPause = this._devInfo.getValue('auto-pause');
+        const autoAnswer = this._devInfo.getValue('auto-answer');
+        const autoTransparency = this._devInfo.getValue('auto-transp');
         this._boseBudsSocket?.setInEarSettings(enabled, autoPause, autoAnswer, autoTransparency);
     }
 
     updateAutoAnswer(enabled) {
         this._log.info(`updateAutoAnswer enabled: ${enabled}`);
-        if (this._autoAnswer !== enabled) {
-            this._autoAnswer = enabled;
-            this._settingsItems['auto-answer'] = enabled;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('auto-answer', enabled);
     }
 
-    _setAutoAnswer(enabled) {
-        if (this._modelData.inEarSettings)
-            this._setInEarSettings(this._inEarSettings);
-        else
+    _setAutoAnswer() {
+        if (this._modelData.inEarSettings) {
+            this._setInEarSettings();
+        } else {
+            const enabled = this._devInfo.getValue('auto-answer');
             this._boseBudsSocket?.setAutoAnswer(enabled);
+        }
     }
 
     updateAutoPause(enabled) {
         this._log.info(`updateAutoPause enabled: ${enabled}`);
-        if (this._autoPause !== enabled) {
-            this._autoPause = enabled;
-            this._settingsItems['auto-pause'] = enabled;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('auto-pause', enabled);
     }
 
-    _setAutoPause(enabled) {
-        if (this._modelData.inEarSettings)
-            this._setInEarSettings(this._inEarSettings);
-        else
+    _setAutoPause() {
+        if (this._modelData.inEarSettings) {
+            this._setInEarSettings();
+        } else {
+            const enabled = this._devInfo.getValue('auto-pause');
             this._boseBudsSocket?.setAutoPause(enabled);
+        }
     }
 
     updateAutoTransparency(enabled) {
         this._log.info(`updateAutoTransparency enabled: ${enabled}`);
-        if (this._autoTransparency !== enabled) {
-            this._autoTransparency = enabled;
-            this._settingsItems['auto-transp'] = enabled;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('auto-transp', enabled);
     }
 
-    _setAutoTransparency(enabled) {
-        if (this._modelData.inEarSettings)
-            this._setInEarSettings(this._inEarSettings);
-        else
+    _setAutoTransparency() {
+        if (this._modelData.inEarSettings) {
+            this._setInEarSettings();
+        } else {
+            const enabled = this._devInfo.getValue('auto-transp');
             this._boseBudsSocket?.setAutoTransparency(enabled);
+        }
     }
 
     updateAutoPowerOffTimer(minutes) {
         this._log.info(`updateAutoPowerOffTimer minutes: ${minutes}`);
-        if (this._autoPowerOffTimer !== minutes) {
-            this._autoPowerOffTimer = minutes;
-            this._settingsItems['auto-power'] = minutes;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('auto-power', minutes);
     }
 
-    _setAutoPowerOffTimer(minutes) {
+    _setAutoPowerOffTimer() {
+        const minutes = this._devInfo.getValue('auto-power');
         this._boseBudsSocket?.setAutoPowerOffTimer(minutes);
     }
 
     updateVoicePrompt(enabled, language, supported, batSupported, batEnabled) {
-        let update = false;
-
-        if (this._voiceEnabled !== enabled) {
-            this._voiceEnabled = enabled;
-            this._settingsItems['voice-enabled'] = enabled;
-            update = true;
-        }
-
-        if (this._voicePrompt !== language) {
-            this._voicePrompt = language;
-            this._settingsItems['voice-prompt'] = language;
-            update = true;
-        }
-
-        if (this._supportedVoice !== supported) {
-            this._supportedVoice = supported;
-            this._settingsItems['supported-voice'] = supported;
-            update = true;
-        }
-
-        if (this._voiceBatSupported !== batSupported) {
-            this._voiceBatSupported = batSupported;
-            this._settingsItems['vobat-sup'] = batSupported;
-            update = true;
-        }
-
-        if (this._voiceBatEnabled !== batEnabled) {
-            this._voiceBatEnabled = batEnabled;
-            this._settingsItems['vobat-en'] = batEnabled;
-            update = true;
-        }
-
-        if (update)
-            this._updateGsettings();
+        this._devInfo?.updateUI('voice-enabled', enabled);
+        this._devInfo?.updateUI('voice-prompt', language);
+        this._devInfo?.updateUI('supported-voice', supported);
+        this._devInfo?.updateUI('vobat-sup', batSupported);
+        this._devInfo?.updateUI('vobat-en', batEnabled);
     }
 
     _setVoicePrompt() {
-        if (this._voicePrompt === 0xFF)
+        const voicePrompt = this._devInfo.getValue('voice-prompt');
+        if (voicePrompt === 0xFF)
             return;
 
-        this._boseBudsSocket?.setVoicePrompt(this._voiceEnabled, this._voicePrompt,
-            this._voiceBatSupported, this._voiceBatEnabled);
+        const voiceEnabled = this._devInfo.getValue('voice-enabled');
+        const voiceBatSupported = this._devInfo.getValue('vobat-sup');
+        const voiceBatEnabled = this._devInfo.getValue('vobat-en');
+
+        this._boseBudsSocket?.setVoicePrompt(voiceEnabled, voicePrompt,
+            voiceBatSupported, voiceBatEnabled);
     }
 
     updateActionButton(buttonId, eventType, action) {
@@ -1328,22 +996,36 @@ export const BoseBudsDevice = GObject.registerClass({
             return;
 
         this._gestures[index] = {...this._gestures[index], action};
-        this._settingsItems['gestures'] = this._gestures;
-        this._updateGsettings();
+        this._devInfo?.updateUI('gestures', this._gestures);
     }
 
-    _setGesture(gesture) {
-        this._boseBudsSocket?.setActionButton(gesture.id, gesture.gesture, gesture.action);
+    _setGestures() {
+        const gestures = this._devInfo.getValue('gestures') ?? [];
+
+        const getGestureKey = g => g.id << 8 | g.gesture;
+
+        const oldGestures = new Map(
+            (this._gestures ?? []).map(g => [getGestureKey(g), g])
+        );
+
+        for (const gesture of gestures) {
+            const old = oldGestures.get(getGestureKey(gesture));
+
+            if (!old || old.action !== gesture.action)
+                this._boseBudsSocket?.setActionButton(gesture.id, gesture.gesture, gesture.action);
+        }
+
+        this._gestures = gestures;
     }
 
     updateBTDeviceList(devices) {
         this._log.info('updateBTDeviceList');
         const deviceSet = new Set(devices);
-        this._deviceInfo = this._deviceInfo.filter(info => deviceSet.has(info.id));
+        this._deviceMgmtInfo = this._deviceMgmtInfo.filter(info => deviceSet.has(info.id));
 
         for (const id of devices) {
-            if (!this._deviceInfo.some(info => info.id === id)) {
-                this._deviceInfo.push({
+            if (!this._deviceMgmtInfo.some(info => info.id === id)) {
+                this._deviceMgmtInfo.push({
                     id,
                     name: '',
                     connected: false,
@@ -1352,8 +1034,7 @@ export const BoseBudsDevice = GObject.registerClass({
             }
         }
 
-        this._settingsItems['dev-mgmt'] = this._deviceInfo;
-        this._updateGsettings();
+        this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
     }
 
     updateBTDeviceInfo(mac, name, connected) {
@@ -1361,7 +1042,7 @@ export const BoseBudsDevice = GObject.registerClass({
 
         this._stopBTTimeout(mac);
 
-        const device = this._deviceInfo.find(info => info.id === mac);
+        const device = this._deviceMgmtInfo.find(info => info.id === mac);
         if (!device)
             return;
 
@@ -1382,22 +1063,17 @@ export const BoseBudsDevice = GObject.registerClass({
             changed = true;
         }
 
-        if (changed) {
-            this._settingsItems['dev-mgmt'] = this._deviceInfo;
-            this._updateGsettings();
-        }
+        if (changed)
+            this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
     }
 
     updatePairingMode(enabled) {
         this._log.info(`updatePairingMode enabled: ${enabled}`);
-        if (this._pairingMode !== enabled) {
-            this._pairingMode = enabled;
-            this._settingsItems['pairing-mode'] = enabled;
-            this._updateGsettings();
-        }
+        this._devInfo?.updateUI('pairing-mode', enabled);
     }
 
-    _setPairingMode(enabled) {
+    _setPairingMode() {
+        const enabled = this._devInfo.getValue('pairing-mode');
         this._boseBudsSocket?.setPairingMode(enabled);
     }
 
@@ -1408,12 +1084,11 @@ export const BoseBudsDevice = GObject.registerClass({
             if (!pending)
                 return GLib.SOURCE_REMOVE;
 
-            const device = this._deviceInfo.find(info => info.id === id);
+            const device = this._deviceMgmtInfo.find(info => info.id === id);
 
             if (device) {
                 device.state = BtDeviceState.Ready;
-                this._settingsItems['dev-mgmt'] = this._deviceInfo;
-                this._updateGsettings();
+                this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
             }
 
             this._pendingBTOperations.delete(id);
@@ -1444,19 +1119,18 @@ export const BoseBudsDevice = GObject.registerClass({
             return;
 
         const [id] = pending;
-        const device = this._deviceInfo.find(device => device.id === id);
+        const device = this._deviceMgmtInfo.find(device => device.id === id);
 
         if (device) {
             device.state = BtDeviceState.Ready;
-            this._settingsItems['dev-mgmt'] = this._deviceInfo;
-            this._updateGsettings();
+            this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
         }
 
         this._stopBTTimeout(id);
     }
 
     updateConnectStatus(id, connected) {
-        const device = this._deviceInfo.find(info => info.id === id);
+        const device = this._deviceMgmtInfo.find(info => info.id === id);
 
         if (!device)
             return;
@@ -1464,12 +1138,11 @@ export const BoseBudsDevice = GObject.registerClass({
         this._stopBTTimeout(id);
         device.connected = connected;
         device.state = BtDeviceState.Ready;
-        this._settingsItems['dev-mgmt'] = this._deviceInfo;
-        this._updateGsettings();
+        this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
     }
 
     _connectBTDevice(id) {
-        const device = this._deviceInfo.find(info => info.id === id);
+        const device = this._deviceMgmtInfo.find(info => info.id === id);
         if (!device)
             return;
 
@@ -1477,8 +1150,7 @@ export const BoseBudsDevice = GObject.registerClass({
             return;
 
         device.state = BtDeviceState.Processing;
-        this._settingsItems['dev-mgmt'] = this._deviceInfo;
-        this._updateGsettings();
+        this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
         this._startBTTimeout(id, 'connect');
         this._boseBudsSocket?.connectBTDevice(id);
     }
@@ -1491,32 +1163,30 @@ export const BoseBudsDevice = GObject.registerClass({
             return;
 
         const [id] = pending;
-        const device = this._deviceInfo.find(device => device.id === id);
+        const device = this._deviceMgmtInfo.find(device => device.id === id);
 
         if (device) {
             device.state = BtDeviceState.Ready;
-            this._settingsItems['dev-mgmt'] = this._deviceInfo;
-            this._updateGsettings();
+            this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
         }
 
         this._stopBTTimeout(id);
     }
 
     updateDisconnectStatus(id) {
-        const device = this._deviceInfo.find(device => device.id === id);
+        const device = this._deviceMgmtInfo.find(device => device.id === id);
 
         if (!device)
             return;
 
         device.connected = false;
         device.state = BtDeviceState.Ready;
-        this._settingsItems['dev-mgmt'] = this._deviceInfo;
-        this._updateGsettings();
+        this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
         this._stopBTTimeout(id);
     }
 
     _disconnectBTDevice(id) {
-        const device = this._deviceInfo.find(info => info.id === id);
+        const device = this._deviceMgmtInfo.find(info => info.id === id);
         if (!device)
             return;
 
@@ -1524,8 +1194,7 @@ export const BoseBudsDevice = GObject.registerClass({
             return;
 
         device.state = BtDeviceState.Processing;
-        this._settingsItems['dev-mgmt'] = this._deviceInfo;
-        this._updateGsettings();
+        this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
         this._startBTTimeout(id, 'disconnect');
         this._boseBudsSocket?.disconnectBTDevice(id);
     }
@@ -1538,26 +1207,24 @@ export const BoseBudsDevice = GObject.registerClass({
             return;
 
         const [id] = pending;
-        const device = this._deviceInfo.find(device => device.id === id);
+        const device = this._deviceMgmtInfo.find(device => device.id === id);
 
         if (device) {
             device.state = BtDeviceState.Ready;
-            this._settingsItems['dev-mgmt'] = this._deviceInfo;
-            this._updateGsettings();
+            this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
         }
 
         this._stopBTTimeout(id);
     }
 
     updateRemoveBTDeviceStatus(id) {
-        this._deviceInfo = this._deviceInfo.filter(device => device.id !== id);
-        this._settingsItems['dev-mgmt'] = this._deviceInfo;
-        this._updateGsettings();
+        this._deviceMgmtInfo = this._deviceMgmtInfo.filter(device => device.id !== id);
+        this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
         this._stopBTTimeout(id);
     }
 
     _removeBTDevice(id) {
-        const device = this._deviceInfo.find(info => info.id === id);
+        const device = this._deviceMgmtInfo.find(info => info.id === id);
         if (!device)
             return;
 
@@ -1565,8 +1232,7 @@ export const BoseBudsDevice = GObject.registerClass({
             return;
 
         device.state = BtDeviceState.Processing;
-        this._settingsItems['dev-mgmt'] = this._deviceInfo;
-        this._updateGsettings();
+        this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
         this._startBTTimeout(id, 'remove');
         this._boseBudsSocket?.removeBTDevice(id);
     }
@@ -1574,8 +1240,7 @@ export const BoseBudsDevice = GObject.registerClass({
     updateRoutingStatus(id) {
         if (this._activeDevice !== id) {
             this._activeDevice = id;
-            this._settingsItems['active-dev'] = id;
-            this._updateGsettings();
+            this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
         }
     }
 
@@ -1584,13 +1249,36 @@ export const BoseBudsDevice = GObject.registerClass({
     }
 
     _refreshBTDevice() {
-        for (const device of this._deviceInfo)
+        for (const device of this._deviceMgmtInfo)
             device.state = BtDeviceState.Processing;
 
-        this._settingsItems['dev-mgmt'] = this._deviceInfo;
-        this._updateGsettings();
-
+        this._devInfo?.updateUI('dev-mgmt', this._deviceMgmtInfo);
         this._boseBudsSocket?.refreshBTDevice();
+    }
+
+    _setDeviceManagementAction() {
+        const devMgmtAction = this._devInfo.getValue('dev-mgmt-action');
+        switch (devMgmtAction.action) {
+            case DeviceManagementAction.Connect:
+                this._connectBTDevice(devMgmtAction.id);
+                break;
+
+            case DeviceManagementAction.Disconnect:
+                this._disconnectBTDevice(devMgmtAction.id);
+                break;
+
+            case DeviceManagementAction.Remove:
+                this._removeBTDevice(devMgmtAction.id);
+                break;
+
+            case DeviceManagementAction.Routing:
+                this._setRoutingBTDevice(devMgmtAction.id);
+                break;
+
+            case DeviceManagementAction.Refresh:
+                this._refreshBTDevice();
+                break;
+        }
     }
 
     async _updateOwnId() {
@@ -1600,21 +1288,24 @@ export const BoseBudsDevice = GObject.registerClass({
             return;
 
         const id = ownMac.replaceAll(':', '').toLowerCase();
-
-        this._settingsItems['own-dev'] = id;
-        this._updateGsettings();
+        this._devInfo?.updateUI('own-dev', id);
     }
 
     _settingsButtonClicked() {
-        this._configureWindowLauncherCancellable = new Gio.Cancellable();
-        launchConfigureWindow(this._devicePath, 'boseBuds', this._extPath,
-            this._configureWindowLauncherCancellable);
-        this._configureWindowLauncherCancellable = null;
+        if (this._configureWindow) {
+            this._configureWindow.present();
+        } else {
+            this._configureWindow = new ConfigureWindow(this._devInfo, this._modelData);
+            this._configureWindow.connect('close-request', () => {
+                this._configureWindow = null;
+            });
+            this._configureWindow.present();
+        }
     }
 
     destroy() {
-        this._configureWindowLauncherCancellable?.cancel();
-        this._configureWindowLauncherCancellable = null;
+        this._configureWindow?.close();
+        this._configureWindow = null;
 
         this._boseBudsSocket?.destroy();
         this._boseBudsSocket = null;
@@ -1624,13 +1315,16 @@ export const BoseBudsDevice = GObject.registerClass({
 
         this._pendingBTOperations.clear();
 
+        if (this._devInfoSignalId)
+            this._devInfo?.disconnect(this._devInfoSignalId);
+        this._devInfoSignalId = null;
+        this._devInfo = null;
+
         if (this._dataHandlerId)
             this.dataHandler?.disconnect(this._dataHandlerId);
         this._dataHandlerId = null;
         this.dataHandler = null;
-        if (this._settingsHandlerId)
-            this._settings?.disconnect(this._settingsHandlerId);
-        this._settingsHandlerId = null;
+
         if (this._mediaHandlerId)
             this._mediaController?.disconnect(this._mediaHandlerId);
         this._mediaHandlerId = null;

@@ -22,6 +22,7 @@ const ModeEditDialog = GObject.registerClass({
         this._modeRow = modeRow;
         this._mode = mode;
         this._modelData = modelData;
+        this._hasFavourites = modelData.audioModes.hasFavourites;
 
         const presetKeys = Object.keys(modelData.audioModes.presets);
         const presetKey = presetKeys.find(key =>
@@ -56,10 +57,13 @@ const ModeEditDialog = GObject.registerClass({
             tooltip_text: _('Show in toggle'),
         });
 
-        this.favoriteButton = new Gtk.ToggleButton({
-            icon_name: 'bbm-star-outline-rounded-symbolic',
-            tooltip_text: _('Favorite'),
-        });
+        if (this._hasFavourites) {
+            this.favoriteButton = new Gtk.ToggleButton({
+                icon_name: 'bbm-star-outline-rounded-symbolic',
+                tooltip_text: _('Favorite'),
+            });
+        }
+
 
         const deleteButton = new Gtk.Button({
             icon_name: 'user-trash-symbolic',
@@ -67,7 +71,10 @@ const ModeEditDialog = GObject.registerClass({
         });
 
         this.addToggleButton.connect('toggled', () => this._updateAddToggleButton());
-        this.favoriteButton.connect('toggled', () => this._updateFavoriteButton());
+
+        if (this._hasFavourites)
+            this.favoriteButton.connect('toggled', () => this._updateFavoriteButton());
+
         deleteButton.connect('clicked', () => this._confirmRemoveMode());
         deleteButton.sensitive = !this._isPreset;
         deleteButton.tooltip_text = this._isPreset ? _('Preset modes cannot be deleted')
@@ -75,7 +82,10 @@ const ModeEditDialog = GObject.registerClass({
 
         box.append(this.addToggleButton);
         box.append(new Adw.Bin({hexpand: true}));
-        box.append(this.favoriteButton);
+
+        if (this._hasFavourites)
+            box.append(this.favoriteButton);
+
         box.append(new Adw.Bin({hexpand: true}));
         box.append(deleteButton);
         actionsRow.set_child(box);
@@ -162,6 +172,7 @@ const ModeEditDialog = GObject.registerClass({
                         return;
 
                     this._mode.wind = this._windBlock.active;
+                    this.updateUI();
                     this._modeRow.emit('mode-changed');
                 });
 
@@ -211,7 +222,11 @@ const ModeEditDialog = GObject.registerClass({
 
         if (this._ncSliderRow) {
             this._ncSliderRow.value = this._mode.cnc;
-            this._ncSliderRow.sensitive = !this._isPreset && (this._mode.flag & 16) !== 0;
+            const sensitveOnWind = this._modelData.audioModes.windToggleAncSenstive &&
+                this._mode.wind;
+
+            this._ncSliderRow.sensitive = !this._isPreset && !sensitveOnWind &&
+                (this._mode.flag & 16) !== 0;
         }
 
         if (this._autoCncSwitch) {
@@ -357,6 +372,7 @@ const ModeRow = GObject.registerClass({
         this._modes = modes;
         this.updatingProgrammatically = false;
         this.dialogPresented = false;
+        this._hasFavourites = modelData.audioModes.hasFavourites;
 
         const iconMode = AudioModes[this._mode.id];
         const modeIcon = new Gtk.Image({
@@ -381,11 +397,13 @@ const ModeRow = GObject.registerClass({
             active: this._mode.ui,
         });
 
-        this.favoriteButton = new Gtk.ToggleButton({
-            icon_name: 'bbm-star-outline-rounded-symbolic',
-            tooltip_text: _('Favorite'),
-            active: this._mode.fav,
-        });
+        if (this._hasFavourites) {
+            this.favoriteButton = new Gtk.ToggleButton({
+                icon_name: 'bbm-star-outline-rounded-symbolic',
+                tooltip_text: _('Favorite'),
+                active: this._mode.fav,
+            });
+        }
 
         this._updateUI();
 
@@ -416,14 +434,15 @@ const ModeRow = GObject.registerClass({
                 GObject.BindingFlags.SYNC_CREATE
         );
 
-        this.favoriteButton.bind_property(
-            'active',
-            this.dialog.favoriteButton,
-            'active',
-            GObject.BindingFlags.BIDIRECTIONAL |
+        if (this._hasFavourites) {
+            this.favoriteButton.bind_property(
+                'active',
+                this.dialog.favoriteButton,
+                'active',
+                GObject.BindingFlags.BIDIRECTIONAL |
                 GObject.BindingFlags.SYNC_CREATE
-        );
-
+            );
+        }
 
         this._updateAddToggleButton(true);
         this._updateFavoriteButton(true);
@@ -435,12 +454,14 @@ const ModeRow = GObject.registerClass({
             this._updateAddToggleButton();
         });
 
-        this.favoriteButton.connect('toggled', () => {
-            if (this.updatingProgrammatically)
-                return;
+        if (this._hasFavourites) {
+            this.favoriteButton.connect('toggled', () => {
+                if (this.updatingProgrammatically)
+                    return;
 
-            this._updateFavoriteButton();
-        });
+                this._updateFavoriteButton();
+            });
+        }
 
         editButton.connect('clicked', () => {
             this.dialogPresented = true;
@@ -452,7 +473,10 @@ const ModeRow = GObject.registerClass({
         });
 
         box.append(this.addToggleButton);
-        box.append(this.favoriteButton);
+
+        if (this._hasFavourites)
+            box.append(this.favoriteButton);
+
         box.append(editButton);
         this.add_suffix(box);
     }
@@ -471,7 +495,9 @@ const ModeRow = GObject.registerClass({
     _updateUI() {
         this.title = this._mode.name;
         this.addToggleButton.active = this._mode.ui;
-        this.favoriteButton.active = this._mode.fav;
+
+        if (this._hasFavourites)
+            this.favoriteButton.active = this._mode.fav;
     }
 
     _updateAddToggleButton(init = false) {
@@ -526,6 +552,9 @@ const ModeRow = GObject.registerClass({
     }
 
     _updateFavoriteButton(init = false) {
+        if (!this._hasFavourites)
+            return;
+
         if (!init) {
             const enabling = this.favoriteButton.active;
             const favCount = this._modes.filter(m => m.fav).length;
@@ -649,6 +678,14 @@ const ModeAddButton = GObject.registerClass({
         const addedModes = new Set(this._modes.filter(mode => mode.added)
             .map(mode => mode.id)
         );
+
+        const totalModes = this._modelData.audioModes.totalModes;
+        const maxReached = addedModes.size >= totalModes;
+
+        this.sensitive = !maxReached;
+
+        if (maxReached)
+            return;
 
         for (const [id, modeName] of Object.entries(AudioModes)) {
             if (!this._modelData.audioModes.userMode.includes(modeName))

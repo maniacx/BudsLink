@@ -593,7 +593,7 @@ export const BoseBudsSocket = GObject.registerClass({
     }
 
     _parseEq(payload) {
-        const bands = this._modelData?.eq?.band ?? [];
+        const bands = this._modelData?.eq?.bands ?? [];
         const range = this._modelData?.eq?.range ?? 0;
         const bandCount = bands.length;
 

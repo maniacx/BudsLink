@@ -63,15 +63,17 @@ export default {
         ancToggle: false,
         nc: {level: 10, steps: 1},
         autoNc: false,
-        //   windToggle: true,
-        //   showNCInterface: true,
-        //   spatialMode: true,
+        windToggle: true,
+        windToggleAncSenstive: true,
+        showNCInterface: false,
+        spatialMode: false,
         userMode: [
             'commute', 'focus', 'home', 'music', 'outdoor', 'relax',
             'run', 'walk', 'work', 'workout',
         ],
-        totalModes: 10,
-        maxAllowedFav: 10,
+        totalModes: 4,
+        hasFavourites: false,
+        maxAllowedFav: 0,
     },
 
     sideTone: {
@@ -81,10 +83,6 @@ export default {
         high: 0x01,
     },
 
-    // inEarSettings: true,
-    // autoAnswer: true,
-    // autoPause: true,
-    // autoTransparency: true,
     automaticPowerOffTimer: [0, 5, 20, 40, 60, 180],
     dualConnection: true,
     maxConnected: 2,
@@ -101,8 +99,6 @@ export default {
                         actions: {
                             'disabled': 0x0E,
                             'battery-level': 0x03,
-                            // 'spatial': 0x13,
-                            // 'voice-assistant': 0x01,
                             'spotify-go': 0x10,
                         },
                     },
@@ -111,7 +107,7 @@ export default {
         },
     },
 
-    albumArtIcon: 'headphone-1',
-    budsIcon: 'headphone-1',
+    albumArtIcon: 'headphone1',
+    budsIcon: 'headphone1',
 };
 

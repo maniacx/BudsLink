@@ -12,20 +12,21 @@ import {RadioButtonRowWidget} from './../../widgets/radioButtonRowWidget.js';
 import {EqualizerWidget} from './../../widgets/equalizerWidget.js';
 import {DeviceManagementRow} from './../../widgets/deviceMgmtRowWidget.js';
 import {ModesGroupWidget} from './modesGroupWidget.js';
-import {BoseBudsModelList, VoicePrompt} from '../../../lib/devices/boseBuds/boseBudsConfig.js';
+import {VoicePrompt} from '../../../lib/devices/boseBuds/boseBudsConfig.js';
 
 export const ConfigureWindow = GObject.registerClass({
     GTypeName: 'BudsLink_BoseBudsConfigureWindow',
 }, class ConfigureWindow extends Adw.Window {
-    constructor(settings, mac, devicePath, parentWindow, modal = false) {
+    constructor(devInfo, modelData) {
         super({
             default_width: 650,
             default_height: 650,
             width_request: 320,
             height_request: 100,
-            modal,
-            transient_for: parentWindow ?? null,
         });
+
+        this._devInfo = devInfo;
+        this._modelData = modelData;
 
         this._isCompactMode = false;
 
@@ -50,21 +51,7 @@ export const ConfigureWindow = GObject.registerClass({
             this._updateCompactStatus();
         });
 
-        this._settings = settings;
-        this._devicePath = devicePath;
-
-        const pathsString = settings.get_strv('bose-buds-list').map(JSON.parse);
-        this._settingsItems = pathsString.find(info => info.path === devicePath);
-
-        if (!this._settingsItems)
-            return;
-
-        this.title = this._settingsItems.alias;
-        const modelId = this._settingsItems.id;
-        this._modelData = BoseBudsModelList.find(model => model.id?.includes(modelId));
-
-        if (!this._modelData)
-            return;
+        this.title = this._devInfo.getValue('alias');
 
         this._toastOverlay = new Adw.ToastOverlay();
         const toolViewBar = new Adw.ToolbarView();
@@ -82,26 +69,26 @@ export const ConfigureWindow = GObject.registerClass({
         let initialCaseIcon = '';
         if (this._modelData.batteryCase) {
             caseIconList = supportedCaseIcons;
-            initialCaseIcon = this._settingsItems['case'];
+            initialCaseIcon = this._devInfo.getValue('case');
         }
 
         const iconSelector = new IconSelectorWidget({
             iconList,
-            initialIcon: this._settingsItems['icon'],
+            initialIcon: this._devInfo.getValue('icon'),
             caseIconList,
             initialCaseIcon,
-            mac,
-            fw: this._settingsItems['fw-version'],
-            serial: this._settingsItems['serial'],
+            mac: this._devInfo.mac,
+            fw: this._devInfo.getValue('fw-version'),
+            serial: this._devInfo.getValue('serial'),
         });
 
         iconSelector.connect('notify::selected-icon', () => {
-            this._updateGsettings('icon', iconSelector.selected_icon);
+            this._devInfo.updateDevice('icon', iconSelector.selected_icon);
         });
 
         if (this._modelData.batteryCase) {
             iconSelector.connect('notify::selected-case-icon', () => {
-                this._updateGsettings('case', iconSelector.selected_case_icon);
+                this._devInfo.updateDevice('case', iconSelector.selected_case_icon);
             });
         }
 
@@ -116,82 +103,132 @@ export const ConfigureWindow = GObject.registerClass({
         this._addMiscSetting();
         this._addGestureControls();
 
-        const settingSignalId = this._settings.connect('changed::bose-buds-list', () => {
-            const updatedList = this._settings.get_strv('bose-buds-list').map(JSON.parse);
-            this._settingsItems = updatedList.find(info => info.path === devicePath);
+        this._devInfoSignalId = this._devInfo.connect('update-ui', (info, feature) => {
+            const value = info.getValue(feature);
 
-            if (!this._settingsItems)
-                return;
+            switch (feature) {
+                case 'alias':
+                    this.title = value;
+                    break;
 
-            this.title = this._settingsItems.alias;
+                case 'modes':
+                case 'current-mode':
+                    if (this._audioModesGrp) {
+                        this._audioModesGrp.updateParams(info.getValue('modes'),
+                            info.getValue('current-mode'));
+                    }
+                    break;
 
-            if (this._eqPresetDropdown)
-                this._eqPresetDropdown.selected_item = this._settingsItems['eq-preset'];
+                case 'restore-mode':
+                    if (this._restoreModeSwitch)
+                        this._restoreModeSwitch.active = value;
+                    break;
 
-            if (this._audioModesGrp) {
-                const modes = this._settingsItems['modes'];
-                const currentMode = this._settingsItems['current-mode'];
-                this._audioModesGrp.updateParams(modes, currentMode);
-                this._restoreModeSwitch.active = this._settingsItems['restore-mode'];
-            }
+                case 'eq-preset':
+                    if (this._eqPresetDropdown)
+                        this._eqPresetDropdown.selected_item = value;
+                    break;
 
-            if (this._eq)
-                this._eq.setValues(this._settingsItems['eq-custom']);
+                case 'eq-custom':
+                    if (this._eq) {
+                        const eqCustom = value.toSorted((a, b) => a.band - b.band);
+                        this._eq.setValues(eqCustom.map(item => item.current));
+                    }
+                    break;
 
-            if (this._inEarSettingsSwitch)
-                this._inEarSettingsSwitch.active = this._settingsItems['in-ear'];
+                case 'in-ear':
+                    if (this._inEarSettingsSwitch)
+                        this._inEarSettingsSwitch.active = value;
+                    break;
 
-            if (this._autoPauseSwitch)
-                this._autoPauseSwitch.active = this._settingsItems['auto-pause'];
+                case 'auto-pause':
+                    if (this._autoPauseSwitch)
+                        this._autoPauseSwitch.active = value;
+                    break;
 
-            if (this._autoAnswerSwitch)
-                this._autoAnswerSwitch.active = this._settingsItems['auto-answer'];
+                case 'auto-answer':
+                    if (this._autoAnswerSwitch)
+                        this._autoAnswerSwitch.active = value;
+                    break;
 
-            if (this._autoTransparencySwitch)
-                this._autoTransparencySwitch.active = this._settingsItems['auto-transp'];
+                case 'auto-transp':
+                    if (this._autoTransparencySwitch)
+                        this._autoTransparencySwitch.active = value;
+                    break;
 
-            if (this._sideToneDropdown)
-                this._sideToneDropdown.selected_item = this._settingsItems['side-tone'];
+                case 'side-tone':
+                    if (this._sideToneDropdown)
+                        this._sideToneDropdown.selected_item = value;
+                    break;
 
-            if (this._dualConnSwitch) {
-                this._dualConnSwitch.active = this._settingsItems['multipoint'];
-                this._dualConnSwitch.pair_mode = this._settingsItems['pairing-mode'];
-                const deviceInfo = this._settingsItems['dev-mgmt'];
-                this._dualConnSwitch?.updateDevices(deviceInfo);
-                const routeInfo = this._settingsItems['active-dev'];
-                this._dualConnSwitch?.updateRouteDevice(routeInfo);
-                const ownDevice = this._settingsItems['own-dev'];
-                this._dualConnSwitch?.updateOwnDevice(ownDevice);
-            }
+                case 'multipoint':
+                    if (this._dualConnSwitch)
+                        this._dualConnSwitch.active = value;
+                    break;
 
-            if (this._autoPowerOffDropdown)
-                this._autoPowerOffDropdown.selected_item = this._settingsItems['auto-power'];
+                case 'pairing-mode':
+                    if (this._dualConnSwitch)
+                        this._dualConnSwitch.pair_mode = value;
+                    break;
 
-            if (this._modelData.voicePrompt && !this._voicePromptSwitch)
-                this._addVoicePrompt();
+                case 'dev-mgmt':
+                    if (this._dualConnSwitch)
+                        this._dualConnSwitch.updateDevices(value);
+                    break;
 
-            if (this._voicePromptSwitch) {
-                this._voicePromptSwitch.active = this._settingsItems['voice-enabled'];
-                this._updateVoicePromptSensitivity();
-            }
+                case 'active-dev':
+                    if (this._dualConnSwitch)
+                        this._dualConnSwitch.updateRouteDevice(value);
+                    break;
 
-            if (this._voicePrompDropdown)
-                this._voicePrompDropdown.selected_item = this._settingsItems['voice-prompt'];
+                case 'own-dev':
+                    if (this._dualConnSwitch)
+                        this._dualConnSwitch.updateOwnDevice(value);
+                    break;
 
-            if (this._battVoiceSwitch) {
-                this._battVoiceSwitch.active = this._settingsItems['vobat-en'];
-                this._battVoiceSwitch.visible = this._settingsItems['vobat-sup'];
-            }
+                case 'auto-power':
+                    if (this._autoPowerOffDropdown)
+                        this._autoPowerOffDropdown.selected_item = value;
+                    break;
 
-            if (this._gestureRows) {
-                const gestures = this._settingsItems['gestures'] ?? [];
+                case 'voice-enabled':
+                    if (this._voicePromptSwitch) {
+                        this._voicePromptSwitch.active = value;
+                        this._updateVoicePromptSensitivity();
+                    }
+                    break;
 
-                for (const row of this._gestureRows) {
-                    const slot = gestures.find(g =>
-                        g.id === row.buttonId && g.gesture === row.gestureByte);
+                case 'voice-prompt':
+                    if (this._voicePrompDropdown)
+                        this._voicePrompDropdown.selected_item = value;
+                    break;
 
-                    if (slot)
-                        row.dropdown.selected_item = slot.action;
+                case 'supported-voice':
+                    if (this._voicePrompDropdown)
+                        this._updateVoicePromptList();
+                    break;
+
+                case 'vobat-en':
+                    if (this._battVoiceSwitch)
+                        this._battVoiceSwitch.active = value;
+                    break;
+
+                case 'vobat-sup':
+                    if (this._battVoiceSwitch)
+                        this._battVoiceSwitch.visible = value;
+                    break;
+
+                case 'gestures': {
+                    const gestures = value ?? [];
+
+                    for (const row of this._gestureRows) {
+                        const slot = gestures.find(g =>
+                            g.id === row.buttonId && g.gesture === row.gestureByte);
+
+                        if (slot)
+                            row.dropdown.selected_item = slot.action;
+                    }
+                    break;
                 }
             }
         });
@@ -203,25 +240,8 @@ export const ConfigureWindow = GObject.registerClass({
             this._audioModesGrp?.destroy();
             this._audioModesGrp = null;
 
-            if (settingSignalId && this._settings)
-                this._settings.disconnect(settingSignalId);
-
-            this._settings = null;
-
             return false;
         });
-    }
-
-    _updateGsettings(key, value) {
-        const pairedDevice = this._settings.get_strv('bose-buds-list');
-        const existingPathIndex =
-                pairedDevice.findIndex(item => JSON.parse(item).path === this._devicePath);
-        if (existingPathIndex !== -1) {
-            const existingItem = JSON.parse(pairedDevice[existingPathIndex]);
-            existingItem[key] = value;
-            pairedDevice[existingPathIndex] = JSON.stringify(existingItem);
-            this._settings.set_strv('bose-buds-list', pairedDevice);
-        }
     }
 
     showToast(message) {
@@ -233,27 +253,27 @@ export const ConfigureWindow = GObject.registerClass({
         if (!this._modelData.audioModes)
             return;
 
-        const curretMode = this._settingsItems['current-mode'];
-        const modes = this._settingsItems['modes'];
-        const alias = this._settingsItems.alias;
+        const curretMode = this._devInfo.getValue('current-mode');
+        const modes = this._devInfo.getValue('modes');
+        const alias = this._devInfo.getValue('alias');
         this._audioModesGrp = new ModesGroupWidget(this, this._modelData,
             modes, curretMode, alias);
 
         this._audioModesGrp.connect('current-mode-changed', (_w, mode) => {
-            this._updateGsettings('current-mode', mode);
+            this._devInfo.updateDevice('current-mode', mode);
         });
 
         this._audioModesGrp.connect('modes-changed', (_o, modes) => {
-            this._updateGsettings('modes', modes);
+            this._devInfo.updateDevice('modes', modes);
         });
 
         this._page.add(this._audioModesGrp);
 
         const restoreModeGrp = new Adw.PreferencesGroup();
         this._restoreModeSwitch = new Adw.SwitchRow({title: _('Remember my mode')});
-        this._restoreModeSwitch.active = this._settingsItems['restore-mode'];
+        this._restoreModeSwitch.active = this._devInfo.getValue('restore-mode');
         this._restoreModeSwitch.connect('notify::active', () => {
-            this._updateGsettings('restore-mode', this._restoreModeSwitch.active);
+            this._devInfo.updateDevice('restore-mode', this._restoreModeSwitch.active);
         });
 
         restoreModeGrp.add(this._restoreModeSwitch);
@@ -261,7 +281,7 @@ export const ConfigureWindow = GObject.registerClass({
     }
 
     _addSoundSettings() {
-        if (!this._modelData.audioMode && !this._modelData.eq)
+        if (!this._modelData.eq)
             return;
 
         const eqGroup = new Adw.PreferencesGroup({title: _('Sound Settings')});
@@ -306,7 +326,7 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Change the sound signature'),
                 options: presetOptions,
                 values: presetValues,
-                initialValue: this._settingsItems['eq-preset'],
+                initialValue: this._devInfo.getValue('eq-preset'),
                 ...customEqButton,
             });
 
@@ -324,7 +344,10 @@ export const ConfigureWindow = GObject.registerClass({
 
             const range = this._modelData.eq.range;
 
-            const initialValues = this._settingsItems['eq-custom'];
+            const eqCustom = this._devInfo.getValue('eq-custom')
+                    .toSorted((a, b) => a.band - b.band);
+
+            const initialValues = eqCustom.map(item => item.current);
 
             this._eq = new EqualizerWidget({
                 freqs,
@@ -336,18 +359,18 @@ export const ConfigureWindow = GObject.registerClass({
 
             this._eq.connect('eq-changed', (_w, arr) => {
                 this._eqPresetDropdown.selected_item = 'custom';
-                this._updateGsettings('eq-custom', arr);
+                this._devInfo.updateDevice('eq-custom', arr);
             });
 
             this._eqPresetDropdown.connect('notify::selected-item', () => {
                 const preset = this._eqPresetDropdown.selected_item;
-                this._updateGsettings('eq-preset', preset);
+                this._devInfo.updateDevice('eq-preset', preset);
                 if (preset === 'custom')
                     return;
 
                 const eqValues = this._modelData.eq?.presets?.[preset];
                 if (eqValues) {
-                    this._updateGsettings('eq-custom', eqValues);
+                    this._devInfo.updateDevice('eq-custom', eqValues);
                     this._eq.setValues(eqValues);
                 }
             });
@@ -374,9 +397,9 @@ export const ConfigureWindow = GObject.registerClass({
                 title: this._modelData.earbuds ? _('In-Ear Detection') : _('On Head Detection'),
                 subtitle: _('Enable features based on wearing detection'),
             });
-            this._inEarSettingsSwitch.active = this._settingsItems['in-ear'];
+            this._inEarSettingsSwitch.active = this._devInfo.getValue('in-ear');
             this._inEarSettingsSwitch.connect('notify::active', () => {
-                this._updateGsettings('in-ear', this._inEarSettingsSwitch.active);
+                this._devInfo.updateDevice('in-ear', this._inEarSettingsSwitch.active);
                 this._updateInEarSensitivity();
             });
 
@@ -388,9 +411,9 @@ export const ConfigureWindow = GObject.registerClass({
                 title: _('Pause Media When Not Worn'),
                 subtitle: _('Playback controlled by the OEM app'),
             });
-            this._autoPauseSwitch.active = this._settingsItems['auto-pause'];
+            this._autoPauseSwitch.active = this._devInfo.getValue('auto-pause');
             this._autoPauseSwitch.connect('notify::active', () => {
-                this._updateGsettings('auto-pause', this._autoPauseSwitch.active);
+                this._devInfo.updateDevice('auto-pause', this._autoPauseSwitch.active);
             });
 
             inEarGroup.add(this._autoPauseSwitch);
@@ -401,9 +424,9 @@ export const ConfigureWindow = GObject.registerClass({
                 title: _('Answer Calls Automatically'),
                 subtitle: _('Answer calls when the earbuds are worn'),
             });
-            this._autoAnswerSwitch.active = this._settingsItems['auto-answer'];
+            this._autoAnswerSwitch.active = this._devInfo.getValue('auto-answer');
             this._autoAnswerSwitch.connect('notify::active', () => {
-                this._updateGsettings('auto-answer', this._autoAnswerSwitch.active);
+                this._devInfo.updateDevice('auto-answer', this._autoAnswerSwitch.active);
             });
 
             inEarGroup.add(this._autoAnswerSwitch);
@@ -415,9 +438,9 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Switch to Transparency mode when an earbud is removed'),
             });
 
-            this._autoTransparencySwitch.active = this._settingsItems['auto-transp'];
+            this._autoTransparencySwitch.active = this._devInfo.getValue('auto-transp');
             this._autoTransparencySwitch.connect('notify::active', () => {
-                this._updateGsettings('auto-transp', this._autoTransparencySwitch.active);
+                this._devInfo.updateDevice('auto-transp', this._autoTransparencySwitch.active);
             });
 
             inEarGroup.add(this._autoTransparencySwitch);
@@ -447,11 +470,12 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Automatically pause or resume playback ' +
                     'based on wearing detection.'),
                 options: inEarOptions,
-                initialValue: this._settingsItems['wear-detection-mode'],
+                initialValue: this._devInfo.getValue('wear-detection-mode'),
             });
 
             this._inEarDropdown.connect('notify::toggled-value', () => {
-                this._updateGsettings('wear-detection-mode', this._inEarDropdown.toggled_value);
+                this._devInfo.updateDevice('wear-detection-mode',
+                    this._inEarDropdown.toggled_value);
             });
 
             inEarSettingsGroup.add(this._inEarDropdown);
@@ -497,11 +521,11 @@ export const ConfigureWindow = GObject.registerClass({
             subtitle: _('Adjust your voice feedback level'),
             options,
             values,
-            initialValue: this._settingsItems['side-tone'],
+            initialValue: this._devInfo.getValue('side-tone'),
         });
 
         this._sideToneDropdown.connect('notify::selected-item', () => {
-            this._updateGsettings('side-tone', this._sideToneDropdown.selected_item);
+            this._devInfo.updateDevice('side-tone', this._sideToneDropdown.selected_item);
         });
 
         callGroup.add(this._sideToneDropdown);
@@ -525,30 +549,27 @@ export const ConfigureWindow = GObject.registerClass({
                 showMac: true,
                 refreshOnWindowOpen: true,
             };
-            const deviceInfo = this._settingsItems['dev-mgmt'];
-            const currentActiveRoute = this._settingsItems['active-dev'];
-            const ownDevice = this._settingsItems['own-dev'];
+            const deviceMgmtInfo = this._devInfo.getValue('dev-mgmt');
+            const currentActiveRoute = this._devInfo.getValue('active-dev');
+            const ownDevice = this._devInfo.getValue('own-dev');
 
-            this._dualConnSwitch = new DeviceManagementRow(this, deviceInfo,
+            this._dualConnSwitch = new DeviceManagementRow(this, deviceMgmtInfo,
                 ownDevice, currentActiveRoute, deviceManagementConfig);
 
-            this._dualConnSwitch.active = this._settingsItems['multipoint'];
-            this._dualConnSwitch.pair_mode = this._settingsItems['pairing-mode'];
+            this._dualConnSwitch.active = this._devInfo.getValue('multipoint');
+            this._dualConnSwitch.pair_mode = this._devInfo.getValue('pairing-mode');
 
             this._dualConnSwitch.connect('notify::active', () => {
-                this._updateGsettings('multipoint', this._dualConnSwitch.active);
+                this._devInfo.updateDevice('multipoint', this._dualConnSwitch.active);
             });
 
             this._dualConnSwitch.connect('notify::pair-mode', () => {
-                this._updateGsettings('pairing-mode', this._dualConnSwitch.pair_mode);
+                this._devInfo.updateDevice('pairing-mode', this._dualConnSwitch.pair_mode);
             });
 
-            const actionData = this._settingsItems['dev-mgmt-action'];
-            this._seq = actionData?.seq ?? 0;
-
             this._dualConnSwitch.connect('device-action', (_row, action, id) => {
-                const data = {seq: this._seq ^= 1, action, id};
-                this._updateGsettings('dev-mgmt-action', data);
+                const data = {action, id};
+                this._devInfo.updateDevice('dev-mgmt-action', data);
             });
 
             devMgmtGroup.add(this._dualConnSwitch);
@@ -581,12 +602,12 @@ export const ConfigureWindow = GObject.registerClass({
                 subtitle: _('Automatically power off when not worn'),
                 options: autoPowerOffLabels,
                 values: this._modelData.automaticPowerOffTimer,
-                initialValue: this._settingsItems['auto-power'],
+                initialValue: this._devInfo.getValue('auto-power'),
             });
 
             this._autoPowerOffDropdown.connect('notify::selected-item', () => {
                 const selectedVal = this._autoPowerOffDropdown.selected_item;
-                this._updateGsettings('auto-power', selectedVal);
+                this._devInfo.updateDevice('auto-power', selectedVal);
             });
             miscGroup.add(this._autoPowerOffDropdown);
         }
@@ -604,73 +625,68 @@ export const ConfigureWindow = GObject.registerClass({
             this._page.add(this._promptGroup);
         }
 
-        const supportedVoice = this._settingsItems['supported-voice'];
-
-        if (supportedVoice === 0xFFFFFFFF)
-            return;
-
-        const currentVoicePrompt = this._settingsItems['voice-prompt'];
-        if (currentVoicePrompt === 0xFF)
-            return;
-
         this._voicePromptSwitch = new Adw.SwitchRow({
             title: _('Voice Prompts'),
             subtitle: _('Enable voice prompts for guidance and status updates'),
         });
-        this._voicePromptSwitch.active = this._settingsItems['voice-enabled'];
+        this._voicePromptSwitch.active = this._devInfo.getValue('voice-enabled');
 
         this._voicePromptSwitch.connect('notify::active', () => {
-            this._updateGsettings('voice-enabled', this._voicePromptSwitch.active);
+            this._devInfo.updateDevice('voice-enabled', this._voicePromptSwitch.active);
             this._updateVoicePromptSensitivity();
         });
 
         this._promptGroup.add(this._voicePromptSwitch);
 
-        const getSupportedVoiceLanguages = mask => {
-            const languages = [];
-
-            for (let i = 0; i < 32; i++) {
-                if (mask & 1 << i)
-                    languages.push(i);
-            }
-
-            return languages;
-        };
-
-        const voicePromptValues = getSupportedVoiceLanguages(supportedVoice);
-        const voicePromptLabels = voicePromptValues.map(value =>
-            VoicePrompt[value] ?? String(value)
-        );
+        const voicePromptConfig = this._updateVoicePromptList();
 
         this._voicePrompDropdown = new DropDownRowWidget({
             title: _('Prompt Language'),
             subtitle: _('Select the language for voice prompts'),
-            options: voicePromptLabels,
-            values: voicePromptValues,
-            initialValue: this._settingsItems['voice-prompt'],
+            options: voicePromptConfig.voicePromptLabels,
+            values: voicePromptConfig.voicePromptValues,
+            initialValue: this._devInfo.getValue('voice-prompt'),
         });
 
         this._voicePrompDropdown.connect('notify::selected-item', () => {
             const selectedVal = this._voicePrompDropdown.selected_item;
-            this._updateGsettings('voice-prompt', selectedVal);
+            this._devInfo.updateDevice('voice-prompt', selectedVal);
         });
         this._promptGroup.add(this._voicePrompDropdown);
 
         this._battVoiceSwitch = new Adw.SwitchRow({
             title: _('Announce Battery Level at Startup'),
             subtitle: _('Announce the battery level when powered on'),
-            visible: this._settingsItems['vobat-sup'],
+            visible: this._devInfo.getValue('vobat-sup'),
         });
 
-        this._battVoiceSwitch.active = this._settingsItems['vobat-en'];
+        this._battVoiceSwitch.active = this._devInfo.getValue('vobat-en');
 
         this._battVoiceSwitch.connect('notify::active', () => {
-            this._updateGsettings('vobat-en', this._battVoiceSwitch.active);
+            this._devInfo.updateDevice('vobat-en', this._battVoiceSwitch.active);
         });
 
         this._promptGroup.add(this._battVoiceSwitch);
 
         this._promptGroup.visible = true;
+    }
+
+    _updateVoicePromptList() {
+        const supportedVoice = this._devInfo.getValue('supported-voice');
+
+        const voicePromptValues = [];
+
+        for (let i = 0; i < 32; i++) {
+            if (supportedVoice & 1 << i)
+                voicePromptValues.push(i);
+        }
+
+        const voicePromptLabels = voicePromptValues.map(value =>
+            VoicePrompt[value] ?? String(value)
+        );
+
+        this._voicePrompDropdown?.updateList(voicePromptLabels, voicePromptValues);
+        return {voicePromptLabels, voicePromptValues};
     }
 
     _updateVoicePromptSensitivity() {
@@ -709,7 +725,7 @@ export const ConfigureWindow = GObject.registerClass({
             'double-action-hold-pinch': _('Double Pinch and Hold'),
         };
 
-        const allSlots = this._settingsItems['gestures'] ?? [];
+        const allSlots = this._devInfo.getValue('gestures') ?? [];
 
         for (const [groupKey, button] of Object.entries(gc.buttons)) {
             const group = new Adw.PreferencesGroup({
@@ -756,7 +772,7 @@ export const ConfigureWindow = GObject.registerClass({
                         allSlots[index].action = action;
                     }
 
-                    this._updateGsettings('gestures', allSlots);
+                    this._devInfo.updateDevice('gestures', allSlots);
                 });
 
                 group.add(dropdown);

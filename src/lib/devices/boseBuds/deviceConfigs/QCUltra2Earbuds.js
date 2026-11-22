@@ -84,6 +84,7 @@ export default {
             'run', 'walk', 'work', 'workout',
         ],
         totalModes: 10,
+        hasFavourites: true,
         maxAllowedFav: 10,
     },
 
