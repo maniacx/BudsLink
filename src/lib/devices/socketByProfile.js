@@ -7,10 +7,18 @@ import {createLogger, getDeviceIdentifier} from './logger.js';
 
 const LOG_BYTES = true;
 
+function pathToMac(path) {
+    const idx = path.indexOf('dev_');
+    if (idx === -1)
+        return '';
+
+    return path.substring(idx + 4).replace(/_/g, ':');
+}
+
 export const SocketHandler = GObject.registerClass({
     GTypeName: 'BudsLink_SocketHandler',
 }, class SocketHandler extends GObject.Object {
-    constructor(devicePath, profileManager, profile) {
+    constructor(devicePath, profileManager, profile, fallback = null) {
         super();
         const subclassName = this.constructor.name;
         const identifier = getDeviceIdentifier(devicePath);
@@ -22,6 +30,7 @@ export const SocketHandler = GObject.registerClass({
         this.running = false;
         this._cancellable = new Gio.Cancellable();
         this._output_queue = [];
+        this._fallback = fallback;
     }
 
     async startSocket() {
@@ -31,8 +40,33 @@ export const SocketHandler = GObject.registerClass({
             this._devicePath
         );
 
-        if (fd !== -1)
+        if (fd !== -1) {
             this._attachSocket(fd);
+        } else if (this._fallback?.psm) {
+            let BudsLinkBluetooth;
+            try {
+                BudsLinkBluetooth = (await import('gi://BudsLinkBluetooth')).default;
+            } catch (e) {
+                this._socketLog.error(e, 'Failed to load BudsLinkBluetooth');
+                return;
+            }
+
+            const mac = pathToMac(this._devicePath);
+
+            for (const psm of this._fallback.psm) {
+                try {
+                    const l2capFd = BudsLinkBluetooth.l2cap_connect(mac, psm);
+                    if (l2capFd >= 0) {
+                        this._attachSocket(l2capFd);
+                        break;
+                    }
+
+                    this._socketLog.info(`L2CAP fallback connection failed for PSM ${psm}`);
+                } catch (e) {
+                    this._socketLog.error(e, `L2CAP fallback connection failed for PSM ${psm}`);
+                }
+            }
+        }
     }
 
     // Credits: GSCConnect
