@@ -4,7 +4,7 @@
 export default {
     key: '2016',
     batteryType: 3,
-    ancSupported: false,
+    ancSupported: true,
     adaptiveSupported: false,
     awarenessSupported: false,
     budsIcon: 'earbuds',

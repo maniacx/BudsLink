@@ -97,32 +97,12 @@ export const DeviceInfo = GObject.registerClass({
         if (this._isEqual(item.value, value) && !item.relay)
             return;
 
-        item.value = this._updateValue(item.value, value);
+        item.value = this._deepCopy(value);
 
         this._saveToSettings();
 
         if (signal)
             this.emit(signal, feature);
-    }
-
-    _updateValue(currentValue, newValue) {
-        if (Array.isArray(currentValue) && Array.isArray(newValue)) {
-            currentValue.splice(0, currentValue.length, ...newValue);
-            return currentValue;
-        }
-
-        if (this._isObject(currentValue) && this._isObject(newValue)) {
-            for (const key of Object.keys(currentValue)) {
-                if (!(key in newValue))
-                    delete currentValue[key];
-            }
-
-            Object.assign(currentValue, newValue);
-
-            return currentValue;
-        }
-
-        return newValue;
     }
 
     _isEqual(a, b) {
@@ -171,7 +151,8 @@ export const DeviceInfo = GObject.registerClass({
         const device = devicesList.find(d => d.path === this._devicePath);
 
         for (const feature of features) {
-            const value = device && feature.key in device ? device[feature.key] : feature.default;
+            const val = device && feature.key in device ? device[feature.key] : feature.default;
+            const value = this._deepCopy(val);
             const persist = feature.persist ?? false;
             const relay = feature.relay ?? false;
             this._features.set(feature.key, {value, persist, relay});
