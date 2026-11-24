@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-11-01 03:54+0000\n"
+"PO-Revision-Date: 2026-11-23 03:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: tr\n"
@@ -278,11 +278,11 @@ msgstr "Basılı Tutma Döngüsü"
 
 #: src/preferences/devices/airpods/configureWindow.js:251
 msgid "Press and hold cycles between"
-msgstr ""
+msgstr "Basılı tutun, döngüler arasında geçiş yapar"
 
 #: src/preferences/devices/airpods/configureWindow.js:252
 msgid "Settings don’t reflect current state"
-msgstr ""
+msgstr "Ayarlar mevcut durumu yansıtmıyor"
 
 #: src/preferences/devices/airpods/configureWindow.js:254
 #: src/preferences/devices/soundcore/configureWindow.js:662
@@ -293,19 +293,19 @@ msgstr ""
 #: src/preferences/devices/opoBuds/configureWindow.js:1330
 #: src/preferences/devices/sony/configureWindow.js:374
 msgid "Apply"
-msgstr ""
+msgstr "Uygula"
 
 #: src/preferences/devices/airpods/configureWindow.js:279
 msgid "Notification Volume"
-msgstr ""
+msgstr "Bildirim Sesi"
 
 #: src/preferences/devices/airpods/configureWindow.js:283
 msgid "Tone Volume"
-msgstr ""
+msgstr "Ses Seviyesi"
 
 #: src/preferences/devices/airpods/configureWindow.js:284
 msgid "Adjust the volume of audio cues"
-msgstr ""
+msgstr "Sesli uyarıların ses seviyesini ayarlayın"
 
 #: src/preferences/devices/airpods/configureWindow.js:286
 msgid "15%"
@@ -325,15 +325,17 @@ msgstr "125%"
 #: src/preferences/devices/opoBuds/configureWindow.js:1175
 #: src/preferences/devices/sony/configureWindow.js:312
 msgid "Volume Control"
-msgstr ""
+msgstr "Ses Kontrolü"
 
 #: src/preferences/devices/airpods/configureWindow.js:309
 msgid "Volume Swipe"
-msgstr ""
+msgstr "Kaydırma Sesi"
 
 #: src/preferences/devices/airpods/configureWindow.js:310
 msgid "Enable or disable volume adjustment by swiping on earbud stems"
 msgstr ""
+"Kulaklık saplarını kaydırarak ses seviyesini etkinleştirin veya devre dışı "
+"bırakın"
 
 #: src/preferences/devices/airpods/configureWindow.js:319
 #: src/preferences/devices/airpods/configureWindow.js:352
@@ -342,12 +344,12 @@ msgstr ""
 #: src/preferences/devices/googleBuds/configureWindow.js:79
 #: src/lib/devices/soundcore/soundcoreDevice.js:282
 msgid "Default"
-msgstr ""
+msgstr "Varsayılan"
 
 #: src/preferences/devices/airpods/configureWindow.js:319
 #: src/preferences/devices/airpods/configureWindow.js:352
 msgid "Longer"
-msgstr ""
+msgstr "Daha uzun"
 
 #: src/preferences/devices/airpods/configureWindow.js:319
 #: src/preferences/devices/airpods/configureWindow.js:352
@@ -356,7 +358,7 @@ msgstr ""
 
 #: src/preferences/devices/airpods/configureWindow.js:323
 msgid "Swipe Duration"
-msgstr ""
+msgstr "Kaydırma Süresi"
 
 #: src/preferences/devices/airpods/configureWindow.js:324
 msgid ""
