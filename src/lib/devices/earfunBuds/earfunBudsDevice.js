@@ -1,0 +1,813 @@
+'use strict';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import {gettext as _} from 'gettext';
+
+import {createLogger, getDeviceIdentifier} from '../logger.js';
+import {DeviceInfo} from '../../deviceInfo.js';
+import {buds2to1BatteryLevel, SppUUid} from '../deviceUtils.js';
+import {createConfig, createProperties, DataHandler} from '../../dataHandler.js';
+import {getBluezDeviceProxy} from '../../bluezDeviceProxy.js';
+import {EarfunBudsSocket} from './earfunBudsSocket.js';
+import {
+    DeviceTypeEarfunBuds, EarfunVendorUuid, EarfunModels, AmbientMode, TransparencyMode,
+    Codec, MicMode, TouchMode, AdvancedAudio, FindDevice, DeviceNameMaxBytes, InEarMask, GestureType, GestureActions, CallActions, EqPresets,
+    ancValueToSettings, ancSettingsToValue
+} from './earfunBudsConfig.js';
+
+import {ConfigureWindow} from '../../../preferences/devices/earfunBuds/configureWindow.js';
+
+export {DeviceTypeEarfunBuds};
+
+const SettingsKey = 'earfun-buds-list';
+
+// After a transfer the earbuds restart. The app of the vendor connects to them again within
+// seconds, and an earbud that waits too long for that was seen to drop the new file. This runs
+// on its own (the device object is gone while the earbuds are off) and stops when they are
+// connected or after a minute
+const reconnecting = new Set();
+function reconnectAfterRestart(devicePath) {
+    if (reconnecting.has(devicePath))
+        return;
+
+    const log = createLogger(`EarfunReconnect-${getDeviceIdentifier(devicePath)}`);
+    log.info('The earbuds restart: connecting to them again');
+    reconnecting.add(devicePath);
+    let tries = 0;
+    GLib.timeout_add(GLib.PRIORITY_DEFAULT, 2000, () => {
+        let connected = false;
+        try {
+            connected = !!getBluezDeviceProxy(devicePath).Connected;
+        } catch {
+            // The device is gone: stop
+            tries = 30;
+        }
+        if (connected || ++tries > 30) {
+            log.info(connected ? `Connected again after ${tries} tries` : 'Gave up connecting');
+            reconnecting.delete(devicePath);
+            return GLib.SOURCE_REMOVE;
+        }
+
+        Gio.DBus.system.call('org.bluez', devicePath, 'org.bluez.Device1', 'Connect', null, null,
+            Gio.DBusCallFlags.NONE, 15000, null, (connection, result) => {
+                try {
+                    connection.call_finish(result);
+                    log.info('Connect succeeded');
+                } catch {
+                    // The earbuds are still off: the next try follows
+                }
+            });
+        return GLib.SOURCE_CONTINUE;
+    });
+}
+
+// Toggle buttons in panel order: Noise Cancellation, Off, Transparency
+const ToggleAmbientModes = [AmbientMode.ANC, AmbientMode.OFF, AmbientMode.TRANSPARENCY];
+
+// Radio buttons of the options boxes in panel order
+const AncTypes = ['ear', 'env', 'manual', 'wind'];
+const TransparencyModes = [TransparencyMode.STANDARD, TransparencyMode.NATURAL];
+
+const GestureNames = ['single', 'double', 'triple', 'long'];
+const Sides = ['left', 'right'];
+
+// Defaults match the factory settings of the earbuds
+const DefaultGestures = {
+    'single-left': GestureActions.VOLUME_DOWN,
+    'single-right': GestureActions.VOLUME_UP,
+    'double-left': GestureActions.PLAY_PAUSE,
+    'double-right': GestureActions.PLAY_PAUSE,
+    'triple-left': GestureActions.PREVIOUS,
+    'triple-right': GestureActions.NEXT,
+    'long-left': GestureActions.NOISE_CONTROL,
+    'long-right': GestureActions.VOICE_ASSISTANT,
+    'calltriple-left': CallActions.ANSWER_SWAP,
+    'calltriple-right': CallActions.ANSWER_SWAP,
+    'calllong-left': CallActions.REJECT,
+    'calllong-right': CallActions.REJECT,
+};
+
+const CallGestureTypes = {
+    calltriple: GestureType.callTriple,
+    calllong: GestureType.callLong,
+};
+
+function findModel(name) {
+    return EarfunModels.find(m => m.pattern.test(name)) ?? null;
+}
+
+// Earbuds that were recognized before are remembered in the settings. They are still recognized
+// after the owner gave them another name, because the name is the only mark that tells them
+// apart from other earbuds with the same services
+function isRememberedDevice(devicePath) {
+    try {
+        const settings = new Gio.Settings({schema_id: 'io.github.maniacx.BudsLink'});
+        return settings.get_strv(SettingsKey).some(item => JSON.parse(item).path === devicePath);
+    } catch {
+        return false;
+    }
+}
+
+export function isEarfunBuds(bluezDeviceProxy, uuids) {
+    const bluezProps = ['Name'];
+    const lower = uuids.map(u => u.toLowerCase());
+    if (!lower.includes(SppUUid) || !lower.includes(EarfunVendorUuid))
+        return {supported: 'no', bluezProps};
+
+    if (isRememberedDevice(bluezDeviceProxy.g_object_path))
+        return {supported: 'yes', bluezProps};
+
+    const name = bluezDeviceProxy.Name;
+    if (!name)
+        return {supported: 'pending', bluezProps};
+
+    return {supported: findModel(name) ? 'yes' : 'no', bluezProps};
+}
+
+// Bits that are not understood (0x0C unless the whole function is turned off) are kept as
+// the earbuds reported them
+function inEarMaskFromSettings(items, deviceMask) {
+    let mask = deviceMask ?? 0;
+    mask = items['auto-play-pause'] ? mask & ~InEarMask.DISABLE_AUTO_PLAY :
+        mask | InEarMask.DISABLE_AUTO_PLAY;
+    mask = items['auto-answer'] ? mask & ~InEarMask.DISABLE_AUTO_ANSWER :
+        mask | InEarMask.DISABLE_AUTO_ANSWER;
+    mask = items['high-sensitivity'] ? mask | InEarMask.HIGH_SENSITIVITY :
+        mask & ~InEarMask.HIGH_SENSITIVITY;
+
+    if (!items['in-ear'])
+        mask |= InEarMask.DISABLE_ALL;
+    else if ((deviceMask & InEarMask.DISABLE_ALL) === InEarMask.DISABLE_ALL)
+        mask &= ~(InEarMask.DISABLE_ALL & ~InEarMask.DISABLE_AUTO_PLAY &
+            ~InEarMask.DISABLE_AUTO_ANSWER);
+
+    return mask;
+}
+
+function inEarSettingsFromMask(mask) {
+    const detection = (mask & InEarMask.DISABLE_ALL) !== InEarMask.DISABLE_ALL;
+    return {
+        'in-ear': detection,
+        'auto-play-pause': !(mask & InEarMask.DISABLE_AUTO_PLAY),
+        'auto-answer': !(mask & InEarMask.DISABLE_AUTO_ANSWER),
+        'high-sensitivity': !!(mask & InEarMask.HIGH_SENSITIVITY),
+    };
+}
+
+export const EarfunBudsDevice = GObject.registerClass({
+    GTypeName: 'BudsLink_EarfunBudsDevice',
+}, class EarfunBudsDevice extends GObject.Object {
+    constructor(settings, devicePath, alias, extPath, profileManager, updateDeviceMapCb) {
+        super();
+        const identifier = getDeviceIdentifier(devicePath);
+        this._log = createLogger(`EarfunBudsDevice-${identifier}`);
+        this._log.info('------------------- EarfunBudsDevice init -------------------');
+        this._settings = settings;
+        this._devicePath = devicePath;
+        this._alias = alias;
+        this._extPath = extPath;
+        this.updateDeviceMapCb = updateDeviceMapCb;
+        this._fwVersion = '';
+
+        this._config = createConfig();
+        this._props = createProperties();
+        this._deviceState = {};
+
+        const name = getBluezDeviceProxy(devicePath).Name ?? '';
+        this._modelData = findModel(name) ?? EarfunModels[0];
+        this._log.info(`Model: ${this._modelData.name}`);
+
+        this._initSettings();
+        this._updateIcons();
+        this._setupPanelConfig();
+
+        this._callbacks = {
+            updateBatteryProps: this.updateBatteryProps.bind(this),
+            updateFirmware: this.updateFirmware.bind(this),
+            updateSerial: this.updateSerial.bind(this),
+            updateAmbientMode: this.updateAmbientMode.bind(this),
+            updateAncMode: this.updateAncMode.bind(this),
+            updateTransparencyMode: this.updateTransparencyMode.bind(this),
+            updateGameMode: this.updateGameMode.bind(this),
+            updateInEarMask: this.updateInEarMask.bind(this),
+            updateTouchMode: this.updateTouchMode.bind(this),
+            updateGestures: this.updateGestures.bind(this),
+            updateMultipoint: this.updateMultipoint.bind(this),
+            updateCodec: this.updateCodec.bind(this),
+            updateMicMode: this.updateMicMode.bind(this),
+            updateVoicePromptVolume: this.updateVoicePromptVolume.bind(this),
+            updateVolumeLimit: this.updateVolumeLimit.bind(this),
+            updateBalance: this.updateBalance.bind(this),
+            updateFindDevice: this.updateFindDevice.bind(this),
+            updateAdvancedAudio: this.updateAdvancedAudio.bind(this),
+            updateChannel: this.updateChannel.bind(this),
+            updateDevices: this.updateDevices.bind(this),
+            updateUpgrade: this.updateUpgrade.bind(this),
+            pendingUpgrade: this.pendingUpgrade.bind(this),
+        };
+
+        // The earbuds accept one connection to the serial port: it may be taken by the app of
+        // the vendor on a phone for a while, so BudsLink keeps asking (for an hour at most)
+        const profile = {type: DeviceTypeEarfunBuds, uuid: SppUUid, retrySeconds: 3600};
+        this._socket = new EarfunBudsSocket(this._devicePath, profileManager, profile,
+            this._callbacks);
+
+        // Another app (the one of the vendor on a phone) may hold the connection to the serial
+        // port. Without a connection after a few seconds, the configure window says so
+        this._busyTimeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 6, () => {
+            this._busyTimeoutId = null;
+            this._writeSettings({'channel-busy': true});
+            return GLib.SOURCE_REMOVE;
+        });
+    }
+
+    _initSettings() {
+        const m = this._modelData;
+        const defaults = {
+            modelId: m.name,
+            alias: this._alias,
+            icon: m.budsIcon,
+            case: m.case,
+            fw: this._fwVersion,
+            'serial-left': '',
+            'serial-right': '',
+            'ambient-mode': AmbientMode.OFF,
+            'anc-type': 'ear',
+            'anc-level': 3,
+            'transparency-mode': TransparencyMode.STANDARD,
+            'game-mode': false,
+            'in-ear': true,
+            'auto-play-pause': true,
+            'auto-answer': true,
+            'high-sensitivity': false,
+            'touch-mode': TouchMode.BOTH,
+            'mic-mode': MicMode.AUTO,
+            'voice-prompt': 2,
+            'volume-limit': 0,
+            balance: 50,
+            multipoint: true,
+            codec: Codec.APTX,
+            'advanced-audio': AdvancedAudio.FAST_PAIR,
+            'find-device': FindDevice.OFF,
+            'battery-left': 0,
+            'battery-right': 0,
+            'battery-case': 0,
+            'upgrade-state': {state: '', percent: 0, error: '', id: '', at: 0},
+            'multipoint-devices': [],
+            'eq-mode': 'preset',
+            'eq-preset': 0,
+            'eq-custom': new Array(10).fill(0),
+            ...Object.fromEntries(Object.entries(DefaultGestures).map(
+                ([key, action]) => [`gesture-${key}`, action])),
+        };
+        this._defaultsDeviceSettings = defaults;
+
+        // What the configure window asks for once; not stored
+        const requests = {
+            'name-request': {name: ''},
+            'device-request': {action: ''},
+            'upgrade-request': {action: '', path: ''},
+        };
+        this._requestKeys = Object.keys(requests);
+
+        const features = [
+            ...Object.entries(defaults).map(([key, value]) => ({
+                key, default: value, persist: !['alias', 'multipoint-devices'].includes(key),
+            })),
+            ...Object.entries(requests).map(([key, value]) => ({
+                key, default: value, relay: true,
+            })),
+            {key: 'channel-busy', default: false},
+        ];
+        this._featureKeys = features.map(f => f.key);
+
+        this._devInfo = new DeviceInfo({
+            settings: this._settings,
+            settingsKey: SettingsKey,
+            devicePath: this._devicePath,
+            features,
+        });
+        this._devInfo.updateUI('alias', this._alias);
+
+        this._commonIcon = this._devInfo.getValue('icon');
+        this._caseIcon = this._devInfo.getValue('case');
+        this._lastEqGains = this._eqGains(this._items());
+
+        this._devInfoSignalId = this._devInfo.connect('update-device', (_info, feature) => {
+            switch (feature) {
+                case 'name-request':
+                    this._handleNameRequest(this._devInfo.getValue(feature));
+                    break;
+                case 'device-request':
+                    this._handleDeviceRequest(this._devInfo.getValue(feature));
+                    break;
+                case 'upgrade-request':
+                    this._handleUpgradeRequest(this._devInfo.getValue(feature));
+                    break;
+                default:
+                    this._sendChanges();
+            }
+        });
+    }
+
+    // All values of the device as one object
+    _items() {
+        return Object.fromEntries(this._featureKeys.map(key => [key, this._devInfo.getValue(key)]));
+    }
+
+    // Shows the values on the configure window and in the panel
+    _writeSettings(values) {
+        if (!this._devInfo)
+            return;
+
+        for (const [key, value] of Object.entries(values))
+            this._devInfo.updateUI(key, value);
+    }
+
+    // A value reported by the earbuds: remember it as the state of the device and show it
+    _reported(values) {
+        Object.assign(this._deviceState, values);
+        this._writeSettings(values);
+        this._syncPanelOptions();
+    }
+
+    // Sends the settings that differ from what the earbuds reported
+    _sendChanges() {
+        const items = this._items();
+
+        if (items['icon'] !== this._commonIcon || items['case'] !== this._caseIcon) {
+            this._commonIcon = items['icon'];
+            this._caseIcon = items['case'];
+            this._updateIcons();
+        }
+
+        const state = this._deviceState;
+        const socket = this._socket;
+        const differs = key => state[key] !== undefined && items[key] !== state[key];
+
+        if (differs('ambient-mode')) {
+            state['ambient-mode'] = items['ambient-mode'];
+            socket?.setAmbientMode(items['ambient-mode']);
+        }
+
+        if (differs('anc-type') || differs('anc-level')) {
+            state['anc-type'] = items['anc-type'];
+            state['anc-level'] = items['anc-level'];
+            socket?.setAncMode(ancSettingsToValue(items['anc-type'], items['anc-level']));
+        }
+
+        const simple = [
+            ['transparency-mode', value => socket?.setTransparencyMode(value)],
+            ['game-mode', value => socket?.setGameMode(value)],
+            ['touch-mode', value => socket?.setTouchMode(value)],
+            ['mic-mode', value => socket?.setMicMode(value)],
+            ['voice-prompt', value => socket?.setVoicePromptVolume(value)],
+            ['volume-limit', value => socket?.setVolumeLimit(value)],
+            ['balance', value => socket?.setBalance(value)],
+            ['multipoint', value => socket?.setMultipoint(value)],
+            ['codec', value => socket?.setCodec(value)],
+            ['advanced-audio', value => socket?.setAdvancedAudio(value)],
+            ['find-device', value => socket?.setFindDevice(value)],
+        ];
+        for (const [key, setter] of simple) {
+            if (differs(key)) {
+                state[key] = items[key];
+                setter(items[key]);
+            }
+        }
+
+        const mask = inEarMaskFromSettings(items, state['in-ear-mask']);
+        if (state['in-ear-mask'] !== undefined && mask !== state['in-ear-mask']) {
+            state['in-ear-mask'] = mask;
+            socket?.setInEarMask(mask);
+        }
+
+        for (const side of Sides) {
+            for (const name of [...GestureNames, ...Object.keys(CallGestureTypes)]) {
+                const key = `gesture-${name}-${side}`;
+                if (differs(key)) {
+                    state[key] = items[key];
+                    const type = CallGestureTypes[name] ?? GestureType[name];
+                    socket?.setTouchAction(type, side, items[key]);
+                }
+            }
+        }
+
+        this._syncEqualizer(items);
+        this._syncPanelOptions();
+    }
+
+    // The configure window asks for a new name
+    _handleNameRequest(request) {
+        if (!request)
+            return;
+
+        const name = (request.name ?? '').trim();
+        if (name === '' || new TextEncoder().encode(name).length > DeviceNameMaxBytes)
+            return;
+
+        this._log.info('Sending new device name');
+        this._socket?.setDeviceName(name);
+    }
+
+    // The configure window asks for one action on the list of devices
+    _handleDeviceRequest(request) {
+        if (!request)
+            return;
+
+        const socket = this._socket;
+        switch (request.action) {
+            case 'connect':
+                socket?.connectDevice(request.position);
+                break;
+            case 'disconnect':
+                socket?.disconnectDevice(request.position);
+                break;
+            case 'playback':
+                socket?.setPlaybackDevice(request.id, request.mode);
+                break;
+            case 'pair':
+                socket?.startPairing();
+                break;
+            default:
+                break;
+        }
+    }
+
+    // The configure window asks to send a file (a voice pack) to the earbuds, or to cancel that
+    _handleUpgradeRequest(request) {
+        if (!request)
+            return;
+
+        if (request.action === 'cancel') {
+            this._socket?.abortUpgrade();
+            return;
+        }
+        if (request.action !== 'start')
+            return;
+
+        let bytes;
+        try {
+            [, bytes] = Gio.File.new_for_path(request.path).load_contents(null);
+        } catch (e) {
+            this._log.error(e, 'Cannot read the upgrade file');
+            this.updateUpgrade('failed', {error: 'file'});
+            return;
+        }
+
+        // An upgrade file of the earbuds starts with "APPUHDR5" (the application upgrade header)
+        const header = new TextDecoder().decode(bytes.subarray(0, 8));
+        if (header !== 'APPUHDR5' || bytes.length < 1024 || bytes.length > 32 * 1024 * 1024) {
+            this._log.error(`Not an upgrade file (${header}, ${bytes.length} bytes)`);
+            this.updateUpgrade('failed', {error: 'format'});
+            return;
+        }
+
+        const md5 = GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, bytes);
+        this._log.info(`Sending upgrade file of ${bytes.length} bytes, md5 ${md5}`);
+        this._upgradeId = md5.slice(-8);
+        this._socket?.startUpgrade(bytes, md5.slice(-8).match(/../g).map(h => parseInt(h, 16)));
+    }
+
+    // Progress of a transfer. After the transfer the earbuds restart: the id of the file is
+    // stored so that the next connection can finish with the commit
+    updateUpgrade(state, info = {}) {
+        const previous = this._devInfo.getValue('upgrade-state') ?? {};
+        const percent = info.percent ?? previous.percent ?? 0;
+        if (state === previous.state && percent === previous.percent && !info.error)
+            return;
+
+        const value = {
+            state, percent, error: info.error ?? '',
+            id: previous.id ?? '', at: previous.at ?? 0,
+        };
+        if (state === 'reboot') {
+            value.id = this._upgradeId ?? previous.id;
+            value.at = Math.floor(Date.now() / 1000);
+            reconnectAfterRestart(this._devicePath);
+        } else if (state === 'done' || state === 'failed') {
+            value.id = '';
+            value.at = 0;
+        }
+        this._log.info(`Upgrade ${state} ${percent}% ${value.error}`);
+        this._writeSettings({'upgrade-state': value});
+    }
+
+    // The id of a file that was sent before the earbuds restarted (waiting for the commit)
+    pendingUpgrade() {
+        const stored = this._devInfo?.getValue('upgrade-state');
+        if (stored?.state !== 'reboot' || !stored.id || Date.now() / 1000 - stored.at > 1800)
+            return null;
+
+        return stored.id.match(/../g).map(h => parseInt(h, 16));
+    }
+
+    _eqGains(items) {
+        if (items['eq-mode'] === 'custom')
+            return items['eq-custom'];
+
+        return (EqPresets[items['eq-preset']] ?? EqPresets[0])[1];
+    }
+
+    // Sliders produce many changes while dragging; only the last one is sent
+    _syncEqualizer(items) {
+        const gains = this._eqGains(items);
+        if (JSON.stringify(gains) === JSON.stringify(this._lastEqGains))
+            return;
+
+        this._lastEqGains = gains;
+        if (this._eqTimeoutId)
+            GLib.source_remove(this._eqTimeoutId);
+
+        this._eqTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 400, () => {
+            this._eqTimeoutId = null;
+            this._socket?.setEqualizer(gains);
+            return GLib.SOURCE_REMOVE;
+        });
+    }
+
+    _updateIcons() {
+        this._config.commonIcon = this._commonIcon;
+        this._config.albumArtIcon = this._commonIcon;
+        this._config.battery1ShowOnDisconnect = true;
+        this._config.showSettingsButton = true;
+
+        this._config.battery1Icon = `${this._commonIcon}-left`;
+        this._config.battery2Icon = `${this._commonIcon}-right`;
+        this._config.battery3Icon = this._caseIcon;
+        this._config.battery2ShowOnDisconnect = true;
+
+        this.dataHandler?.setConfig(this._config);
+    }
+
+    _setupPanelConfig() {
+        const labels = [_('Noise Cancellation'), _('Off'), _('Transparency')];
+        const icons = ['bbm-anc-on-symbolic', 'bbm-anc-off-symbolic', 'bbm-transperancy-symbolic'];
+
+        this._config.toggle1Title = _('Noise Control');
+        labels.forEach((label, index) => {
+            this._config[`toggle1Button${index + 1}Name`] = label;
+            this._config[`toggle1Button${index + 1}Icon`] = icons[index];
+        });
+        this._props.toggle1Visible = true;
+
+        this._config.optionsBox1 = ['radio-button'];
+        this._config.box1RadioTitle = _('Noise Cancellation Type');
+        // The radio buttons of the panel are narrow, so the bracket starts a second line
+        const wrap = label => label.replace(/\s*([(（])/, '\n$1');
+        this._config.box1RadioButton = [
+            wrap(_('Adaptive (Ear Canal)')), wrap(_('Adaptive (Environment)')), _('Manual'),
+            _('Wind Noise Reduction'),
+        ];
+
+        this._config.optionsBox2 = ['radio-button'];
+        this._config.box2RadioTitle = _('Transparency Type');
+        this._config.box2RadioButton = [_('Standard'), _('Natural')];
+    }
+
+    _syncPanelOptions() {
+        const items = this._items();
+        const props = this._props;
+        const ambient = items['ambient-mode'];
+
+        props.toggle1State = ToggleAmbientModes.indexOf(ambient) + 1;
+        props.box1RadioButtonState = AncTypes.indexOf(items['anc-type']) + 1;
+        props.box2RadioButtonState = TransparencyModes.indexOf(items['transparency-mode']) + 1;
+
+        if (ambient === AmbientMode.ANC)
+            props.optionsBoxVisible = 1;
+        else if (ambient === AmbientMode.TRANSPARENCY)
+            props.optionsBoxVisible = 2;
+        else
+            props.optionsBoxVisible = 0;
+
+        this.dataHandler?.setProps(props);
+    }
+
+    _startConfiguration() {
+        this.dataHandler = new DataHandler(this._config, this._props);
+        this.updateDeviceMapCb(this._devicePath, this.dataHandler);
+
+        this._dataHandlerId = this.dataHandler.connect('ui-action', (_o, command, value) => {
+            if (command === 'toggle1State')
+                this._toggle1ButtonClicked(value);
+
+            if (command === 'box1RadioButtonState')
+                this._ancTypeClicked(value);
+
+            if (command === 'box2RadioButtonState')
+                this._transparencyTypeClicked(value);
+
+            if (command === 'settingsButtonClicked')
+                this._settingsButtonClicked();
+        });
+    }
+
+    _settingsButtonClicked() {
+        if (this._configureWindow) {
+            this._configureWindow.present();
+            return;
+        }
+
+        this._configureWindow = new ConfigureWindow(this._devInfo, this._modelData);
+        this._configureWindow.connect('close-request', () => {
+            this._configureWindow = null;
+        });
+        this._configureWindow.present();
+    }
+
+    _toggle1ButtonClicked(index) {
+        const ambient = ToggleAmbientModes[index - 1];
+        if (ambient === undefined)
+            return;
+
+        this._writeSettings({'ambient-mode': ambient});
+        this._sendChanges();
+    }
+
+    _ancTypeClicked(index) {
+        const type = AncTypes[index - 1];
+        if (!type)
+            return;
+
+        this._writeSettings({'anc-type': type});
+        this._sendChanges();
+    }
+
+    _transparencyTypeClicked(index) {
+        const mode = TransparencyModes[index - 1];
+        if (mode === undefined)
+            return;
+
+        this._writeSettings({'transparency-mode': mode});
+        this._sendChanges();
+    }
+
+    updateBatteryProps(props) {
+        if (Object.entries(props).every(([k, v]) => this._props[k] === v))
+            return;
+
+        this._props = {...this._props, ...props};
+        this._props.computedBatteryLevel = buds2to1BatteryLevel(this._props);
+
+        // The configure window shows the levels
+        this._writeSettings({
+            'battery-left': this._props.battery1Level,
+            'battery-right': this._props.battery2Level,
+            'battery-case': this._props.battery3Level,
+        });
+
+        if (!this.dataHandler)
+            this._startConfiguration();
+        else
+            this.dataHandler.setProps(this._props);
+    }
+
+    updateFirmware(fwVersion) {
+        if (this._fwVersion !== fwVersion) {
+            this._fwVersion = fwVersion;
+            this._writeSettings({fw: fwVersion});
+        }
+    }
+
+    updateSerial(side, serial) {
+        const text = serial.replace(/\0/g, '').trim();
+        if (text !== '')
+            this._writeSettings({[`serial-${side}`]: text});
+    }
+
+    updateAmbientMode(mode) {
+        if (!ToggleAmbientModes.includes(mode))
+            return;
+
+        this._reported({'ambient-mode': mode});
+    }
+
+    updateAncMode(value) {
+        const parsed = ancValueToSettings(value);
+        if (!parsed)
+            return;
+
+        const values = {'anc-type': parsed.type};
+        if (parsed.level)
+            values['anc-level'] = parsed.level;
+        else
+            values['anc-level'] = this._devInfo.getValue('anc-level');
+
+        this._reported(values);
+    }
+
+    updateTransparencyMode(mode) {
+        if (TransparencyModes.includes(mode))
+            this._reported({'transparency-mode': mode});
+    }
+
+    updateGameMode(enabled) {
+        this._reported({'game-mode': enabled});
+    }
+
+    updateInEarMask(mask) {
+        this._deviceState['in-ear-mask'] = mask;
+        this._reported(inEarSettingsFromMask(mask));
+    }
+
+    updateTouchMode(mode) {
+        if (Object.values(TouchMode).includes(mode))
+            this._reported({'touch-mode': mode});
+    }
+
+    updateGestures(actions) {
+        const values = {};
+        for (const [name, action] of Object.entries(actions)) {
+            const key = `gesture-${name}`;
+            if (key in this._defaultsDeviceSettings)
+                values[key] = action;
+        }
+        this._reported(values);
+    }
+
+    // The earbuds send one reply per slot (four slots). A slot is replaced by its new reply, and
+    // empty slots are left out
+    updateDevices(devices) {
+        const slots = new Map((this._deviceState['multipoint-devices'] ??
+            this._devInfo.getValue('multipoint-devices') ?? []).map(d => [d.index, d]));
+        for (const device of devices)
+            slots.set(device.index, device);
+
+        const list = [...slots.values()].filter(d => d.name !== '')
+            .sort((a, b) => a.index - b.index);
+        this._reported({'multipoint-devices': list});
+    }
+
+    updateMultipoint(enabled) {
+        this._reported({multipoint: enabled});
+    }
+
+    updateCodec(value) {
+        if (Object.values(Codec).includes(value))
+            this._reported({codec: value});
+    }
+
+    updateMicMode(mode) {
+        if (Object.values(MicMode).includes(mode))
+            this._reported({'mic-mode': mode});
+    }
+
+    updateVoicePromptVolume(value) {
+        this._reported({'voice-prompt': Math.min(value, 4)});
+    }
+
+    updateVolumeLimit(step) {
+        this._reported({'volume-limit': Math.min(step, 5)});
+    }
+
+    updateFindDevice(mode) {
+        if (Object.values(FindDevice).includes(mode))
+            this._reported({'find-device': mode});
+    }
+
+    updateAdvancedAudio(mode) {
+        if (Object.values(AdvancedAudio).includes(mode))
+            this._reported({'advanced-audio': mode});
+    }
+
+    updateBalance(value) {
+        this._reported({balance: Math.min(value, 100)});
+    }
+
+    // The control connection to the earbuds is open
+    updateChannel(connected) {
+        if (this._busyTimeoutId)
+            GLib.source_remove(this._busyTimeoutId);
+        this._busyTimeoutId = null;
+        this._writeSettings({'channel-busy': !connected});
+    }
+
+    destroy() {
+        this._configureWindow?.close();
+        this._configureWindow = null;
+
+        if (this._busyTimeoutId)
+            GLib.source_remove(this._busyTimeoutId);
+        this._busyTimeoutId = null;
+
+        if (this._eqTimeoutId)
+            GLib.source_remove(this._eqTimeoutId);
+        this._eqTimeoutId = null;
+
+        this._socket?.destroy();
+        this._socket = null;
+
+        if (this._dataHandlerId)
+            this.dataHandler?.disconnect(this._dataHandlerId);
+        this._dataHandlerId = null;
+        this.dataHandler = null;
+
+        if (this._devInfoSignalId)
+            this._devInfo?.disconnect(this._devInfoSignalId);
+        this._devInfoSignalId = null;
+        this._devInfo = null;
+        this._settings = null;
+    }
+});

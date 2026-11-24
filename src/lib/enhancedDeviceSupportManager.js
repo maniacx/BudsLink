@@ -39,6 +39,9 @@ import {
 import {
     SoundcoreDevice, isSoundcore, DeviceTypeSoundcore
 } from './devices/soundcore/soundcoreDevice.js';
+import {
+    EarfunBudsDevice, isEarfunBuds, DeviceTypeEarfunBuds
+} from './devices/earfunBuds/earfunBudsDevice.js';
 import {GfpsDevice, isGfps, DeviceTypeGfps} from './devices/gfps/gfpsDevice.js';
 
 export const EnhancedDeviceSupportManager = GObject.registerClass({
@@ -81,6 +84,13 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
             deviceProps = this._deviceMap.get(path);
             if (deviceProps.connected && !connected)
                 this._destroyEnhancedDevice(path);
+
+            // A device that connects is detected again: its name and its services may
+            // have changed since it was seen the last time, for example while it was off
+            if (!deviceProps.connected && connected && !deviceProps.enhancedDevice) {
+                deviceProps.type = null;
+                deviceProps.pendingDetection = true;
+            }
 
             deviceProps.connected = connected;
         }
@@ -170,6 +180,11 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                     enabled: this._toggle.soundcoreEnabled,
                     check: isSoundcore,
                     type: DeviceTypeSoundcore,
+                },
+                {
+                    enabled: this._toggle.earfunBudsEnabled,
+                    check: isEarfunBuds,
+                    type: DeviceTypeEarfunBuds,
                 },
                 {
                     enabled: this._toggle.gfpsEnabled,
@@ -316,6 +331,11 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                 } else if (deviceProps.type === DeviceTypeSoundcore) {
                     deviceProps.enhancedDevice =
                         new SoundcoreDevice(this._settings, path, deviceProps.alias,
+                            this._extPath, this._profileManager,
+                            this.updateDeviceMapCb.bind(this));
+                } else if (deviceProps.type === DeviceTypeEarfunBuds) {
+                    deviceProps.enhancedDevice =
+                        new EarfunBudsDevice(this._settings, path, deviceProps.alias,
                             this._extPath, this._profileManager,
                             this.updateDeviceMapCb.bind(this));
                 } else if (deviceProps.type === DeviceTypeGfps) {

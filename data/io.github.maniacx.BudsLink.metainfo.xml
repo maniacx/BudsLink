@@ -5,7 +5,7 @@
   <summary>Monitor and control Bluetooth earbuds</summary>
   <description>
     <p>BudsLink provides comprehensive battery monitoring and feature control for a wide range of Bluetooth audio wearables. The application communicates directly with supported devices to expose battery levels, noise control modes, and advanced interaction features when available, offering a consistent and configurable interface across different vendors.</p>
-    <p>This application is an independent project and is not affiliated with, endorsed by, or sponsored by Apple, Sony, Samsung, Google, Nothing, Bose, Redmi, Xiaomi, Sennheiser, Edifier, Cambridge Audio, SoundCore, Realme, Oppo, or OnePlus</p>
+    <p>This application is an independent project and is not affiliated with, endorsed by, or sponsored by Apple, Sony, Samsung, Google, Nothing, Bose, Redmi, Xiaomi, Sennheiser, Edifier, Cambridge Audio, SoundCore, EarFun, Realme, Oppo, or OnePlus</p>
     <ul>
       <li>Monitor earbud and charging case battery levels</li>
       <li>Control Active Noise Cancellation and ambient sound modes</li>
@@ -30,6 +30,7 @@
       <li>Realme / Oppo/ OnePlus</li>
       <li>Cambridge Audio</li>
       <li>Soundcore</li>
+      <li>EarFun</li>
     </ul>
   </description>
   <keywords>

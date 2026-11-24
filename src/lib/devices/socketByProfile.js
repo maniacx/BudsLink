@@ -38,7 +38,8 @@ export const SocketHandler = GObject.registerClass({
         const fd = await this._profileManager.acquireFd(
             this._profile.type,
             this._profile.uuid,
-            this._devicePath
+            this._devicePath,
+            this._profile.retrySeconds ?? 0
         );
 
         if (fd !== -1) {
