@@ -79,6 +79,8 @@ export const BoseBudsDevice = GObject.registerClass({
             updateAudioModeCurrent: this.updateAudioModeCurrent.bind(this),
             updateAudioModeRestore: this.updateAudioModeRestore.bind(this),
             updateAudioModeFavorites: this.updateAudioModeFavorites.bind(this),
+            updateAudioMode: this.updateAudioMode.bind(this),
+            updateAudioModes: this.updateAudioModes.bind(this),
             updateCnc: this.updateCnc.bind(this),
             updateSpatialAudio: this.updateSpatialAudio.bind(this),
             updateDualConnection: this.updateDualConnection.bind(this),
@@ -169,11 +171,22 @@ export const BoseBudsDevice = GObject.registerClass({
                 modes[index] = {
                     ...audioModes.defaultConfig,
                     index,
+                    flag: this._createModeFlag(),
                 };
             }
         }
 
         return modes;
+    }
+
+    _createModeFlag() {
+        const audioModes = this._modelData.audioModes;
+
+        return (audioModes.nc ? 0x01 : 0) |
+        (audioModes.autoNc ? 0x02 : 0) |
+        (audioModes.spatialMode ? 0x04 : 0) |
+        (audioModes.windToggle ? 0x08 : 0) |
+        (audioModes.ancToggle ? 0x10 : 0);
     }
 
     _createDefaultGestureSettings() {
@@ -602,35 +615,42 @@ export const BoseBudsDevice = GObject.registerClass({
         this._setCurrentAudioMode(mode.index);
     }
 
-    updateAudioMode(mode) {
-        this._log.info(`updateAudioMode id: ${mode.id}`);
+    updateAudioModes(audioModes) {
+        this._audioModes = audioModes.map(mode => {
+            const current = this._audioModes.find(m => m.index === mode.index);
 
-        const index = this._audioModes.findIndex(m => m.id === mode.id);
+            return {...mode, ui: current?.ui ?? false};
+        });
+
+        this._devInfo?.updateUI('modes', this._audioModes);
+    }
+
+    updateAudioMode(mode) {
+        const index = this._audioModes.findIndex(m => m.index === mode.index);
 
         if (index === -1) {
-            this._audioModes.push({...mode});
+            this._audioModes.push({...mode, ui: false});
             this._devInfo?.updateUI('modes', this._audioModes);
             return;
         }
 
         const current = this._audioModes[index];
-        const areModesEqual = (a, b) => {
-            const areEqual = a.id === b.id &&
-                a.editable === b.editable &&
-                a.added === b.added &&
-                a.fav === b.fav &&
-                a.name === b.name &&
-                a.flag === b.flag &&
-                a.cnc === b.cnc &&
-                a.autoCnc === b.autoCnc &&
-                a.spatial === b.spatial &&
-                a.wind === b.wind &&
-                a.anc === b.anc;
-            return areEqual;
-        };
+
+        const areModesEqual = (a, b) =>
+            a.id === b.id &&
+            a.editable === b.editable &&
+            a.added === b.added &&
+            a.fav === b.fav &&
+            a.name === b.name &&
+            a.flag === b.flag &&
+            a.cnc === b.cnc &&
+            a.autoCnc === b.autoCnc &&
+            a.spatial === b.spatial &&
+            a.wind === b.wind &&
+            a.anc === b.anc;
 
         if (!areModesEqual(current, mode)) {
-            this._audioModes[index] = {...mode};
+            this._audioModes[index] = {...mode, ui: current.ui ?? false};
             this._devInfo?.updateUI('modes', this._audioModes);
         }
     }

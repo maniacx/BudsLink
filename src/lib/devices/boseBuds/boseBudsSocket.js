@@ -41,6 +41,8 @@ export const BoseBudsSocket = GObject.registerClass({
             battery2Status: 'discharging',
             battery3Status: 'discharging',
         };
+        this._audioModeProcessing = false;
+        this._audioModes = [];
 
         this.startSocket();
     }
@@ -159,9 +161,6 @@ export const BoseBudsSocket = GObject.registerClass({
         this._log.info(`command: ${hexBytes(msg.command)} operator: ${hexBytes(msg.operator)} ` +
                 `payload: [${hexBytes(msg.payload)}]`);
 
-        if (msg.payload.length < 1)
-            return;
-
         const isStatus = msg.operator === Operator.STATUS;
         const isResult = msg.operator === Operator.RESULT;
         const isProcessing = msg.operator === Operator.PROCESSING;
@@ -236,6 +235,12 @@ export const BoseBudsSocket = GObject.registerClass({
             case CommandType.AUDIOMODE_FAV: {
                 if (this._modelData.audioModes && isStatus)
                     this._parseAudioModeFavorites(msg.payload);
+                break;
+            }
+
+            case CommandType.AUDIOMODE_GETALL: {
+                if (this._modelData.audioModes)
+                    this._parseAudioModeProcess(msg.operator);
                 break;
             }
 
@@ -667,7 +672,7 @@ export const BoseBudsSocket = GObject.registerClass({
         this._log.info('Parse AudioModes Capability');
 
         if (payload.length < 6) {
-            this._log.warn(`AudioModes Capability payload too short: ${payload.length}`);
+            this._log.info(`AudioModes Capability payload too short: ${payload.length}`);
             return;
         }
 
@@ -676,15 +681,45 @@ export const BoseBudsSocket = GObject.registerClass({
         const flags = payload[5];
         const minFavorites = payload.length >= 7 ? payload[6] : 0;
 
+        const cnc = !!(flags & 0x01);
+        const autoCnc = !!(flags & 0x02);
+        const spatial = !!(flags & 0x04);
+        const wind = !!(flags & 0x08);
+        const favorites = !!(flags & 0x10);
+        const ancToggle = !!(flags & 0x20);
+
+        const audioModes = this._modelData.audioModes;
+
+        if (Object.keys(audioModes.presets).length !== boseModes)
+            this._log.error('AudioMode config incorrect: preset count does not match boseModes');
+
+        if (audioModes.totalModes !== boseModes + userModes)
+            this._log.error('AudioMode config incorrect: totalModes does not match capability');
+
+        if (!!audioModes.nc !== cnc)
+            this._log.error('AudioMode config incorrect: CNC');
+
+        if (audioModes.autoNc !== autoCnc)
+            this._log.error('AudioMode config incorrect: Auto-CNC');
+
+        if (audioModes.spatialMode !== spatial)
+            this._log.error('AudioMode config incorrect: Spatial');
+
+        if (audioModes.windToggle !== wind)
+            this._log.error('AudioMode config incorrect: Wind');
+
+        if (audioModes.hasFavourites !== favorites)
+            this._log.error('AudioMode config incorrect: Favorites');
+
         this._log.info(
             `AudioModes: boseModes: ${boseModes}, ` +
             `userModes: ${userModes}, ` +
-            `cnc: ${!!(flags & 0x01)}, ` +
-            `autoCnc: ${!!(flags & 0x02)}, ` +
-            `spatial: ${!!(flags & 0x04)}, ` +
-            `wind: ${!!(flags & 0x08)}, ` +
-            `favorites: ${!!(flags & 0x10)}, ` +
-            `ancToggle: ${!!(flags & 0x20)}, ` +
+            `cnc: ${cnc}, ` +
+            `autoCnc: ${autoCnc}, ` +
+            `spatial: ${spatial}, ` +
+            `wind: ${wind}, ` +
+            `favorites: ${favorites}, ` +
+            `ancToggle: ${ancToggle}, ` +
             `minFavorites: ${minFavorites}`
         );
     }
@@ -703,8 +738,9 @@ export const BoseBudsSocket = GObject.registerClass({
         this._callbacks?.updateAudioModeCurrent?.(modeIndex);
     }
 
-    setCurrentAudioMode(modeIndex, playVoicePrompt = false) {
+    setCurrentAudioMode(modeIndex) {
         const loginfo = 'Set AudioMode Current';
+        const playVoicePrompt = this._modelData.audioModes.announceModeChange ?? false;
         const payload = [modeIndex, playVoicePrompt ? 0x01 : 0x00];
         this._encode(CommandType.AUDIOMODE_CURRENT, Operator.START, loginfo, payload);
     }
@@ -775,6 +811,16 @@ export const BoseBudsSocket = GObject.registerClass({
         this._encode(CommandType.AUDIOMODE_GETALL, Operator.START, loginfo);
     }
 
+    _parseAudioModeProcess(operator) {
+        if (operator === Operator.PROCESSING) {
+            this._audioModeProcessing = true;
+        } else if (operator === Operator.RESULT) {
+            this._audioModeProcessing = false;
+            this._callbacks?.updateAudioModes?.(this._audioModes);
+            this._audioModes = [];
+        }
+    }
+
     _parseAudioMode(payload) {
         if (payload.length < 44)
             return;
@@ -808,8 +854,10 @@ export const BoseBudsSocket = GObject.registerClass({
             anc: payload.length >= 48 ? payload[47] : 0,
         };
 
-        this._log.info(`Parse AudioMode Config: ${JSON.stringify(config)}`);
-        this._callbacks?.updateAudioMode?.(config);
+        if (this._audioModeProcessing)
+            this._audioModes.push(config);
+        else
+            this._callbacks?.updateAudioMode?.(config);
     }
 
     setAudioMode(mode) {

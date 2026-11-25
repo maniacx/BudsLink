@@ -64,7 +64,6 @@ const ModeEditDialog = GObject.registerClass({
             });
         }
 
-
         const deleteButton = new Gtk.Button({
             icon_name: 'user-trash-symbolic',
             css_classes: ['destructive-action'],
@@ -217,7 +216,7 @@ const ModeEditDialog = GObject.registerClass({
     updateUI() {
         if (this._nCSwitch) {
             this._nCSwitch.active = this._mode.anc;
-            this._nCSwitch.sensitive = (this._mode.flag & 1) !== 0;
+            this._nCSwitch.sensitive = (this._mode.flag & 16) !== 0;
         }
 
         if (this._ncSliderRow) {
@@ -226,7 +225,7 @@ const ModeEditDialog = GObject.registerClass({
                 this._mode.wind;
 
             this._ncSliderRow.sensitive = !this._isPreset && !sensitveOnWind &&
-                (this._mode.flag & 16) !== 0;
+                (this._mode.flag & 1) !== 0;
         }
 
         if (this._autoCncSwitch) {
@@ -258,17 +257,6 @@ const ModeEditDialog = GObject.registerClass({
 
         dialog.connect('response', (_dialog, response) => {
             if (response === 'remove') {
-                this._mode.id = 0;
-                this._mode.added = false;
-                this._mode.ui = false;
-                this._mode.fav = false;
-                this._mode.name = '';
-                this._mode.cnc = 5;
-                this._mode.autoCnc = false;
-                this._mode.spatial = 0;
-                this._mode.wind = false;
-                this._mode.anc = false;
-                this._modeRow.emit('mode-changed');
                 this.close();
                 this._modeRow.emit('delete-requested');
             }
@@ -622,7 +610,7 @@ const ModeAddButton = GObject.registerClass({
     GTypeName: 'BudsLink_ModeAddButton',
     Signals: {
         'mode-added': {
-            param_types: [GObject.TYPE_JSOBJECT],
+            param_types: [GObject.TYPE_INT, GObject.TYPE_STRING],
         },
     },
 }, class ModeAddButton extends Gtk.MenuButton {
@@ -675,9 +663,7 @@ const ModeAddButton = GObject.registerClass({
         while (this._box.get_first_child())
             this._box.remove(this._box.get_first_child());
 
-        const addedModes = new Set(this._modes.filter(mode => mode.added)
-            .map(mode => mode.id)
-        );
+        const addedModes = new Set(this._modes.filter(mode => mode.id !== 0).map(mode => mode.id));
 
         const totalModes = this._modelData.audioModes.totalModes;
         const maxReached = addedModes.size >= totalModes;
@@ -712,8 +698,10 @@ const ModeAddButton = GObject.registerClass({
             icon_name: `bbm-mode-${modeName}-symbolic`,
         }));
 
+        const modeLabel = this._modeLabels[modeName] ?? modeName;
+
         row.append(new Gtk.Label({
-            label: this._modeLabels[modeName] ?? modeName,
+            label: modeLabel,
             xalign: 0,
             hexpand: true,
         }));
@@ -721,15 +709,7 @@ const ModeAddButton = GObject.registerClass({
         button.set_child(row);
 
         button.connect('clicked', () => {
-            const mode = this._modes.find(m => !m.added);
-
-            if (mode) {
-                mode.id = id;
-                mode.name = this._modeLabels[modeName] ?? modeName;
-                mode.added = true;
-
-                this.emit('mode-added', mode);
-            }
+            this.emit('mode-added', id, modeLabel);
 
             this.get_popover()?.popdown();
         });
@@ -762,7 +742,7 @@ export const ModesGroupWidget = GObject.registerClass({
         this._defaultGroupButton = null;
 
         for (const mode of this._modes) {
-            if (mode.added)
+            if (mode.id !== 0 && (!mode.editable || mode.added))
                 this._addModeRow(mode);
         }
 
@@ -770,7 +750,15 @@ export const ModesGroupWidget = GObject.registerClass({
 
         this._addButton = new ModeAddButton(modelData, this._modes);
 
-        this._addButtonSignalId = this._addButton.connect('mode-added', (button, mode) => {
+        this._addButtonSignalId = this._addButton.connect('mode-added', (button, id, modeLabel) => {
+            const mode = this._modes.find(m => m.id === 0);
+            if (!mode)
+                return;
+
+            mode.id = id;
+            mode.name = modeLabel;
+            mode.added = true;
+
             const row = this._addModeRow(mode);
             this.emit('modes-changed', this._modes);
             this._setCurrentMode(mode.index, true);
@@ -795,8 +783,22 @@ export const ModesGroupWidget = GObject.registerClass({
         });
 
         const deleteId = row.connect('delete-requested', () => {
+            Object.assign(mode, {
+                id: 0,
+                added: false,
+                ui: false,
+                fav: false,
+                name: '',
+                cnc: 5,
+                autoCnc: false,
+                spatial: 0,
+                wind: false,
+                anc: false,
+            });
+
             this._removeModeRow(row);
             this._addButton.refresh();
+            this.emit('modes-changed', this._modes);
         });
 
         this._rows.set(row, {activatedId, modeId, deleteId});
@@ -836,39 +838,52 @@ export const ModesGroupWidget = GObject.registerClass({
             this.emit('current-mode-changed', modeIndex);
     }
 
-    _updateModes(modes) {
-        const isEqual = this._modes.length === modes.length &&
-        this._modes.every((mode, i) => Object.keys(mode).every(key =>
-            mode[key] === modes[i][key]));
 
-        if (isEqual)
+    _updateModes(modes) {
+        const isEqual = this._modes.length === modes.length;
+        const hasChanged = !isEqual || this._modes.some((mode, i) =>
+            Object.keys(mode).some(key => mode[key] !== modes[i][key]));
+
+        if (!hasChanged)
             return;
 
-        const newModes = modes.map(mode => ({...mode}));
+        const currentModes = new Map(this._modes.map(mode => [mode.index, mode]));
 
-        for (const newMode of newModes) {
-            const oldMode = this._modes.find(mode => mode.id === newMode.id);
+        const updatedModes = modes.map(mode => {
+            const current = currentModes.get(mode.index);
 
-            const row = [...this._rows.keys()]
-            .find(row => row.mode.id === newMode.id);
+            if (current) {
+                Object.assign(current, mode);
+                return current;
+            }
 
-            if (!oldMode)
-                continue;
+            return {...mode};
+        });
 
-            if (!oldMode.added && newMode.added) {
-                this._addModeRow(newMode);
-            } else if (oldMode.added && !newMode.added) {
-                if (row)
-                    this._removeModeRow(row);
-            } else if (oldMode.added && newMode.added) {
+        this._modes.splice(0, this._modes.length, ...updatedModes);
+
+        for (const newMode of this._modes) {
+            const row = [...this._rows.keys()].find(row => row.mode.index === newMode.index);
+
+            const shouldShow = newMode.id !== 0 && (!newMode.editable || newMode.added);
+
+            if (shouldShow) {
                 if (row) {
                     Object.assign(row.mode, newMode);
                     row.updateUI();
+                } else {
+                    this._addModeRow(newMode);
                 }
+            } else if (row) {
+                this._removeModeRow(row);
             }
         }
 
-        this._modes = newModes;
+        for (const row of [...this._rows.keys()]) {
+            if (!this._modes.some(mode => mode.index === row.mode.index))
+                this._removeModeRow(row);
+        }
+
         this._addButton.refresh();
     }
 

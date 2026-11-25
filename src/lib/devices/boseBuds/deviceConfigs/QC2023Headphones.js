@@ -74,6 +74,7 @@ export default {
         totalModes: 4,
         hasFavourites: false,
         maxAllowedFav: 0,
+        announceModeChange: true,
     },
 
     sideTone: {
