@@ -94,10 +94,12 @@ export const DeviceInfo = GObject.registerClass({
         if (!item)
             return;
 
-        if (this._isEqual(item.value, value) && !item.relay)
+        const val = this._deepCopy(value);
+
+        if (this._isEqual(item.value, val) && !item.relay)
             return;
 
-        item.value = this._deepCopy(value);
+        item.value = val;
 
         this._saveToSettings();
 
