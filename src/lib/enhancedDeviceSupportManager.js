@@ -37,6 +37,9 @@ import {
     CambridgeBudsDevice, isCambridgeBuds, DeviceTypeCambridgeBuds
 } from './devices/cambridgeBuds/cambridgeBudsDevice.js';
 import {
+    MontblancBudsDevice, isMontblancBuds, DeviceTypeMontblancBuds
+} from './devices/montblancBuds/montblancBudsDevice.js';
+import {
     SoundcoreDevice, isSoundcore, DeviceTypeSoundcore
 } from './devices/soundcore/soundcoreDevice.js';
 import {GfpsDevice, isGfps, DeviceTypeGfps} from './devices/gfps/gfpsDevice.js';
@@ -145,6 +148,11 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                     enabled: this._toggle.senhBudsEnabled,
                     check: isSenhBuds,
                     type: DeviceTypeSenhBuds,
+                },
+                {
+                    enabled: this._toggle.montblancBudsEnabled,
+                    check: isMontblancBuds,
+                    type: DeviceTypeMontblancBuds,
                 },
                 {
                     enabled: this._toggle.boseBudsEnabled,
@@ -311,6 +319,11 @@ export const EnhancedDeviceSupportManager = GObject.registerClass({
                 } else if (deviceProps.type === DeviceTypeCambridgeBuds) {
                     deviceProps.enhancedDevice =
                         new CambridgeBudsDevice(this._settings, path, deviceProps.alias,
+                            this._extPath, this._profileManager,
+                            this.updateDeviceMapCb.bind(this));
+                } else if (deviceProps.type === DeviceTypeMontblancBuds) {
+                    deviceProps.enhancedDevice =
+                        new MontblancBudsDevice(this._settings, path, deviceProps.alias,
                             this._extPath, this._profileManager,
                             this.updateDeviceMapCb.bind(this));
                 } else if (deviceProps.type === DeviceTypeSoundcore) {
