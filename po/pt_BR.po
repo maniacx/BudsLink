@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: BudsLink\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 13:13-0600\n"
-"PO-Revision-Date: 2026-10-23 04:51+0000\n"
+"PO-Revision-Date: 2026-11-27 12:51+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
@@ -544,7 +544,7 @@ msgstr ""
 
 #: src/preferences/devices/soundcore/configureWindow.js:249
 msgid "Auto Play/Pause"
-msgstr ""
+msgstr "Reproduzir/Pausar Automaticamente"
 
 #: src/preferences/devices/soundcore/configureWindow.js:250
 #: src/preferences/devices/sony/configureWindow.js:446
