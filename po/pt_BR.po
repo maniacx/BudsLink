@@ -1228,7 +1228,7 @@ msgstr ""
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:382
 msgid "Spatial Audio Scene"
-msgstr ""
+msgstr "Cena de Audio Espacial"
 
 #: src/preferences/devices/redmiBuds/configureWindow.js:383
 msgid "Select the sound environment"
