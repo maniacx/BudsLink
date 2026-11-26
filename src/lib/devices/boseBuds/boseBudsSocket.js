@@ -688,6 +688,8 @@ export const BoseBudsSocket = GObject.registerClass({
         const favorites = !!(flags & 0x10);
         const ancToggle = !!(flags & 0x20);
 
+        this._audioModeSupportedProps = {spatial, wind, ancToggle};
+
         const audioModes = this._modelData.audioModes;
 
         if (Object.keys(audioModes.presets).length !== boseModes)
@@ -871,10 +873,24 @@ export const BoseBudsSocket = GObject.registerClass({
             ...nameBuf,
             this._modelData.audioModes.nc.level - mode.cnc,
             mode.autoCnc,
-            mode.spatial,
-            mode.wind,
-            mode.anc,
         ];
+
+        const supportedProps = this._audioModeSupportedProps ?? {
+            spatial: this._modelData.audioModes.spatialMode,
+            wind: this._modelData.audioModes.windToggle,
+            ancToggle: this._modelData.audioModes.ancToggle,
+        };
+
+        const {spatial, wind, ancToggle} = supportedProps;
+
+        if (spatial || wind)
+            payload.push(mode.spatial);
+
+        if (wind)
+            payload.push(mode.wind);
+
+        if (ancToggle)
+            payload.push(mode.anc ? 1 : 0);
 
         const loginfo = 'Set AudioMode';
         this._encode(CommandType.AUDIOMODE_CONFIG, Operator.SETGET, loginfo, payload);
