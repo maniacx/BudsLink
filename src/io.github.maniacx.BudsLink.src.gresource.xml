@@ -252,6 +252,10 @@
         <file>lib/devices/cambridgeBuds/deviceConfigs/MelomaniaA100.js</file>
         <file>preferences/devices/cambridgeBuds/configureWindow.js</file>
 
+        <file>lib/devices/montblancBuds/montblancBudsConfig.js</file>
+        <file>lib/devices/montblancBuds/montblancBudsDevice.js</file>
+        <file>lib/devices/montblancBuds/montblancBudsSocket.js</file>
+
         <file>lib/devices/soundcore/soundcoreConfig.js</file>
         <file>lib/devices/soundcore/soundcoreDevice.js</file>
         <file>lib/devices/soundcore/soundcoreSocket.js</file>
